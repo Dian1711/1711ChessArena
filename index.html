@@ -1549,4 +1549,736 @@ function pieceSVG(type,side){
 
       <circle
         cx="50"
-        cy="
+        cy="11"
+        r="4"
+        fill="${accent}"
+      />
+
+      <circle
+        cx="81"
+        cy="20"
+        r="4"
+        fill="${accent}"
+      />
+
+
+      <path
+        d="
+          M31 49
+
+          C35 59 42 64 43 72
+
+          C44 81 38 89 30 95
+
+          L23 99
+          L20 106
+
+          C20 111 34 114 50 114
+
+          C66 114 80 111 80 106
+
+          L77 99
+          L70 95
+
+          C62 89 56 81 57 72
+
+          C58 64 65 59 69 49
+
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <path
+        d="M27 50 L73 50"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <path
+        d="M30 94 C41 100 59 100 70 94"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <path
+        d="M23 103 C35 110 65 110 77 103"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+    ` + end;
+
+  }
+
+
+
+  /* =====================================
+     KING
+  ====================================== */
+
+  if(type==="k"){
+
+    return start + `
+
+      <path
+        d="
+          M32 51
+
+          C35 61 43 66 43 75
+
+          C43 83 37 90 30 96
+
+          L22 100
+          L20 106
+
+          C20 111 34 114 50 114
+
+          C66 114 80 111 80 106
+
+          L78 100
+          L70 96
+
+          C63 90 57 83 57 75
+
+          C57 66 65 61 68 51
+
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- crown -->
+
+      <path
+        d="
+          M33 51
+          L33 38
+
+          L43 38
+          L43 31
+
+          L57 31
+          L57 38
+
+          L67 38
+          L67 51
+
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- cross -->
+
+      <path
+        d="
+          M44 31
+
+          L44 19
+
+          L39 19
+
+          L39 10
+
+          L44 10
+
+          L44 4
+
+          L56 4
+
+          L56 10
+
+          L61 10
+
+          L61 19
+
+          L56 19
+
+          L56 31
+
+          Z
+        "
+        fill="${accent}"
+      />
+
+
+      <path
+        d="M31 51 L69 51"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <path
+        d="M29 95 C41 102 59 102 71 95"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <path
+        d="M23 104 C35 111 65 111 77 104"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+    ` + end;
+
+  }
+
+
+  return "";
+
+}
+
+
+
+/* =========================================
+   CREATE PIECE
+========================================= */
+
+function createPiece(code){
+
+  if(!code){
+    return null;
+  }
+
+
+  const side=code[0];
+
+  const type=code[1];
+
+
+  const piece =
+    document.createElement("div");
+
+
+  let pieceClass="piece";
+
+
+  if(type==="p"){
+    pieceClass+=" pawn";
+  }
+
+  if(type==="r"){
+    pieceClass+=" rook";
+  }
+
+  if(type==="n"){
+    pieceClass+=" knight";
+  }
+
+  if(type==="b"){
+    pieceClass+=" bishop";
+  }
+
+  if(type==="q"){
+    pieceClass+=" queen";
+  }
+
+  if(type==="k"){
+    pieceClass+=" king";
+  }
+
+
+  piece.className =
+    pieceClass +
+    " " +
+    (
+      side==="w"
+        ? "white"
+        : "black"
+    );
+
+
+  piece.innerHTML =
+    pieceSVG(
+      type,
+      side
+    );
+
+
+  return piece;
+
+}
+
+
+
+/* =========================================
+   DRAW BOARD
+========================================= */
+
+function drawBoard(){
+
+  const board =
+    document.getElementById("board");
+
+
+  board.innerHTML="";
+
+
+  const files =
+    ["a","b","c","d","e","f","g","h"];
+
+
+  for(
+    let row=0;
+    row<8;
+    row++
+  ){
+
+    for(
+      let col=0;
+      col<8;
+      col++
+    ){
+
+      const square =
+        document.createElement("div");
+
+
+      square.className =
+        "square " +
+        (
+          (row+col)%2===0
+            ? "light"
+            : "dark"
+        );
+
+
+      square.dataset.row=row;
+      square.dataset.col=col;
+
+
+      if(row===7){
+
+        const file =
+          document.createElement("span");
+
+        file.className="coord-file";
+
+        file.textContent=
+          files[col];
+
+        square.appendChild(file);
+
+      }
+
+
+      if(col===0){
+
+        const rank =
+          document.createElement("span");
+
+        rank.className="coord-rank";
+
+        rank.textContent=
+          8-row;
+
+        square.appendChild(rank);
+
+      }
+
+
+      const code =
+        boardState[row][col];
+
+
+      if(code){
+
+        const piece =
+          createPiece(code);
+
+        square.appendChild(piece);
+
+      }
+
+
+      square.addEventListener(
+        "click",
+        function(){
+
+          handleSquareClick(
+            row,
+            col
+          );
+
+        }
+      );
+
+
+      board.appendChild(square);
+
+    }
+
+  }
+
+
+  updateSelection();
+
+}
+
+
+
+/* =========================================
+   HANDLE MOVE
+========================================= */
+
+function handleSquareClick(row,col){
+
+  const target =
+    boardState[row][col];
+
+
+  if(!selectedSquare){
+
+    if(
+      target &&
+      target[0]===currentTurn
+    ){
+
+      selectedSquare={
+        row:row,
+        col:col
+      };
+
+
+      updateSelection();
+
+
+      setStatus(
+        "Pilih kotak tujuan"
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  if(
+    target &&
+    target[0]===currentTurn
+  ){
+
+    selectedSquare={
+      row:row,
+      col:col
+    };
+
+
+    updateSelection();
+
+    return;
+
+  }
+
+
+  boardState[row][col]=
+    boardState[
+      selectedSquare.row
+    ][selectedSquare.col];
+
+
+  boardState[
+    selectedSquare.row
+  ][selectedSquare.col]=null;
+
+
+  selectedSquare=null;
+
+
+  currentTurn =
+    currentTurn==="w"
+      ? "b"
+      : "w";
+
+
+  drawBoard();
+
+
+  setStatus(
+    currentTurn==="w"
+      ? "Giliran <strong>Putih</strong>"
+      : "Giliran <strong>Hitam</strong>"
+  );
+
+}
+
+
+
+/* =========================================
+   SELECTION
+========================================= */
+
+function updateSelection(){
+
+  const squares =
+    document.querySelectorAll(
+      ".square"
+    );
+
+
+  squares.forEach(
+    function(square){
+
+      square.classList.remove(
+        "selected",
+        "possible",
+        "capture"
+      );
+
+
+      if(!selectedSquare){
+        return;
+      }
+
+
+      const row =
+        Number(
+          square.dataset.row
+        );
+
+
+      const col =
+        Number(
+          square.dataset.col
+        );
+
+
+      if(
+        row===selectedSquare.row &&
+        col===selectedSquare.col
+      ){
+
+        square.classList.add(
+          "selected"
+        );
+
+        return;
+
+      }
+
+
+      const target =
+        boardState[row][col];
+
+
+      const distance =
+        Math.abs(
+          row-selectedSquare.row
+        )
+        +
+        Math.abs(
+          col-selectedSquare.col
+        );
+
+
+      if(
+        !target &&
+        distance<=2
+      ){
+
+        square.classList.add(
+          "possible"
+        );
+
+      }
+
+
+      if(
+        target &&
+        target[0]!==currentTurn
+      ){
+
+        square.classList.add(
+          "capture"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+function setStatus(text){
+
+  document.getElementById(
+    "status"
+  ).innerHTML=text;
+
+}
+
+
+
+/* =========================================
+   NEW GAME
+========================================= */
+
+function newGame(){
+
+  boardState =
+    JSON.parse(
+      JSON.stringify(
+        initialBoard
+      )
+    );
+
+
+  selectedSquare=null;
+
+  currentTurn="w";
+
+
+  mySeconds=600;
+
+  enemySeconds=600;
+
+
+  updateTimer(
+    "myTimer",
+    mySeconds
+  );
+
+
+  updateTimer(
+    "enemyTimer",
+    enemySeconds
+  );
+
+
+  drawBoard();
+
+
+  setStatus(
+    "Game baru dimulai — giliran <strong>Putih</strong>"
+  );
+
+}
+
+
+
+/* =========================================
+   FIND OPPONENT
+========================================= */
+
+function findOpponent(){
+
+  setStatus(
+    "⚔ <strong>Mencari lawan...</strong>"
+  );
+
+
+  setTimeout(
+    function(){
+
+      setStatus(
+        "Lawan belum tersedia — mode demo aktif"
+      );
+
+    },
+    1800
+  );
+
+}
+
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+let mySeconds=600;
+
+let enemySeconds=600;
+
+
+setInterval(
+  function(){
+
+    if(currentTurn==="w"){
+
+      if(mySeconds>0){
+        mySeconds--;
+      }
+
+
+      updateTimer(
+        "myTimer",
+        mySeconds
+      );
+
+    }else{
+
+      if(enemySeconds>0){
+        enemySeconds--;
+      }
+
+
+      updateTimer(
+        "enemyTimer",
+        enemySeconds
+      );
+
+    }
+
+  },
+  1000
+);
+
+
+
+function updateTimer(id,seconds){
+
+  const minutes =
+    Math.floor(
+      seconds/60
+    );
+
+
+  const secs =
+    seconds%60;
+
+
+  document.getElementById(id)
+    .textContent =
+      String(minutes).padStart(2,"0")
+      +
+      ":"
+      +
+      String(secs).padStart(2,"0");
+
+}
+
+
+
+/* =========================================
+   START
+========================================= */
+
+drawBoard();
+
+</script>
+
+</body>
+</html>
