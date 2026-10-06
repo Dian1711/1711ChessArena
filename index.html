@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1711 Chess</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111827;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .game {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+
+    .board {
+      width: min(92vw, 480px);
+      aspect-ratio: 1;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      border: 4px solid #374151;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .square {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: clamp(28px, 8vw, 54px);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .light {
+      background: #f0d9b5;
+    }
+
+    .dark {
+      background: #b58863;
+    }
+
+    .square:hover {
+      filter: brightness(1.1);
+    }
+
+    .info {
+      margin-top: 18px;
+      padding: 14px;
+      background: #1f2937;
+      border-radius: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    button {
+      flex: 1;
+      padding: 13px;
+      border: 0;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="game">
+    <h1>♟️ 1711 Chess</h1>
+    <div class="subtitle">Telegram Chess • 1 vs 1</div>
+
+    <div id="board" class="board"></div>
+
+    <div class="info">
+      <div id="status">Giliran: Putih</div>
+
+      <div class="buttons">
+        <button id="newGame">Game Baru</button>
+        <button id="findPlayer">Cari Lawan</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const board = document.getElementById("board");
+    const status = document.getElementById("status");
+    const newGame = document.getElementById("newGame");
+    const findPlayer = document.getElementById("findPlayer");
+
+    const pieces = [
+      "♜","♞","♝","♛","♚","♝","♞","♜",
+      "♟","♟","♟","♟","♟","♟","♟","♟",
+      "","","","","","","","",
+      "","","","","","","","",
+      "","","","","","","","",
+      "","","","","","","","",
+      "♙","♙","♙","♙","♙","♙","♙","♙",
+      "♖","♘","♗","♕","♔","♗","♘","♖"
+    ];
+
+    let selected = null;
+    let turn = "white";
+
+    function drawBoard() {
+      board.innerHTML = "";
+
+      for (let i = 0; i < 64; i++) {
+        const square = document.createElement("div");
+
+        const row = Math.floor(i / 8);
+        const col = i % 8;
+
+        square.className =
+          "square " + ((row + col) % 2 === 0 ? "light" : "dark");
+
+        square.textContent = pieces[i];
+
+        square.addEventListener("click", () => {
+          handleSquare(i);
+        });
+
+        board.appendChild(square);
+      }
+    }
+
+    function handleSquare(index) {
+      if (selected === null) {
+        if (pieces[index] === "") return;
+
+        selected = index;
+        status.textContent = "Bidak dipilih. Pilih kotak tujuan.";
+        return;
+      }
+
+      if (selected === index) {
+        selected = null;
+        status.textContent =
+          turn === "white" ? "Giliran: Putih" : "Giliran: Hitam";
+        return;
+      }
+
+      if (pieces[index] === "") {
+        pieces[index] = pieces[selected];
+        pieces[selected] = "";
+
+        turn = turn === "white" ? "black" : "white";
+
+        selected = null;
+
+        status.textContent =
+          turn === "white" ? "Giliran: Putih" : "Giliran: Hitam";
+
+        drawBoard();
+      } else {
+        selected = index;
+        status.textContent = "Bidak dipilih. Pilih kotak tujuan.";
+      }
+    }
+
+    newGame.addEventListener("click", () => {
+      location.reload();
+    });
+
+    findPlayer.addEventListener("click", () => {
+      status.textContent = "Mencari lawan...";
+    });
+
+    drawBoard();
+  </script>
+
+</body>
+</html>
