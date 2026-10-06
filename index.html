@@ -650,4 +650,354 @@ function movePiece(fromRow, fromCol, toRow, toCol) {
 
         document.getElementById("status").textContent =
             turn === "white"
-            ? "🏆
+            ? "🏆 Kamu menang!"
+            : "🏆 Opponent menang!";
+
+        drawBoard();
+
+        return;
+    }
+
+
+    turn =
+        turn === "white"
+        ? "black"
+        : "white";
+
+
+    document.getElementById("status").textContent =
+        turn === "white"
+        ? "Giliran kamu — pilih bidak."
+        : "Giliran Opponent.";
+
+
+    drawBoard();
+
+}
+
+
+/* =====================================================
+   LEGAL MOVE
+===================================================== */
+
+function isLegalMove(fr, fc, tr, tc) {
+
+    const piece = boardState[fr][fc];
+
+    if(!piece) return false;
+
+    const target = boardState[tr][tc];
+
+
+    if(target && target.color === piece.color) {
+        return false;
+    }
+
+
+    const dr = tr - fr;
+    const dc = tc - fc;
+
+    const adr = Math.abs(dr);
+    const adc = Math.abs(dc);
+
+
+    /* PAWN */
+
+    if(piece.type === "pawn") {
+
+        const direction =
+            piece.color === "white"
+            ? -1
+            : 1;
+
+        const startRow =
+            piece.color === "white"
+            ? 6
+            : 1;
+
+
+        /* FORWARD */
+
+        if(dc === 0 && !target) {
+
+            if(dr === direction) {
+                return true;
+            }
+
+            if(
+                fr === startRow &&
+                dr === direction * 2 &&
+                !boardState[fr + direction][fc]
+            ) {
+                return true;
+            }
+
+        }
+
+
+        /* CAPTURE */
+
+        if(
+            adr === 1 &&
+            dr === direction &&
+            target &&
+            target.color !== piece.color
+        ) {
+            return true;
+        }
+
+
+        return false;
+
+    }
+
+
+    /* KNIGHT */
+
+    if(piece.type === "knight") {
+
+        return (
+            (adr === 2 && adc === 1) ||
+            (adr === 1 && adc === 2)
+        );
+
+    }
+
+
+    /* KING */
+
+    if(piece.type === "king") {
+
+        return adr <= 1 && adc <= 1;
+
+    }
+
+
+    /* ROOK */
+
+    if(piece.type === "rook") {
+
+        if(fr !== tr && fc !== tc) {
+            return false;
+        }
+
+        return clearPath(fr, fc, tr, tc);
+
+    }
+
+
+    /* BISHOP */
+
+    if(piece.type === "bishop") {
+
+        if(adr !== adc) {
+            return false;
+        }
+
+        return clearPath(fr, fc, tr, tc);
+
+    }
+
+
+    /* QUEEN */
+
+    if(piece.type === "queen") {
+
+        if(fr === tr || fc === tc) {
+
+            return clearPath(fr, fc, tr, tc);
+
+        }
+
+        if(adr === adc) {
+
+            return clearPath(fr, fc, tr, tc);
+
+        }
+
+        return false;
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =====================================================
+   PATH CHECK
+===================================================== */
+
+function clearPath(fr, fc, tr, tc) {
+
+    const stepR =
+        Math.sign(tr - fr);
+
+    const stepC =
+        Math.sign(tc - fc);
+
+
+    let r = fr + stepR;
+    let c = fc + stepC;
+
+
+    while(r !== tr || c !== tc) {
+
+        if(boardState[r][c]) {
+            return false;
+        }
+
+        r += stepR;
+        c += stepC;
+
+    }
+
+    return true;
+
+}
+
+
+/* =====================================================
+   HIGHLIGHT MOVES
+===================================================== */
+
+function highlightMoves() {
+
+    if(!selected) return;
+
+
+    const squares =
+        document.querySelectorAll(".square");
+
+
+    squares.forEach(square => {
+
+        const row =
+            Number(square.dataset.row);
+
+        const col =
+            Number(square.dataset.col);
+
+
+        if(
+            row === selected.row &&
+            col === selected.col
+        ) {
+
+            square.classList.add("selected");
+
+            return;
+        }
+
+
+        if(
+            isLegalMove(
+                selected.row,
+                selected.col,
+                row,
+                col
+            )
+        ) {
+
+            if(boardState[row][col]) {
+
+                square.classList.add("capture");
+
+            } else {
+
+                square.classList.add("move");
+
+            }
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   NEW GAME
+===================================================== */
+
+function newGame() {
+
+    boardState = [
+
+        [
+            {type:"rook", color:"black"},
+            {type:"knight", color:"black"},
+            {type:"bishop", color:"black"},
+            {type:"queen", color:"black"},
+            {type:"king", color:"black"},
+            {type:"bishop", color:"black"},
+            {type:"knight", color:"black"},
+            {type:"rook", color:"black"}
+        ],
+
+        [
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"}
+        ],
+
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+
+        [
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"}
+        ],
+
+        [
+            {type:"rook", color:"white"},
+            {type:"knight", color:"white"},
+            {type:"bishop", color:"white"},
+            {type:"queen", color:"white"},
+            {type:"king", color:"white"},
+            {type:"bishop", color:"white"},
+            {type:"knight", color:"white"},
+            {type:"rook", color:"white"}
+        ]
+
+    ];
+
+
+    selected = null;
+
+    turn = "white";
+
+    gameOver = false;
+
+    document.getElementById("status").textContent =
+        "Giliran kamu — pilih bidak.";
+
+    drawBoard();
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+drawBoard();
+
+</script>
+
+</body>
+</html>
