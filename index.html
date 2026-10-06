@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>1711 Chess Arena</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -14,267 +14,501 @@
     -webkit-tap-highlight-color:transparent;
 }
 
-body{
+html,body{
     margin:0;
-    min-height:100vh;
-    font-family:Arial,sans-serif;
-    color:#fff;
-    background:
-        radial-gradient(circle at top,#26384b 0,#111923 42%,#080c11 100%);
+    padding:0;
+    min-height:100%;
+    background:#111315;
+    color:#f5f5f5;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    padding-bottom:20px;
+}
+
+button,input{
+    font:inherit;
 }
 
 button{
-    font:inherit;
+    cursor:pointer;
 }
 
 .app{
     width:100%;
     max-width:520px;
     margin:auto;
-    padding:18px 14px 30px;
+    padding:12px;
 }
 
+/* HEADER */
 .header{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    margin-bottom:18px;
+    justify-content:space-between;
+    margin-bottom:12px;
 }
 
 .logo{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.logo-icon{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#24282c;
     font-size:23px;
+}
+
+.logo-title{
+    font-size:18px;
     font-weight:800;
 }
 
 .online{
     font-size:11px;
-    padding:6px 10px;
+    font-weight:700;
+    color:#62e58b;
+    background:#163522;
+    padding:6px 9px;
     border-radius:20px;
-    background:#173b2a;
-    color:#65e59a;
-    border:1px solid #276644;
 }
 
-.profile{
+/* PLAYER */
+.profile-card{
+    background:#1b1e21;
+    border:1px solid #30353a;
+    border-radius:17px;
+    padding:13px;
     display:flex;
     align-items:center;
-    gap:13px;
-    padding:15px;
-    border-radius:18px;
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.10);
-    margin-bottom:18px;
+    gap:12px;
+    margin-bottom:12px;
 }
 
 .avatar{
-    width:56px;
-    height:56px;
+    width:52px;
+    height:52px;
     border-radius:50%;
-    background:#334150;
+    object-fit:cover;
+    background:#353a40;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:27px;
-    overflow:hidden;
+    font-size:25px;
     flex-shrink:0;
 }
 
-.avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
 .player-info{
-    min-width:0;
     flex:1;
+    min-width:0;
 }
 
 .player-name{
-    font-size:17px;
-    font-weight:700;
-    white-space:nowrap;
+    font-size:16px;
+    font-weight:800;
     overflow:hidden;
+    white-space:nowrap;
     text-overflow:ellipsis;
 }
 
-.username{
-    color:#9ca9b7;
-    font-size:13px;
+.player-username{
+    color:#9ba2a8;
+    font-size:12px;
     margin-top:3px;
 }
 
 .rating{
-    margin-top:7px;
+    margin-top:6px;
     font-size:12px;
-    color:#e4c66b;
+    color:#e5c85a;
 }
 
-.section-title{
-    font-size:13px;
-    color:#8e9baa;
-    margin:20px 3px 9px;
-    text-transform:uppercase;
-    letter-spacing:.7px;
+/* PANELS */
+.panel{
+    background:#1b1e21;
+    border:1px solid #30353a;
+    border-radius:17px;
+    padding:14px;
+    margin-bottom:12px;
+}
+
+.panel-title{
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:11px;
 }
 
 .menu{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:10px;
+    gap:9px;
 }
 
-.menu-btn{
-    min-height:105px;
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:18px;
-    background:rgba(255,255,255,.07);
+.menu button,
+.action-btn{
+    border:1px solid #353a40;
+    background:#24282c;
     color:#fff;
-    padding:15px;
-    text-align:left;
-    cursor:pointer;
-    transition:.15s;
-}
-
-.menu-btn:active{
-    transform:scale(.97);
-}
-
-.menu-icon{
-    font-size:29px;
-    margin-bottom:10px;
-}
-
-.menu-title{
-    font-size:15px;
+    border-radius:13px;
+    min-height:52px;
     font-weight:700;
 }
 
-.menu-desc{
-    font-size:11px;
-    color:#9ba8b5;
-    margin-top:4px;
+.menu button:active,
+.action-btn:active{
+    transform:scale(.98);
 }
 
-.panel{
-    display:none;
-    margin-top:16px;
-    padding:16px;
-    border-radius:18px;
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.10);
+.menu button:hover,
+.action-btn:hover{
+    background:#2d3237;
 }
 
-.panel.active{
-    display:block;
-}
-
-.panel h3{
-    margin:0 0 6px;
-    font-size:18px;
-}
-
-.panel p{
-    margin:0 0 14px;
-    color:#9ba8b5;
-    font-size:13px;
-}
-
-.action{
+.primary{
     width:100%;
     border:0;
-    border-radius:12px;
-    padding:13px;
-    margin-top:8px;
-    background:#e4c66b;
-    color:#17130a;
-    font-weight:800;
-    cursor:pointer;
+    background:#d8a928 !important;
+    color:#171717 !important;
 }
 
-.action.secondary{
-    background:#293644;
-    color:#fff;
+.danger{
+    background:#62292c !important;
+}
+
+.success{
+    background:#245a39 !important;
+}
+
+.back{
+    width:100%;
+    margin-top:9px;
 }
 
 input{
     width:100%;
-    padding:13px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,.12);
-    background:#111923;
+    height:46px;
+    border-radius:11px;
+    border:1px solid #3a4046;
+    background:#111315;
     color:#fff;
+    padding:0 13px;
     outline:none;
-    margin-bottom:7px;
+    margin-bottom:9px;
 }
 
+input:focus{
+    border-color:#d8a928;
+}
+
+.row{
+    display:flex;
+    gap:8px;
+}
+
+.row>*{
+    flex:1;
+}
+
+.hidden{
+    display:none !important;
+}
+
+/* ROOM */
+.room-code{
+    text-align:center;
+    font-size:29px;
+    font-weight:900;
+    letter-spacing:5px;
+    padding:12px;
+    background:#111315;
+    border-radius:12px;
+    margin:10px 0;
+    color:#e7c34f;
+}
+
+.room-status{
+    text-align:center;
+    color:#aab0b5;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+/* BOT */
 .bot-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:1fr 1fr 1fr;
     gap:8px;
 }
 
 .bot-btn{
-    padding:12px 5px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,.10);
-    background:#202c38;
+    padding:15px 5px;
+    border:1px solid #353a40;
+    background:#24282c;
     color:#fff;
-    cursor:pointer;
+    border-radius:12px;
+    font-weight:700;
 }
 
-.extra{
-    display:grid;
-    grid-template-columns:1fr 1fr;
+.bot-btn small{
+    display:block;
+    color:#9ba2a8;
+    margin-top:5px;
+}
+
+/* FRIENDS */
+.friend-item,
+.rank-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 0;
+    border-bottom:1px solid #30353a;
+}
+
+.friend-item:last-child,
+.rank-item:last-child{
+    border-bottom:0;
+}
+
+.mini-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#363b40;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.item-main{
+    flex:1;
+}
+
+.item-name{
+    font-weight:700;
+    font-size:14px;
+}
+
+.item-sub{
+    color:#9299a0;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.rank-number{
+    width:28px;
+    font-weight:800;
+    color:#d9bc54;
+}
+
+/* GAME */
+.game-screen{
+    display:none;
+}
+
+.game-screen.active{
+    display:block;
+}
+
+.game-top{
+    display:flex;
+    align-items:center;
     gap:9px;
-    margin-top:10px;
+    background:#1b1e21;
+    border:1px solid #30353a;
+    border-radius:14px;
+    padding:10px;
+    margin-bottom:9px;
 }
 
-.extra button{
-    padding:13px;
-    border-radius:13px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.05);
-    color:#fff;
-    cursor:pointer;
+.game-player{
+    flex:1;
+    min-width:0;
 }
 
-.status{
-    margin-top:17px;
-    padding:12px;
-    border-radius:12px;
-    background:rgba(0,0,0,.20);
-    color:#9ba8b5;
-    font-size:12px;
+.game-player-name{
+    font-weight:800;
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.game-player-side{
+    font-size:11px;
+    color:#959ca3;
+    margin-top:2px;
+}
+
+.timer{
+    font-size:22px;
+    font-weight:900;
+    font-variant-numeric:tabular-nums;
+    background:#111315;
+    padding:7px 9px;
+    border-radius:9px;
+    min-width:72px;
     text-align:center;
 }
 
-.toast{
+.timer.active{
+    color:#e7c34f;
+}
+
+.board-wrap{
+    width:100%;
+    max-width:520px;
+    margin:auto;
+}
+
+.board{
+    width:100%;
+    aspect-ratio:1;
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    grid-template-rows:repeat(8,1fr);
+    border:3px solid #272b2f;
+    border-radius:5px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.4);
+}
+
+.square{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    user-select:none;
+}
+
+.square.light{
+    background:#f1f1ed;
+}
+
+.square.dark{
+    background:#a8adb2;
+}
+
+.square.selected{
+    box-shadow:inset 0 0 0 4px rgba(226,188,57,.8);
+}
+
+.square.legal::after{
+    content:"";
+    width:24%;
+    height:24%;
+    border-radius:50%;
+    background:rgba(30,30,30,.28);
+    position:absolute;
+}
+
+.square.capture::after{
+    content:"";
+    position:absolute;
+    inset:5px;
+    border:4px solid rgba(190,65,65,.55);
+    border-radius:50%;
+}
+
+.piece{
+    width:82%;
+    height:82%;
+    object-fit:contain;
+    position:relative;
+    z-index:2;
+    pointer-events:none;
+}
+
+.white-piece{
+    filter:
+        sepia(1)
+        saturate(2.2)
+        hue-rotate(345deg)
+        brightness(1.05)
+        contrast(1.05)
+        drop-shadow(0 3px 2px rgba(0,0,0,.30))
+        drop-shadow(0 5px 4px rgba(0,0,0,.18));
+}
+
+.black-piece{
+    filter:
+        brightness(.10)
+        contrast(1.25)
+        drop-shadow(0 2px 1px rgba(255,255,255,.08))
+        drop-shadow(0 4px 4px rgba(0,0,0,.35));
+}
+
+.game-status{
+    text-align:center;
+    background:#1b1e21;
+    border:1px solid #30353a;
+    border-radius:13px;
+    padding:11px;
+    margin-top:9px;
+    font-size:13px;
+}
+
+.game-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:9px;
+}
+
+.game-actions button{
+    min-height:45px;
+    border:1px solid #353a40;
+    background:#24282c;
+    color:#fff;
+    border-radius:11px;
+    font-weight:700;
+}
+
+/* TOAST */
+#toast{
     position:fixed;
     left:50%;
-    bottom:22px;
+    bottom:24px;
     transform:translateX(-50%) translateY(20px);
+    background:#f1f1f1;
+    color:#111;
+    padding:10px 15px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:700;
     opacity:0;
     pointer-events:none;
-    background:#202a35;
-    border:1px solid rgba(255,255,255,.12);
-    padding:12px 16px;
-    border-radius:12px;
-    font-size:13px;
-    transition:.2s;
-    z-index:100;
+    transition:.25s;
+    z-index:9999;
     max-width:90%;
     text-align:center;
 }
 
-.toast.show{
+#toast.show{
     opacity:1;
     transform:translateX(-50%) translateY(0);
 }
 
 .loading{
-    color:#e4c66b;
-    font-size:12px;
+    text-align:center;
+    color:#9299a0;
+    padding:15px;
+}
+
+.footer-status{
+    text-align:center;
+    color:#7f878e;
+    font-size:11px;
+    margin-top:12px;
 }
 </style>
 </head>
@@ -283,165 +517,277 @@ input{
 
 <div class="app">
 
+<!-- ================= LOBBY ================= -->
+<div id="lobbyScreen">
+
     <div class="header">
-        <div class="logo">♟ 1711 Chess Arena</div>
+        <div class="logo">
+            <div class="logo-icon">♟</div>
+            <div class="logo-title">1711 Chess Arena</div>
+        </div>
         <div class="online">● ONLINE</div>
     </div>
 
-    <div class="profile">
-
-        <div class="avatar" id="playerAvatar">👤</div>
+    <div class="profile-card">
+        <div id="avatar" class="avatar">♟</div>
 
         <div class="player-info">
-            <div class="player-name" id="playerName">
-                Telegram User
-            </div>
+            <div id="playerName" class="player-name">Loading...</div>
+            <div id="playerUsername" class="player-username">Telegram...</div>
+            <div class="rating">⭐ Rating <span id="playerRating">1200</span></div>
+        </div>
+    </div>
 
-            <div class="username" id="playerUsername">
-                @username
-            </div>
+    <!-- MAIN MENU -->
+    <div id="mainMenu" class="panel">
+        <div class="panel-title">Main Menu</div>
 
-            <div class="rating">
-                ⭐ Rating <span id="playerRating">1200</span>
-            </div>
+        <div class="menu">
+            <button onclick="openRandom()">
+                ⚔️<br>Lawan Random
+            </button>
+
+            <button onclick="openPrivate()">
+                🔒<br>Private Room
+            </button>
+
+            <button onclick="openBot()">
+                🤖<br>VS Bot
+            </button>
+
+            <button onclick="openFriends()">
+                👥<br>Teman
+            </button>
+
+            <button onclick="showLeaderboard()">
+                🏆<br>Leaderboard
+            </button>
+
+            <button onclick="showProfile()">
+                👤<br>Profile
+            </button>
+        </div>
+    </div>
+
+    <!-- RANDOM -->
+    <div id="randomPanel" class="panel hidden">
+        <div class="panel-title">⚔️ Lawan Random</div>
+
+        <div id="randomStatus" class="room-status">
+            Cari pemain lain dengan rating yang sesuai.
         </div>
 
+        <button id="findBtn" class="action-btn primary" onclick="findRandomOpponent()">
+            🔎 Cari Lawan
+        </button>
+
+        <button id="cancelFindBtn" class="action-btn danger back hidden" onclick="cancelMatchmaking()">
+            ✕ Batalkan Pencarian
+        </button>
+
+        <button class="action-btn back" onclick="backLobby()">
+            ← Kembali
+        </button>
     </div>
 
-    <div class="section-title">Play</div>
+    <!-- PRIVATE -->
+    <div id="privatePanel" class="panel hidden">
+        <div class="panel-title">🔒 Private Room</div>
 
-    <div class="menu">
-
-        <button class="menu-btn" onclick="showPanel('randomPanel')">
-            <div class="menu-icon">⚔️</div>
-            <div class="menu-title">Lawan Random</div>
-            <div class="menu-desc">Cari lawan online</div>
+        <button class="action-btn primary" onclick="createRoom()">
+            ➕ Buat Room
         </button>
 
-        <button class="menu-btn" onclick="showPanel('privatePanel')">
-            <div class="menu-icon">🔒</div>
-            <div class="menu-title">Private Room</div>
-            <div class="menu-desc">Main dengan teman</div>
+        <div style="text-align:center;margin:13px 0;color:#777;">atau</div>
+
+        <input id="roomCodeInput"
+               maxlength="6"
+               placeholder="Masukkan kode room">
+
+        <button class="action-btn primary" onclick="joinRoom()">
+            🚪 Join Room
         </button>
 
-        <button class="menu-btn" onclick="showPanel('botPanel')">
-            <div class="menu-icon">🤖</div>
-            <div class="menu-title">VS Bot</div>
-            <div class="menu-desc">Easy • Normal • Hard</div>
+        <button class="action-btn back" onclick="backLobby()">
+            ← Kembali
         </button>
-
-        <button class="menu-btn" onclick="showPanel('friendsPanel')">
-            <div class="menu-icon">👥</div>
-            <div class="menu-title">Teman</div>
-            <div class="menu-desc">Kelola teman</div>
-        </button>
-
     </div>
 
-    <div id="randomPanel" class="panel">
+    <!-- ROOM WAITING -->
+    <div id="roomPanel" class="panel hidden">
+        <div class="panel-title">🔒 Private Room</div>
 
-        <h3>⚔️ Lawan Random</h3>
-        <p>Cari pemain lain yang sedang mencari pertandingan.</p>
+        <div id="roomCodeDisplay" class="room-code">------</div>
 
-        <button class="action" onclick="findRandomOpponent()">
-            Cari Lawan
-        </button>
-
-        <button class="action secondary" onclick="cancelMatchmaking()">
-            Batalkan
-        </button>
-
-    </div>
-
-    <div id="privatePanel" class="panel">
-
-        <h3>🔒 Private Room</h3>
-        <p>Buat room atau masuk menggunakan kode room.</p>
-
-        <button class="action" onclick="createRoom()">
-            Buat Room
-        </button>
-
-        <div style="text-align:center;margin:14px 0;color:#7f8b98">
-            atau
+        <div id="roomStatus" class="room-status">
+            Menunggu lawan...
         </div>
 
-        <input
-            id="roomCode"
-            placeholder="Masukkan kode room"
-            maxlength="12"
-        >
-
-        <button class="action secondary" onclick="joinRoom()">
-            Join Room
+        <button class="action-btn primary" onclick="copyRoomCode()">
+            📋 Copy Kode
         </button>
 
+        <button class="action-btn back" onclick="leaveRoom()">
+            ← Keluar Room
+        </button>
     </div>
 
-    <div id="botPanel" class="panel">
-
-        <h3>🤖 VS Bot</h3>
-        <p>Pilih tingkat kesulitan.</p>
+    <!-- BOT -->
+    <div id="botPanel" class="panel hidden">
+        <div class="panel-title">🤖 Pilih Level Bot</div>
 
         <div class="bot-grid">
-
-            <button class="bot-btn" onclick="selectBot('Easy')">
-                🟢<br>Easy
+            <button class="bot-btn" onclick="startBotGame('easy')">
+                🟢 Easy
+                <small>Mudah</small>
             </button>
 
-            <button class="bot-btn" onclick="selectBot('Normal')">
-                🟡<br>Normal
+            <button class="bot-btn" onclick="startBotGame('normal')">
+                🟡 Normal
+                <small>Sedang</small>
             </button>
 
-            <button class="bot-btn" onclick="selectBot('Hard')">
-                🔴<br>Hard
+            <button class="bot-btn" onclick="startBotGame('hard')">
+                🔴 Hard
+                <small>Sulit</small>
             </button>
-
         </div>
 
+        <button class="action-btn back" onclick="backLobby()">
+            ← Kembali
+        </button>
     </div>
 
-    <div id="friendsPanel" class="panel">
+    <!-- FRIENDS -->
+    <div id="friendsPanel" class="panel hidden">
+        <div class="panel-title">👥 Teman</div>
 
-        <h3>👥 Teman</h3>
-        <p>Tambahkan pemain berdasarkan username Telegram.</p>
+        <input id="friendUsername"
+               placeholder="Username Telegram tanpa @">
 
-        <input
-            id="friendUsername"
-            placeholder="@username"
-        >
-
-        <button class="action" onclick="addFriend()">
-            Tambah Teman
+        <button class="action-btn primary" onclick="addFriend()">
+            ➕ Tambah Teman
         </button>
 
-        <div id="friendsList" style="margin-top:14px"></div>
+        <div id="friendsList" style="margin-top:12px;">
+            <div class="loading">Memuat teman...</div>
+        </div>
 
+        <button class="action-btn back" onclick="backLobby()">
+            ← Kembali
+        </button>
     </div>
 
-    <div class="extra">
+    <!-- LEADERBOARD -->
+    <div id="leaderboardPanel" class="panel hidden">
+        <div class="panel-title">🏆 Leaderboard</div>
 
-        <button onclick="showLeaderboard()">
-            🏆 Leaderboard
+        <div id="leaderboardList">
+            <div class="loading">Memuat ranking...</div>
+        </div>
+
+        <button class="action-btn back" onclick="backLobby()">
+            ← Kembali
         </button>
-
-        <button onclick="showProfile()">
-            👤 Profile
-        </button>
-
     </div>
 
-    <div class="status" id="status">
-        <span class="loading">Menghubungkan ke Telegram...</span>
+    <!-- PROFILE -->
+    <div id="profilePanel" class="panel hidden">
+        <div class="panel-title">👤 Profile</div>
+
+        <div id="profileContent">
+            <div class="loading">Memuat profile...</div>
+        </div>
+
+        <button class="action-btn back" onclick="backLobby()">
+            ← Kembali
+        </button>
+    </div>
+
+    <div class="footer-status" id="connectionStatus">
+        Menghubungkan...
+    </div>
+</div>
+
+
+<!-- ================= GAME ================= -->
+<div id="gameScreen" class="game-screen">
+
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">♟</div>
+            <div class="logo-title">1711 Chess Arena</div>
+        </div>
+
+        <div class="online">● LIVE</div>
+    </div>
+
+    <!-- OPPONENT -->
+    <div class="game-top">
+        <div id="opponentAvatar" class="mini-avatar">♟</div>
+
+        <div class="game-player">
+            <div id="opponentName" class="game-player-name">
+                Opponent
+            </div>
+
+            <div id="opponentSide" class="game-player-side">
+                Black
+            </div>
+        </div>
+
+        <div id="opponentTimer" class="timer">
+            10:00
+        </div>
+    </div>
+
+    <div class="board-wrap">
+        <div id="board" class="board"></div>
+    </div>
+
+    <!-- MY PLAYER -->
+    <div class="game-top" style="margin-top:9px;">
+        <div id="myGameAvatar" class="mini-avatar">♟</div>
+
+        <div class="game-player">
+            <div id="myGameName" class="game-player-name">
+                You
+            </div>
+
+            <div id="myGameSide" class="game-player-side">
+                White
+            </div>
+        </div>
+
+        <div id="myTimer" class="timer active">
+            10:00
+        </div>
+    </div>
+
+    <div id="gameStatus" class="game-status">
+        Giliran kamu.
+    </div>
+
+    <div class="game-actions">
+        <button onclick="resignGame()">
+            🏳️ Menyerah
+        </button>
+
+        <button onclick="backToLobbyFromGame()">
+            🏠 Lobby
+        </button>
     </div>
 
 </div>
 
-<div id="toast" class="toast"></div>
+</div>
+
+<div id="toast"></div>
+
 
 <script>
 /* =========================================================
-   SUPABASE CONFIG
+   CONFIG
 ========================================================= */
 
 const SUPABASE_URL =
@@ -456,248 +802,291 @@ const supabaseClient =
         SUPABASE_KEY
     );
 
+const tg = window.Telegram.WebApp;
 
-/* =========================================================
-   GLOBAL
-========================================================= */
+const PIECES = {
+    w: {
+        k:"https://sashite.dev/assets/chess/sides/first/representations/western/king.svg",
+        q:"https://sashite.dev/assets/chess/sides/first/representations/western/queen.svg",
+        r:"https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg",
+        b:"https://sashite.dev/assets/chess/sides/first/representations/western/bishop.svg",
+        n:"https://sashite.dev/assets/chess/sides/first/representations/western/knight.svg",
+        p:"https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
+    },
+
+    b: {
+        k:"https://sashite.dev/assets/chess/sides/second/representations/western/king.svg",
+        q:"https://sashite.dev/assets/chess/sides/second/representations/western/queen.svg",
+        r:"https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg",
+        b:"https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg",
+        n:"https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg",
+        p:"https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
+    }
+};
 
 let telegramUser = null;
+let myUserId = null;
+let myRating = 1200;
 
+let currentRoom = null;
+let currentGame = null;
+let realtimeChannels = [];
 
-/* =========================================================
-   TOAST
-========================================================= */
+let gameState = {
+    board: [],
+    turn: "w",
+    myColor: "w",
+    opponent: null,
+    bot: false,
+    botLevel: null,
+    gameId: null,
+    roomId: null,
+    over: false
+};
 
-function toast(message){
+let selectedSquare = null;
+let legalSquares = [];
+let moveTimer = null;
 
-    const el = document.getElementById("toast");
+let clocks = {
+    w: 600,
+    b: 600,
+    last: Date.now()
+};
 
-    el.textContent = message;
-    el.classList.add("show");
-
-    setTimeout(() => {
-        el.classList.remove("show");
-    }, 2500);
-}
+let botThinking = false;
 
 
 /* =========================================================
    TELEGRAM
 ========================================================= */
 
-async function loadTelegramUser(){
+tg.ready();
+tg.expand();
 
-    const tg = window.Telegram?.WebApp;
+function loadTelegramUser(){
 
-    if(!tg){
-
-        document.getElementById("status").textContent =
-            "Telegram WebApp tidak ditemukan.";
-
-        return;
-    }
-
-    tg.ready();
-    tg.expand();
-
-    telegramUser = tg.initDataUnsafe?.user;
+    telegramUser = tg.initDataUnsafe &&
+                   tg.initDataUnsafe.user
+                   ? tg.initDataUnsafe.user
+                   : null;
 
     if(!telegramUser){
 
-        document.getElementById("status").textContent =
-            "Buka game melalui Telegram Mini App.";
+        document.getElementById("playerName").textContent =
+            "Telegram User";
+
+        document.getElementById("playerUsername").textContent =
+            "Telegram tidak ditemukan";
 
         return;
     }
 
-    const fullName = [
-        telegramUser.first_name,
-        telegramUser.last_name
-    ].filter(Boolean).join(" ");
+    myUserId = String(telegramUser.id);
+
+    const fullName =
+        [
+            telegramUser.first_name,
+            telegramUser.last_name
+        ]
+        .filter(Boolean)
+        .join(" ");
 
     document.getElementById("playerName").textContent =
-        fullName ||
-        telegramUser.username ||
-        "Telegram User";
+        fullName || "Telegram User";
 
     document.getElementById("playerUsername").textContent =
         telegramUser.username
             ? "@" + telegramUser.username
-            : "Telegram User";
-
+            : "Tanpa username";
 
     if(telegramUser.photo_url){
 
-        const avatar =
-            document.getElementById("playerAvatar");
-
-        avatar.innerHTML = "";
-
-        const img =
-            document.createElement("img");
-
-        img.src = telegramUser.photo_url;
-        img.alt = "Avatar";
-
-        avatar.appendChild(img);
+        document.getElementById("avatar").innerHTML =
+            `<img src="${escapeHtml(telegramUser.photo_url)}"
+             style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
     }
-
-
-    await saveUser();
-
 }
 
 
 /* =========================================================
-   SAVE USER TO SUPABASE
+   INIT
 ========================================================= */
 
-async function saveUser(){
+async function init(){
 
-    if(!telegramUser) return;
-
-    const userData = {
-
-        id: telegramUser.id,
-
-        username:
-            telegramUser.username || null,
-
-        first_name:
-            telegramUser.first_name || null,
-
-        last_name:
-            telegramUser.last_name || null,
-
-        photo_url:
-            telegramUser.photo_url || null
-
-    };
-
-
-    const { data, error } =
-        await supabaseClient
-        .from("users")
-        .upsert(
-            userData,
-            {
-                onConflict:"id"
-            }
-        )
-        .select()
-        .single();
-
-
-    if(error){
-
-        console.error("Supabase user error:", error);
-
-        document.getElementById("status").textContent =
-            "Telegram terhubung, tetapi database gagal.";
-
-        toast("Database belum berhasil terhubung.");
-
-        return;
-    }
-
-
-    document.getElementById("playerRating").textContent =
-        data.rating || 1200;
-
-    document.getElementById("status").textContent =
-        "✓ Telegram + Supabase terhubung";
-
-    toast("Login berhasil ✓");
-
-}
-
-
-/* =========================================================
-   PANEL
-========================================================= */
-
-function showPanel(id){
-
-    document
-        .querySelectorAll(".panel")
-        .forEach(panel => {
-            panel.classList.remove("active");
-        });
-
-    document
-        .getElementById(id)
-        .classList.add("active");
-
-}
-
-
-/* =========================================================
-   RANDOM MATCH
-========================================================= */
-
-async function findRandomOpponent(){
+    loadTelegramUser();
 
     if(!telegramUser){
 
-        toast("Login Telegram belum tersedia.");
+        document.getElementById("connectionStatus").textContent =
+            "⚠️ Buka melalui Telegram Mini App";
+
         return;
     }
 
+    await saveUser();
 
-    const { error } =
-        await supabaseClient
-        .from("matchmaking_queue")
-        .upsert(
-            {
-                user_id: telegramUser.id,
-                rating: Number(
-                    document.getElementById("playerRating").textContent
-                ) || 1200,
-                status:"waiting"
-            },
-            {
-                onConflict:"user_id"
-            }
-        );
+    document.getElementById("connectionStatus").textContent =
+        "✓ Telegram + Supabase terhubung";
+}
 
+async function saveUser(){
+
+    const user = telegramUser;
+
+    const fullName =
+        [
+            user.first_name,
+            user.last_name
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+    const username =
+        user.username || null;
+
+    const photo =
+        user.photo_url || null;
+
+    const { error } = await supabaseClient
+        .from("users")
+        .upsert({
+            id: Number(user.id),
+            username: username,
+            name: fullName || "Telegram User",
+            avatar_url: photo,
+            rating: 1200
+        }, {
+            onConflict:"id",
+            ignoreDuplicates:true
+        });
 
     if(error){
 
         console.error(error);
-        toast("Gagal masuk matchmaking.");
+
+        toast("Supabase user gagal disimpan");
+
         return;
     }
 
+    const { data } =
+        await supabaseClient
+        .from("users")
+        .select("rating")
+        .eq("id", Number(user.id))
+        .single();
 
-    toast("Mencari lawan... ⚔️");
+    if(data){
 
+        myRating =
+            Number(data.rating || 1200);
+
+        document.getElementById("playerRating").textContent =
+            myRating;
+    }
 }
 
 
 /* =========================================================
-   CANCEL MATCH
+   UI
 ========================================================= */
 
-async function cancelMatchmaking(){
+function hidePanels(){
 
-    if(!telegramUser) return;
+    [
+        "mainMenu",
+        "randomPanel",
+        "privatePanel",
+        "roomPanel",
+        "botPanel",
+        "friendsPanel",
+        "leaderboardPanel",
+        "profilePanel"
+    ].forEach(id => {
 
-    const { error } =
-        await supabaseClient
-        .from("matchmaking_queue")
-        .delete()
-        .eq("user_id", telegramUser.id);
+        document
+            .getElementById(id)
+            .classList.add("hidden");
 
+    });
+}
 
-    if(error){
+function backLobby(){
 
-        toast("Gagal membatalkan.");
+    hidePanels();
 
-        return;
-    }
+    document
+        .getElementById("mainMenu")
+        .classList.remove("hidden");
 
+    stopRealtime();
 
-    toast("Pencarian dibatalkan.");
+    currentRoom = null;
+}
+
+function openRandom(){
+
+    hidePanels();
+
+    document
+        .getElementById("randomPanel")
+        .classList.remove("hidden");
+
+    document.getElementById("randomStatus").textContent =
+        "Cari pemain lain dengan rating yang sesuai.";
+}
+
+function openPrivate(){
+
+    hidePanels();
+
+    document
+        .getElementById("privatePanel")
+        .classList.remove("hidden");
+}
+
+function openBot(){
+
+    hidePanels();
+
+    document
+        .getElementById("botPanel")
+        .classList.remove("hidden");
+}
+
+async function openFriends(){
+
+    hidePanels();
+
+    document
+        .getElementById("friendsPanel")
+        .classList.remove("hidden");
+
+    await loadFriends();
+}
+
+async function showLeaderboard(){
+
+    hidePanels();
+
+    document
+        .getElementById("leaderboardPanel")
+        .classList.remove("hidden");
+
+    await loadLeaderboard();
+}
+
+async function showProfile(){
+
+    hidePanels();
+
+    document
+        .getElementById("profilePanel")
+        .classList.remove("hidden");
+
+    await loadProfile();
 }
 
 
@@ -705,271 +1094,631 @@ async function cancelMatchmaking(){
    PRIVATE ROOM
 ========================================================= */
 
+function randomCode(){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code = "";
+
+    for(let i=0;i<6;i++){
+
+        code +=
+            chars[Math.floor(Math.random()*chars.length)];
+    }
+
+    return code;
+}
+
 async function createRoom(){
 
-    if(!telegramUser){
+    if(!myUserId){
 
-        toast("Login Telegram belum tersedia.");
+        toast("Telegram belum terhubung");
+
         return;
     }
 
+    const code = randomCode();
 
-    const code =
-        Math.random()
-        .toString(36)
-        .substring(2,8)
-        .toUpperCase();
-
-
-    const { data: room, error } =
+    const { data, error } =
         await supabaseClient
         .from("rooms")
         .insert({
-
-            room_code:code,
-
-            host_id:telegramUser.id,
-
-            status:"waiting"
-
+            code: code,
+            host_id: Number(myUserId),
+            status: "waiting"
         })
         .select()
         .single();
 
-
     if(error){
 
         console.error(error);
-        toast("Gagal membuat room.");
+
+        toast("Gagal membuat room");
+
         return;
     }
 
+    currentRoom = data;
 
-    const { error: playerError } =
-        await supabaseClient
+    await supabaseClient
         .from("room_players")
         .insert({
-
-            room_id:room.id,
-
-            user_id:telegramUser.id,
-
-            color:"white"
-
+            room_id: data.id,
+            user_id: Number(myUserId),
+            color: "white"
         });
 
+    hidePanels();
 
-    if(playerError){
+    document
+        .getElementById("roomPanel")
+        .classList.remove("hidden");
 
-        console.error(playerError);
-        toast("Room dibuat, tetapi pemain gagal masuk.");
-        return;
-    }
-
-
-    document.getElementById("roomCode").value =
+    document.getElementById("roomCodeDisplay").textContent =
         code;
 
+    document.getElementById("roomStatus").textContent =
+        "Menunggu lawan masuk...";
 
-    toast("Room dibuat: " + code);
+    subscribeRoom(data.id);
 
+    toast("Room berhasil dibuat");
 }
-
-
-/* =========================================================
-   JOIN ROOM
-========================================================= */
 
 async function joinRoom(){
 
-    if(!telegramUser){
-
-        toast("Login Telegram belum tersedia.");
-        return;
-    }
-
+    const input =
+        document.getElementById("roomCodeInput");
 
     const code =
-        document
-        .getElementById("roomCode")
-        .value
-        .trim()
-        .toUpperCase();
+        input.value.trim().toUpperCase();
 
+    if(code.length !== 6){
 
-    if(!code){
+        toast("Kode room harus 6 karakter");
 
-        toast("Masukkan kode room.");
         return;
     }
-
 
     const { data: room, error } =
         await supabaseClient
         .from("rooms")
         .select("*")
-        .eq("room_code",code)
-        .eq("status","waiting")
+        .eq("code", code)
+        .eq("status", "waiting")
         .maybeSingle();
 
+    if(error || !room){
 
-    if(error){
+        toast("Room tidak ditemukan");
 
-        console.error(error);
-        toast("Gagal mencari room.");
         return;
     }
 
+    if(Number(room.host_id) === Number(myUserId)){
 
-    if(!room){
+        toast("Kamu sudah menjadi host room ini");
 
-        toast("Room tidak ditemukan.");
         return;
     }
 
-
-    if(room.host_id === telegramUser.id){
-
-        toast("Kamu sudah menjadi host room.");
-        return;
-    }
-
-
-    const { error: joinError } =
+    const { data: players } =
         await supabaseClient
         .from("room_players")
-        .insert({
+        .select("*")
+        .eq("room_id", room.id);
 
-            room_id:room.id,
+    if(players && players.length >= 2){
 
-            user_id:telegramUser.id,
+        toast("Room sudah penuh");
 
-            color:"black"
-
-        });
-
-
-    if(joinError){
-
-        console.error(joinError);
-        toast("Gagal masuk room.");
         return;
     }
 
+    await supabaseClient
+        .from("room_players")
+        .insert({
+            room_id: room.id,
+            user_id: Number(myUserId),
+            color: "black"
+        });
 
     await supabaseClient
         .from("rooms")
         .update({
             status:"playing"
         })
-        .eq("id",room.id);
+        .eq("id", room.id);
 
+    currentRoom = room;
 
-    toast("Berhasil masuk room ♟️");
+    subscribeRoom(room.id);
 
+    await createGameIfReady(room.id);
+
+    toast("Berhasil masuk room");
+}
+
+function subscribeRoom(roomId){
+
+    stopRealtime();
+
+    const channel =
+        supabaseClient
+        .channel("room-" + roomId)
+
+        .on(
+            "postgres_changes",
+            {
+                event:"*",
+                schema:"public",
+                table:"room_players",
+                filter:"room_id=eq." + roomId
+            },
+            async payload => {
+
+                console.log("ROOM PLAYER EVENT",payload);
+
+                await createGameIfReady(roomId);
+            }
+        )
+
+        .on(
+            "postgres_changes",
+            {
+                event:"*",
+                schema:"public",
+                table:"rooms",
+                filter:"id=eq." + roomId
+            },
+            async payload => {
+
+                if(payload.new &&
+                   payload.new.status === "playing"){
+
+                    await createGameIfReady(roomId);
+                }
+            }
+        )
+
+        .subscribe();
+
+    realtimeChannels.push(channel);
+}
+
+async function createGameIfReady(roomId){
+
+    const { data: players, error } =
+        await supabaseClient
+        .from("room_players")
+        .select("*")
+        .eq("room_id", roomId);
+
+    if(error || !players) return;
+
+    if(players.length < 2) return;
+
+    const { data: existing } =
+        await supabaseClient
+        .from("games")
+        .select("*")
+        .eq("room_id", roomId)
+        .limit(1);
+
+    if(existing && existing.length){
+
+        openRealtimeGame(existing[0]);
+
+        return;
+    }
+
+    const white =
+        players.find(p => p.color === "white");
+
+    const black =
+        players.find(p => p.color === "black");
+
+    if(!white || !black) return;
+
+    const board =
+        initialBoard();
+
+    const { data: game, error: gameError } =
+        await supabaseClient
+        .from("games")
+        .insert({
+            room_id: roomId,
+            white_player: white.user_id,
+            black_player: black.user_id,
+            board_state: board,
+            turn: "w",
+            status: "playing",
+            white_time: 600,
+            black_time: 600
+        })
+        .select()
+        .single();
+
+    if(gameError){
+
+        console.log("Game insert:",gameError);
+
+        const { data: retry } =
+            await supabaseClient
+            .from("games")
+            .select("*")
+            .eq("room_id",roomId)
+            .limit(1);
+
+        if(retry && retry.length){
+
+            openRealtimeGame(retry[0]);
+        }
+
+        return;
+    }
+
+    openRealtimeGame(game);
+}
+
+async function copyRoomCode(){
+
+    if(!currentRoom){
+
+        toast("Room tidak tersedia");
+
+        return;
+    }
+
+    try{
+
+        await navigator.clipboard.writeText(
+            currentRoom.code
+        );
+
+        toast("Kode room disalin");
+
+    }catch{
+
+        toast("Kode: " + currentRoom.code);
+    }
+}
+
+async function leaveRoom(){
+
+    stopRealtime();
+
+    if(currentRoom && myUserId){
+
+        await supabaseClient
+            .from("room_players")
+            .delete()
+            .eq("room_id", currentRoom.id)
+            .eq("user_id", Number(myUserId));
+
+        await supabaseClient
+            .from("rooms")
+            .update({
+                status:"cancelled"
+            })
+            .eq("id",currentRoom.id)
+            .eq("host_id",Number(myUserId))
+            .eq("status","waiting");
+    }
+
+    currentRoom = null;
+
+    backLobby();
 }
 
 
 /* =========================================================
-   BOT
+   RANDOM MATCHMAKING
 ========================================================= */
 
-function selectBot(level){
+async function findRandomOpponent(){
 
-    toast("VS Bot " + level + " dipilih.");
+    if(!myUserId) return;
 
-    /*
-       Mesin catur akan kita pasang
-       pada tahap berikutnya.
-    */
+    const btn =
+        document.getElementById("findBtn");
 
+    btn.disabled = true;
+
+    document.getElementById("cancelFindBtn")
+        .classList.remove("hidden");
+
+    document.getElementById("randomStatus")
+        .textContent =
+        "🔎 Mencari lawan...";
+
+    const { data: existing } =
+        await supabaseClient
+        .from("matchmaking_queue")
+        .select("*")
+        .eq("user_id",Number(myUserId))
+        .maybeSingle();
+
+    if(!existing){
+
+        await supabaseClient
+            .from("matchmaking_queue")
+            .insert({
+                user_id:Number(myUserId),
+                rating:myRating,
+                status:"waiting"
+            });
+    }
+
+    await tryMatch();
+
+    subscribeMatchmaking();
+}
+
+async function tryMatch(){
+
+    const { data: queue } =
+        await supabaseClient
+        .from("matchmaking_queue")
+        .select("*")
+        .eq("status","waiting")
+        .neq("user_id",Number(myUserId))
+        .order("created_at",{ascending:true})
+        .limit(1);
+
+    if(!queue || !queue.length) return;
+
+    const opponent = queue[0];
+
+    const code = randomCode();
+
+    const { data: room, error } =
+        await supabaseClient
+        .from("rooms")
+        .insert({
+            code:code,
+            host_id:Number(myUserId),
+            status:"playing"
+        })
+        .select()
+        .single();
+
+    if(error) return;
+
+    await supabaseClient
+        .from("room_players")
+        .insert([
+            {
+                room_id:room.id,
+                user_id:Number(myUserId),
+                color:"white"
+            },
+            {
+                room_id:room.id,
+                user_id:Number(opponent.user_id),
+                color:"black"
+            }
+        ]);
+
+    await supabaseClient
+        .from("matchmaking_queue")
+        .update({
+            status:"matched"
+        })
+        .eq("user_id",Number(myUserId));
+
+    await supabaseClient
+        .from("matchmaking_queue")
+        .update({
+            status:"matched"
+        })
+        .eq("user_id",Number(opponent.user_id));
+
+    currentRoom = room;
+
+    await createGameIfReady(room.id);
+}
+
+function subscribeMatchmaking(){
+
+    stopRealtime();
+
+    const channel =
+        supabaseClient
+        .channel("matchmaking-" + myUserId)
+
+        .on(
+            "postgres_changes",
+            {
+                event:"*",
+                schema:"public",
+                table:"matchmaking_queue",
+                filter:"user_id=eq." + myUserId
+            },
+            async payload => {
+
+                if(
+                    payload.new &&
+                    payload.new.status === "matched"
+                ){
+
+                    document.getElementById("randomStatus")
+                        .textContent =
+                        "⚔️ Lawan ditemukan!";
+
+                    const { data: room } =
+                        await supabaseClient
+                        .from("rooms")
+                        .select("*")
+                        .eq("host_id",Number(myUserId))
+                        .eq("status","playing")
+                        .order("created_at",{ascending:false})
+                        .limit(1);
+
+                    if(room && room.length){
+
+                        currentRoom = room[0];
+
+                        await createGameIfReady(
+                            currentRoom.id
+                        );
+                    }
+                }
+            }
+        )
+        .subscribe();
+
+    realtimeChannels.push(channel);
+}
+
+async function cancelMatchmaking(){
+
+    await supabaseClient
+        .from("matchmaking_queue")
+        .delete()
+        .eq("user_id",Number(myUserId));
+
+    document.getElementById("findBtn").disabled = false;
+
+    document.getElementById("cancelFindBtn")
+        .classList.add("hidden");
+
+    document.getElementById("randomStatus")
+        .textContent =
+        "Pencarian dibatalkan.";
 }
 
 
 /* =========================================================
-   FRIEND
+   FRIENDS
 ========================================================= */
 
 async function addFriend(){
 
-    if(!telegramUser){
-
-        toast("Login Telegram belum tersedia.");
-        return;
-    }
-
+    const input =
+        document.getElementById("friendUsername");
 
     let username =
-        document
-        .getElementById("friendUsername")
-        .value
-        .trim()
-        .replace("@","");
-
+        input.value.trim().replace(/^@/,"");
 
     if(!username){
 
-        toast("Masukkan username Telegram.");
+        toast("Masukkan username");
+
         return;
     }
 
-
-    const { data: friend, error } =
+    const { data:user } =
         await supabaseClient
         .from("users")
         .select("*")
-        .ilike("username",username)
+        .eq("username",username)
         .maybeSingle();
 
+    if(!user){
+
+        toast("Username tidak ditemukan");
+
+        return;
+    }
+
+    if(Number(user.id) === Number(myUserId)){
+
+        toast("Tidak bisa menambahkan diri sendiri");
+
+        return;
+    }
+
+    const { error } =
+        await supabaseClient
+        .from("friend_requests")
+        .insert({
+            sender_id:Number(myUserId),
+            receiver_id:Number(user.id),
+            status:"pending"
+        });
 
     if(error){
 
         console.error(error);
-        toast("Gagal mencari user.");
+
+        toast("Gagal mengirim permintaan");
+
         return;
     }
 
+    input.value = "";
 
-    if(!friend){
+    toast("Permintaan teman dikirim");
+}
 
-        toast("User belum terdaftar di Chess Arena.");
-        return;
-    }
+async function loadFriends(){
 
+    const list =
+        document.getElementById("friendsList");
 
-    if(friend.id === telegramUser.id){
+    list.innerHTML =
+        `<div class="loading">Memuat...</div>`;
 
-        toast("Tidak bisa menambahkan diri sendiri.");
-        return;
-    }
-
-
-    const { error: requestError } =
+    const { data: friends } =
         await supabaseClient
-        .from("friend_requests")
-        .upsert({
+        .from("friends")
+        .select("*")
+        .or(
+            `user_id.eq.${myUserId},friend_id.eq.${myUserId}`
+        );
 
-            sender_id:telegramUser.id,
+    if(!friends || !friends.length){
 
-            receiver_id:friend.id,
+        list.innerHTML =
+            `<div class="loading">Belum ada teman.</div>`;
 
-            status:"pending"
-
-        });
-
-
-    if(requestError){
-
-        console.error(requestError);
-        toast("Gagal mengirim permintaan.");
         return;
     }
 
+    const ids =
+        friends.map(f =>
+            Number(f.user_id) === Number(myUserId)
+                ? f.friend_id
+                : f.user_id
+        );
 
-    document.getElementById("friendUsername").value = "";
+    const { data: users } =
+        await supabaseClient
+        .from("users")
+        .select("*")
+        .in("id",ids);
 
-    toast("Permintaan teman dikirim ✓");
+    list.innerHTML =
+        (users || []).map(user => {
 
+            const avatar =
+                user.avatar_url
+                    ? `<img class="mini-avatar"
+                            src="${escapeHtml(user.avatar_url)}">`
+                    : `<div class="mini-avatar">♟</div>`;
+
+            return `
+                <div class="friend-item">
+                    ${avatar}
+
+                    <div class="item-main">
+                        <div class="item-name">
+                            ${escapeHtml(user.name || "User")}
+                        </div>
+
+                        <div class="item-sub">
+                            ${user.username ? "@"+escapeHtml(user.username) : "Tanpa username"}
+                            • ⭐ ${user.rating || 1200}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+        }).join("");
 }
 
 
@@ -977,46 +1726,67 @@ async function addFriend(){
    LEADERBOARD
 ========================================================= */
 
-async function showLeaderboard(){
+async function loadLeaderboard(){
 
-    const { data, error } =
+    const list =
+        document.getElementById("leaderboardList");
+
+    list.innerHTML =
+        `<div class="loading">Memuat ranking...</div>`;
+
+    const { data:users, error } =
         await supabaseClient
         .from("users")
-        .select("username,first_name,rating,wins,losses,draws")
+        .select("id,name,username,avatar_url,rating")
         .order("rating",{ascending:false})
-        .limit(10);
+        .limit(20);
 
+    if(error || !users){
 
-    if(error){
+        list.innerHTML =
+            `<div class="loading">Gagal memuat ranking.</div>`;
 
-        console.error(error);
-        toast("Gagal memuat leaderboard.");
         return;
     }
 
+    list.innerHTML =
+        users.map((user,index)=>{
 
-    let text = "🏆 TOP PLAYERS\n\n";
+            const avatar =
+                user.avatar_url
+                    ? `<img class="mini-avatar"
+                            src="${escapeHtml(user.avatar_url)}">`
+                    : `<div class="mini-avatar">♟</div>`;
 
-    data.forEach((player,index) => {
+            return `
+                <div class="rank-item">
 
-        const name =
-            player.username
-            ? "@" + player.username
-            : player.first_name || "Player";
+                    <div class="rank-number">
+                        #${index+1}
+                    </div>
 
-        text +=
-            (index + 1) +
-            ". " +
-            name +
-            " — ⭐ " +
-            player.rating +
-            "\n";
+                    ${avatar}
 
-    });
+                    <div class="item-main">
 
+                        <div class="item-name">
+                            ${escapeHtml(user.name || "User")}
+                        </div>
 
-    alert(text);
+                        <div class="item-sub">
+                            ${user.username ? "@"+escapeHtml(user.username) : "Telegram"}
+                        </div>
 
+                    </div>
+
+                    <div style="font-weight:800;color:#e5c85a;">
+                        ${user.rating || 1200}
+                    </div>
+
+                </div>
+            `;
+
+        }).join("");
 }
 
 
@@ -1024,49 +1794,1640 @@ async function showLeaderboard(){
    PROFILE
 ========================================================= */
 
-async function showProfile(){
+async function loadProfile(){
 
-    if(!telegramUser){
-
-        toast("Telegram belum terhubung.");
-        return;
-    }
-
-
-    const { data, error } =
+    const { data:user } =
         await supabaseClient
         .from("users")
         .select("*")
-        .eq("id",telegramUser.id)
+        .eq("id",Number(myUserId))
         .single();
 
+    if(!user){
 
-    if(error){
+        document.getElementById("profileContent").innerHTML =
+            `<div class="loading">Profile tidak ditemukan.</div>`;
 
-        toast("Profile belum tersedia.");
         return;
     }
 
+    document.getElementById("profileContent").innerHTML = `
 
-    alert(
-        "👤 " +
-        (data.username
-            ? "@" + data.username
-            : data.first_name) +
+        <div class="profile-card" style="margin:0 0 10px 0;">
 
-        "\n\n⭐ Rating: " +
-        data.rating +
+            ${
+                user.avatar_url
+                ? `<img class="avatar"
+                        src="${escapeHtml(user.avatar_url)}">`
+                : `<div class="avatar">♟</div>`
+            }
 
-        "\n🏆 Menang: " +
-        data.wins +
+            <div class="player-info">
 
-        "\n❌ Kalah: " +
-        data.losses +
+                <div class="player-name">
+                    ${escapeHtml(user.name || "User")}
+                </div>
 
-        "\n🤝 Draw: " +
-        data.draws
+                <div class="player-username">
+                    ${
+                        user.username
+                        ? "@"+escapeHtml(user.username)
+                        : "Tanpa username"
+                    }
+                </div>
+
+                <div class="rating">
+                    ⭐ Rating ${user.rating || 1200}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="line-height:2;color:#b6bdc3;font-size:13px;">
+            🆔 Telegram ID: ${user.id}<br>
+            ⭐ Rating: ${user.rating || 1200}<br>
+            🏆 Menang: ${user.wins || 0}<br>
+            💀 Kalah: ${user.losses || 0}<br>
+            🤝 Draw: ${user.draws || 0}
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   CHESS
+========================================================= */
+
+function initialBoard(){
+
+    return [
+        ["br","bn","bb","bq","bk","bb","bn","br"],
+        ["bp","bp","bp","bp","bp","bp","bp","bp"],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        ["wp","wp","wp","wp","wp","wp","wp","wp"],
+        ["wr","wn","wb","wq","wk","wb","wn","wr"]
+    ];
+}
+
+function pieceColor(piece){
+
+    return piece ? piece[0] : null;
+}
+
+function pieceType(piece){
+
+    return piece ? piece[1] : null;
+}
+
+function renderBoard(){
+
+    const board =
+        document.getElementById("board");
+
+    board.innerHTML = "";
+
+    const orientation =
+        gameState.myColor === "b"
+            ? "black"
+            : "white";
+
+    for(let visualRow=0;visualRow<8;visualRow++){
+
+        for(let visualCol=0;visualCol<8;visualCol++){
+
+            let r,c;
+
+            if(orientation === "white"){
+
+                r = visualRow;
+                c = visualCol;
+
+            }else{
+
+                r = 7 - visualRow;
+                c = 7 - visualCol;
+            }
+
+            const square =
+                document.createElement("div");
+
+            square.className =
+                "square " +
+                ((r+c)%2===0 ? "light" : "dark");
+
+            square.dataset.row = r;
+            square.dataset.col = c;
+
+            if(
+                selectedSquare &&
+                selectedSquare.r === r &&
+                selectedSquare.c === c
+            ){
+
+                square.classList.add("selected");
+            }
+
+            const isLegal =
+                legalSquares.some(
+                    x => x.r===r && x.c===c
+                );
+
+            if(isLegal){
+
+                if(gameState.board[r][c]){
+
+                    square.classList.add("capture");
+
+                }else{
+
+                    square.classList.add("legal");
+                }
+            }
+
+            const piece =
+                gameState.board[r][c];
+
+            if(piece){
+
+                const color =
+                    piece[0];
+
+                const type =
+                    piece[1];
+
+                const img =
+                    document.createElement("img");
+
+                img.className =
+                    "piece " +
+                    (color==="w"
+                        ? "white-piece"
+                        : "black-piece");
+
+                img.src =
+                    PIECES[color][type];
+
+                square.appendChild(img);
+            }
+
+            square.onclick = () =>
+                clickSquare(r,c);
+
+            board.appendChild(square);
+        }
+    }
+}
+
+function clickSquare(r,c){
+
+    if(gameState.over) return;
+
+    if(gameState.bot &&
+       gameState.turn !== gameState.myColor){
+
+        return;
+    }
+
+    if(gameState.turn !== gameState.myColor){
+
+        toast("Bukan giliran kamu");
+
+        return;
+    }
+
+    const piece =
+        gameState.board[r][c];
+
+    if(selectedSquare){
+
+        const targetIsLegal =
+            legalSquares.some(
+                x => x.r===r && x.c===c
+            );
+
+        if(targetIsLegal){
+
+            makeMove(
+                selectedSquare.r,
+                selectedSquare.c,
+                r,
+                c
+            );
+
+            return;
+        }
+    }
+
+    if(piece && pieceColor(piece) === gameState.myColor){
+
+        selectedSquare = {r,c};
+
+        legalSquares =
+            getLegalMoves(r,c);
+
+        renderBoard();
+
+        return;
+    }
+
+    selectedSquare = null;
+    legalSquares = [];
+
+    renderBoard();
+}
+
+
+/* =========================================================
+   CHESS MOVE LOGIC
+========================================================= */
+
+function inside(r,c){
+
+    return r>=0 && r<8 && c>=0 && c<8;
+}
+
+function cloneBoard(board){
+
+    return board.map(row =>
+        row.slice()
+    );
+}
+
+function rawMoves(board,r,c){
+
+    const piece = board[r][c];
+
+    if(!piece) return [];
+
+    const color = piece[0];
+    const type = piece[1];
+
+    const moves = [];
+
+    const add = (rr,cc) => {
+
+        if(!inside(rr,cc)) return false;
+
+        const target =
+            board[rr][cc];
+
+        if(!target){
+
+            moves.push({r:rr,c:cc});
+
+            return true;
+        }
+
+        if(pieceColor(target) !== color){
+
+            moves.push({r:rr,c:cc});
+        }
+
+        return false;
+    };
+
+    if(type==="p"){
+
+        const dir =
+            color==="w" ? -1 : 1;
+
+        const start =
+            color==="w" ? 6 : 1;
+
+        if(
+            inside(r+dir,c) &&
+            !board[r+dir][c]
+        ){
+
+            moves.push({
+                r:r+dir,
+                c:c
+            });
+
+            if(
+                r===start &&
+                !board[r+dir*2][c]
+            ){
+
+                moves.push({
+                    r:r+dir*2,
+                    c:c
+                });
+            }
+        }
+
+        for(const dc of [-1,1]){
+
+            const rr=r+dir;
+            const cc=c+dc;
+
+            if(
+                inside(rr,cc) &&
+                board[rr][cc] &&
+                pieceColor(board[rr][cc]) !== color
+            ){
+
+                moves.push({
+                    r:rr,
+                    c:cc
+                });
+            }
+        }
+
+        return moves;
+    }
+
+    if(type==="n"){
+
+        const dirs=[
+            [-2,-1],[-2,1],
+            [-1,-2],[-1,2],
+            [1,-2],[1,2],
+            [2,-1],[2,1]
+        ];
+
+        dirs.forEach(d =>
+            add(r+d[0],c+d[1])
+        );
+
+        return moves;
+    }
+
+    if(type==="k"){
+
+        for(let dr=-1;dr<=1;dr++){
+
+            for(let dc=-1;dc<=1;dc++){
+
+                if(dr || dc){
+
+                    add(r+dr,c+dc);
+                }
+            }
+        }
+
+        return moves;
+    }
+
+    const dirs=[];
+
+    if(type==="b" || type==="q"){
+
+        dirs.push(
+            [-1,-1],[-1,1],
+            [1,-1],[1,1]
+        );
+    }
+
+    if(type==="r" || type==="q"){
+
+        dirs.push(
+            [-1,0],[1,0],
+            [0,-1],[0,1]
+        );
+    }
+
+    for(const d of dirs){
+
+        let rr=r+d[0];
+        let cc=c+d[1];
+
+        while(add(rr,cc)){
+
+            rr+=d[0];
+            cc+=d[1];
+        }
+    }
+
+    return moves;
+}
+
+function findKing(board,color){
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            if(board[r][c] === color+"k"){
+
+                return {r,c};
+            }
+        }
+    }
+
+    return null;
+}
+
+function isSquareAttacked(board,r,c,byColor){
+
+    for(let rr=0;rr<8;rr++){
+
+        for(let cc=0;cc<8;cc++){
+
+            const piece =
+                board[rr][cc];
+
+            if(!piece ||
+               pieceColor(piece)!==byColor){
+
+                continue;
+            }
+
+            const type =
+                pieceType(piece);
+
+            if(type==="p"){
+
+                const dir =
+                    byColor==="w" ? -1 : 1;
+
+                if(
+                    rr+dir===r &&
+                    Math.abs(cc-c)===1
+                ){
+
+                    return true;
+                }
+
+                continue;
+            }
+
+            const moves =
+                rawMoves(board,rr,cc);
+
+            if(
+                moves.some(
+                    m => m.r===r && m.c===c
+                )
+            ){
+
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+function isCheck(board,color){
+
+    const king =
+        findKing(board,color);
+
+    if(!king) return true;
+
+    return isSquareAttacked(
+        board,
+        king.r,
+        king.c,
+        color==="w" ? "b" : "w"
+    );
+}
+
+function legalMovesFor(board,r,c){
+
+    const piece =
+        board[r][c];
+
+    if(!piece) return [];
+
+    const color =
+        pieceColor(piece);
+
+    const raw =
+        rawMoves(board,r,c);
+
+    return raw.filter(move => {
+
+        const copy =
+            cloneBoard(board);
+
+        copy[move.r][move.c] =
+            copy[r][c];
+
+        copy[r][c] = null;
+
+        return !isCheck(copy,color);
+    });
+}
+
+function getLegalMoves(r,c){
+
+    return legalMovesFor(
+        gameState.board,
+        r,
+        c
+    );
+}
+
+function allLegalMoves(board,color){
+
+    const result=[];
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            if(
+                board[r][c] &&
+                pieceColor(board[r][c])===color
+            ){
+
+                const moves =
+                    legalMovesFor(board,r,c);
+
+                moves.forEach(m => {
+
+                    result.push({
+                        from:{r,c},
+                        to:m
+                    });
+
+                });
+            }
+        }
+    }
+
+    return result;
+}
+
+
+/* =========================================================
+   GAME START
+========================================================= */
+
+async function openRealtimeGame(game){
+
+    if(!game) return;
+
+    currentGame = game;
+
+    gameState.gameId =
+        game.id;
+
+    gameState.roomId =
+        game.room_id;
+
+    gameState.board =
+        normalizeBoard(game.board_state);
+
+    gameState.turn =
+        game.turn || "w";
+
+    if(Number(game.white_player) === Number(myUserId)){
+
+        gameState.myColor = "w";
+
+    }else{
+
+        gameState.myColor = "b";
+    }
+
+    await loadOpponent(game);
+
+    clocks.w =
+        Number(game.white_time || 600);
+
+    clocks.b =
+        Number(game.black_time || 600);
+
+    clocks.last =
+        Date.now();
+
+    gameState.over =
+        game.status !== "playing";
+
+    showGameScreen();
+
+    renderBoard();
+
+    startClock();
+
+    subscribeGame(game.id);
+
+    updateGameStatus();
+}
+
+async function loadOpponent(game){
+
+    const opponentId =
+        Number(game.white_player) === Number(myUserId)
+            ? game.black_player
+            : game.white_player;
+
+    const { data:user } =
+        await supabaseClient
+        .from("users")
+        .select("*")
+        .eq("id",Number(opponentId))
+        .maybeSingle();
+
+    gameState.opponent =
+        user || {
+            name:"Opponent",
+            rating:1200
+        };
+
+    document.getElementById("opponentName").textContent =
+        gameState.opponent.name || "Opponent";
+
+    document.getElementById("opponentSide").textContent =
+        gameState.myColor === "w"
+            ? "Black • ⭐ " + (gameState.opponent.rating || 1200)
+            : "White • ⭐ " + (gameState.opponent.rating || 1200);
+
+    if(gameState.opponent.avatar_url){
+
+        document.getElementById("opponentAvatar").innerHTML =
+            `<img class="mini-avatar"
+                   src="${escapeHtml(gameState.opponent.avatar_url)}">`;
+    }
+
+    document.getElementById("myGameName").textContent =
+        telegramUser.first_name || "You";
+
+    document.getElementById("myGameSide").textContent =
+        gameState.myColor === "w"
+            ? "White • ⭐ " + myRating
+            : "Black • ⭐ " + myRating;
+
+    if(telegramUser.photo_url){
+
+        document.getElementById("myGameAvatar").innerHTML =
+            `<img class="mini-avatar"
+                   src="${escapeHtml(telegramUser.photo_url)}">`;
+    }
+}
+
+function normalizeBoard(board){
+
+    if(Array.isArray(board)){
+
+        return board;
+    }
+
+    if(typeof board === "string"){
+
+        try{
+            return JSON.parse(board);
+        }catch{}
+    }
+
+    return initialBoard();
+}
+
+function showGameScreen(){
+
+    document
+        .getElementById("lobbyScreen")
+        .style.display="none";
+
+    document
+        .getElementById("gameScreen")
+        .classList.add("active");
+}
+
+function backToLobbyFromGame(){
+
+    stopClock();
+
+    stopRealtime();
+
+    gameState.over = true;
+
+    document
+        .getElementById("gameScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("lobbyScreen")
+        .style.display="block";
+
+    backLobby();
+}
+
+
+/* =========================================================
+   REALTIME GAME
+========================================================= */
+
+function subscribeGame(gameId){
+
+    stopRealtime();
+
+    const channel =
+        supabaseClient
+        .channel("game-" + gameId)
+
+        .on(
+            "postgres_changes",
+            {
+                event:"UPDATE",
+                schema:"public",
+                table:"games",
+                filter:"id=eq." + gameId
+            },
+            payload => {
+
+                if(!payload.new) return;
+
+                const game =
+                    payload.new;
+
+                currentGame =
+                    game;
+
+                gameState.board =
+                    normalizeBoard(game.board_state);
+
+                gameState.turn =
+                    game.turn;
+
+                clocks.w =
+                    Number(game.white_time || clocks.w);
+
+                clocks.b =
+                    Number(game.black_time || clocks.b);
+
+                gameState.over =
+                    game.status !== "playing";
+
+                selectedSquare = null;
+                legalSquares = [];
+
+                renderBoard();
+                updateGameStatus();
+            }
+        )
+        .subscribe();
+
+    realtimeChannels.push(channel);
+}
+
+
+/* =========================================================
+   MAKE MOVE
+========================================================= */
+
+async function makeMove(fr,fc,tr,tc){
+
+    if(gameState.over) return;
+
+    const piece =
+        gameState.board[fr][fc];
+
+    if(!piece) return;
+
+    if(pieceColor(piece) !== gameState.myColor){
+
+        return;
+    }
+
+    const legal =
+        legalSquares.some(
+            x => x.r===tr && x.c===tc
+        );
+
+    if(!legal) return;
+
+    const board =
+        cloneBoard(gameState.board);
+
+    board[tr][tc] =
+        board[fr][fc];
+
+    board[fr][fc] = null;
+
+    /* auto promotion */
+    if(
+        board[tr][tc][1] === "p" &&
+        (tr===0 || tr===7)
+    ){
+
+        board[tr][tc] =
+            board[tr][tc][0] + "q";
+    }
+
+    const nextTurn =
+        gameState.myColor === "w"
+            ? "b"
+            : "w";
+
+    const result =
+        checkGameResult(
+            board,
+            nextTurn
+        );
+
+    const newStatus =
+        result.status;
+
+    updateLocalClock();
+
+    const updateData = {
+        board_state:board,
+        turn:nextTurn,
+        white_time:Math.max(0,Math.floor(clocks.w)),
+        black_time:Math.max(0,Math.floor(clocks.b)),
+        status:newStatus
+    };
+
+    const { error } =
+        await supabaseClient
+        .from("games")
+        .update(updateData)
+        .eq("id",gameState.gameId);
+
+    if(error){
+
+        console.error(error);
+
+        toast("Gagal menyimpan langkah");
+
+        return;
+    }
+
+    await supabaseClient
+        .from("moves")
+        .insert({
+            game_id:gameState.gameId,
+            player_id:Number(myUserId),
+            move_data:{
+                from:{r:fr,c:fc},
+                to:{r:tr,c:tc},
+                piece:piece
+            }
+        });
+
+    selectedSquare = null;
+    legalSquares = [];
+
+    gameState.board =
+        board;
+
+    gameState.turn =
+        nextTurn;
+
+    gameState.over =
+        newStatus !== "playing";
+
+    renderBoard();
+    updateGameStatus();
+
+    if(newStatus !== "playing"){
+
+        await finishGame(newStatus);
+    }
+
+    if(
+        gameState.bot &&
+        !gameState.over &&
+        gameState.turn !== gameState.myColor
+    ){
+
+        setTimeout(
+            botMove,
+            500
+        );
+    }
+}
+
+function checkGameResult(board,turn){
+
+    const legal =
+        allLegalMoves(board,turn);
+
+    if(legal.length===0){
+
+        if(isCheck(board,turn)){
+
+            return {
+                status:"checkmate"
+            };
+
+        }else{
+
+            return {
+                status:"draw"
+            };
+        }
+    }
+
+    return {
+        status:"playing"
+    };
+}
+
+
+/* =========================================================
+   CLOCK
+========================================================= */
+
+function startClock(){
+
+    stopClock();
+
+    clocks.last =
+        Date.now();
+
+    moveTimer =
+        setInterval(() => {
+
+            if(gameState.over) return;
+
+            updateLocalClock();
+
+            updateTimerUI();
+
+            if(
+                clocks.w <= 0 ||
+                clocks.b <= 0
+            ){
+
+                gameState.over = true;
+
+                finishByTime();
+            }
+
+        },1000);
+}
+
+function stopClock(){
+
+    if(moveTimer){
+
+        clearInterval(moveTimer);
+
+        moveTimer = null;
+    }
+}
+
+function updateLocalClock(){
+
+    if(gameState.over) return;
+
+    const now =
+        Date.now();
+
+    const diff =
+        (now - clocks.last) / 1000;
+
+    clocks.last =
+        now;
+
+    if(gameState.turn === "w"){
+
+        clocks.w -= diff;
+
+    }else{
+
+        clocks.b -= diff;
+    }
+
+    clocks.w =
+        Math.max(0,clocks.w);
+
+    clocks.b =
+        Math.max(0,clocks.b);
+}
+
+function updateTimerUI(){
+
+    document.getElementById("myTimer")
+        .textContent =
+        formatTime(
+            gameState.myColor==="w"
+                ? clocks.w
+                : clocks.b
+        );
+
+    document.getElementById("opponentTimer")
+        .textContent =
+        formatTime(
+            gameState.myColor==="w"
+                ? clocks.b
+                : clocks.w
+        );
+
+    document.getElementById("myTimer")
+        .classList.toggle(
+            "active",
+            gameState.turn === gameState.myColor
+        );
+
+    document.getElementById("opponentTimer")
+        .classList.toggle(
+            "active",
+            gameState.turn !== gameState.myColor
+        );
+}
+
+function formatTime(seconds){
+
+    seconds =
+        Math.max(0,Math.floor(seconds));
+
+    const m =
+        Math.floor(seconds/60);
+
+    const s =
+        seconds%60;
+
+    return String(m).padStart(2,"0")
+        + ":" +
+        String(s).padStart(2,"0");
+}
+
+async function finishByTime(){
+
+    updateLocalClock();
+
+    const loser =
+        clocks.w <= 0
+            ? "w"
+            : "b";
+
+    const winner =
+        loser==="w"
+            ? "b"
+            : "w";
+
+    const status =
+        winner===gameState.myColor
+            ? "win"
+            : "loss";
+
+    await supabaseClient
+        .from("games")
+        .update({
+            status:
+                winner==="w"
+                    ? "white_win"
+                    : "black_win",
+            white_time:Math.floor(clocks.w),
+            black_time:Math.floor(clocks.b)
+        })
+        .eq("id",gameState.gameId);
+
+    await finishGame(status);
+}
+
+
+/* =========================================================
+   GAME STATUS
+========================================================= */
+
+function updateGameStatus(){
+
+    updateTimerUI();
+
+    const status =
+        document.getElementById("gameStatus");
+
+    if(gameState.over){
+
+        if(currentGame &&
+           currentGame.status === "draw"){
+
+            status.textContent =
+                "🤝 Game berakhir — Draw";
+
+            return;
+        }
+
+        if(currentGame &&
+           (
+            currentGame.status === "white_win" ||
+            currentGame.status === "black_win" ||
+            currentGame.status === "checkmate"
+           )
+        ){
+
+            const winner =
+                currentGame.status === "white_win"
+                    ? "w"
+                    : currentGame.status === "black_win"
+                        ? "b"
+                        : (
+                            gameState.turn === "w"
+                                ? "b"
+                                : "w"
+                        );
+
+            status.textContent =
+                winner === gameState.myColor
+                    ? "🏆 Kamu menang!"
+                    : "💀 Kamu kalah.";
+
+            return;
+        }
+    }
+
+    if(gameState.turn === gameState.myColor){
+
+        status.textContent =
+            isCheck(
+                gameState.board,
+                gameState.myColor
+            )
+                ? "⚠️ Kamu sedang check!"
+                : "♟ Giliran kamu.";
+
+    }else{
+
+        status.textContent =
+            "⏳ Menunggu langkah lawan...";
+    }
+}
+
+
+/* =========================================================
+   FINISH / RATING
+========================================================= */
+
+async function finishGame(result){
+
+    if(!gameState.gameId) return;
+
+    gameState.over = true;
+
+    stopClock();
+
+    let finalStatus;
+
+    if(
+        result === "draw" ||
+        result === "stalemate"
+    ){
+
+        finalStatus = "draw";
+
+    }else if(
+        result === "win"
+    ){
+
+        finalStatus =
+            gameState.myColor === "w"
+                ? "white_win"
+                : "black_win";
+
+    }else if(
+        result === "loss"
+    ){
+
+        finalStatus =
+            gameState.myColor === "w"
+                ? "black_win"
+                : "white_win";
+
+    }else{
+
+        finalStatus = result;
+    }
+
+    await supabaseClient
+        .from("games")
+        .update({
+            status:finalStatus
+        })
+        .eq("id",gameState.gameId);
+
+    updateGameStatus();
+}
+
+async function resignGame(){
+
+    if(gameState.over) return;
+
+    const winner =
+        gameState.myColor === "w"
+            ? "black_win"
+            : "white_win";
+
+    await supabaseClient
+        .from("games")
+        .update({
+            status:winner
+        })
+        .eq("id",gameState.gameId);
+
+    gameState.over = true;
+
+    stopClock();
+
+    updateGameStatus();
+
+    toast("Kamu menyerah");
+}
+
+
+/* =========================================================
+   VS BOT
+========================================================= */
+
+function startBotGame(level){
+
+    stopRealtime();
+
+    gameState.bot = true;
+    gameState.botLevel = level;
+    gameState.gameId = null;
+    gameState.roomId = null;
+    gameState.myColor = "w";
+    gameState.turn = "w";
+    gameState.board = initialBoard();
+    gameState.over = false;
+
+    clocks.w = 600;
+    clocks.b = 600;
+    clocks.last = Date.now();
+
+    gameState.opponent = {
+        name:
+            level==="easy"
+                ? "Bot Easy"
+                : level==="normal"
+                    ? "Bot Normal"
+                    : "Bot Hard",
+        rating:
+            level==="easy"
+                ? 900
+                : level==="normal"
+                    ? 1200
+                    : 1600
+    };
+
+    document.getElementById("opponentName").textContent =
+        gameState.opponent.name;
+
+    document.getElementById("opponentSide").textContent =
+        "Black • Bot";
+
+    document.getElementById("opponentAvatar").textContent =
+        "🤖";
+
+    document.getElementById("myGameName").textContent =
+        telegramUser.first_name || "You";
+
+    document.getElementById("myGameSide").textContent =
+        "White • ⭐ " + myRating;
+
+    if(telegramUser.photo_url){
+
+        document.getElementById("myGameAvatar").innerHTML =
+            `<img class="mini-avatar"
+                  src="${escapeHtml(telegramUser.photo_url)}">`;
+    }
+
+    showGameScreen();
+
+    renderBoard();
+
+    startClock();
+
+    updateGameStatus();
+}
+
+function botMove(){
+
+    if(
+        !gameState.bot ||
+        gameState.over ||
+        gameState.turn === gameState.myColor
+    ){
+
+        return;
+    }
+
+    if(botThinking) return;
+
+    botThinking = true;
+
+    const moves =
+        allLegalMoves(
+            gameState.board,
+            "b"
+        );
+
+    if(!moves.length){
+
+        botThinking = false;
+
+        const result =
+            isCheck(gameState.board,"b")
+                ? "win"
+                : "draw";
+
+        gameState.over = true;
+
+        document.getElementById("gameStatus").textContent =
+            result==="win"
+                ? "🏆 Checkmate! Kamu menang."
+                : "🤝 Draw.";
+
+        stopClock();
+
+        return;
+    }
+
+    let move;
+
+    if(gameState.botLevel === "easy"){
+
+        move =
+            moves[
+                Math.floor(
+                    Math.random()*moves.length
+                )
+            ];
+
+    }else{
+
+        move =
+            chooseBotMove(
+                gameState.board,
+                moves,
+                gameState.botLevel === "hard"
+                    ? 2
+                    : 1
+            );
+    }
+
+    setTimeout(() => {
+
+        applyBotMove(move);
+
+        botThinking = false;
+
+    },300);
+}
+
+function chooseBotMove(board,moves,depth){
+
+    let best =
+        -Infinity;
+
+    let bestMove =
+        moves[0];
+
+    for(const move of moves){
+
+        const copy =
+            cloneBoard(board);
+
+        copy[move.to.r][move.to.c] =
+            copy[move.from.r][move.from.c];
+
+        copy[move.from.r][move.from.c] =
+            null;
+
+        const score =
+            minimax(
+                copy,
+                depth-1,
+                false
+            );
+
+        if(score > best){
+
+            best = score;
+            bestMove = move;
+        }
+    }
+
+    return bestMove;
+}
+
+function minimax(board,depth,maximizing){
+
+    if(depth<=0){
+
+        return evaluateBoard(board);
+    }
+
+    const color =
+        maximizing ? "b" : "w";
+
+    const moves =
+        allLegalMoves(board,color);
+
+    if(!moves.length){
+
+        if(isCheck(board,color)){
+
+            return maximizing
+                ? -100000
+                : 100000;
+        }
+
+        return 0;
+    }
+
+    if(maximizing){
+
+        let best=-Infinity;
+
+        for(const move of moves){
+
+            const copy =
+                cloneBoard(board);
+
+            copy[move.to.r][move.to.c] =
+                copy[move.from.r][move.from.c];
+
+            copy[move.from.r][move.from.c] =
+                null;
+
+            best =
+                Math.max(
+                    best,
+                    minimax(
+                        copy,
+                        depth-1,
+                        false
+                    )
+                );
+        }
+
+        return best;
+
+    }else{
+
+        let best=Infinity;
+
+        for(const move of moves){
+
+            const copy =
+                cloneBoard(board);
+
+            copy[move.to.r][move.to.c] =
+                copy[move.from.r][move.from.c];
+
+            copy[move.from.r][move.from.c] =
+                null;
+
+            best =
+                Math.min(
+                    best,
+                    minimax(
+                        copy,
+                        depth-1,
+                        true
+                    )
+                );
+        }
+
+        return best;
+    }
+}
+
+function evaluateBoard(board){
+
+    const values={
+        p:100,
+        n:320,
+        b:330,
+        r:500,
+        q:900,
+        k:20000
+    };
+
+    let score=0;
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const piece =
+                board[r][c];
+
+            if(!piece) continue;
+
+            const value =
+                values[piece[1]];
+
+            if(piece[0]==="b"){
+
+                score += value;
+
+            }else{
+
+                score -= value;
+            }
+        }
+    }
+
+    return score;
+}
+
+function applyBotMove(move){
+
+    const board =
+        cloneBoard(gameState.board);
+
+    board[move.to.r][move.to.c] =
+        board[move.from.r][move.from.c];
+
+    board[move.from.r][move.from.c] =
+        null;
+
+    if(
+        board[move.to.r][move.to.c][1] === "p" &&
+        (move.to.r===0 || move.to.r===7)
+    ){
+
+        board[move.to.r][move.to.c] =
+            "bq";
+    }
+
+    gameState.board =
+        board;
+
+    gameState.turn =
+        "w";
+
+    clocks.last =
+        Date.now();
+
+    const result =
+        checkGameResult(
+            board,
+            "w"
+        );
+
+    if(result.status !== "playing"){
+
+        gameState.over = true;
+
+        stopClock();
+
+        document.getElementById("gameStatus").textContent =
+            result.status==="checkmate"
+                ? "💀 Checkmate — kamu kalah."
+                : "🤝 Draw.";
+
+    }
+
+    renderBoard();
+    updateGameStatus();
+}
+
+
+/* =========================================================
+   REALTIME CLEANUP
+========================================================= */
+
+function stopRealtime(){
+
+    realtimeChannels.forEach(channel => {
+
+        try{
+            supabaseClient.removeChannel(channel);
+        }catch{}
+    });
+
+    realtimeChannels = [];
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function toast(message){
+
+    const el =
+        document.getElementById("toast");
+
+    el.textContent =
+        message;
+
+    el.classList.add("show");
+
+    clearTimeout(
+        window.__toastTimer
     );
 
+    window.__toastTimer =
+        setTimeout(() => {
+
+            el.classList.remove("show");
+
+        },2200);
+}
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
 
@@ -1074,7 +3435,7 @@ async function showProfile(){
    START
 ========================================================= */
 
-loadTelegramUser();
+init();
 
 </script>
 
