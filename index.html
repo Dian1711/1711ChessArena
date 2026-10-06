@@ -2,171 +2,77 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>1711 Chess Arena</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
   margin:0;
-  padding:0;
   min-height:100%;
   font-family:Arial,Helvetica,sans-serif;
-
-  background:
-    radial-gradient(
-      circle at top,
-      #303030 0%,
-      #141414 48%,
-      #050505 100%
-    );
-
-  color:#fff;
+  background:#151515;
+  color:white;
 }
 
 body{
-  min-height:100vh;
+  display:flex;
+  justify-content:center;
 }
-
-
-/* =========================================
-   APP
-========================================= */
 
 .app{
   width:100%;
   max-width:620px;
-  margin:auto;
-  padding:14px 12px 28px;
+  min-height:100vh;
+  padding:14px;
 }
 
-
-/* =========================================
-   HEADER
-========================================= */
-
+/* HEADER */
 .header{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   margin-bottom:12px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.brand-icon{
-  width:42px;
-  height:42px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:13px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #c69a68,
-      #704722
-    );
-
-  box-shadow:
-    0 0 18px rgba(190,140,80,.35),
-    inset 0 1px 2px rgba(255,255,255,.4);
-
-  font-size:25px;
-}
-
-.brand-title{
-  font-size:20px;
+.logo{
+  font-size:21px;
   font-weight:900;
-}
-
-.brand-sub{
-  margin-top:2px;
-
-  color:#999;
-
-  font-size:10px;
-
-  letter-spacing:1.2px;
-
-  text-transform:uppercase;
+  letter-spacing:.5px;
 }
 
 .online{
   display:flex;
   align-items:center;
   gap:6px;
-
-  padding:7px 10px;
-
+  padding:6px 10px;
   border-radius:20px;
-
-  background:#181818;
-
-  border:1px solid #3c3c3c;
-
-  color:#aaa;
-
+  background:#252525;
   font-size:11px;
+  color:#bbb;
 }
 
 .online-dot{
   width:7px;
   height:7px;
-
   border-radius:50%;
-
-  background:#43dc80;
-
-  box-shadow:
-    0 0 9px #43dc80;
+  background:#54c76a;
 }
 
-
-/* =========================================
-   PLAYER
-========================================= */
-
+/* PLAYER */
 .player{
   display:flex;
-
-  justify-content:space-between;
   align-items:center;
-
+  justify-content:space-between;
   padding:10px 12px;
-
-  border-radius:16px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #272727,
-      #101010
-    );
-
-  border:1px solid #3b3b3b;
-
-  box-shadow:
-    0 8px 22px rgba(0,0,0,.35),
-    inset 0 1px rgba(255,255,255,.05);
+  margin-bottom:9px;
+  border-radius:13px;
+  background:#222;
+  border:1px solid #363636;
 }
 
 .player-left{
@@ -176,36 +82,15 @@ body{
 }
 
 .avatar{
-  width:46px;
-  height:46px;
-
+  width:43px;
+  height:43px;
+  border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  border-radius:14px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #805c3b,
-      #2f2116
-    );
-
-  border:2px solid #b88957;
-
-  font-size:24px;
-}
-
-.avatar.enemy{
-  background:
-    linear-gradient(
-      145deg,
-      #333,
-      #080808
-    );
-
-  border-color:#555;
+  font-size:25px;
+  background:#ddd;
+  border:2px solid #555;
 }
 
 .player-name{
@@ -213,2410 +98,589 @@ body{
   font-weight:800;
 }
 
-.player-rating{
-  margin-top:4px;
-
+.rating{
+  margin-top:3px;
   color:#999;
-
   font-size:11px;
 }
 
 .timer{
-  min-width:75px;
-
-  padding:8px 10px;
-
+  min-width:78px;
   text-align:center;
-
-  border-radius:11px;
-
-  background:#080808;
-
-  border:1px solid #404040;
-
-  font-size:19px;
+  padding:8px 10px;
+  border-radius:9px;
+  background:#111;
+  border:1px solid #444;
+  font-size:21px;
   font-weight:900;
-
   font-variant-numeric:tabular-nums;
-
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,.8);
 }
 
-.timer.active{
-  border-color:#b88751;
-
-  box-shadow:
-    0 0 12px rgba(184,135,81,.25),
-    inset 0 2px 6px rgba(0,0,0,.8);
+/* BOARD */
+.board-wrap{
+  width:100%;
+  max-width:590px;
+  margin:8px auto;
 }
-
-
-/* =========================================
-   BOARD FRAME
-========================================= */
-
-.board-area{
-  margin-top:12px;
-
-  padding:8px;
-
-  border-radius:18px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #3b3b3b,
-      #111
-    );
-
-  border:1px solid #505050;
-
-  box-shadow:
-    0 16px 35px rgba(0,0,0,.55),
-    inset 0 1px rgba(255,255,255,.08);
-}
-
-
-/* =========================================
-   BOARD
-========================================= */
 
 .board{
   width:100%;
-
-  aspect-ratio:1 / 1;
-
+  aspect-ratio:1/1;
   display:grid;
-
-  grid-template-columns:
-    repeat(8,minmax(0,1fr));
-
-  grid-template-rows:
-    repeat(8,minmax(0,1fr));
-
+  grid-template-columns:repeat(8,1fr);
+  grid-template-rows:repeat(8,1fr);
+  border:5px solid #292929;
+  background:#292929;
   overflow:hidden;
-
-  border-radius:7px;
-
-  border:3px solid #181818;
-
-  box-shadow:
-    0 10px 25px rgba(0,0,0,.5);
 }
-
-
-/* =========================================
-   SQUARE
-========================================= */
 
 .square{
   position:relative;
-
-  width:100%;
-  height:100%;
-
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   min-width:0;
   min-height:0;
-
-  border:1px solid rgba(70,70,70,.65);
-
-  cursor:pointer;
-
-  user-select:none;
+  border:1px solid rgba(70,70,70,.42);
+  overflow:hidden;
 }
 
 .square.light{
-  background:
-    linear-gradient(
-      145deg,
-      #ffffff 0%,
-      #f2f2f2 50%,
-      #e7e7e7 100%
-    );
-
-  border-color:#c3c3c3;
+  background:#f3f3f3;
 }
 
 .square.dark{
-  background:
-    linear-gradient(
-      145deg,
-      #aaaaaa 0%,
-      #969696 50%,
-      #858585 100%
-    );
-
-  border-color:#707070;
-}
-
-.square:hover{
-  filter:brightness(1.08);
+  background:#a7a7a7;
 }
 
 .square.selected{
-  box-shadow:
-    inset 0 0 0 3px #d49a45,
-    inset 0 0 20px rgba(212,154,69,.38);
+  box-shadow:inset 0 0 0 4px #d69a35;
 }
 
-.square.possible::after{
-  content:"";
-
-  position:absolute;
-
-  width:20%;
-  height:20%;
-
-  border-radius:50%;
-
-  background:#5d9c62;
-
-  z-index:1;
+.square.move{
+  box-shadow:inset 0 0 0 3px rgba(35,120,70,.7);
 }
 
-.square.capture::after{
-  content:"";
-
-  position:absolute;
-
-  width:72%;
-  height:72%;
-
-  border-radius:50%;
-
-  border:4px solid rgba(160,55,55,.75);
-
-  z-index:1;
-}
-
-
-/* =========================================
-   COORDINATES
-========================================= */
-
-.coord-file,
-.coord-rank{
-  position:absolute;
-
-  font-size:8px;
-
-  font-weight:900;
-
-  opacity:.62;
-
-  pointer-events:none;
-
-  z-index:5;
-}
-
-.coord-file{
-  right:3px;
-  bottom:2px;
-}
-
-.coord-rank{
-  left:3px;
-  top:2px;
-}
-
-.square.light .coord-file,
-.square.light .coord-rank{
-  color:#555;
-}
-
-.square.dark .coord-file,
-.square.dark .coord-rank{
-  color:#eee;
-}
-
-
-/* =========================================
-   PIECE BASE
-========================================= */
-
+/* PIECE HOLDER */
 .piece{
+  width:82%;
+  height:88%;
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   position:relative;
+  z-index:2;
+}
 
-  z-index:3;
+/* PROPORSI PER JENIS */
+.piece.pawn{
+  width:56%;
+  height:67%;
+}
 
-  pointer-events:none;
+.piece.rook{
+  width:68%;
+  height:77%;
+}
 
-  flex:none;
+.piece.knight{
+  width:82%;
+  height:89%;
+}
+
+.piece.bishop{
+  width:76%;
+  height:88%;
+}
+
+.piece.queen{
+  width:79%;
+  height:91%;
+}
+
+.piece.king{
+  width:80%;
+  height:94%;
 }
 
 .piece svg{
+  width:100%;
+  height:100%;
   display:block;
-
   overflow:visible;
-
-  max-width:none;
-  max-height:none;
+  filter:drop-shadow(1px 2px 1px rgba(0,0,0,.35));
 }
 
-
-/* =========================================
-   UKURAN BIDAK PER JENIS
-========================================= */
-
-/*
-   Semua ukuran sekarang dihitung langsung
-   terhadap kotak catur.
-*/
-
-
-/* PAWN
-   benar-benar kecil
-*/
-
-.piece.pawn{
-  width:58% !important;
-  height:67% !important;
-}
-
+/* actual silhouette scaling */
 .piece.pawn svg{
-  width:100% !important;
-  height:100% !important;
-}
-
-
-/* ROOK / BENTENG
-   lebih kecil dari sebelumnya
-*/
-
-.piece.rook{
-  width:67% !important;
-  height:76% !important;
+  width:78%;
+  height:78%;
 }
 
 .piece.rook svg{
-  width:100% !important;
-  height:100% !important;
+  width:84%;
+  height:84%;
 }
 
-
-/* KNIGHT */
-
-.piece.knight{
-  width:88% !important;
-  height:90% !important;
+/* BUTTONS */
+.buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:12px;
 }
 
-.piece.knight svg{
-  width:100% !important;
-  height:100% !important;
+button{
+  border:0;
+  border-radius:11px;
+  padding:13px 10px;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
 }
 
-
-/* BISHOP */
-
-.piece.bishop{
-  width:82% !important;
-  height:91% !important;
+.new{
+  background:#e0e0e0;
+  color:#151515;
 }
 
-.piece.bishop svg{
-  width:100% !important;
-  height:100% !important;
+.find{
+  background:#303030;
+  color:white;
+  border:1px solid #505050;
 }
-
-
-/* QUEEN */
-
-.piece.queen{
-  width:88% !important;
-  height:93% !important;
-}
-
-.piece.queen svg{
-  width:100% !important;
-  height:100% !important;
-}
-
-
-/* KING */
-
-.piece.king{
-  width:86% !important;
-  height:94% !important;
-}
-
-.piece.king svg{
-  width:100% !important;
-  height:100% !important;
-}
-
-
-/* =========================================
-   STATUS
-========================================= */
 
 .status{
-  margin-top:10px;
-
-  padding:9px 12px;
-
   text-align:center;
-
-  border-radius:11px;
-
-  background:#121212;
-
-  border:1px solid #333;
-
+  margin-top:10px;
   color:#999;
-
   font-size:12px;
 }
 
-.status strong{
-  color:#d09a58;
-}
-
-
-/* =========================================
-   BUTTONS
-========================================= */
-
-.buttons{
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
-  gap:10px;
-
-  margin-top:11px;
-}
-
-.btn{
-  border:0;
-
-  border-radius:13px;
-
-  padding:13px 10px;
-
-  color:#fff;
-
-  font-size:13px;
-
-  font-weight:900;
-
-  cursor:pointer;
-
-  box-shadow:
-    0 6px 15px rgba(0,0,0,.35),
-    inset 0 1px rgba(255,255,255,.18);
-}
-
-.btn:active{
-  transform:translateY(2px);
-}
-
-.btn-brown{
-  background:
-    linear-gradient(
-      145deg,
-      #c28c52,
-      #70451f
-    );
-}
-
-.btn-dark{
-  background:
-    linear-gradient(
-      145deg,
-      #4a4a4a,
-      #171717
-    );
-
-  border:1px solid #555;
-}
-
-
-/* =========================================
-   INFO
-========================================= */
-
-.info{
-  margin-top:13px;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:8px;
-}
-
-.info-box{
-  padding:10px 7px;
-
-  text-align:center;
-
-  border-radius:12px;
-
-  background:#151515;
-
-  border:1px solid #303030;
-}
-
-.info-value{
-  font-size:14px;
-  font-weight:900;
-}
-
-.info-label{
-  margin-top:3px;
-
-  color:#777;
-
-  font-size:9px;
-
-  text-transform:uppercase;
-
-  letter-spacing:.7px;
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media(max-width:390px){
-
+/* MOBILE */
+@media(max-width:430px){
   .app{
-    padding-left:8px;
-    padding-right:8px;
+    padding:10px;
   }
 
-  .board-area{
-    padding:5px;
+  .logo{
+    font-size:18px;
   }
 
-  .piece.pawn{
-    width:55% !important;
-    height:64% !important;
-  }
-
-  .piece.rook{
-    width:64% !important;
-    height:73% !important;
-  }
-
-  .piece.knight{
-    width:86% !important;
-    height:88% !important;
-  }
-
-  .piece.bishop{
-    width:80% !important;
-    height:89% !important;
-  }
-
-  .piece.queen{
-    width:86% !important;
-    height:91% !important;
-  }
-
-  .piece.king{
-    width:84% !important;
-    height:92% !important;
-  }
-
-  .timer{
-    min-width:67px;
-    font-size:17px;
+  .player{
+    padding:8px 9px;
   }
 
   .avatar{
-    width:40px;
-    height:40px;
+    width:38px;
+    height:38px;
     font-size:21px;
   }
 
+  .timer{
+    min-width:70px;
+    font-size:18px;
+  }
+
+  .board{
+    border-width:3px;
+  }
+
+  .piece.pawn svg{
+    width:75%;
+    height:75%;
+  }
+
+  .piece.rook svg{
+    width:80%;
+    height:80%;
+  }
 }
-
-
-/* =========================================
-   SVG GRADIENTS
-========================================= */
-
 </style>
 </head>
 
-
 <body>
 
-<main class="app">
+<div class="app">
 
+  <div class="header">
+    <div class="logo">♟ 1711 Chess Arena</div>
 
-<!-- =====================================
-     HEADER
-====================================== -->
-
-<header class="header">
-
-  <div class="brand">
-
-    <div class="brand-icon">
-      ♟
+    <div class="online">
+      <span class="online-dot"></span>
+      ONLINE
     </div>
+  </div>
 
-    <div>
+  <!-- OPPONENT -->
+  <div class="player">
+    <div class="player-left">
+      <div class="avatar">🧑</div>
 
-      <div class="brand-title">
-        1711 Chess Arena
+      <div>
+        <div class="player-name">Opponent</div>
+        <div class="rating">Rating 1200</div>
       </div>
+    </div>
 
-      <div class="brand-sub">
-        Telegram Mini Game
+    <div class="timer" id="blackTimer">10:00</div>
+  </div>
+
+  <!-- CHESS BOARD -->
+  <div class="board-wrap">
+    <div class="board" id="board"></div>
+  </div>
+
+  <!-- PLAYER -->
+  <div class="player">
+    <div class="player-left">
+      <div class="avatar">🧔</div>
+
+      <div>
+        <div class="player-name">Dian1711</div>
+        <div class="rating">Rating 1200</div>
       </div>
-
     </div>
 
+    <div class="timer" id="whiteTimer">10:00</div>
   </div>
 
-
-  <div class="online">
-
-    <span class="online-dot"></span>
-
-    ONLINE
-
+  <div class="buttons">
+    <button class="new" onclick="newGame()">Game Baru</button>
+    <button class="find" onclick="findOpponent()">Cari Lawan</button>
   </div>
 
-</header>
-
-
-
-<!-- =====================================
-     OPPONENT
-====================================== -->
-
-<section class="player">
-
-  <div class="player-left">
-
-    <div class="avatar enemy">
-      🧙
-    </div>
-
-    <div>
-
-      <div class="player-name">
-        Opponent
-      </div>
-
-      <div class="player-rating">
-        Rating 1200
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="timer"
-    id="enemyTimer"
-  >
-    10:00
-  </div>
-
-</section>
-
-
-
-<!-- =====================================
-     BOARD
-====================================== -->
-
-<section class="board-area">
-
-  <div
-    id="board"
-    class="board"
-  ></div>
-
-</section>
-
-
-
-<!-- =====================================
-     PLAYER
-====================================== -->
-
-<section class="player">
-
-  <div class="player-left">
-
-    <div class="avatar">
-      🤖
-    </div>
-
-    <div>
-
-      <div class="player-name">
-        1711 Player
-      </div>
-
-      <div class="player-rating">
-        Rating 1200
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="timer active"
-    id="myTimer"
-  >
-    10:00
-  </div>
-
-</section>
-
-
-
-<div
-  class="status"
-  id="status"
->
-  Giliran <strong>Putih</strong>
-</div>
-
-
-
-<div class="buttons">
-
-  <button
-    class="btn btn-brown"
-    onclick="newGame()"
-  >
-    ♟ Game Baru
-  </button>
-
-
-  <button
-    class="btn btn-dark"
-    onclick="findOpponent()"
-  >
-    ⚔ Cari Lawan
-  </button>
-
-</div>
-
-
-
-<div class="info">
-
-  <div class="info-box">
-
-    <div class="info-value">
-      1200
-    </div>
-
-    <div class="info-label">
-      Rating
-    </div>
-
-  </div>
-
-
-  <div class="info-box">
-
-    <div class="info-value">
-      0
-    </div>
-
-    <div class="info-label">
-      Menang
-    </div>
-
-  </div>
-
-
-  <div class="info-box">
-
-    <div class="info-value">
-      0
-    </div>
-
-    <div class="info-label">
-      Kalah
-    </div>
-
+  <div class="status" id="status">
+    Giliran putih
   </div>
 
 </div>
-
-</main>
-
-
-
-<!-- =========================================
-     SVG DEFINITIONS
-========================================= -->
-
-<svg
-  width="0"
-  height="0"
-  style="position:absolute"
-  aria-hidden="true"
->
-
-<defs>
-
-  <linearGradient
-    id="pieceBrown"
-    x1="15%"
-    y1="5%"
-    x2="85%"
-    y2="100%"
-  >
-
-    <stop
-      offset="0%"
-      stop-color="#f3d6a4"
-    />
-
-    <stop
-      offset="20%"
-      stop-color="#d6ad76"
-    />
-
-    <stop
-      offset="45%"
-      stop-color="#b77e45"
-    />
-
-    <stop
-      offset="72%"
-      stop-color="#87562d"
-    />
-
-    <stop
-      offset="100%"
-      stop-color="#4e2c16"
-    />
-
-  </linearGradient>
-
-
-  <linearGradient
-    id="pieceBlack"
-    x1="15%"
-    y1="5%"
-    x2="85%"
-    y2="100%"
-  >
-
-    <stop
-      offset="0%"
-      stop-color="#777777"
-    />
-
-    <stop
-      offset="20%"
-      stop-color="#4b4b4b"
-    />
-
-    <stop
-      offset="45%"
-      stop-color="#292929"
-    />
-
-    <stop
-      offset="72%"
-      stop-color="#111111"
-    />
-
-    <stop
-      offset="100%"
-      stop-color="#020202"
-    />
-
-  </linearGradient>
-
-
-  <linearGradient
-    id="accentBrown"
-    x1="0%"
-    y1="0%"
-    x2="100%"
-    y2="100%"
-  >
-
-    <stop
-      offset="0%"
-      stop-color="#ffe7b5"
-    />
-
-    <stop
-      offset="50%"
-      stop-color="#c99454"
-    />
-
-    <stop
-      offset="100%"
-      stop-color="#693d1b"
-    />
-
-  </linearGradient>
-
-
-  <linearGradient
-    id="accentBlack"
-    x1="0%"
-    y1="0%"
-    x2="100%"
-    y2="100%"
-  >
-
-    <stop
-      offset="0%"
-      stop-color="#a7a7a7"
-    />
-
-    <stop
-      offset="50%"
-      stop-color="#555555"
-    />
-
-    <stop
-      offset="100%"
-      stop-color="#151515"
-    />
-
-  </linearGradient>
-
-
-  <filter
-    id="pieceShadow"
-    x="-40%"
-    y="-40%"
-    width="180%"
-    height="190%"
-  >
-
-    <feDropShadow
-      dx="3"
-      dy="5"
-      stdDeviation="2.4"
-      flood-color="#000"
-      flood-opacity=".68"
-    />
-
-  </filter>
-
-</defs>
-
-</svg>
-
 
 
 <script>
+/* =========================================================
+   SVG DEFINITIONS
+   ========================================================= */
+
+const defs = `
+<defs>
+
+  <linearGradient id="brown" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f0d09a"/>
+    <stop offset="45%" stop-color="#c49157"/>
+    <stop offset="100%" stop-color="#805126"/>
+  </linearGradient>
+
+  <linearGradient id="black" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#555"/>
+    <stop offset="35%" stop-color="#292929"/>
+    <stop offset="100%" stop-color="#050505"/>
+  </linearGradient>
+
+  <linearGradient id="edgeBrown" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#ffe0a9"/>
+    <stop offset="100%" stop-color="#70431f"/>
+  </linearGradient>
+
+  <linearGradient id="edgeBlack" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#777"/>
+    <stop offset="100%" stop-color="#080808"/>
+  </linearGradient>
+
+</defs>
+`;
 
 
-/* =========================================
-   INITIAL BOARD
-========================================= */
+/* =========================================================
+   SVG BUILDER
+   ========================================================= */
 
-const initialBoard = [
+function svg(content,color){
 
-  ["br","bn","bb","bq","bk","bb","bn","br"],
+  const fill = color === "white"
+    ? "url(#brown)"
+    : "url(#black)";
 
-  ["bp","bp","bp","bp","bp","bp","bp","bp"],
+  const edge = color === "white"
+    ? "url(#edgeBrown)"
+    : "url(#edgeBlack)";
 
-  [null,null,null,null,null,null,null,null],
+  return `
+  <svg viewBox="0 0 100 120"
+       xmlns="http://www.w3.org/2000/svg">
 
-  [null,null,null,null,null,null,null,null],
+    ${defs}
 
-  [null,null,null,null,null,null,null,null],
+    <g stroke="${color === "white" ? "#70451f" : "#050505"}"
+       stroke-width="1.3"
+       stroke-linejoin="round">
 
-  [null,null,null,null,null,null,null,null],
+      ${content(fill,edge)}
 
-  ["wp","wp","wp","wp","wp","wp","wp","wp"],
-
-  ["wr","wn","wb","wq","wk","wb","wn","wr"]
-
-];
-
-
-let boardState =
-  JSON.parse(
-    JSON.stringify(initialBoard)
-  );
-
-
-let selectedSquare=null;
-
-let currentTurn="w";
-
-
-/* =========================================
-   PIECE SVG
-========================================= */
-
-function pieceSVG(type,side){
-
-  const main =
-    side==="w"
-      ? "url(#pieceBrown)"
-      : "url(#pieceBlack)";
-
-
-  const accent =
-    side==="w"
-      ? "url(#accentBrown)"
-      : "url(#accentBlack)";
-
-
-  const outline =
-    side==="w"
-      ? "#40230e"
-      : "#000000";
-
-
-  const start=`
-
-    <svg
-      viewBox="0 0 100 120"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-
-      <g
-        filter="url(#pieceShadow)"
-        stroke="${outline}"
-        stroke-width="2"
-        stroke-linejoin="round"
-        stroke-linecap="round"
-      >
-
+    </g>
+  </svg>
   `;
-
-
-  const end=`
-
-      </g>
-
-    </svg>
-
-  `;
-
-
-  /* =====================================
-     PAWN
-  ====================================== */
-
-  if(type==="p"){
-
-    return start+`
-
-      <circle
-        cx="50"
-        cy="27"
-        r="13"
-        fill="${main}"
-      />
-
-
-      <path
-        d="
-          M41 38
-          L59 38
-
-          C58 46 59 51 62 57
-
-          C65 62 65 67 61 73
-
-          L68 89
-
-          L75 96
-
-          L75 104
-
-          C75 109 64 112 50 112
-
-          C36 112 25 109 25 104
-
-          L25 96
-
-          L32 89
-
-          L39 73
-
-          C35 67 35 62 38 57
-
-          C41 51 42 46 41 38
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <ellipse
-        cx="50"
-        cy="73"
-        rx="14"
-        ry="4.5"
-        fill="${accent}"
-      />
-
-
-      <path
-        d="
-          M25 99
-          C37 106 63 106 75 99
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-    `+end;
-
-  }
-
-
-
-  /* =====================================
-     ROOK
-  ====================================== */
-
-  if(type==="r"){
-
-    return start+`
-
-      <path
-        d="
-          M24 40
-
-          L24 20
-          L35 20
-          L35 29
-
-          L44 29
-          L44 20
-
-          L56 20
-          L56 29
-
-          L65 29
-          L65 20
-          L76 20
-
-          L76 40
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <path
-        d="
-          M29 39
-
-          L71 39
-
-          L68 73
-
-          C67 81 70 88 75 94
-
-          L79 99
-          L79 106
-
-          C79 111 66 114 50 114
-
-          C34 114 21 111 21 106
-
-          L21 99
-          L25 94
-
-          C30 88 33 81 32 73
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <path
-        d="
-          M25 40
-          L75 40
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-
-      <path
-        d="
-          M31 51
-          L69 51
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="3"
-      />
-
-
-      <path
-        d="
-          M24 101
-          C36 108 64 108 76 101
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-    `+end;
-
-  }
-
-
-
-  /* =====================================
-     BISHOP
-  ====================================== */
-
-  if(type==="b"){
-
-    return start+`
-
-      <path
-        d="
-          M50 11
-
-          C61 17 66 27 64 37
-
-          C63 44 58 50 56 56
-
-          C55 64 63 76 71 91
-
-          L78 98
-          L78 106
-
-          C78 111 66 114 50 114
-
-          C34 114 22 111 22 106
-
-          L22 98
-          L29 91
-
-          C37 76 45 64 44 56
-
-          C42 50 37 44 36 37
-
-          C34 27 39 17 50 11
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <path
-        d="
-          M50 13
-          L38 43
-          L50 52
-          L62 43
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <path
-        d="
-          M59 22
-          L42 45
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="5"
-      />
-
-
-      <path
-        d="
-          M42 58
-          C47 63 53 63 58 58
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="3"
-      />
-
-
-      <path
-        d="
-          M24 101
-          C35 108 65 108 76 101
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-    `+end;
-
-  }
-
-
-
-  /* =====================================
-     KNIGHT
-  ====================================== */
-
-  if(type==="n"){
-
-    return start+`
-
-      <!-- LEHER KUDA -->
-
-      <path
-        d="
-          M28 104
-
-          C31 96 36 88 38 81
-
-          C41 72 37 65 33 58
-
-          C28 50 26 42 29 35
-
-          C32 25 41 17 53 14
-
-          C59 12 65 13 70 17
-
-          L67 25
-
-          L75 27
-
-          L70 34
-
-          C78 36 83 41 85 46
-
-          L75 51
-
-          L65 49
-
-          C66 58 65 66 60 73
-
-          C55 80 51 83 50 90
-
-          C49 96 54 100 62 104
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <!-- TELINGA -->
-
-      <path
-        d="
-          M48 17
-          L45 5
-          L56 14
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <path
-        d="
-          M59 15
-          L66 5
-          L68 22
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <!-- SURI K / MANE -->
-
-      <path
-        d="
-          M31 34
-
-          C24 44 29 55 36 64
-
-          C42 71 42 78 38 87
-
-          L47 80
-
-          C53 75 56 68 57 61
-
-          C50 57 47 51 46 44
-
-          C45 36 49 28 57 21
-
-          C48 21 38 26 31 34
-
-          Z
-        "
-
-        fill="${accent}"
-      />
-
-
-      <!-- DAHI -->
-
-      <path
-        d="
-          M53 20
-
-          C60 19 66 22 69 27
-
-          L64 34
-          L57 31
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <!-- MONCONG KUDA -->
-
-      <path
-        d="
-          M62 34
-
-          C70 34 79 39 85 46
-
-          C82 50 78 51 74 51
-
-          L63 47
-
-          L58 41
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <!-- HIDUNG -->
-
-      <ellipse
-        cx="79"
-        cy="46"
-        rx="3"
-        ry="2"
-
-        fill="${accent}"
-      />
-
-
-      <!-- MATA -->
-
-      <circle
-        cx="63"
-        cy="30"
-        r="3"
-
-        fill="#080808"
-      />
-
-      <circle
-        cx="64"
-        cy="29"
-        r="1"
-
-        fill="#ffffff"
-
-        stroke="none"
-      />
-
-
-      <!-- RAHANG -->
-
-      <path
-        d="
-          M58 42
-
-          C63 47 65 53 64 59
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="3"
-      />
-
-
-      <!-- DADA -->
-
-      <path
-        d="
-          M39 78
-
-          C44 84 47 92 43 104
-
-          L62 104
-
-          C56 94 54 85 59 76
-
-          C53 81 46 82 39 78
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <path
-        d="
-          M37 62
-
-          C43 68 48 71 54 72
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="3"
-      />
-
-
-      <path
-        d="
-          M22 101
-
-          C34 108 66 108 78 101
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="5"
-      />
-
-    `+end;
-
-  }
-
-
-
-  /* =====================================
-     QUEEN
-  ====================================== */
-
-  if(type==="q"){
-
-    return start+`
-
-      <path
-        d="
-          M24 50
-
-          L19 20
-          L35 34
-
-          L50 11
-
-          L65 34
-          L81 20
-
-          L76 50
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <circle
-        cx="19"
-        cy="20"
-        r="4"
-
-        fill="${accent}"
-      />
-
-
-      <circle
-        cx="50"
-        cy="11"
-        r="4"
-
-        fill="${accent}"
-      />
-
-
-      <circle
-        cx="81"
-        cy="20"
-        r="4"
-
-        fill="${accent}"
-      />
-
-
-      <path
-        d="
-          M31 49
-
-          C35 59 42 64 43 72
-
-          C44 81 38 89 30 95
-
-          L23 99
-          L20 106
-
-          C20 111 34 114 50 114
-
-          C66 114 80 111 80 106
-
-          L77 99
-          L70 95
-
-          C62 89 56 81 57 72
-
-          C58 64 65 59 69 49
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <path
-        d="
-          M27 50
-          L73 50
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-
-      <path
-        d="
-          M30 94
-
-          C41 100 59 100 70 94
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-
-      <path
-        d="
-          M23 103
-
-          C35 110 65 110 77 103
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-    `+end;
-
-  }
-
-
-
-  /* =====================================
-     KING
-  ====================================== */
-
-  if(type==="k"){
-
-    return start+`
-
-      <path
-        d="
-          M32 51
-
-          C35 61 43 66 43 75
-
-          C43 83 37 90 30 96
-
-          L22 100
-          L20 106
-
-          C20 111 34 114 50 114
-
-          C66 114 80 111 80 106
-
-          L78 100
-          L70 96
-
-          C63 90 57 83 57 75
-
-          C57 66 65 61 68 51
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <!-- CROWN -->
-
-      <path
-        d="
-          M33 51
-
-          L33 38
-
-          L43 38
-
-          L43 31
-
-          L57 31
-
-          L57 38
-
-          L67 38
-
-          L67 51
-
-          Z
-        "
-
-        fill="${main}"
-      />
-
-
-      <!-- CROSS -->
-
-      <path
-        d="
-          M44 31
-
-          L44 19
-
-          L39 19
-
-          L39 10
-
-          L44 10
-
-          L44 4
-
-          L56 4
-
-          L56 10
-
-          L61 10
-
-          L61 19
-
-          L56 19
-
-          L56 31
-
-          Z
-        "
-
-        fill="${accent}"
-      />
-
-
-      <path
-        d="
-          M31 51
-          L69 51
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-
-      <path
-        d="
-          M29 95
-
-          C41 102 59 102 71 95
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-
-      <path
-        d="
-          M23 104
-
-          C35 111 65 111 77 104
-        "
-
-        fill="none"
-
-        stroke="${accent}"
-
-        stroke-width="4"
-      />
-
-    `+end;
-
-  }
-
-
-  return "";
-
 }
 
 
+/* =========================================================
+   PAWN
+   KEPALA KECIL + BADAN KLASIK
+   ========================================================= */
 
-/* =========================================
-   CREATE PIECE
-========================================= */
+function pawn(color){
 
-function createPiece(code){
+  return svg((fill,edge)=>`
 
-  if(!code){
-    return null;
-  }
+    <!-- base -->
+    <path fill="${edge}"
+      d="
+      M19 108
+      C20 102 27 98 35 96
+      L38 91
+      L62 91
+      L65 96
+      C73 98 80 102 81 108
+      L81 112
+      L19 112 Z"/>
 
+    <!-- lower body -->
+    <path fill="${fill}"
+      d="
+      M35 96
+      C38 91 41 87 42 81
+      L58 81
+      C59 87 62 91 65 96
+      Z"/>
 
-  const side=code[0];
+    <!-- collar -->
+    <path fill="${edge}"
+      d="
+      M39 82
+      C39 79 42 76 45 74
+      L55 74
+      C58 76 61 79 61 82
+      C57 84 43 84 39 82 Z"/>
 
-  const type=code[1];
+    <!-- body -->
+    <path fill="${fill}"
+      d="
+      M44 74
+      C44 68 46 62 48 57
+      L52 57
+      C54 62 56 68 56 74
+      C54 77 46 77 44 74 Z"/>
 
+    <!-- head -->
+    <circle
+      cx="50"
+      cy="47"
+      r="11"
+      fill="${fill}"/>
 
-  const piece =
-    document.createElement("div");
+    <!-- neck -->
+    <path fill="${edge}"
+      d="
+      M45 57
+      L55 57
+      L56 62
+      L44 62 Z"/>
 
-
-  let pieceClass="piece";
-
-
-  if(type==="p"){
-    pieceClass+=" pawn";
-  }
-
-  if(type==="r"){
-    pieceClass+=" rook";
-  }
-
-  if(type==="n"){
-    pieceClass+=" knight";
-  }
-
-  if(type==="b"){
-    pieceClass+=" bishop";
-  }
-
-  if(type==="q"){
-    pieceClass+=" queen";
-  }
-
-  if(type==="k"){
-    pieceClass+=" king";
-  }
-
-
-  piece.className =
-    pieceClass+
-    " "+
-    (
-      side==="w"
-        ? "white"
-        : "black"
-    );
-
-
-  piece.innerHTML =
-    pieceSVG(
-      type,
-      side
-    );
-
-
-  return piece;
-
+  `);
 }
 
 
+/* =========================================================
+   ROOK
+   MENARA BENTENG KLASIK
+   ========================================================= */
 
-/* =========================================
-   DRAW BOARD
-========================================= */
+function rook(color){
 
-function drawBoard(){
+  return svg((fill,edge)=>`
 
-  const board =
-    document.getElementById(
-      "board"
-    );
+    <!-- wide bottom -->
+    <path fill="${edge}"
+      d="
+      M14 108
+      C14 103 20 99 28 97
+      L31 92
+      L69 92
+      L72 97
+      C80 99 86 103 86 108
+      L86 112
+      L14 112 Z"/>
 
+    <!-- lower ring -->
+    <path fill="${fill}"
+      d="
+      M27 96
+      L30 88
+      L70 88
+      L73 96
+      Z"/>
 
-  board.innerHTML="";
+    <!-- tower body -->
+    <path fill="${fill}"
+      d="
+      M32 88
+      L35 52
+      L65 52
+      L68 88
+      Z"/>
 
+    <!-- tower middle ring -->
+    <path fill="${edge}"
+      d="
+      M32 83
+      L68 83
+      L70 89
+      L30 89 Z"/>
 
-  const files=[
-    "a","b","c","d",
-    "e","f","g","h"
-  ];
+    <!-- top rim -->
+    <path fill="${edge}"
+      d="
+      M28 51
+      L28 43
+      L36 43
+      L36 48
+      L44 48
+      L44 42
+      L56 42
+      L56 48
+      L64 48
+      L64 43
+      L72 43
+      L72 51
+      Z"/>
 
+    <!-- top surface -->
+    <path fill="${fill}"
+      d="
+      M28 43
+      L36 43
+      L36 47
+      L44 47
+      L44 42
+      L56 42
+      L56 47
+      L64 47
+      L64 43
+      L72 43
+      L72 38
+      L28 38 Z"/>
 
-  for(
-    let row=0;
-    row<8;
-    row++
-  ){
+    <!-- crenellations -->
+    <path fill="${edge}"
+      d="
+      M28 38
+      L28 28
+      L37 28
+      L37 35
+      L45 35
+      L45 28
+      L55 28
+      L55 35
+      L63 35
+      L63 28
+      L72 28
+      L72 38
+      Z"/>
 
-    for(
-      let col=0;
-      col<8;
-      col++
-    ){
-
-      const square =
-        document.createElement(
-          "div"
-        );
-
-
-      square.className =
-        "square "+
-        (
-          (row+col)%2===0
-            ? "light"
-            : "dark"
-        );
-
-
-      square.dataset.row=row;
-
-      square.dataset.col=col;
-
-
-      /* FILE */
-
-      if(row===7){
-
-        const file =
-          document.createElement(
-            "span"
-          );
-
-
-        file.className=
-          "coord-file";
-
-
-        file.textContent=
-          files[col];
-
-
-        square.appendChild(file);
-
-      }
-
-
-      /* RANK */
-
-      if(col===0){
-
-        const rank =
-          document.createElement(
-            "span"
-          );
-
-
-        rank.className=
-          "coord-rank";
-
-
-        rank.textContent=
-          8-row;
-
-
-        square.appendChild(rank);
-
-      }
-
-
-      /* PIECE */
-
-      const code =
-        boardState[row][col];
-
-
-      if(code){
-
-        const piece =
-          createPiece(code);
-
-
-        square.appendChild(
-          piece
-        );
-
-      }
-
-
-      square.addEventListener(
-        "click",
-        function(){
-
-          handleSquareClick(
-            row,
-            col
-          );
-
-        }
-      );
-
-
-      board.appendChild(
-        square
-      );
-
-    }
-
-  }
-
-
-  updateSelection();
-
+  `);
 }
 
 
-
-/* =========================================
-   CLICK / MOVE
-========================================= */
-
-function handleSquareClick(
-  row,
-  col
-){
-
-  const target =
-    boardState[row][col];
-
-
-  if(!selectedSquare){
-
-    if(
-      target &&
-      target[0]===currentTurn
-    ){
-
-      selectedSquare={
-        row:row,
-        col:col
-      };
-
-
-      updateSelection();
-
-
-      setStatus(
-        "Pilih kotak tujuan"
-      );
-
-    }
-
-    return;
-
-  }
-
-
-  if(
-    target &&
-    target[0]===currentTurn
-  ){
-
-    selectedSquare={
-      row:row,
-      col:col
-    };
-
-
-    updateSelection();
-
-    return;
-
-  }
-
-
-  boardState[row][col]=
-    boardState[
-      selectedSquare.row
-    ][selectedSquare.col];
-
-
-  boardState[
-    selectedSquare.row
-  ][selectedSquare.col]=null;
-
-
-  selectedSquare=null;
-
-
-  currentTurn =
-    currentTurn==="w"
-      ? "b"
-      : "w";
-
-
-  drawBoard();
-
-
-  setStatus(
-    currentTurn==="w"
-      ? "Giliran <strong>Putih</strong>"
-      : "Giliran <strong>Hitam</strong>"
-  );
-
-}
-
-
-
-/* =========================================
-   SELECTION
-========================================= */
-
-function updateSelection(){
-
-  const squares =
-    document.querySelectorAll(
-      ".square"
-    );
-
-
-  squares.forEach(
-    function(square){
-
-      square.classList.remove(
-        "selected",
-        "possible",
-        "capture"
-      );
-
-
-      if(!selectedSquare){
-        return;
-      }
-
-
-      const row =
-        Number(
-          square.dataset.row
-        );
-
-
-      const col =
-        Number(
-          square.dataset.col
-        );
-
-
-      if(
-        row===selectedSquare.row &&
-        col===selectedSquare.col
-      ){
-
-        square.classList.add(
-          "selected"
-        );
-
-        return;
-
-      }
-
-
-      const target =
-        boardState[row][col];
-
-
-      const distance =
-        Math.abs(
-          row-selectedSquare.row
-        )
-        +
-        Math.abs(
-          col-selectedSquare.col
-        );
-
-
-      if(
-        !target &&
-        distance<=2
-      ){
-
-        square.classList.add(
-          "possible"
-        );
-
-      }
-
-
-      if(
-        target &&
-        target[0]!==currentTurn
-      ){
-
-        square.classList.add(
-          "capture"
-        );
-
-      }
-
-    }
-  );
-
-}
-
-
-
-/* =========================================
-   STATUS
-========================================= */
-
-function setStatus(text){
-
-  document.getElementById(
-    "status"
-  ).innerHTML=text;
-
-}
-
-
-
-/* =========================================
-   NEW GAME
-========================================= */
-
-function newGame(){
-
-  boardState =
-    JSON.parse(
-      JSON.stringify(
-        initialBoard
-      )
-    );
-
-
-  selectedSquare=null;
-
-  currentTurn="w";
-
-
-  mySeconds=600;
-
-  enemySeconds=600;
-
-
-  updateTimer(
-    "myTimer",
-    mySeconds
-  );
-
-
-  updateTimer(
-    "enemyTimer",
-    enemySeconds
-  );
-
-
-  drawBoard();
-
-
-  setStatus(
-    "Game baru dimulai — giliran <strong>Putih</strong>"
-  );
-
-}
-
-
-
-/* =========================================
-   FIND OPPONENT
-========================================= */
-
-function findOpponent(){
-
-  setStatus(
-    "⚔ <strong>Mencari lawan...</strong>"
-  );
-
-
-  setTimeout(
-    function(){
-
-      setStatus(
-        "Lawan belum tersedia — mode demo aktif"
-      );
-
-    },
-    1800
-  );
-
-}
-
-
-
-/* =========================================
-   TIMER
-========================================= */
-
-let mySeconds=600;
-
-let enemySeconds=600;
-
-
-setInterval(
-  function(){
-
-    if(currentTurn==="w"){
-
-      if(mySeconds>0){
-        mySeconds--;
-      }
-
-
-      updateTimer(
-        "myTimer",
-        mySeconds
-      );
-
-    }
-    else{
-
-      if(enemySeconds>0){
-        enemySeconds--;
-      }
-
-
-      updateTimer(
-        "enemyTimer",
-        enemySeconds
-      );
-
-    }
-
-  },
-  1000
-);
-
-
-
-function updateTimer(
-  id,
-  seconds
-){
-
-  const minutes =
-    Math.floor(
-      seconds/60
-    );
-
-
-  const secs =
-    seconds%60;
-
-
-  document.getElementById(
-    id
-  ).textContent =
-    String(minutes)
-      .padStart(2,"0")
-    +
-    ":"
-    +
-    String(secs)
-      .padStart(2,"0");
-
-}
-
-
-
-/* =========================================
-   START
-========================================= */
-
-drawBoard();
-
-</script>
-
-</body>
-</html>
+/* =========================================================
+   KNIGHT
+   PROFIL KUDA YANG JELAS
+   ========================================================= */
+
+function knight(color){
+
+  return svg((fill,edge)=>`
+
+    <!-- large classical base -->
+    <path fill="${edge}"
+      d="
+      M13 108
+      C14 103 21 99 29 97
+      L34 91
+      L68 91
+      L73 97
+      C81 99 87 103 88 108
+      L88 112
+      L13 112 Z"/>
+
+    <!-- neck -->
+    <path fill="${fill}"
+      d="
+      M32 94
+      C34 84 35 75 34 65
+      C33 56 30 48 31 40
+      L43 28
+      L57 34
+      C58 45 57 56 59 66
+      C61 76 67 84 70 94
+      Z"/>
+
+    <!-- horse head -->
+    <path fill="${fill}"
+      d="
+      M34 66
+      C28 59 25 51 26 43
+      C27 36 32 30 38 26
+
+      L34 14
+      L45 20
+
+      C50 17 57 20 61 25
+
+      L70 27
+      L65 34
+
+      L77 41
+      L69 48
+
+      L74 55
+      C65 60 57 64 48 67
+      Z"/>
+
+    <!-- horse ear -->
+    <path fill="${edge}"
+      d="
+      M38 27
+      L34 14
+      L44 20
+      Z"/>
+
+    <!-- second ear -->
+    <path fill="${fill}"
+      d="
+      M50 23
+      L53 12
+      L61 25
+      Z"/>
+
+    <!-- muzzle -->
+    <path fill="${edge}"
+      d="
+      M61 35
+      C68 36 75 40 79 44
+      C76 49 70 52 65 51
+      L59 46
+      Z"/>
+
+    <!-- jaw -->
+    <path fill="${edge}"
+      d="
+      M34 53
+      C40 60 50 62 61 58
+      C58 66 49 70 40 67
+      Z"/>
+
+    <!-- mane -->
+    <path fill="${edge}"
+      d="
+      M34 30
+      C29
