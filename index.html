@@ -41,9 +41,7 @@ body {
         );
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 .header {
     display: flex;
@@ -81,45 +79,29 @@ body {
     box-shadow: 0 0 8px rgba(75,211,123,.7);
 }
 
-/* =========================
-   PLAYER
-========================= */
+/* PLAYER */
 
 .player {
     display: flex;
     align-items: center;
     gap: 10px;
-
     padding: 11px 12px;
     margin-bottom: 10px;
-
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 14px;
-
     background: rgba(255,255,255,.055);
 }
 
 .player-avatar {
     width: 42px;
     height: 42px;
-
     border-radius: 50%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
     font-size: 21px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #3d4652,
-            #171b21
-        );
-
+    background: linear-gradient(145deg,#3d4652,#171b21);
     border: 1px solid rgba(255,255,255,.13);
 }
 
@@ -131,7 +113,6 @@ body {
 .player-name {
     font-size: 14px;
     font-weight: 800;
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -139,44 +120,30 @@ body {
 
 .player-rating {
     margin-top: 3px;
-
     font-size: 11px;
     color: #9ba5b1;
 }
 
 .timer {
     min-width: 75px;
-
     text-align: center;
-
     padding: 7px 10px;
-
     border-radius: 9px;
-
     background: #0c1015;
-
     border: 1px solid rgba(255,255,255,.08);
-
     font-size: 18px;
     font-weight: 900;
-
     font-variant-numeric: tabular-nums;
 }
 
-/* =========================
-   BOARD
-========================= */
+/* BOARD */
 
 .board-wrap {
     width: 100%;
     padding: 7px;
-
     border-radius: 17px;
-
     background: #171c22;
-
     border: 1px solid rgba(255,255,255,.09);
-
     box-shadow:
         0 18px 45px rgba(0,0,0,.45),
         inset 0 0 0 1px rgba(255,255,255,.025);
@@ -185,132 +152,91 @@ body {
 .board {
     width: 100%;
     aspect-ratio: 1 / 1;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(8, minmax(0, 1fr));
-
-    grid-template-rows:
-        repeat(8, minmax(0, 1fr));
-
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-rows: repeat(8, minmax(0, 1fr));
     overflow: hidden;
-
     border-radius: 9px;
-
     background: #999;
 }
 
-/* =========================
-   SQUARE
-========================= */
+/* SQUARE */
 
 .square {
     position: relative;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     overflow: hidden;
-
     border: 1px solid rgba(50,55,60,.28);
 }
-
-/* PUTIH */
 
 .square.light {
     background: #f1f1ed;
 }
 
-/* ABU-ABU */
-
 .square.dark {
     background: #a8adb2;
 }
 
-/* =========================
-   CHESS PIECES
-========================= */
+/* PIECES */
 
 .piece {
     width: 88%;
     height: 88%;
-
     object-fit: contain;
     object-position: center;
-
     display: block;
-
     user-select: none;
     pointer-events: none;
 
     filter:
-        drop-shadow(
-            0 2px 1px rgba(0,0,0,.25)
-        )
-        drop-shadow(
-            0 4px 3px rgba(0,0,0,.15)
-        );
+        drop-shadow(0 2px 1px rgba(0,0,0,.25))
+        drop-shadow(0 4px 3px rgba(0,0,0,.15));
 }
 
-/* =========================
-   BIDAK COKLAT MUDA
-========================= */
+/*
+   BIDAK PUTIH
+   COKLAT MUDA
+*/
 
 .white-piece {
     filter:
         sepia(1)
-        saturate(1.8)
-        hue-rotate(350deg)
-        brightness(.92)
-        contrast(1.15)
-        drop-shadow(
-            0 2px 1px rgba(0,0,0,.30)
-        )
-        drop-shadow(
-            0 4px 3px rgba(0,0,0,.18)
-        );
+        saturate(2.2)
+        hue-rotate(345deg)
+        brightness(1.05)
+        contrast(1.05)
+        drop-shadow(0 3px 2px rgba(0,0,0,.30))
+        drop-shadow(0 5px 4px rgba(0,0,0,.18));
 }
 
-/* =========================
+/*
    BIDAK HITAM
-========================= */
+*/
 
 .black-piece {
     filter:
         brightness(.10)
         contrast(1.25)
-        drop-shadow(
-            0 2px 1px rgba(255,255,255,.08)
-        )
-        drop-shadow(
-            0 4px 4px rgba(0,0,0,.35)
-        );
+        drop-shadow(0 2px 1px rgba(255,255,255,.08))
+        drop-shadow(0 4px 4px rgba(0,0,0,.35));
 }
 
-/* =========================
-   PAWN LEBIH KECIL
-========================= */
+/* PAWN */
 
 .pawn {
     width: 72%;
     height: 72%;
 }
 
-/* =========================
-   COORDINATES
-========================= */
+/* COORDINATES */
 
 .coord {
     position: absolute;
-
     font-size: 7px;
     font-weight: 700;
-
     opacity: .42;
-
     pointer-events: none;
 }
 
@@ -324,48 +250,31 @@ body {
     bottom: 2px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTONS */
 
 .controls {
     display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
+    grid-template-columns: 1fr 1fr;
     gap: 9px;
-
     margin-top: 12px;
 }
 
 .btn {
     border: 0;
-
     border-radius: 12px;
-
     padding: 13px 10px;
-
     color: #ffffff;
-
     font-size: 13px;
     font-weight: 800;
-
     cursor: pointer;
 }
 
 .btn-primary {
-    background:
-        linear-gradient(
-            145deg,
-            #c18b4d,
-            #8f5e29
-        );
+    background: linear-gradient(145deg,#c18b4d,#8f5e29);
 }
 
 .btn-secondary {
     background: #252c34;
-
     border: 1px solid rgba(255,255,255,.08);
 }
 
@@ -373,25 +282,16 @@ body {
     transform: scale(.98);
 }
 
-/* =========================
-   STATUS
-========================= */
+/* STATUS */
 
 .status {
     margin-top: 11px;
-
     padding: 11px 13px;
-
     border-radius: 12px;
-
     background: rgba(255,255,255,.045);
-
     border: 1px solid rgba(255,255,255,.07);
-
     text-align: center;
-
     font-size: 11px;
-
     color: #9da7b3;
 }
 
@@ -399,9 +299,7 @@ body {
     color: #d8a967;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media (max-width: 380px) {
 
@@ -416,13 +314,11 @@ body {
     .player-avatar {
         width: 37px;
         height: 37px;
-
         font-size: 18px;
     }
 
     .timer {
         min-width: 66px;
-
         font-size: 16px;
     }
 }
@@ -433,9 +329,7 @@ body {
 
 <div class="app">
 
-    <!-- =====================
-         HEADER
-    ====================== -->
+    <!-- HEADER -->
 
     <div class="header">
 
@@ -444,19 +338,14 @@ body {
         </div>
 
         <div class="online">
-
             <span class="online-dot"></span>
-
             ONLINE
-
         </div>
 
     </div>
 
 
-    <!-- =====================
-         OPPONENT
-    ====================== -->
+    <!-- OPPONENT -->
 
     <div class="player">
 
@@ -483,18 +372,13 @@ body {
     </div>
 
 
-    <!-- =====================
-         CHESS BOARD
-    ====================== -->
+    <!-- BOARD -->
 
     <div class="board-wrap">
 
         <div class="board">
 
-
-            <!-- =================
-                 RANK 8
-            ================== -->
+            <!-- RANK 8 -->
 
             <div class="square light">
 
@@ -508,63 +392,6 @@ body {
 
             </div>
 
-
             <div class="square dark">
 
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg"
-                    alt="Black Knight"
-                >
-
-            </div>
-
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg"
-                    alt="Black Bishop"
-                >
-
-            </div>
-
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/queen.svg"
-                    alt="Black Queen"
-                >
-
-            </div>
-
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/king.svg"
-                    alt="Black King"
-                >
-
-            </div>
-
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg"
-                    alt="Black Bishop"
-                >
-
-            </div>
-
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece
+        
