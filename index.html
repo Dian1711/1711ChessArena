@@ -17,22 +17,26 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html,
+body{
   margin:0;
   padding:0;
   min-height:100%;
   font-family:Arial,Helvetica,sans-serif;
+
   background:
-    radial-gradient(circle at top,#303030 0%,#141414 48%,#050505 100%);
+    radial-gradient(
+      circle at top,
+      #303030 0%,
+      #141414 48%,
+      #050505 100%
+    );
+
   color:#fff;
 }
 
 body{
   min-height:100vh;
-}
-
-button{
-  font-family:inherit;
 }
 
 
@@ -76,7 +80,11 @@ button{
   border-radius:13px;
 
   background:
-    linear-gradient(145deg,#c69a68,#704722);
+    linear-gradient(
+      145deg,
+      #c69a68,
+      #704722
+    );
 
   box-shadow:
     0 0 18px rgba(190,140,80,.35),
@@ -92,9 +100,13 @@ button{
 
 .brand-sub{
   margin-top:2px;
+
   color:#999;
+
   font-size:10px;
+
   letter-spacing:1.2px;
+
   text-transform:uppercase;
 }
 
@@ -108,9 +120,11 @@ button{
   border-radius:20px;
 
   background:#181818;
+
   border:1px solid #3c3c3c;
 
   color:#aaa;
+
   font-size:11px;
 }
 
@@ -122,7 +136,8 @@ button{
 
   background:#43dc80;
 
-  box-shadow:0 0 9px #43dc80;
+  box-shadow:
+    0 0 9px #43dc80;
 }
 
 
@@ -132,6 +147,7 @@ button{
 
 .player{
   display:flex;
+
   justify-content:space-between;
   align-items:center;
 
@@ -140,7 +156,11 @@ button{
   border-radius:16px;
 
   background:
-    linear-gradient(145deg,#272727,#101010);
+    linear-gradient(
+      145deg,
+      #272727,
+      #101010
+    );
 
   border:1px solid #3b3b3b;
 
@@ -166,7 +186,11 @@ button{
   border-radius:14px;
 
   background:
-    linear-gradient(145deg,#805c3b,#2f2116);
+    linear-gradient(
+      145deg,
+      #805c3b,
+      #2f2116
+    );
 
   border:2px solid #b88957;
 
@@ -175,7 +199,11 @@ button{
 
 .avatar.enemy{
   background:
-    linear-gradient(145deg,#333,#080808);
+    linear-gradient(
+      145deg,
+      #333,
+      #080808
+    );
 
   border-color:#555;
 }
@@ -187,7 +215,9 @@ button{
 
 .player-rating{
   margin-top:4px;
+
   color:#999;
+
   font-size:11px;
 }
 
@@ -234,7 +264,11 @@ button{
   border-radius:18px;
 
   background:
-    linear-gradient(145deg,#3b3b3b,#111);
+    linear-gradient(
+      145deg,
+      #3b3b3b,
+      #111
+    );
 
   border:1px solid #505050;
 
@@ -255,8 +289,11 @@ button{
 
   display:grid;
 
-  grid-template-columns:repeat(8,minmax(0,1fr));
-  grid-template-rows:repeat(8,minmax(0,1fr));
+  grid-template-columns:
+    repeat(8,minmax(0,1fr));
+
+  grid-template-rows:
+    repeat(8,minmax(0,1fr));
 
   overflow:hidden;
 
@@ -280,6 +317,7 @@ button{
   height:100%;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -289,6 +327,7 @@ button{
   border:1px solid rgba(70,70,70,.65);
 
   cursor:pointer;
+
   user-select:none;
 }
 
@@ -338,9 +377,6 @@ button{
 
   background:#5d9c62;
 
-  box-shadow:
-    0 0 5px rgba(0,0,0,.3);
-
   z-index:1;
 }
 
@@ -369,6 +405,7 @@ button{
   position:absolute;
 
   font-size:8px;
+
   font-weight:900;
 
   opacity:.62;
@@ -400,14 +437,12 @@ button{
 
 
 /* =========================================
-   PIECES
+   PIECE BASE
 ========================================= */
 
 .piece{
-  width:92%;
-  height:94%;
-
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -416,62 +451,109 @@ button{
   z-index:3;
 
   pointer-events:none;
+
+  flex:none;
+}
+
+.piece svg{
+  display:block;
+
+  overflow:visible;
+
+  max-width:none;
+  max-height:none;
 }
 
 
-/* PAWN LEBIH KECIL */
+/* =========================================
+   UKURAN BIDAK PER JENIS
+========================================= */
+
+/*
+   Semua ukuran sekarang dihitung langsung
+   terhadap kotak catur.
+*/
+
+
+/* PAWN
+   benar-benar kecil
+*/
 
 .piece.pawn{
-  width:73%;
-  height:79%;
+  width:58% !important;
+  height:67% !important;
+}
+
+.piece.pawn svg{
+  width:100% !important;
+  height:100% !important;
 }
 
 
-/* ROOK / BENTENG LEBIH KECIL */
+/* ROOK / BENTENG
+   lebih kecil dari sebelumnya
+*/
 
 .piece.rook{
-  width:79%;
-  height:84%;
+  width:67% !important;
+  height:76% !important;
+}
+
+.piece.rook svg{
+  width:100% !important;
+  height:100% !important;
 }
 
 
 /* KNIGHT */
 
 .piece.knight{
-  width:91%;
-  height:93%;
+  width:88% !important;
+  height:90% !important;
+}
+
+.piece.knight svg{
+  width:100% !important;
+  height:100% !important;
 }
 
 
 /* BISHOP */
 
 .piece.bishop{
-  width:88%;
-  height:94%;
+  width:82% !important;
+  height:91% !important;
+}
+
+.piece.bishop svg{
+  width:100% !important;
+  height:100% !important;
 }
 
 
 /* QUEEN */
 
 .piece.queen{
-  width:91%;
-  height:95%;
+  width:88% !important;
+  height:93% !important;
+}
+
+.piece.queen svg{
+  width:100% !important;
+  height:100% !important;
 }
 
 
 /* KING */
 
 .piece.king{
-  width:89%;
-  height:96%;
+  width:86% !important;
+  height:94% !important;
 }
 
-
-.piece svg{
-  width:100%;
-  height:100%;
-
-  overflow:visible;
+.piece.king svg{
+  width:100% !important;
+  height:100% !important;
 }
 
 
@@ -526,6 +608,7 @@ button{
   color:#fff;
 
   font-size:13px;
+
   font-weight:900;
 
   cursor:pointer;
@@ -541,12 +624,20 @@ button{
 
 .btn-brown{
   background:
-    linear-gradient(145deg,#c28c52,#70451f);
+    linear-gradient(
+      145deg,
+      #c28c52,
+      #70451f
+    );
 }
 
 .btn-dark{
   background:
-    linear-gradient(145deg,#4a4a4a,#171717);
+    linear-gradient(
+      145deg,
+      #4a4a4a,
+      #171717
+    );
 
   border:1px solid #555;
 }
@@ -561,7 +652,8 @@ button{
 
   display:grid;
 
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:
+    repeat(3,1fr);
 
   gap:8px;
 }
@@ -611,19 +703,34 @@ button{
     padding:5px;
   }
 
-  .piece{
-    width:91%;
-    height:93%;
-  }
-
   .piece.pawn{
-    width:70%;
-    height:76%;
+    width:55% !important;
+    height:64% !important;
   }
 
   .piece.rook{
-    width:76%;
-    height:81%;
+    width:64% !important;
+    height:73% !important;
+  }
+
+  .piece.knight{
+    width:86% !important;
+    height:88% !important;
+  }
+
+  .piece.bishop{
+    width:80% !important;
+    height:89% !important;
+  }
+
+  .piece.queen{
+    width:86% !important;
+    height:91% !important;
+  }
+
+  .piece.king{
+    width:84% !important;
+    height:92% !important;
   }
 
   .timer{
@@ -641,7 +748,7 @@ button{
 
 
 /* =========================================
-   SVG SHADOW / GRADIENT
+   SVG GRADIENTS
 ========================================= */
 
 </style>
@@ -653,7 +760,9 @@ button{
 <main class="app">
 
 
-<!-- HEADER -->
+<!-- =====================================
+     HEADER
+====================================== -->
 
 <header class="header">
 
@@ -690,7 +799,9 @@ button{
 
 
 
-<!-- OPPONENT -->
+<!-- =====================================
+     OPPONENT
+====================================== -->
 
 <section class="player">
 
@@ -726,7 +837,9 @@ button{
 
 
 
-<!-- BOARD -->
+<!-- =====================================
+     BOARD
+====================================== -->
 
 <section class="board-area">
 
@@ -739,7 +852,9 @@ button{
 
 
 
-<!-- PLAYER -->
+<!-- =====================================
+     PLAYER
+====================================== -->
 
 <section class="player">
 
@@ -872,11 +987,30 @@ button{
     y2="100%"
   >
 
-    <stop offset="0%" stop-color="#f3d6a4"/>
-    <stop offset="20%" stop-color="#d6ad76"/>
-    <stop offset="45%" stop-color="#b77e45"/>
-    <stop offset="72%" stop-color="#87562d"/>
-    <stop offset="100%" stop-color="#4e2c16"/>
+    <stop
+      offset="0%"
+      stop-color="#f3d6a4"
+    />
+
+    <stop
+      offset="20%"
+      stop-color="#d6ad76"
+    />
+
+    <stop
+      offset="45%"
+      stop-color="#b77e45"
+    />
+
+    <stop
+      offset="72%"
+      stop-color="#87562d"
+    />
+
+    <stop
+      offset="100%"
+      stop-color="#4e2c16"
+    />
 
   </linearGradient>
 
@@ -889,11 +1023,30 @@ button{
     y2="100%"
   >
 
-    <stop offset="0%" stop-color="#777777"/>
-    <stop offset="20%" stop-color="#4b4b4b"/>
-    <stop offset="45%" stop-color="#292929"/>
-    <stop offset="72%" stop-color="#111111"/>
-    <stop offset="100%" stop-color="#020202"/>
+    <stop
+      offset="0%"
+      stop-color="#777777"
+    />
+
+    <stop
+      offset="20%"
+      stop-color="#4b4b4b"
+    />
+
+    <stop
+      offset="45%"
+      stop-color="#292929"
+    />
+
+    <stop
+      offset="72%"
+      stop-color="#111111"
+    />
+
+    <stop
+      offset="100%"
+      stop-color="#020202"
+    />
 
   </linearGradient>
 
@@ -906,9 +1059,20 @@ button{
     y2="100%"
   >
 
-    <stop offset="0%" stop-color="#ffe7b5"/>
-    <stop offset="50%" stop-color="#c99454"/>
-    <stop offset="100%" stop-color="#693d1b"/>
+    <stop
+      offset="0%"
+      stop-color="#ffe7b5"
+    />
+
+    <stop
+      offset="50%"
+      stop-color="#c99454"
+    />
+
+    <stop
+      offset="100%"
+      stop-color="#693d1b"
+    />
 
   </linearGradient>
 
@@ -921,9 +1085,20 @@ button{
     y2="100%"
   >
 
-    <stop offset="0%" stop-color="#a7a7a7"/>
-    <stop offset="50%" stop-color="#555555"/>
-    <stop offset="100%" stop-color="#151515"/>
+    <stop
+      offset="0%"
+      stop-color="#a7a7a7"
+    />
+
+    <stop
+      offset="50%"
+      stop-color="#555555"
+    />
+
+    <stop
+      offset="100%"
+      stop-color="#151515"
+    />
 
   </linearGradient>
 
@@ -991,7 +1166,6 @@ let selectedSquare=null;
 let currentTurn="w";
 
 
-
 /* =========================================
    PIECE SVG
 ========================================= */
@@ -999,22 +1173,24 @@ let currentTurn="w";
 function pieceSVG(type,side){
 
   const main =
-    side === "w"
+    side==="w"
       ? "url(#pieceBrown)"
       : "url(#pieceBlack)";
 
+
   const accent =
-    side === "w"
+    side==="w"
       ? "url(#accentBrown)"
       : "url(#accentBlack)";
 
+
   const outline =
-    side === "w"
+    side==="w"
       ? "#40230e"
       : "#000000";
 
 
-  const start = `
+  const start=`
 
     <svg
       viewBox="0 0 100 120"
@@ -1032,7 +1208,7 @@ function pieceSVG(type,side){
   `;
 
 
-  const end = `
+  const end=`
 
       </g>
 
@@ -1041,14 +1217,13 @@ function pieceSVG(type,side){
   `;
 
 
-
   /* =====================================
      PAWN
   ====================================== */
 
   if(type==="p"){
 
-    return start + `
+    return start+`
 
       <circle
         cx="50"
@@ -1089,6 +1264,7 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${main}"
       />
 
@@ -1103,13 +1279,19 @@ function pieceSVG(type,side){
 
 
       <path
-        d="M25 99 C37 106 63 106 75 99"
+        d="
+          M25 99
+          C37 106 63 106 75 99
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
-    ` + end;
+    `+end;
 
   }
 
@@ -1121,9 +1303,7 @@ function pieceSVG(type,side){
 
   if(type==="r"){
 
-    return start + `
-
-      <!-- battlements -->
+    return start+`
 
       <path
         d="
@@ -1141,17 +1321,16 @@ function pieceSVG(type,side){
 
           L65 29
           L65 20
-
           L76 20
+
           L76 40
 
           Z
         "
+
         fill="${main}"
       />
 
-
-      <!-- tower -->
 
       <path
         d="
@@ -1177,34 +1356,53 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${main}"
       />
 
 
       <path
-        d="M25 40 L75 40"
+        d="
+          M25 40
+          L75 40
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
 
       <path
-        d="M31 51 L69 51"
+        d="
+          M31 51
+          L69 51
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="3"
       />
 
 
       <path
-        d="M24 101 C36 108 64 108 76 101"
+        d="
+          M24 101
+          C36 108 64 108 76 101
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
-    ` + end;
+    `+end;
 
   }
 
@@ -1216,7 +1414,7 @@ function pieceSVG(type,side){
 
   if(type==="b"){
 
-    return start + `
+    return start+`
 
       <path
         d="
@@ -1246,6 +1444,7 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${main}"
       />
 
@@ -1258,34 +1457,53 @@ function pieceSVG(type,side){
           L62 43
           Z
         "
+
         fill="${main}"
       />
 
 
       <path
-        d="M59 22 L42 45"
+        d="
+          M59 22
+          L42 45
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="5"
       />
 
 
       <path
-        d="M42 58 C47 63 53 63 58 58"
+        d="
+          M42 58
+          C47 63 53 63 58 58
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="3"
       />
 
 
       <path
-        d="M24 101 C35 108 65 108 76 101"
+        d="
+          M24 101
+          C35 108 65 108 76 101
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
-    ` + end;
+    `+end;
 
   }
 
@@ -1297,9 +1515,9 @@ function pieceSVG(type,side){
 
   if(type==="n"){
 
-    return start + `
+    return start+`
 
-      <!-- thick horse neck -->
+      <!-- LEHER KUDA -->
 
       <path
         d="
@@ -1335,11 +1553,12 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${main}"
       />
 
 
-      <!-- rear ear -->
+      <!-- TELINGA -->
 
       <path
         d="
@@ -1348,11 +1567,10 @@ function pieceSVG(type,side){
           L56 14
           Z
         "
+
         fill="${main}"
       />
 
-
-      <!-- front ear -->
 
       <path
         d="
@@ -1361,11 +1579,12 @@ function pieceSVG(type,side){
           L68 22
           Z
         "
+
         fill="${main}"
       />
 
 
-      <!-- mane -->
+      <!-- SURI K / MANE -->
 
       <path
         d="
@@ -1387,25 +1606,30 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${accent}"
       />
 
 
-      <!-- forehead -->
+      <!-- DAHI -->
 
       <path
         d="
           M53 20
+
           C60 19 66 22 69 27
+
           L64 34
           L57 31
+
           Z
         "
+
         fill="${main}"
       />
 
 
-      <!-- muzzle -->
+      <!-- MONCONG KUDA -->
 
       <path
         d="
@@ -1416,31 +1640,35 @@ function pieceSVG(type,side){
           C82 50 78 51 74 51
 
           L63 47
+
           L58 41
 
           Z
         "
+
         fill="${main}"
       />
 
 
-      <!-- nostril -->
+      <!-- HIDUNG -->
 
       <ellipse
         cx="79"
         cy="46"
         rx="3"
         ry="2"
+
         fill="${accent}"
       />
 
 
-      <!-- eye -->
+      <!-- MATA -->
 
       <circle
         cx="63"
         cy="30"
         r="3"
+
         fill="#080808"
       />
 
@@ -1448,25 +1676,31 @@ function pieceSVG(type,side){
         cx="64"
         cy="29"
         r="1"
+
         fill="#ffffff"
+
         stroke="none"
       />
 
 
-      <!-- jaw -->
+      <!-- RAHANG -->
 
       <path
         d="
           M58 42
+
           C63 47 65 53 64 59
         "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="3"
       />
 
 
-      <!-- chest -->
+      <!-- DADA -->
 
       <path
         d="
@@ -1482,31 +1716,41 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${main}"
       />
 
 
-      <!-- chest highlight -->
-
       <path
         d="
           M37 62
+
           C43 68 48 71 54 72
         "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="3"
       />
 
 
       <path
-        d="M22 101 C34 108 66 108 78 101"
+        d="
+          M22 101
+
+          C34 108 66 108 78 101
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="5"
       />
 
-    ` + end;
+    `+end;
 
   }
 
@@ -1518,7 +1762,7 @@ function pieceSVG(type,side){
 
   if(type==="q"){
 
-    return start + `
+    return start+`
 
       <path
         d="
@@ -1536,6 +1780,7 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${main}"
       />
 
@@ -1544,20 +1789,25 @@ function pieceSVG(type,side){
         cx="19"
         cy="20"
         r="4"
+
         fill="${accent}"
       />
+
 
       <circle
         cx="50"
         cy="11"
         r="4"
+
         fill="${accent}"
       />
+
 
       <circle
         cx="81"
         cy="20"
         r="4"
+
         fill="${accent}"
       />
 
@@ -1586,34 +1836,55 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${main}"
       />
 
 
       <path
-        d="M27 50 L73 50"
+        d="
+          M27 50
+          L73 50
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
 
       <path
-        d="M30 94 C41 100 59 100 70 94"
+        d="
+          M30 94
+
+          C41 100 59 100 70 94
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
 
       <path
-        d="M23 103 C35 110 65 110 77 103"
+        d="
+          M23 103
+
+          C35 110 65 110 77 103
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
-    ` + end;
+    `+end;
 
   }
 
@@ -1625,7 +1896,7 @@ function pieceSVG(type,side){
 
   if(type==="k"){
 
-    return start + `
+    return start+`
 
       <path
         d="
@@ -1651,33 +1922,39 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${main}"
       />
 
 
-      <!-- crown -->
+      <!-- CROWN -->
 
       <path
         d="
           M33 51
+
           L33 38
 
           L43 38
+
           L43 31
 
           L57 31
+
           L57 38
 
           L67 38
+
           L67 51
 
           Z
         "
+
         fill="${main}"
       />
 
 
-      <!-- cross -->
+      <!-- CROSS -->
 
       <path
         d="
@@ -1707,34 +1984,55 @@ function pieceSVG(type,side){
 
           Z
         "
+
         fill="${accent}"
       />
 
 
       <path
-        d="M31 51 L69 51"
+        d="
+          M31 51
+          L69 51
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
 
       <path
-        d="M29 95 C41 102 59 102 71 95"
+        d="
+          M29 95
+
+          C41 102 59 102 71 95
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
 
       <path
-        d="M23 104 C35 111 65 111 77 104"
+        d="
+          M23 104
+
+          C35 111 65 111 77 104
+        "
+
         fill="none"
+
         stroke="${accent}"
+
         stroke-width="4"
       />
 
-    ` + end;
+    `+end;
 
   }
 
@@ -1794,8 +2092,8 @@ function createPiece(code){
 
 
   piece.className =
-    pieceClass +
-    " " +
+    pieceClass+
+    " "+
     (
       side==="w"
         ? "white"
@@ -1823,14 +2121,18 @@ function createPiece(code){
 function drawBoard(){
 
   const board =
-    document.getElementById("board");
+    document.getElementById(
+      "board"
+    );
 
 
   board.innerHTML="";
 
 
-  const files =
-    ["a","b","c","d","e","f","g","h"];
+  const files=[
+    "a","b","c","d",
+    "e","f","g","h"
+  ];
 
 
   for(
@@ -1846,11 +2148,13 @@ function drawBoard(){
     ){
 
       const square =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       square.className =
-        "square " +
+        "square "+
         (
           (row+col)%2===0
             ? "light"
@@ -1859,38 +2163,57 @@ function drawBoard(){
 
 
       square.dataset.row=row;
+
       square.dataset.col=col;
 
+
+      /* FILE */
 
       if(row===7){
 
         const file =
-          document.createElement("span");
+          document.createElement(
+            "span"
+          );
 
-        file.className="coord-file";
+
+        file.className=
+          "coord-file";
+
 
         file.textContent=
           files[col];
+
 
         square.appendChild(file);
 
       }
 
 
+      /* RANK */
+
       if(col===0){
 
         const rank =
-          document.createElement("span");
+          document.createElement(
+            "span"
+          );
 
-        rank.className="coord-rank";
+
+        rank.className=
+          "coord-rank";
+
 
         rank.textContent=
           8-row;
+
 
         square.appendChild(rank);
 
       }
 
+
+      /* PIECE */
 
       const code =
         boardState[row][col];
@@ -1901,7 +2224,10 @@ function drawBoard(){
         const piece =
           createPiece(code);
 
-        square.appendChild(piece);
+
+        square.appendChild(
+          piece
+        );
 
       }
 
@@ -1919,7 +2245,9 @@ function drawBoard(){
       );
 
 
-      board.appendChild(square);
+      board.appendChild(
+        square
+      );
 
     }
 
@@ -1933,10 +2261,13 @@ function drawBoard(){
 
 
 /* =========================================
-   HANDLE MOVE
+   CLICK / MOVE
 ========================================= */
 
-function handleSquareClick(row,col){
+function handleSquareClick(
+  row,
+  col
+){
 
   const target =
     boardState[row][col];
@@ -2228,7 +2559,8 @@ setInterval(
         mySeconds
       );
 
-    }else{
+    }
+    else{
 
       if(enemySeconds>0){
         enemySeconds--;
@@ -2248,7 +2580,10 @@ setInterval(
 
 
 
-function updateTimer(id,seconds){
+function updateTimer(
+  id,
+  seconds
+){
 
   const minutes =
     Math.floor(
@@ -2260,13 +2595,16 @@ function updateTimer(id,seconds){
     seconds%60;
 
 
-  document.getElementById(id)
-    .textContent =
-      String(minutes).padStart(2,"0")
-      +
-      ":"
-      +
-      String(secs).padStart(2,"0");
+  document.getElementById(
+    id
+  ).textContent =
+    String(minutes)
+      .padStart(2,"0")
+    +
+    ":"
+    +
+    String(secs)
+      .padStart(2,"0");
 
 }
 
