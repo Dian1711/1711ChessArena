@@ -7,1478 +7,520 @@
 <title>1711 Chess Arena</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #080b12;
-  color: #fff;
-  font-family: Arial, sans-serif;
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#070a11;
+  color:white;
+  font-family:Arial,sans-serif;
 }
 
-#app {
-  width: 100%;
-  height: 100%;
-  max-width: 600px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
+#app{
+  width:100%;
+  max-width:600px;
+  height:100%;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
   background:
-    radial-gradient(circle at 50% 30%, #18253b, #080b12 70%);
+    radial-gradient(circle at 50% 25%,#1d2942,#070a11 72%);
 }
 
 /* HEADER */
 
-.header {
-  height: 58px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 15px;
-  background: rgba(5, 8, 15, .94);
-  border-bottom: 1px solid #263047;
+.header{
+  height:56px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  background:#080c15;
+  border-bottom:1px solid #263149;
 }
 
-.logo {
-  font-size: 17px;
-  font-weight: 900;
+.logo{
+  font-size:17px;
+  font-weight:900;
 }
 
-.logo span {
-  color: #32c9ff;
+.logo span{
+  color:#38cfff;
 }
 
-.online {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
-  color: #71f5a0;
+.online{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  color:#62ef9a;
+  font-size:10px;
+  font-weight:bold;
 }
 
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #42ef7b;
-  box-shadow: 0 0 9px #42ef7b;
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#43ee7e;
+  box-shadow:0 0 10px #43ee7e;
 }
 
 /* PLAYER */
 
-.player {
-  height: 64px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  padding: 5px 14px;
-  gap: 10px;
+.player{
+  height:62px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:5px 14px;
 }
 
-.player.bottom {
-  flex-direction: row-reverse;
+.player.bottom{
+  flex-direction:row-reverse;
 }
 
-.avatar {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  border-radius: 13px;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid #52617c;
+.avatar{
+  width:46px;
+  height:46px;
+  flex-shrink:0;
+  position:relative;
+  overflow:hidden;
+  border-radius:13px;
+  border:2px solid #53627d;
 }
 
-.avatar.red {
-  background: linear-gradient(145deg,#ff536d,#741b35);
+.avatar.red{
+  background:linear-gradient(145deg,#ff536d,#761c36);
 }
 
-.avatar.blue {
-  background: linear-gradient(145deg,#42c8ff,#1647a5);
+.avatar.blue{
+  background:linear-gradient(145deg,#42c9ff,#1747a4);
 }
 
-.avatar-head {
-  position: absolute;
-  width: 19px;
-  height: 19px;
-  border-radius: 50%;
-  background: #ffd0a6;
-  top: 7px;
-  left: 50%;
-  transform: translateX(-50%);
+.head{
+  position:absolute;
+  width:19px;
+  height:19px;
+  border-radius:50%;
+  background:#ffd0a6;
+  top:6px;
+  left:50%;
+  transform:translateX(-50%);
 }
 
-.avatar-body {
-  position: absolute;
-  width: 31px;
-  height: 23px;
-  border-radius: 15px 15px 5px 5px;
-  background: #fff;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
+.body{
+  position:absolute;
+  width:30px;
+  height:23px;
+  border-radius:15px 15px 5px 5px;
+  background:#fff;
+  bottom:4px;
+  left:50%;
+  transform:translateX(-50%);
 }
 
-.avatar.red .avatar-body {
-  background: #ffdce1;
+.red .body{
+  background:#ffdce2;
 }
 
-.avatar.blue .avatar-body {
-  background: #d9f7ff;
+.blue .body{
+  background:#d9f6ff;
 }
 
-.info {
-  min-width: 0;
+.info{
+  min-width:0;
 }
 
-.name {
-  font-size: 14px;
-  font-weight: 800;
+.name{
+  font-size:13px;
+  font-weight:900;
 }
 
-.rating {
-  font-size: 10px;
-  color: #8d99b0;
-  margin-top: 3px;
+.rating{
+  margin-top:3px;
+  font-size:10px;
+  color:#8996ad;
 }
 
-.timer {
-  margin-left: auto;
-  min-width: 68px;
-  text-align: center;
-  padding: 8px 9px;
-  border-radius: 10px;
-  background: #151c2a;
-  border: 1px solid #36425a;
-  font-size: 16px;
-  font-weight: 900;
+.timer{
+  margin-left:auto;
+  min-width:68px;
+  padding:8px 9px;
+  border-radius:10px;
+  background:#151d2c;
+  border:1px solid #35425b;
+  text-align:center;
+  font-size:16px;
+  font-weight:900;
 }
 
-.bottom .timer {
-  margin-left: 0;
-  margin-right: auto;
+.bottom .timer{
+  margin-left:0;
+  margin-right:auto;
 }
 
-/* BOARD */
+/* =========================
+   BOARD
+========================= */
 
-.board-wrap {
-  width: min(94vw, 540px);
-  aspect-ratio: 1 / 1;
-  margin: auto;
-  position: relative;
-  flex-shrink: 1;
-  min-height: 0;
-}
-
-#board {
-  width: 100%;
-  height: 100%;
-  display: block;
-  border-radius: 12px;
-  overflow: hidden;
+.board-wrap{
+  width:min(94vw,540px);
+  aspect-ratio:1/1;
+  margin:auto;
+  flex-shrink:1;
+  min-height:0;
+  padding:4px;
+  border-radius:14px;
+  background:#182238;
   box-shadow:
-    0 0 0 3px #303c55,
-    0 15px 45px rgba(0,0,0,.65);
+    0 0 0 2px #43516d,
+    0 18px 50px rgba(0,0,0,.7);
+}
+
+.board{
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  grid-template-rows:repeat(8,1fr);
+  border-radius:9px;
+  overflow:hidden;
+}
+
+/* KOTAK */
+
+.square{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  /* GARIS BORDER SETIAP KOTAK */
+  border:2px solid #237fd0;
+
+  cursor:pointer;
+
+  user-select:none;
+}
+
+.square.light{
+  background:
+    linear-gradient(
+      145deg,
+      #e7c987,
+      #c79c55
+    );
+}
+
+.square.dark{
+  background:
+    linear-gradient(
+      145deg,
+      #855535,
+      #57321f
+    );
+}
+
+.square.selected{
+  box-shadow:
+    inset 0 0 0 4px #fff200,
+    inset 0 0 18px #fff200;
+}
+
+.square.target{
+  box-shadow:
+    inset 0 0 0 4px #52ff8a;
+}
+
+/* =========================
+   3D BIDAK
+========================= */
+
+.piece{
+  position:relative;
+  width:78%;
+  height:82%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  filter:
+    drop-shadow(3px 5px 3px rgba(0,0,0,.55));
+  transform:translateY(-2%);
+  transition:transform .15s;
+  z-index:2;
+}
+
+.square:hover .piece{
+  transform:
+    translateY(-6%)
+    scale(1.05);
+}
+
+/* BADAN BIDAK */
+
+.piece .base{
+  width:72%;
+  height:16%;
+  border-radius:50%;
+  position:absolute;
+  bottom:2%;
+  box-shadow:
+    inset 3px 3px 4px rgba(255,255,255,.4),
+    inset -4px -4px 5px rgba(0,0,0,.4);
+}
+
+.piece .bodypiece{
+  position:absolute;
+  bottom:14%;
+  width:40%;
+  height:42%;
+  border-radius:40% 40% 30% 30%;
+  box-shadow:
+    inset 4px 2px 5px rgba(255,255,255,.35),
+    inset -5px -5px 7px rgba(0,0,0,.35);
+}
+
+.piece .headpiece{
+  position:absolute;
+  bottom:52%;
+  width:34%;
+  aspect-ratio:1;
+  border-radius:50%;
+  box-shadow:
+    inset 3px 2px 4px rgba(255,255,255,.35),
+    inset -4px -4px 5px rgba(0,0,0,.35);
+}
+
+/* WHITE */
+
+.white .base,
+.white .bodypiece,
+.white .headpiece{
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #55ddff 42%,
+      #1684c9 100%
+    );
+}
+
+/* BLACK */
+
+.black .base,
+.black .bodypiece,
+.black .headpiece{
+  background:
+    linear-gradient(
+      135deg,
+      #ff7181 0%,
+      #d52e52 42%,
+      #57162c 100%
+    );
+}
+
+/* PAWN */
+
+.pawn .bodypiece{
+  height:38%;
+  width:43%;
+}
+
+.pawn .headpiece{
+  bottom:48%;
+  width:34%;
+}
+
+/* ROOK */
+
+.rook .bodypiece{
+  height:45%;
+  width:50%;
+  border-radius:15%;
+}
+
+.rook .headpiece{
+  width:54%;
+  height:15%;
+  bottom:52%;
+  border-radius:20%;
+}
+
+/* BISHOP */
+
+.bishop .bodypiece{
+  height:47%;
+  width:42%;
+  clip-path:polygon(
+    30% 0,
+    70% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+.bishop .headpiece{
+  width:34%;
+  height:18%;
+  bottom:54%;
+  border-radius:50% 50% 20% 20%;
+}
+
+/* KNIGHT */
+
+.knight .bodypiece{
+  height:46%;
+  width:48%;
+  border-radius:45% 45% 20% 20%;
+  transform:skewY(-5deg);
+}
+
+.knight .headpiece{
+  width:42%;
+  height:34%;
+  bottom:50%;
+  border-radius:55% 55% 35% 20%;
+  transform:rotate(-10deg);
+}
+
+.knight .headpiece::after{
+  content:"";
+  position:absolute;
+  width:0;
+  height:0;
+  border-left:7px solid transparent;
+  border-right:7px solid transparent;
+  border-bottom:15px solid currentColor;
+  top:-10px;
+  left:35%;
+}
+
+/* QUEEN */
+
+.queen .bodypiece{
+  height:49%;
+  width:43%;
+}
+
+.queen .headpiece{
+  width:45%;
+  height:20%;
+  bottom:56%;
+  border-radius:20%;
+}
+
+.queen .headpiece::before{
+  content:"♛";
+  position:absolute;
+  color:#fff;
+  font-size:15px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  text-shadow:1px 1px 2px #000;
+}
+
+/* KING */
+
+.king .bodypiece{
+  height:51%;
+  width:45%;
+}
+
+.king .headpiece{
+  width:43%;
+  height:20%;
+  bottom:57%;
+  border-radius:20%;
+}
+
+.king .headpiece::before{
+  content:"+";
+  position:absolute;
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+  left:50%;
+  top:45%;
+  transform:translate(-50%,-50%);
+  text-shadow:1px 1px 2px #000;
 }
 
 /* CONTROLS */
 
-.controls {
-  height: 58px;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  gap: 9px;
-  padding: 8px;
+.controls{
+  height:55px;
+  flex-shrink:0;
+  display:flex;
+  justify-content:center;
+  gap:9px;
+  padding:7px;
 }
 
-button {
-  border: 0;
-  border-radius: 11px;
-  padding: 10px 16px;
-  color: #fff;
-  font-weight: 800;
-  background: linear-gradient(135deg,#2878ff,#6549ff);
-  cursor: pointer;
+button{
+  border:0;
+  border-radius:11px;
+  padding:10px 16px;
+  color:white;
+  font-weight:900;
+  background:linear-gradient(135deg,#2878ff,#6848ff);
 }
 
-button.secondary {
-  background: #171e2d;
-  border: 1px solid #35415a;
+button.secondary{
+  background:#171f2f;
+  border:1px solid #37445d;
 }
 
-.status {
-  height: 23px;
-  flex-shrink: 0;
-  text-align: center;
-  color: #8d99ae;
-  font-size: 10px;
+.status{
+  height:21px;
+  flex-shrink:0;
+  text-align:center;
+  color:#8c99ae;
+  font-size:10px;
 }
 
-/* SMALL SCREEN */
+/* MOBILE */
 
-@media (max-height: 700px) {
+@media(max-height:700px){
 
-  .header {
-    height: 50px;
+  .header{
+    height:49px;
   }
 
-  .player {
-    height: 53px;
+  .player{
+    height:52px;
   }
 
-  .avatar {
-    width: 40px;
-    height: 40px;
+  .avatar{
+    width:39px;
+    height:39px;
   }
 
-  .name {
-    font-size: 12px;
+  .name{
+    font-size:11px;
   }
 
-  .timer {
-    font-size: 13px;
-    min-width: 60px;
-    padding: 6px;
+  .timer{
+    font-size:13px;
+    min-width:60px;
+    padding:6px;
   }
 
-  .controls {
-    height: 49px;
+  .controls{
+    height:48px;
   }
 
-  button {
-    padding: 8px 13px;
-    font-size: 12px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<div id="app">
-
-  <!-- HEADER -->
-
-  <div class="header">
-    <div class="logo">
-      ♟ <span>1711</span> CHESS ARENA
-    </div>
-
-    <div class="online">
-      <div class="dot"></div>
-      ONLINE
-    </div>
-  </div>
-
-
-  <!-- OPPONENT -->
-
-  <div class="player">
-
-    <div class="avatar red">
-      <div class="avatar-head"></div>
-      <div class="avatar-body"></div>
-    </div>
-
-    <div class="info">
-      <div class="name">Opponent</div>
-      <div class="rating">Rating 1200</div>
-    </div>
-
-    <div class="timer" id="enemyTime">
-      10:00
-    </div>
-
-  </div>
-
-
-  <!-- CHESS BOARD -->
-
-  <div class="board-wrap">
-    <canvas id="board"></canvas>
-  </div>
-
-
-  <!-- PLAYER -->
-
-  <div class="player bottom">
-
-    <div class="avatar blue">
-      <div class="avatar-head"></div>
-      <div class="avatar-body"></div>
-    </div>
-
-    <div class="info">
-      <div class="name">1711 Player</div>
-      <div class="rating">Rating 1200</div>
-    </div>
-
-    <div class="timer" id="myTime">
-      10:00
-    </div>
-
-  </div>
-
-
-  <!-- BUTTONS -->
-
-  <div class="controls">
-    <button onclick="newGame()">♟ Game Baru</button>
-    <button class="secondary" onclick="findOpponent()">⚔ Cari Lawan</button>
-  </div>
-
-  <div class="status" id="status">
-    Pilih bidak untuk mulai bermain
-  </div>
-
-</div>
-
-
-<!-- THREE.JS -->
-
-<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
-
-
-<script>
-
-/* =====================================================
-   CHECK THREE.JS
-===================================================== */
-
-if (typeof THREE === "undefined") {
-
-  document.getElementById("status").textContent =
-    "Three.js gagal dimuat. Coba refresh halaman.";
-
-  throw new Error("Three.js tidak tersedia");
-
-}
-
-
-/* =====================================================
-   BASIC THREE.JS
-===================================================== */
-
-const canvas = document.getElementById("board");
-
-const scene = new THREE.Scene();
-
-scene.background =
-  new THREE.Color(0x0a0e17);
-
-
-/* =====================================================
-   CAMERA — BENAR-BENAR DARI ATAS
-===================================================== */
-
-const camera =
-  new THREE.OrthographicCamera(
-    -4.5,
-     4.5,
-     4.5,
-    -4.5,
-    0.1,
-    100
-  );
-
-camera.position.set(
-  0,
-  15,
-  0
-);
-
-camera.lookAt(
-  0,
-  0,
-  0
-);
-
-
-/* =====================================================
-   RENDERER
-===================================================== */
-
-const renderer =
-  new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true
-  });
-
-renderer.setPixelRatio(
-  Math.min(window.devicePixelRatio, 2)
-);
-
-renderer.shadowMap.enabled = true;
-
-
-/* =====================================================
-   LIGHT
-===================================================== */
-
-scene.add(
-  new THREE.AmbientLight(
-    0xffffff,
-    2.8
-  )
-);
-
-const directional =
-  new THREE.DirectionalLight(
-    0xffffff,
-    3.5
-  );
-
-directional.position.set(
-  -4,
-  12,
-  5
-);
-
-directional.castShadow = true;
-
-scene.add(directional);
-
-
-/* =====================================================
-   BOARD
-===================================================== */
-
-const board = new THREE.Group();
-
-scene.add(board);
-
-
-/*
-   SETIAP KOTAK:
-
-   total = 1 x 1
-   border = biru
-   bagian dalam = 0.86 x 0.86
-
-   Jadi SEMUA kotak sama besar.
-*/
-
-const TILE = 1;
-
-const BORDER = 0.98;
-
-const INNER = 0.84;
-
-
-/* WARNA PAPAN */
-
-const LIGHT_COLOR = 0xe0b978;
-
-const DARK_COLOR = 0x70442e;
-
-const BORDER_COLOR = 0x279cff;
-
-
-/* FRAME */
-
-const frame =
-  new THREE.Mesh(
-    new THREE.BoxGeometry(
-      8.35,
-      .30,
-      8.35
-    ),
-    new THREE.MeshStandardMaterial({
-      color: 0x151c2b,
-      roughness: .55,
-      metalness: .25
-    })
-  );
-
-frame.position.y = -.22;
-
-board.add(frame);
-
-
-/* =====================================================
-   64 KOTAK PAPAN
-===================================================== */
-
-const squares = [];
-
-for (
-  let row = 0;
-  row < 8;
-  row++
-) {
-
-  for (
-    let col = 0;
-    col < 8;
-    col++
-  ) {
-
-    const group =
-      new THREE.Group();
-
-    const x =
-      (col - 3.5) * TILE;
-
-    const z =
-      (row - 3.5) * TILE;
-
-    group.position.set(
-      x,
-      0,
-      z
-    );
-
-
-    /* BORDER */
-
-    const border =
-      new THREE.Mesh(
-        new THREE.BoxGeometry(
-          BORDER,
-          .18,
-          BORDER
-        ),
-        new THREE.MeshStandardMaterial({
-          color: BORDER_COLOR,
-          roughness: .5,
-          metalness: .15
-        })
-      );
-
-    border.position.y = 0;
-
-    group.add(border);
-
-
-    /* INNER */
-
-    const color =
-      (row + col) % 2 === 0
-      ? LIGHT_COLOR
-      : DARK_COLOR;
-
-    const inner =
-      new THREE.Mesh(
-        new THREE.BoxGeometry(
-          INNER,
-          .21,
-          INNER
-        ),
-        new THREE.MeshStandardMaterial({
-          color: color,
-          roughness: .65,
-          metalness: .05
-        })
-      );
-
-    inner.position.y = .04;
-
-    inner.userData.row = row;
-    inner.userData.col = col;
-    inner.userData.isSquare = true;
-
-    group.add(inner);
-
-    squares.push(inner);
-
-    board.add(group);
-
-  }
-}
-
-
-/* =====================================================
-   PIECE MATERIAL
-===================================================== */
-
-const whiteMain =
-  new THREE.MeshStandardMaterial({
-    color: 0xf7e7c5,
-    roughness: .3,
-    metalness: .35
-  });
-
-const whiteColor =
-  new THREE.MeshStandardMaterial({
-    color: 0x27cfff,
-    roughness: .22,
-    metalness: .55
-  });
-
-const blackMain =
-  new THREE.MeshStandardMaterial({
-    color: 0x252b3b,
-    roughness: .3,
-    metalness: .4
-  });
-
-const blackColor =
-  new THREE.MeshStandardMaterial({
-    color: 0xff4664,
-    roughness: .2,
-    metalness: .5
-  });
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function cyl(
-  radiusTop,
-  radiusBottom,
-  height,
-  material
-) {
-
-  const mesh =
-    new THREE.Mesh(
-      new THREE.CylinderGeometry(
-        radiusTop,
-        radiusBottom,
-        height,
-        24
-      ),
-      material
-    );
-
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
-
-  return mesh;
-}
-
-
-function sph(
-  radius,
-  material
-) {
-
-  const mesh =
-    new THREE.Mesh(
-      new THREE.SphereGeometry(
-        radius,
-        20,
-        14
-      ),
-      material
-    );
-
-  mesh.castShadow = true;
-
-  return mesh;
-}
-
-
-function cube(
-  width,
-  height,
-  depth,
-  material
-) {
-
-  const mesh =
-    new THREE.Mesh(
-      new THREE.BoxGeometry(
-        width,
-        height,
-        depth
-      ),
-      material
-    );
-
-  mesh.castShadow = true;
-
-  return mesh;
-}
-
-
-/* =====================================================
-   PAWN
-===================================================== */
-
-function pawn(main, accent) {
-
-  const g =
-    new THREE.Group();
-
-  let m =
-    cyl(.34,.38,.13,accent);
-
-  m.position.y=.12;
-  g.add(m);
-
-  m =
-    cyl(.20,.27,.32,main);
-
-  m.position.y=.34;
-  g.add(m);
-
-  m =
-    cyl(.13,.17,.12,accent);
-
-  m.position.y=.56;
-  g.add(m);
-
-  m =
-    sph(.18,main);
-
-  m.position.y=.73;
-  g.add(m);
-
-  return g;
-}
-
-
-/* =====================================================
-   ROOK
-===================================================== */
-
-function rook(main,accent) {
-
-  const g =
-    new THREE.Group();
-
-  let m =
-    cyl(.34,.39,.14,accent);
-
-  m.position.y=.12;
-  g.add(m);
-
-  m =
-    cyl(.24,.29,.45,main);
-
-  m.position.y=.40;
-  g.add(m);
-
-  m =
-    cyl(.31,.31,.13,accent);
-
-  m.position.y=.68;
-  g.add(m);
-
-  for(let i=0;i<4;i++){
-
-    const a =
-      i * Math.PI / 2;
-
-    m =
-      cube(
-        .12,
-        .13,
-        .12,
-        main
-      );
-
-    m.position.set(
-      Math.cos(a)*.21,
-      .79,
-      Math.sin(a)*.21
-    );
-
-    g.add(m);
-  }
-
-  return g;
-}
-
-
-/* =====================================================
-   BISHOP
-===================================================== */
-
-function bishop(main,accent) {
-
-  const g =
-    new THREE.Group();
-
-  let m =
-    cyl(.34,.39,.14,accent);
-
-  m.position.y=.12;
-  g.add(m);
-
-  m =
-    new THREE.Mesh(
-      new THREE.ConeGeometry(
-        .26,
-        .48,
-        20
-      ),
-      main
-    );
-
-  m.position.y=.43;
-  m.castShadow=true;
-
-  g.add(m);
-
-  m =
-    new THREE.Mesh(
-      new THREE.TorusGeometry(
-        .16,
-        .035,
-        12,
-        24
-      ),
-      accent
-    );
-
-  m.rotation.x =
-    Math.PI / 2;
-
-  m.position.y=.68;
-
-  g.add(m);
-
-  m =
-    sph(.13,main);
-
-  m.position.y=.78;
-
-  g.add(m);
-
-  return g;
-}
-
-
-/* =====================================================
-   KNIGHT
-===================================================== */
-
-function knight(main,accent) {
-
-  const g =
-    new THREE.Group();
-
-  let m =
-    cyl(.34,.39,.14,accent);
-
-  m.position.y=.12;
-  g.add(m);
-
-  m =
-    new THREE.Mesh(
-      new THREE.ConeGeometry(
-        .29,
-        .48,
-        8
-      ),
-      main
-    );
-
-  m.position.y=.40;
-  m.castShadow=true;
-
-  g.add(m);
-
-  m =
-    sph(.20,main);
-
-  m.position.set(
-    .04,
-    .72,
-    0
-  );
-
-  g.add(m);
-
-  m =
-    new THREE.Mesh(
-      new THREE.ConeGeometry(
-        .08,
-        .22,
-        4
-      ),
-      accent
-    );
-
-  m.position.set(
-    .12,
-    .90,
-    0
-  );
-
-  g.add(m);
-
-  return g;
-}
-
-
-/* =====================================================
-   QUEEN
-===================================================== */
-
-function queen(main,accent) {
-
-  const g =
-    new THREE.Group();
-
-  let m =
-    cyl(.35,.40,.14,accent);
-
-  m.position.y=.12;
-  g.add(m);
-
-  m =
-    cyl(.17,.28,.50,main);
-
-  m.position.y=.43;
-  g.add(m);
-
-  m =
-    new THREE.Mesh(
-      new THREE.TorusGeometry(
-        .20,
-        .035,
-        12,
-        24
-      ),
-      accent
-    );
-
-  m.rotation.x =
-    Math.PI / 2;
-
-  m.position.y=.69;
-
-  g.add(m);
-
-  m =
-    sph(.12,main);
-
-  m.position.y=.84;
-
-  g.add(m);
-
-  for(let i=0;i<5;i++){
-
-    const a =
-      i * Math.PI * 2 / 5;
-
-    m =
-      sph(.055,accent);
-
-    m.position.set(
-      Math.cos(a)*.18,
-      .79,
-      Math.sin(a)*.18
-    );
-
-    g.add(m);
-  }
-
-  return g;
-}
-
-
-/* =====================================================
-   KING
-===================================================== */
-
-function king(main,accent) {
-
-  const g =
-    queen(main,accent);
-
-  let m =
-    cube(
-      .09,
-      .30,
-      .09,
-      accent
-    );
-
-  m.position.y=1.02;
-
-  g.add(m);
-
-  m =
-    cube(
-      .25,
-      .08,
-      .09,
-      accent
-    );
-
-  m.position.y=1.05;
-
-  g.add(m);
-
-  return g;
-}
-
-
-/* =====================================================
-   CREATE PIECE
-===================================================== */
-
-function createPiece(type) {
-
-  const isWhite =
-    type === type.toUpperCase();
-
-  const main =
-    isWhite
-    ? whiteMain
-    : blackMain;
-
-  const accent =
-    isWhite
-    ? whiteColor
-    : blackColor;
-
-  switch(type.toLowerCase()) {
-
-    case "p":
-      return pawn(main,accent);
-
-    case "r":
-      return rook(main,accent);
-
-    case "n":
-      return knight(main,accent);
-
-    case "b":
-      return bishop(main,accent);
-
-    case "q":
-      return queen(main,accent);
-
-    case "k":
-      return king(main,accent);
-
-  }
-
-  return null;
-}
-
-
-/* =====================================================
-   CHESS START POSITION
-===================================================== */
-
-const startPosition = [
-
-  ["r","n","b","q","k","b","n","r"],
-
-  ["p","p","p","p","p","p","p","p"],
-
-  [null,null,null,null,null,null,null,null],
-
-  [null,null,null,null,null,null,null,null],
-
-  [null,null,null,null,null,null,null,null],
-
-  [null,null,null,null,null,null,null,null],
-
-  ["P","P","P","P","P","P","P","P"],
-
-  ["R","N","B","Q","K","B","N","R"]
-
-];
-
-
-let gameBoard =
-  startPosition.map(
-    row => [...row]
-  );
-
-
-const pieceObjects = [];
-
-
-/* =====================================================
-   PLACE ALL PIECES
-===================================================== */
-
-function loadPieces() {
-
-  for(let row=0;row<8;row++){
-
-    for(let col=0;col<8;col++){
-
-      const type =
-        gameBoard[row][col];
-
-      if(!type) continue;
-
-      const piece =
-        createPiece(type);
-
-      if(!piece) continue;
-
-      piece.position.set(
-        col - 3.5,
-        .22,
-        row - 3.5
-      );
-
-      piece.userData.type = type;
-      piece.userData.row = row;
-      piece.userData.col = col;
-      piece.userData.isPiece = true;
-
-      board.add(piece);
-
-      pieceObjects.push(piece);
-    }
-  }
-}
-
-loadPieces();
-
-
-/* =====================================================
-   SELECT / MOVE
-===================================================== */
-
-const raycaster =
-  new THREE.Raycaster();
-
-const mouse =
-  new THREE.Vector2();
-
-let selected = null;
-
-
-canvas.addEventListener(
-  "pointerdown",
-  function(event) {
-
-    const rect =
-      canvas.getBoundingClientRect();
-
-    mouse.x =
-      ((event.clientX - rect.left)
-      / rect.width) * 2 - 1;
-
-    mouse.y =
-      -((event.clientY - rect.top)
-      / rect.height) * 2 + 1;
-
-    raycaster.setFromCamera(
-      mouse,
-      camera
-    );
-
-
-    /* PIECE */
-
-    const hits =
-      raycaster.intersectObjects(
-        pieceObjects,
-        true
-      );
-
-    if(hits.length) {
-
-      let obj =
-        hits[0].object;
-
-      while(
-        obj.parent &&
-        !obj.userData.isPiece
-      ) {
-
-        obj=obj.parent;
-
-      }
-
-      if(obj.userData.isPiece) {
-
-        selected=obj;
-
-        document.getElementById(
-          "status"
-        ).textContent =
-          "Bidak dipilih — pilih kotak tujuan";
-
-      }
-
-      return;
-    }
-
-
-    /* SQUARE */
-
-    const squareHits =
-      raycaster.intersectObjects(
-        squares,
-        false
-      );
-
-    if(
-      squareHits.length &&
-      selected
-    ) {
-
-      const target =
-        squareHits[0].object;
-
-      const row =
-        target.userData.row;
-
-      const col =
-        target.userData.col;
-
-      moveSelected(
-        row,
-        col
-      );
-    }
-
-  }
-);
-
-
-/* =====================================================
-   MOVE
-===================================================== */
-
-function moveSelected(row,col) {
-
-  if(!selected) return;
-
-  const oldRow =
-    selected.userData.row;
-
-  const oldCol =
-    selected.userData.col;
-
-
-  /* REMOVE TARGET */
-
-  for(
-    let i=pieceObjects.length-1;
-    i>=0;
-    i--
-  ) {
-
-    const p =
-      pieceObjects[i];
-
-    if(
-      p.userData.row === row &&
-      p.userData.col === col
-    ) {
-
-      board.remove(p);
-
-      pieceObjects.splice(i,1);
-
-    }
-
-  }
-
-
-  gameBoard[row][col] =
-    gameBoard[oldRow][oldCol];
-
-  gameBoard[oldRow][oldCol] =
-    null;
-
-
-  selected.userData.row =
-    row;
-
-  selected.userData.col =
-    col;
-
-
-  selected.position.set(
-    col - 3.5,
-    .22,
-    row - 3.5
-  );
-
-
-  selected =
-    null;
-
-
-  document.getElementById(
-    "status"
-  ).textContent =
-    "Langkah dilakukan";
-}
-
-
-/* =====================================================
-   NEW GAME
-===================================================== */
-
-function newGame() {
-
-  location.reload();
-
-}
-
-
-/* =====================================================
-   FIND OPPONENT
-===================================================== */
-
-function findOpponent() {
-
-  const status =
-    document.getElementById(
-      "status"
-    );
-
-  status.textContent =
-    "⚔ Mencari lawan...";
-
-  setTimeout(
-    function() {
-
-      status.textContent =
-        "⚔ Lawan ditemukan!";
-
-    },
-    1500
-  );
-
-}
-
-
-/* =====================================================
-   TIMER
-===================================================== */
-
-let myTime = 600;
-
-let enemyTime = 600;
-
-setInterval(
-  function() {
-
-    if(myTime > 0)
-      myTime--;
-
-    if(enemyTime > 0)
-      enemyTime--;
-
-    document.getElementById(
-      "myTime"
-    ).textContent =
-      formatTime(myTime);
-
-    document.getElementById(
-      "enemyTime"
-    ).textContent =
-      formatTime(enemyTime);
-
-  },
-  1000
-);
-
-
-function formatTime(sec) {
-
-  const min =
-    Math.floor(sec / 60)
-    .toString()
-    .padStart(2,"0");
-
-  const seconds =
-    (sec % 60)
-    .toString()
-    .padStart(2,"0");
-
-  return min + ":" + seconds;
-}
-
-
-/* =====================================================
-   RESIZE
-===================================================== */
-
-function resizeBoard() {
-
-  const box =
-    canvas.parentElement
-    .getBoundingClientRect();
-
-  const width =
-    Math.max(
-      1,
-      Math.floor(box.width)
-    );
-
-  const height =
-    Math.max(
-      1,
-      Math.floor(box.height)
-    );
-
-  renderer.setSize(
-    width,
-    height,
-    false
-  );
-
-
-  const aspect =
-    width / height;
-
-  const size = 4.5;
-
-  camera.left =
-    -size * aspect;
-
-  camera.right =
-     size * aspect;
-
-  camera.top =
-     size;
-
-  camera.bottom =
-    -size;
-
-  camera.updateProjectionMatrix();
-
-}
-
-
-window.addEventListener(
-  "resize",
-  resizeBoard
-);
-
-resizeBoard();
-
-
-/* =====================================================
-   RENDER LOOP
-===================================================== */
-
-function animate() {
-
-  requestAnimationFrame(
-    animate
-  );
-
-  renderer.render(
-    scene,
-    camera
-  );
-
-}
-
-animate();
-
-</script>
-
-</body>
-</html>
+  button{
+    font
