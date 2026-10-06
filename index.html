@@ -2,592 +2,279 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>1711 Chess Arena</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    background: #101317;
-    color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-}
-
-.app {
-    width: 100%;
-    max-width: 520px;
-    min-height: 100vh;
-    padding: 14px;
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    color:#fff;
     background:
-        radial-gradient(circle at top, #292e34 0%, #171b20 45%, #0e1114 100%);
+        radial-gradient(circle at top,#26384b 0,#111923 42%,#080c11 100%);
 }
 
-/* HEADER */
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
+button{
+    font:inherit;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 21px;
-    font-weight: 900;
+.app{
+    width:100%;
+    max-width:520px;
+    margin:auto;
+    padding:18px 14px 30px;
 }
 
-.logo-piece {
-    font-size: 28px;
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
 }
 
-.online {
-    padding: 5px 9px;
-    border-radius: 20px;
-    background: #17351f;
-    border: 1px solid #2d7a42;
-    color: #67df87;
-    font-size: 10px;
-    font-weight: 800;
+.logo{
+    font-size:23px;
+    font-weight:800;
 }
 
-/* PROFILE */
-
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px;
-    margin-bottom: 16px;
-
-    background: linear-gradient(
-        135deg,
-        rgba(255,255,255,.09),
-        rgba(255,255,255,.035)
-    );
-
-    border: 1px solid rgba(255,255,255,.11);
-    border-radius: 16px;
-
-    box-shadow: 0 8px 25px rgba(0,0,0,.22);
+.online{
+    font-size:11px;
+    padding:6px 10px;
+    border-radius:20px;
+    background:#173b2a;
+    color:#65e59a;
+    border:1px solid #276644;
 }
 
-.avatar {
-    width: 55px;
-    height: 55px;
-
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    background: #292e34;
-    border: 2px solid #555c63;
-
-    overflow: hidden;
-
-    font-size: 27px;
+.profile{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:15px;
+    border-radius:18px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.10);
+    margin-bottom:18px;
 }
 
-.avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.avatar{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#334150;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+    overflow:hidden;
+    flex-shrink:0;
 }
 
-.profile-info {
-    flex: 1;
-    min-width: 0;
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-.profile-name {
-    font-size: 17px;
-    font-weight: 900;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.player-info{
+    min-width:0;
+    flex:1;
 }
 
-.profile-username {
-    margin-top: 3px;
-    color: #969da4;
-    font-size: 12px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.player-name{
+    font-size:17px;
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
-.rating {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-
-    margin-top: 7px;
-    padding: 4px 8px;
-
-    border-radius: 7px;
-
-    background: rgba(216,162,60,.12);
-    border: 1px solid rgba(216,162,60,.25);
-
-    color: #e5bd67;
-    font-size: 11px;
-    font-weight: 800;
+.username{
+    color:#9ca9b7;
+    font-size:13px;
+    margin-top:3px;
 }
 
-/* SECTION TITLE */
-
-.section-title {
-    margin: 18px 3px 9px;
-
-    color: #8f979e;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .7px;
-    text-transform: uppercase;
+.rating{
+    margin-top:7px;
+    font-size:12px;
+    color:#e4c66b;
 }
 
-/* MAIN MODES */
-
-.modes {
-    display: grid;
-    gap: 10px;
+.section-title{
+    font-size:13px;
+    color:#8e9baa;
+    margin:20px 3px 9px;
+    text-transform:uppercase;
+    letter-spacing:.7px;
 }
 
-.mode {
-    position: relative;
-
-    width: 100%;
-    min-height: 72px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 13px;
-
-    border-radius: 14px;
-
-    border: 1px solid rgba(255,255,255,.10);
-
-    background: rgba(255,255,255,.055);
-
-    color: white;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    transition:
-        transform .12s ease,
-        background .12s ease,
-        border-color .12s ease;
+.menu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-.mode:active {
-    transform: scale(.985);
+.menu-btn{
+    min-height:105px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:18px;
+    background:rgba(255,255,255,.07);
+    color:#fff;
+    padding:15px;
+    text-align:left;
+    cursor:pointer;
+    transition:.15s;
 }
 
-.mode:hover {
-    background: rgba(255,255,255,.08);
+.menu-btn:active{
+    transform:scale(.97);
 }
 
-.mode-icon {
-    width: 47px;
-    height: 47px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    margin-right: 12px;
-
-    border-radius: 12px;
-
-    background: #2a3036;
-
-    font-size: 25px;
+.menu-icon{
+    font-size:29px;
+    margin-bottom:10px;
 }
 
-.mode-content {
-    min-width: 0;
-    flex: 1;
+.menu-title{
+    font-size:15px;
+    font-weight:700;
 }
 
-.mode-title {
-    font-size: 15px;
-    font-weight: 900;
+.menu-desc{
+    font-size:11px;
+    color:#9ba8b5;
+    margin-top:4px;
 }
 
-.mode-description {
-    margin-top: 4px;
-
-    color: #9299a0;
-
-    font-size: 11px;
-    line-height: 1.3;
+.panel{
+    display:none;
+    margin-top:16px;
+    padding:16px;
+    border-radius:18px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.10);
 }
 
-.mode-arrow {
-    color: #737b82;
-    font-size: 20px;
-    margin-left: 8px;
+.panel.active{
+    display:block;
 }
 
-/* BOT */
-
-.bot-mode {
-    border-color: rgba(91,169,104,.25);
+.panel h3{
+    margin:0 0 6px;
+    font-size:18px;
 }
 
-.bot-mode .mode-icon {
-    background: #203726;
+.panel p{
+    margin:0 0 14px;
+    color:#9ba8b5;
+    font-size:13px;
 }
 
-/* RANDOM */
-
-.random-mode {
-    border-color: rgba(216,162,60,.27);
+.action{
+    width:100%;
+    border:0;
+    border-radius:12px;
+    padding:13px;
+    margin-top:8px;
+    background:#e4c66b;
+    color:#17130a;
+    font-weight:800;
+    cursor:pointer;
 }
 
-.random-mode .mode-icon {
-    background: #3a3020;
+.action.secondary{
+    background:#293644;
+    color:#fff;
 }
 
-/* PRIVATE */
-
-.private-mode {
-    border-color: rgba(94,143,194,.27);
+input{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.12);
+    background:#111923;
+    color:#fff;
+    outline:none;
+    margin-bottom:7px;
 }
 
-.private-mode .mode-icon {
-    background: #202e3d;
+.bot-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
 }
 
-/* FRIENDS */
-
-.friends-mode {
-    border-color: rgba(151,106,181,.27);
+.bot-btn{
+    padding:12px 5px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:#202c38;
+    color:#fff;
+    cursor:pointer;
 }
 
-.friends-mode .mode-icon {
-    background: #30243a;
+.extra{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:10px;
 }
 
-/* EXTRA */
-
-.extra-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+.extra button{
+    padding:13px;
+    border-radius:13px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    cursor:pointer;
 }
 
-.extra-button {
-    min-height: 62px;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 11px;
-
-    border-radius: 13px;
-
-    border: 1px solid rgba(255,255,255,.09);
-
-    background: rgba(255,255,255,.045);
-
-    color: white;
-
-    cursor: pointer;
+.status{
+    margin-top:17px;
+    padding:12px;
+    border-radius:12px;
+    background:rgba(0,0,0,.20);
+    color:#9ba8b5;
+    font-size:12px;
+    text-align:center;
 }
 
-.extra-button:active {
-    transform: scale(.985);
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translateX(-50%) translateY(20px);
+    opacity:0;
+    pointer-events:none;
+    background:#202a35;
+    border:1px solid rgba(255,255,255,.12);
+    padding:12px 16px;
+    border-radius:12px;
+    font-size:13px;
+    transition:.2s;
+    z-index:100;
+    max-width:90%;
+    text-align:center;
 }
 
-.extra-icon {
-    font-size: 22px;
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
 }
 
-.extra-text {
-    text-align: left;
-}
-
-.extra-title {
-    font-size: 12px;
-    font-weight: 900;
-}
-
-.extra-desc {
-    margin-top: 3px;
-    color: #7f878e;
-    font-size: 9px;
-}
-
-/* PANEL */
-
-.panel {
-    display: none;
-
-    margin-top: 15px;
-    padding: 15px;
-
-    border-radius: 15px;
-
-    background: rgba(255,255,255,.055);
-
-    border: 1px solid rgba(255,255,255,.10);
-}
-
-.panel.active {
-    display: block;
-}
-
-.panel-header {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-
-    margin-bottom: 13px;
-}
-
-.panel-icon {
-    font-size: 23px;
-}
-
-.panel-title {
-    font-size: 16px;
-    font-weight: 900;
-}
-
-.panel-subtitle {
-    margin-top: 3px;
-    color: #858d94;
-    font-size: 10px;
-}
-
-/* BOT LEVEL */
-
-.bot-levels {
-    display: grid;
-    gap: 8px;
-}
-
-.level {
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-
-    padding: 11px;
-
-    border-radius: 11px;
-
-    border: 1px solid rgba(255,255,255,.08);
-
-    background: #20252a;
-
-    color: white;
-
-    cursor: pointer;
-
-    text-align: left;
-}
-
-.level:active {
-    transform: scale(.985);
-}
-
-.level-icon {
-    width: 34px;
-    font-size: 20px;
-    text-align: center;
-}
-
-.level-name {
-    font-size: 13px;
-    font-weight: 900;
-}
-
-.level-description {
-    margin-top: 2px;
-    color: #858d94;
-    font-size: 9px;
-}
-
-/* PRIVATE */
-
-.room-actions {
-    display: grid;
-    gap: 9px;
-}
-
-.room-button {
-    width: 100%;
-    padding: 12px;
-
-    border-radius: 10px;
-
-    border: 1px solid #444b52;
-
-    background: #252b31;
-
-    color: white;
-
-    font-weight: 800;
-
-    cursor: pointer;
-}
-
-.room-button:active {
-    transform: scale(.985);
-}
-
-.room-input {
-    width: 100%;
-    padding: 12px;
-
-    border-radius: 10px;
-
-    border: 1px solid #41484f;
-
-    background: #111417;
-
-    color: white;
-
-    outline: none;
-
-    font-size: 13px;
-}
-
-.room-input::placeholder {
-    color: #626970;
-}
-
-/* FRIENDS */
-
-.friend-empty {
-    padding: 20px 10px;
-
-    text-align: center;
-
-    color: #777f86;
-
-    font-size: 12px;
-}
-
-.friend-empty-icon {
-    font-size: 34px;
-    margin-bottom: 8px;
-}
-
-/* FOOTER */
-
-.footer {
-    margin-top: 22px;
-    padding: 12px 5px 5px;
-
-    text-align: center;
-
-    color: #5f676e;
-    font-size: 9px;
-}
-
-/* TOAST */
-
-.toast {
-    position: fixed;
-
-    left: 50%;
-    bottom: 22px;
-
-    transform: translate(-50%, 20px);
-
-    width: calc(100% - 35px);
-    max-width: 450px;
-
-    padding: 12px 14px;
-
-    border-radius: 11px;
-
-    background: #252b30;
-
-    border: 1px solid #464e55;
-
-    color: white;
-
-    text-align: center;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    opacity: 0;
-    pointer-events: none;
-
-    transition: .2s ease;
-
-    z-index: 100;
-}
-
-.toast.show {
-    opacity: 1;
-    transform: translate(-50%, 0);
-}
-
-/* MOBILE */
-
-@media (max-width: 380px) {
-
-    .app {
-        padding: 11px;
-    }
-
-    .logo {
-        font-size: 18px;
-    }
-
-    .profile {
-        padding: 12px;
-    }
-
-    .avatar {
-        width: 50px;
-        height: 50px;
-    }
-
-    .mode {
-        min-height: 68px;
-    }
-
-    .mode-icon {
-        width: 43px;
-        height: 43px;
-        font-size: 22px;
-    }
+.loading{
+    color:#e4c66b;
+    font-size:12px;
 }
 </style>
 </head>
@@ -596,493 +283,250 @@ body {
 
 <div class="app">
 
-    <!-- HEADER -->
     <div class="header">
-
-        <div class="logo">
-            <span class="logo-piece">♟</span>
-            <span>1711 Chess Arena</span>
-        </div>
-
-        <div class="online">
-            ● ONLINE
-        </div>
-
+        <div class="logo">♟ 1711 Chess Arena</div>
+        <div class="online">● ONLINE</div>
     </div>
 
-
-    <!-- PROFILE -->
     <div class="profile">
 
-        <div class="avatar" id="playerAvatar">
-            ♟
-        </div>
+        <div class="avatar" id="playerAvatar">👤</div>
 
-        <div class="profile-info">
-
-            <div class="profile-name" id="playerName">
-                You
+        <div class="player-info">
+            <div class="player-name" id="playerName">
+                Telegram User
             </div>
 
-            <div class="profile-username" id="playerUsername">
-                Telegram belum terhubung
+            <div class="username" id="playerUsername">
+                @username
             </div>
 
             <div class="rating">
                 ⭐ Rating <span id="playerRating">1200</span>
             </div>
-
         </div>
 
     </div>
 
+    <div class="section-title">Play</div>
 
-    <!-- GAME MODES -->
-    <div class="section-title">
-        Main
-    </div>
+    <div class="menu">
 
-    <div class="modes">
-
-        <!-- RANDOM -->
-        <button class="mode random-mode" onclick="showPanel('randomPanel')">
-
-            <div class="mode-icon">
-                ⚔️
-            </div>
-
-            <div class="mode-content">
-
-                <div class="mode-title">
-                    Lawan Random
-                </div>
-
-                <div class="mode-description">
-                    Cari lawan Telegram dengan rating yang sesuai.
-                </div>
-
-            </div>
-
-            <div class="mode-arrow">
-                ›
-            </div>
-
+        <button class="menu-btn" onclick="showPanel('randomPanel')">
+            <div class="menu-icon">⚔️</div>
+            <div class="menu-title">Lawan Random</div>
+            <div class="menu-desc">Cari lawan online</div>
         </button>
 
-
-        <!-- PRIVATE -->
-        <button class="mode private-mode" onclick="showPanel('privatePanel')">
-
-            <div class="mode-icon">
-                🔒
-            </div>
-
-            <div class="mode-content">
-
-                <div class="mode-title">
-                    Private Room
-                </div>
-
-                <div class="mode-description">
-                    Buat room dan undang teman untuk bermain.
-                </div>
-
-            </div>
-
-            <div class="mode-arrow">
-                ›
-            </div>
-
+        <button class="menu-btn" onclick="showPanel('privatePanel')">
+            <div class="menu-icon">🔒</div>
+            <div class="menu-title">Private Room</div>
+            <div class="menu-desc">Main dengan teman</div>
         </button>
 
-
-        <!-- BOT -->
-        <button class="mode bot-mode" onclick="showPanel('botPanel')">
-
-            <div class="mode-icon">
-                🤖
-            </div>
-
-            <div class="mode-content">
-
-                <div class="mode-title">
-                    VS Bot
-                </div>
-
-                <div class="mode-description">
-                    Main melawan komputer dengan 3 tingkat kesulitan.
-                </div>
-
-            </div>
-
-            <div class="mode-arrow">
-                ›
-            </div>
-
+        <button class="menu-btn" onclick="showPanel('botPanel')">
+            <div class="menu-icon">🤖</div>
+            <div class="menu-title">VS Bot</div>
+            <div class="menu-desc">Easy • Normal • Hard</div>
         </button>
 
-
-        <!-- FRIENDS -->
-        <button class="mode friends-mode" onclick="showPanel('friendsPanel')">
-
-            <div class="mode-icon">
-                👥
-            </div>
-
-            <div class="mode-content">
-
-                <div class="mode-title">
-                    Teman
-                </div>
-
-                <div class="mode-description">
-                    Tambahkan teman dan tantang mereka bermain.
-                </div>
-
-            </div>
-
-            <div class="mode-arrow">
-                ›
-            </div>
-
+        <button class="menu-btn" onclick="showPanel('friendsPanel')">
+            <div class="menu-icon">👥</div>
+            <div class="menu-title">Teman</div>
+            <div class="menu-desc">Kelola teman</div>
         </button>
 
     </div>
 
+    <div id="randomPanel" class="panel">
 
-    <!-- RANDOM PANEL -->
-    <div class="panel" id="randomPanel">
+        <h3>⚔️ Lawan Random</h3>
+        <p>Cari pemain lain yang sedang mencari pertandingan.</p>
 
-        <div class="panel-header">
+        <button class="action" onclick="findRandomOpponent()">
+            Cari Lawan
+        </button>
 
-            <div class="panel-icon">
-                ⚔️
-            </div>
+        <button class="action secondary" onclick="cancelMatchmaking()">
+            Batalkan
+        </button>
 
-            <div>
-                <div class="panel-title">
-                    Lawan Random
-                </div>
+    </div>
 
-                <div class="panel-subtitle">
-                    Mencari pemain Telegram secara otomatis.
-                </div>
-            </div>
+    <div id="privatePanel" class="panel">
 
+        <h3>🔒 Private Room</h3>
+        <p>Buat room atau masuk menggunakan kode room.</p>
+
+        <button class="action" onclick="createRoom()">
+            Buat Room
+        </button>
+
+        <div style="text-align:center;margin:14px 0;color:#7f8b98">
+            atau
         </div>
 
-        <button class="room-button" onclick="findRandomOpponent()">
-            🔎 Cari Lawan
-        </button>
+        <input
+            id="roomCode"
+            placeholder="Masukkan kode room"
+            maxlength="12"
+        >
 
-        <button class="room-button" onclick="closePanels()" style="margin-top:8px;">
-            Batal
+        <button class="action secondary" onclick="joinRoom()">
+            Join Room
         </button>
 
     </div>
 
+    <div id="botPanel" class="panel">
 
-    <!-- PRIVATE PANEL -->
-    <div class="panel" id="privatePanel">
+        <h3>🤖 VS Bot</h3>
+        <p>Pilih tingkat kesulitan.</p>
 
-        <div class="panel-header">
+        <div class="bot-grid">
 
-            <div class="panel-icon">
-                🔒
-            </div>
-
-            <div>
-                <div class="panel-title">
-                    Private Room
-                </div>
-
-                <div class="panel-subtitle">
-                    Bermain hanya dengan teman yang kamu undang.
-                </div>
-            </div>
-
-        </div>
-
-        <div class="room-actions">
-
-            <button class="room-button" onclick="createRoom()">
-                ➕ Buat Room
+            <button class="bot-btn" onclick="selectBot('Easy')">
+                🟢<br>Easy
             </button>
 
-            <input
-                class="room-input"
-                id="roomCode"
-                type="text"
-                placeholder="Masukkan kode room"
-                autocomplete="off"
-            >
+            <button class="bot-btn" onclick="selectBot('Normal')">
+                🟡<br>Normal
+            </button>
 
-            <button class="room-button" onclick="joinRoom()">
-                🚪 Gabung Room
+            <button class="bot-btn" onclick="selectBot('Hard')">
+                🔴<br>Hard
             </button>
 
         </div>
 
     </div>
 
+    <div id="friendsPanel" class="panel">
 
-    <!-- BOT PANEL -->
-    <div class="panel" id="botPanel">
+        <h3>👥 Teman</h3>
+        <p>Tambahkan pemain berdasarkan username Telegram.</p>
 
-        <div class="panel-header">
+        <input
+            id="friendUsername"
+            placeholder="@username"
+        >
 
-            <div class="panel-icon">
-                🤖
-            </div>
-
-            <div>
-                <div class="panel-title">
-                    VS Bot
-                </div>
-
-                <div class="panel-subtitle">
-                    Pilih tingkat kesulitan.
-                </div>
-            </div>
-
-        </div>
-
-        <div class="bot-levels">
-
-            <button class="level" onclick="selectBot('Easy')">
-
-                <div class="level-icon">
-                    🟢
-                </div>
-
-                <div>
-                    <div class="level-name">
-                        Easy
-                    </div>
-
-                    <div class="level-description">
-                        Cocok untuk pemula.
-                    </div>
-                </div>
-
-            </button>
-
-
-            <button class="level" onclick="selectBot('Normal')">
-
-                <div class="level-icon">
-                    🟡
-                </div>
-
-                <div>
-                    <div class="level-name">
-                        Normal
-                    </div>
-
-                    <div class="level-description">
-                        Permainan lebih seimbang.
-                    </div>
-                </div>
-
-            </button>
-
-
-            <button class="level" onclick="selectBot('Hard')">
-
-                <div class="level-icon">
-                    🔴
-                </div>
-
-                <div>
-                    <div class="level-name">
-                        Hard
-                    </div>
-
-                    <div class="level-description">
-                        Bot bermain lebih kuat.
-                    </div>
-                </div>
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- FRIENDS PANEL -->
-    <div class="panel" id="friendsPanel">
-
-        <div class="panel-header">
-
-            <div class="panel-icon">
-                👥
-            </div>
-
-            <div>
-                <div class="panel-title">
-                    Teman
-                </div>
-
-                <div class="panel-subtitle">
-                    Kelola teman dan tantang mereka bermain.
-                </div>
-            </div>
-
-        </div>
-
-        <button class="room-button" onclick="addFriend()">
-            ➕ Tambah Teman
+        <button class="action" onclick="addFriend()">
+            Tambah Teman
         </button>
 
-        <div class="friend-empty">
-
-            <div class="friend-empty-icon">
-                👥
-            </div>
-
-            Belum ada teman.
-
-            <br>
-
-            Sistem pertemanan akan kita sambungkan ke database.
-
-        </div>
+        <div id="friendsList" style="margin-top:14px"></div>
 
     </div>
 
+    <div class="extra">
 
-    <!-- EXTRA MENU -->
-
-    <div class="section-title">
-        Lainnya
-    </div>
-
-    <div class="extra-grid">
-
-        <button class="extra-button" onclick="showToast('Leaderboard akan segera tersedia.')">
-
-            <div class="extra-icon">
-                🏆
-            </div>
-
-            <div class="extra-text">
-
-                <div class="extra-title">
-                    Leaderboard
-                </div>
-
-                <div class="extra-desc">
-                    Ranking pemain
-                </div>
-
-            </div>
-
+        <button onclick="showLeaderboard()">
+            🏆 Leaderboard
         </button>
 
-
-        <button class="extra-button" onclick="showToast('Profile lengkap akan segera tersedia.')">
-
-            <div class="extra-icon">
-                👤
-            </div>
-
-            <div class="extra-text">
-
-                <div class="extra-title">
-                    Profile
-                </div>
-
-                <div class="extra-desc">
-                    Statistik kamu
-                </div>
-
-            </div>
-
+        <button onclick="showProfile()">
+            👤 Profile
         </button>
 
     </div>
 
-
-    <div class="footer">
-        1711 Chess Arena • Play • Challenge • Win
+    <div class="status" id="status">
+        <span class="loading">Menghubungkan ke Telegram...</span>
     </div>
 
 </div>
 
-
-<!-- TOAST -->
-
-<div class="toast" id="toast"></div>
-
+<div id="toast" class="toast"></div>
 
 <script>
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
+
+const SUPABASE_URL =
+    "https://mrqyfdqqkghvpdgibgpl.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_gH_2b-0SQ3FiG_l9t_09Bw_xdNX_KvU";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+let telegramUser = null;
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+    const el = document.getElementById("toast");
+
+    el.textContent = message;
+    el.classList.add("show");
+
+    setTimeout(() => {
+        el.classList.remove("show");
+    }, 2500);
+}
+
 
 /* =========================================================
    TELEGRAM
 ========================================================= */
 
-function loadTelegramUser() {
+async function loadTelegramUser(){
 
     const tg = window.Telegram?.WebApp;
 
-    if (!tg) {
+    if(!tg){
 
-        document.getElementById("playerName").textContent =
-            "You";
-
-        document.getElementById("playerUsername").textContent =
-            "Buka melalui Telegram";
+        document.getElementById("status").textContent =
+            "Telegram WebApp tidak ditemukan.";
 
         return;
     }
 
-    try {
-        tg.ready();
-        tg.expand();
-    } catch (error) {
-        console.log(error);
-    }
+    tg.ready();
+    tg.expand();
 
-    const user = tg.initDataUnsafe?.user;
+    telegramUser = tg.initDataUnsafe?.user;
 
-    if (!user) {
+    if(!telegramUser){
 
-        document.getElementById("playerName").textContent =
-            "Telegram User";
-
-        document.getElementById("playerUsername").textContent =
-            "Identitas belum tersedia";
+        document.getElementById("status").textContent =
+            "Buka game melalui Telegram Mini App.";
 
         return;
     }
-
 
     const fullName = [
-        user.first_name,
-        user.last_name
+        telegramUser.first_name,
+        telegramUser.last_name
     ].filter(Boolean).join(" ");
-
 
     document.getElementById("playerName").textContent =
         fullName ||
-        user.username ||
+        telegramUser.username ||
         "Telegram User";
 
-
-    if (user.username) {
-
-        document.getElementById("playerUsername").textContent =
-            "@" + user.username;
-
-    } else {
-
-        document.getElementById("playerUsername").textContent =
-            "Telegram User";
-    }
+    document.getElementById("playerUsername").textContent =
+        telegramUser.username
+            ? "@" + telegramUser.username
+            : "Telegram User";
 
 
-    if (user.photo_url) {
+    if(telegramUser.photo_url){
 
         const avatar =
             document.getElementById("playerAvatar");
@@ -1092,69 +536,168 @@ function loadTelegramUser() {
         const img =
             document.createElement("img");
 
-        img.src = user.photo_url;
+        img.src = telegramUser.photo_url;
         img.alt = "Avatar";
 
         avatar.appendChild(img);
     }
 
 
-    console.log("Telegram User:", user);
+    await saveUser();
+
 }
 
 
 /* =========================================================
-   PANELS
+   SAVE USER TO SUPABASE
 ========================================================= */
 
-function showPanel(panelId) {
+async function saveUser(){
 
-    const panels =
-        document.querySelectorAll(".panel");
+    if(!telegramUser) return;
 
-    panels.forEach(function(panel) {
-        panel.classList.remove("active");
-    });
+    const userData = {
 
-    const panel =
-        document.getElementById(panelId);
+        id: telegramUser.id,
 
-    if (panel) {
-        panel.classList.add("active");
+        username:
+            telegramUser.username || null,
 
-        setTimeout(function() {
+        first_name:
+            telegramUser.first_name || null,
 
-            panel.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest"
-            });
+        last_name:
+            telegramUser.last_name || null,
 
-        }, 50);
+        photo_url:
+            telegramUser.photo_url || null
+
+    };
+
+
+    const { data, error } =
+        await supabaseClient
+        .from("users")
+        .upsert(
+            userData,
+            {
+                onConflict:"id"
+            }
+        )
+        .select()
+        .single();
+
+
+    if(error){
+
+        console.error("Supabase user error:", error);
+
+        document.getElementById("status").textContent =
+            "Telegram terhubung, tetapi database gagal.";
+
+        toast("Database belum berhasil terhubung.");
+
+        return;
     }
+
+
+    document.getElementById("playerRating").textContent =
+        data.rating || 1200;
+
+    document.getElementById("status").textContent =
+        "✓ Telegram + Supabase terhubung";
+
+    toast("Login berhasil ✓");
+
 }
 
 
-function closePanels() {
+/* =========================================================
+   PANEL
+========================================================= */
+
+function showPanel(id){
 
     document
         .querySelectorAll(".panel")
-        .forEach(function(panel) {
-
+        .forEach(panel => {
             panel.classList.remove("active");
-
         });
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
 }
 
 
 /* =========================================================
-   RANDOM
+   RANDOM MATCH
 ========================================================= */
 
-function findRandomOpponent() {
+async function findRandomOpponent(){
 
-    showToast(
-        "🔎 Fitur matchmaking akan kita sambungkan ke server."
-    );
+    if(!telegramUser){
+
+        toast("Login Telegram belum tersedia.");
+        return;
+    }
+
+
+    const { error } =
+        await supabaseClient
+        .from("matchmaking_queue")
+        .upsert(
+            {
+                user_id: telegramUser.id,
+                rating: Number(
+                    document.getElementById("playerRating").textContent
+                ) || 1200,
+                status:"waiting"
+            },
+            {
+                onConflict:"user_id"
+            }
+        );
+
+
+    if(error){
+
+        console.error(error);
+        toast("Gagal masuk matchmaking.");
+        return;
+    }
+
+
+    toast("Mencari lawan... ⚔️");
+
+}
+
+
+/* =========================================================
+   CANCEL MATCH
+========================================================= */
+
+async function cancelMatchmaking(){
+
+    if(!telegramUser) return;
+
+    const { error } =
+        await supabaseClient
+        .from("matchmaking_queue")
+        .delete()
+        .eq("user_id", telegramUser.id);
+
+
+    if(error){
+
+        toast("Gagal membatalkan.");
+
+        return;
+    }
+
+
+    toast("Pencarian dibatalkan.");
 }
 
 
@@ -1162,31 +705,168 @@ function findRandomOpponent() {
    PRIVATE ROOM
 ========================================================= */
 
-function createRoom() {
+async function createRoom(){
 
-    showToast(
-        "🔒 Sistem Private Room akan segera aktif."
-    );
-}
+    if(!telegramUser){
 
-
-function joinRoom() {
-
-    const code =
-        document.getElementById("roomCode").value.trim();
-
-    if (!code) {
-
-        showToast(
-            "Masukkan kode room terlebih dahulu."
-        );
-
+        toast("Login Telegram belum tersedia.");
         return;
     }
 
-    showToast(
-        "🚪 Room " + code + " akan diproses."
-    );
+
+    const code =
+        Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+
+
+    const { data: room, error } =
+        await supabaseClient
+        .from("rooms")
+        .insert({
+
+            room_code:code,
+
+            host_id:telegramUser.id,
+
+            status:"waiting"
+
+        })
+        .select()
+        .single();
+
+
+    if(error){
+
+        console.error(error);
+        toast("Gagal membuat room.");
+        return;
+    }
+
+
+    const { error: playerError } =
+        await supabaseClient
+        .from("room_players")
+        .insert({
+
+            room_id:room.id,
+
+            user_id:telegramUser.id,
+
+            color:"white"
+
+        });
+
+
+    if(playerError){
+
+        console.error(playerError);
+        toast("Room dibuat, tetapi pemain gagal masuk.");
+        return;
+    }
+
+
+    document.getElementById("roomCode").value =
+        code;
+
+
+    toast("Room dibuat: " + code);
+
+}
+
+
+/* =========================================================
+   JOIN ROOM
+========================================================= */
+
+async function joinRoom(){
+
+    if(!telegramUser){
+
+        toast("Login Telegram belum tersedia.");
+        return;
+    }
+
+
+    const code =
+        document
+        .getElementById("roomCode")
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    if(!code){
+
+        toast("Masukkan kode room.");
+        return;
+    }
+
+
+    const { data: room, error } =
+        await supabaseClient
+        .from("rooms")
+        .select("*")
+        .eq("room_code",code)
+        .eq("status","waiting")
+        .maybeSingle();
+
+
+    if(error){
+
+        console.error(error);
+        toast("Gagal mencari room.");
+        return;
+    }
+
+
+    if(!room){
+
+        toast("Room tidak ditemukan.");
+        return;
+    }
+
+
+    if(room.host_id === telegramUser.id){
+
+        toast("Kamu sudah menjadi host room.");
+        return;
+    }
+
+
+    const { error: joinError } =
+        await supabaseClient
+        .from("room_players")
+        .insert({
+
+            room_id:room.id,
+
+            user_id:telegramUser.id,
+
+            color:"black"
+
+        });
+
+
+    if(joinError){
+
+        console.error(joinError);
+        toast("Gagal masuk room.");
+        return;
+    }
+
+
+    await supabaseClient
+        .from("rooms")
+        .update({
+            status:"playing"
+        })
+        .eq("id",room.id);
+
+
+    toast("Berhasil masuk room ♟️");
+
 }
 
 
@@ -1194,11 +874,15 @@ function joinRoom() {
    BOT
 ========================================================= */
 
-function selectBot(level) {
+function selectBot(level){
 
-    showToast(
-        "🤖 VS Bot " + level + " akan kita aktifkan berikutnya."
-    );
+    toast("VS Bot " + level + " dipilih.");
+
+    /*
+       Mesin catur akan kita pasang
+       pada tahap berikutnya.
+    */
+
 }
 
 
@@ -1206,36 +890,183 @@ function selectBot(level) {
    FRIEND
 ========================================================= */
 
-function addFriend() {
+async function addFriend(){
 
-    showToast(
-        "👥 Sistem Add Friend akan kita sambungkan berikutnya."
-    );
+    if(!telegramUser){
+
+        toast("Login Telegram belum tersedia.");
+        return;
+    }
+
+
+    let username =
+        document
+        .getElementById("friendUsername")
+        .value
+        .trim()
+        .replace("@","");
+
+
+    if(!username){
+
+        toast("Masukkan username Telegram.");
+        return;
+    }
+
+
+    const { data: friend, error } =
+        await supabaseClient
+        .from("users")
+        .select("*")
+        .ilike("username",username)
+        .maybeSingle();
+
+
+    if(error){
+
+        console.error(error);
+        toast("Gagal mencari user.");
+        return;
+    }
+
+
+    if(!friend){
+
+        toast("User belum terdaftar di Chess Arena.");
+        return;
+    }
+
+
+    if(friend.id === telegramUser.id){
+
+        toast("Tidak bisa menambahkan diri sendiri.");
+        return;
+    }
+
+
+    const { error: requestError } =
+        await supabaseClient
+        .from("friend_requests")
+        .upsert({
+
+            sender_id:telegramUser.id,
+
+            receiver_id:friend.id,
+
+            status:"pending"
+
+        });
+
+
+    if(requestError){
+
+        console.error(requestError);
+        toast("Gagal mengirim permintaan.");
+        return;
+    }
+
+
+    document.getElementById("friendUsername").value = "";
+
+    toast("Permintaan teman dikirim ✓");
+
 }
 
 
 /* =========================================================
-   TOAST
+   LEADERBOARD
 ========================================================= */
 
-let toastTimer = null;
+async function showLeaderboard(){
 
-function showToast(message) {
+    const { data, error } =
+        await supabaseClient
+        .from("users")
+        .select("username,first_name,rating,wins,losses,draws")
+        .order("rating",{ascending:false})
+        .limit(10);
 
-    const toast =
-        document.getElementById("toast");
 
-    toast.textContent = message;
+    if(error){
 
-    toast.classList.add("show");
+        console.error(error);
+        toast("Gagal memuat leaderboard.");
+        return;
+    }
 
-    clearTimeout(toastTimer);
 
-    toastTimer = setTimeout(function() {
+    let text = "🏆 TOP PLAYERS\n\n";
 
-        toast.classList.remove("show");
+    data.forEach((player,index) => {
 
-    }, 2600);
+        const name =
+            player.username
+            ? "@" + player.username
+            : player.first_name || "Player";
+
+        text +=
+            (index + 1) +
+            ". " +
+            name +
+            " — ⭐ " +
+            player.rating +
+            "\n";
+
+    });
+
+
+    alert(text);
+
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+async function showProfile(){
+
+    if(!telegramUser){
+
+        toast("Telegram belum terhubung.");
+        return;
+    }
+
+
+    const { data, error } =
+        await supabaseClient
+        .from("users")
+        .select("*")
+        .eq("id",telegramUser.id)
+        .single();
+
+
+    if(error){
+
+        toast("Profile belum tersedia.");
+        return;
+    }
+
+
+    alert(
+        "👤 " +
+        (data.username
+            ? "@" + data.username
+            : data.first_name) +
+
+        "\n\n⭐ Rating: " +
+        data.rating +
+
+        "\n🏆 Menang: " +
+        data.wins +
+
+        "\n❌ Kalah: " +
+        data.losses +
+
+        "\n🤝 Draw: " +
+        data.draws
+    );
+
 }
 
 
