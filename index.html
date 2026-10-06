@@ -523,4 +523,486 @@ button.secondary{
   }
 
   button{
-    font
+    font-size:11px;
+    padding:8px 12px;
+  }
+
+  .status{
+    height:18px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <div class="header">
+
+    <div class="logo">
+      ♟ <span>1711</span> CHESS ARENA
+    </div>
+
+    <div class="online">
+      <div class="dot"></div>
+      ONLINE
+    </div>
+
+  </div>
+
+
+  <!-- OPPONENT -->
+
+  <div class="player">
+
+    <div class="avatar red">
+      <div class="head"></div>
+      <div class="body"></div>
+    </div>
+
+    <div class="info">
+      <div class="name">Opponent</div>
+      <div class="rating">Rating 1200</div>
+    </div>
+
+    <div
+      class="timer"
+      id="enemyTime">
+      10:00
+    </div>
+
+  </div>
+
+
+  <!-- CHESS BOARD -->
+
+  <div class="board-wrap">
+
+    <div
+      class="board"
+      id="board">
+    </div>
+
+  </div>
+
+
+  <!-- PLAYER -->
+
+  <div class="player bottom">
+
+    <div class="avatar blue">
+      <div class="head"></div>
+      <div class="body"></div>
+    </div>
+
+    <div class="info">
+      <div class="name">1711 Player</div>
+      <div class="rating">Rating 1200</div>
+    </div>
+
+    <div
+      class="timer"
+      id="myTime">
+      10:00
+    </div>
+
+  </div>
+
+
+  <div class="controls">
+
+    <button onclick="newGame()">
+      ♟ Game Baru
+    </button>
+
+    <button
+      class="secondary"
+      onclick="findOpponent()">
+      ⚔ Cari Lawan
+    </button>
+
+  </div>
+
+
+  <div
+    class="status"
+    id="status">
+    Pilih bidak untuk mulai bermain
+  </div>
+
+</div>
+
+
+<script>
+
+/* ==================================================
+   CHESS BOARD
+================================================== */
+
+const board =
+  document.getElementById("board");
+
+
+const pieces = [
+
+  ["r","n","b","q","k","b","n","r"],
+
+  ["p","p","p","p","p","p","p","p"],
+
+  [null,null,null,null,null,null,null,null],
+
+  [null,null,null,null,null,null,null,null],
+
+  [null,null,null,null,null,null,null,null],
+
+  [null,null,null,null,null,null,null,null],
+
+  ["P","P","P","P","P","P","P","P"],
+
+  ["R","N","B","Q","K","B","N","R"]
+
+];
+
+
+let selectedSquare = null;
+
+
+/* ==================================================
+   CREATE BOARD
+================================================== */
+
+function createBoard(){
+
+  board.innerHTML = "";
+
+  for(let row=0;row<8;row++){
+
+    for(let col=0;col<8;col++){
+
+      const square =
+        document.createElement("div");
+
+      square.className =
+        "square " +
+        (
+          (row+col)%2===0
+          ? "light"
+          : "dark"
+        );
+
+      square.dataset.row=row;
+      square.dataset.col=col;
+
+
+      const type =
+        pieces[row][col];
+
+
+      if(type){
+
+        square.appendChild(
+          createPiece(type)
+        );
+
+      }
+
+
+      square.addEventListener(
+        "click",
+        function(){
+
+          selectSquare(
+            square,
+            row,
+            col
+          );
+
+        }
+      );
+
+
+      board.appendChild(square);
+
+    }
+
+  }
+
+}
+
+
+/* ==================================================
+   CREATE 3D-STYLE PIECE
+================================================== */
+
+function createPiece(type){
+
+  const piece =
+    document.createElement("div");
+
+  const white =
+    type === type.toUpperCase();
+
+  let pieceName;
+
+  switch(type.toLowerCase()){
+
+    case "p":
+      pieceName="pawn";
+      break;
+
+    case "r":
+      pieceName="rook";
+      break;
+
+    case "n":
+      pieceName="knight";
+      break;
+
+    case "b":
+      pieceName="bishop";
+      break;
+
+    case "q":
+      pieceName="queen";
+      break;
+
+    case "k":
+      pieceName="king";
+      break;
+
+  }
+
+
+  piece.className =
+    "piece " +
+    pieceName +
+    " " +
+    (white ? "white" : "black");
+
+
+  piece.innerHTML =
+    `
+      <div class="base"></div>
+      <div class="bodypiece"></div>
+      <div class="headpiece"></div>
+    `;
+
+
+  return piece;
+
+}
+
+
+/* ==================================================
+   SELECT / MOVE
+================================================== */
+
+function selectSquare(
+  square,
+  row,
+  col
+){
+
+  if(selectedSquare){
+
+    const oldRow =
+      Number(
+        selectedSquare.dataset.row
+      );
+
+    const oldCol =
+      Number(
+        selectedSquare.dataset.col
+      );
+
+
+    /* CLICK SQUARE YANG SAMA */
+
+    if(
+      oldRow===row &&
+      oldCol===col
+    ){
+
+      selectedSquare.classList.remove(
+        "selected"
+      );
+
+      selectedSquare=null;
+
+      document.getElementById(
+        "status"
+      ).textContent =
+        "Pilih bidak untuk mulai bermain";
+
+      return;
+
+    }
+
+
+    /* MOVE DEMO */
+
+    const piece =
+      selectedSquare.querySelector(
+        ".piece"
+      );
+
+
+    if(piece){
+
+      square.innerHTML="";
+
+      square.appendChild(piece);
+
+      pieces[row][col] =
+        pieces[oldRow][oldCol];
+
+      pieces[oldRow][oldCol]=null;
+
+    }
+
+
+    selectedSquare.classList.remove(
+      "selected"
+    );
+
+    selectedSquare=null;
+
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Langkah dilakukan";
+
+    return;
+
+  }
+
+
+  /* SELECT BIDAK */
+
+  const piece =
+    square.querySelector(
+      ".piece"
+    );
+
+
+  if(piece){
+
+    selectedSquare=square;
+
+    square.classList.add(
+      "selected"
+    );
+
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Bidak dipilih — pilih kotak tujuan";
+
+  }
+
+}
+
+
+/* ==================================================
+   NEW GAME
+================================================== */
+
+function newGame(){
+
+  location.reload();
+
+}
+
+
+/* ==================================================
+   FIND OPPONENT
+================================================== */
+
+function findOpponent(){
+
+  const status =
+    document.getElementById(
+      "status"
+    );
+
+  status.textContent =
+    "⚔ Mencari lawan...";
+
+
+  setTimeout(
+    function(){
+
+      status.textContent =
+        "⚔ Lawan ditemukan!";
+
+    },
+    1500
+  );
+
+}
+
+
+/* ==================================================
+   TIMER
+================================================== */
+
+let mySeconds=600;
+
+let enemySeconds=600;
+
+
+setInterval(
+  function(){
+
+    if(mySeconds>0)
+      mySeconds--;
+
+    if(enemySeconds>0)
+      enemySeconds--;
+
+
+    document.getElementById(
+      "myTime"
+    ).textContent =
+      formatTime(mySeconds);
+
+
+    document.getElementById(
+      "enemyTime"
+    ).textContent =
+      formatTime(enemySeconds);
+
+  },
+  1000
+);
+
+
+function formatTime(seconds){
+
+  const min =
+    Math.floor(seconds/60)
+    .toString()
+    .padStart(2,"0");
+
+  const sec =
+    (seconds%60)
+    .toString()
+    .padStart(2,"0");
+
+  return min+":"+sec;
+
+}
+
+
+/* START */
+
+createBoard();
+
+</script>
+
+</body>
+</html>
