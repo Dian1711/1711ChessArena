@@ -404,8 +404,8 @@ button{
 ========================================= */
 
 .piece{
-  width:94%;
-  height:96%;
+  width:92%;
+  height:94%;
 
   display:flex;
   align-items:center;
@@ -417,6 +417,55 @@ button{
 
   pointer-events:none;
 }
+
+
+/* PAWN LEBIH KECIL */
+
+.piece.pawn{
+  width:73%;
+  height:79%;
+}
+
+
+/* ROOK / BENTENG LEBIH KECIL */
+
+.piece.rook{
+  width:79%;
+  height:84%;
+}
+
+
+/* KNIGHT */
+
+.piece.knight{
+  width:91%;
+  height:93%;
+}
+
+
+/* BISHOP */
+
+.piece.bishop{
+  width:88%;
+  height:94%;
+}
+
+
+/* QUEEN */
+
+.piece.queen{
+  width:91%;
+  height:95%;
+}
+
+
+/* KING */
+
+.piece.king{
+  width:89%;
+  height:96%;
+}
+
 
 .piece svg{
   width:100%;
@@ -563,8 +612,18 @@ button{
   }
 
   .piece{
-    width:97%;
-    height:98%;
+    width:91%;
+    height:93%;
+  }
+
+  .piece.pawn{
+    width:70%;
+    height:76%;
+  }
+
+  .piece.rook{
+    width:76%;
+    height:81%;
   }
 
   .timer{
@@ -580,6 +639,11 @@ button{
 
 }
 
+
+/* =========================================
+   SVG SHADOW / GRADIENT
+========================================= */
+
 </style>
 </head>
 
@@ -589,9 +653,7 @@ button{
 <main class="app">
 
 
-<!-- =====================================
-     HEADER
-====================================== -->
+<!-- HEADER -->
 
 <header class="header">
 
@@ -628,9 +690,7 @@ button{
 
 
 
-<!-- =====================================
-     OPPONENT
-====================================== -->
+<!-- OPPONENT -->
 
 <section class="player">
 
@@ -666,9 +726,7 @@ button{
 
 
 
-<!-- =====================================
-     BOARD
-====================================== -->
+<!-- BOARD -->
 
 <section class="board-area">
 
@@ -681,9 +739,7 @@ button{
 
 
 
-<!-- =====================================
-     PLAYER
-====================================== -->
+<!-- PLAYER -->
 
 <section class="player">
 
@@ -796,7 +852,7 @@ button{
 
 
 <!-- =========================================
-     SVG DEFS
+     SVG DEFINITIONS
 ========================================= -->
 
 <svg
@@ -808,7 +864,6 @@ button{
 
 <defs>
 
-  <!-- LIGHT BROWN -->
   <linearGradient
     id="pieceBrown"
     x1="15%"
@@ -826,7 +881,6 @@ button{
   </linearGradient>
 
 
-  <!-- BLACK -->
   <linearGradient
     id="pieceBlack"
     x1="15%"
@@ -844,7 +898,6 @@ button{
   </linearGradient>
 
 
-  <!-- LIGHT BROWN HIGHLIGHT -->
   <linearGradient
     id="accentBrown"
     x1="0%"
@@ -860,7 +913,6 @@ button{
   </linearGradient>
 
 
-  <!-- BLACK HIGHLIGHT -->
   <linearGradient
     id="accentBlack"
     x1="0%"
@@ -904,7 +956,7 @@ button{
 
 
 /* =========================================
-   BOARD DATA
+   INITIAL BOARD
 ========================================= */
 
 const initialBoard = [
@@ -933,9 +985,10 @@ let boardState =
     JSON.stringify(initialBoard)
   );
 
-let selectedSquare = null;
 
-let currentTurn = "w";
+let selectedSquare=null;
+
+let currentTurn="w";
 
 
 
@@ -997,52 +1050,60 @@ function pieceSVG(type,side){
 
     return start + `
 
-      <!-- kepala -->
       <circle
         cx="50"
         cy="27"
-        r="14"
+        r="13"
         fill="${main}"
       />
 
 
-      <!-- leher -->
       <path
         d="
-          M41 39
-          L59 39
-          C58 47 59 52 63 58
-          C66 63 66 68 62 73
-          L70 91
-          L76 96
-          L76 104
+          M41 38
+          L59 38
 
-          C76 109 64 112 50 112
-          C36 112 24 109 24 104
-          L24 96
-          L30 91
-          L38 73
-          C34 68 34 63 37 58
-          C41 52 42 47 41 39
+          C58 46 59 51 62 57
+
+          C65 62 65 67 61 73
+
+          L68 89
+
+          L75 96
+
+          L75 104
+
+          C75 109 64 112 50 112
+
+          C36 112 25 109 25 104
+
+          L25 96
+
+          L32 89
+
+          L39 73
+
+          C35 67 35 62 38 57
+
+          C41 51 42 46 41 38
+
           Z
         "
         fill="${main}"
       />
 
 
-      <!-- collar -->
       <ellipse
         cx="50"
-        cy="74"
-        rx="15"
-        ry="5"
+        cy="73"
+        rx="14"
+        ry="4.5"
         fill="${accent}"
       />
 
 
-      <!-- base -->
       <path
-        d="M23 99 C35 106 65 106 77 99"
+        d="M25 99 C37 106 63 106 75 99"
         fill="none"
         stroke="${accent}"
         stroke-width="4"
@@ -1062,22 +1123,27 @@ function pieceSVG(type,side){
 
     return start + `
 
-      <!-- crown -->
+      <!-- battlements -->
+
       <path
         d="
-          M20 42
+          M24 40
 
-          L20 18
-          L33 18
-          L33 29
-          L43 29
-          L43 18
-          L57 18
-          L57 29
-          L67 29
-          L67 18
-          L80 18
-          L80 42
+          L24 20
+          L35 20
+          L35 29
+
+          L44 29
+          L44 20
+
+          L56 20
+          L56 29
+
+          L65 29
+          L65 20
+
+          L76 20
+          L76 40
 
           Z
         "
@@ -1086,26 +1152,28 @@ function pieceSVG(type,side){
 
 
       <!-- tower -->
+
       <path
         d="
-          M27 41
-          L73 41
+          M29 39
 
-          L69 76
+          L71 39
 
-          C68 82 71 88 76 94
+          L68 73
 
-          L80 99
-          L80 106
+          C67 81 70 88 75 94
 
-          C80 111 67 114 50 114
+          L79 99
+          L79 106
 
-          C33 114 20 111 20 106
+          C79 111 66 114 50 114
 
-          L20 99
-          L24 94
+          C34 114 21 111 21 106
 
-          C29 88 32 82 31 76
+          L21 99
+          L25 94
+
+          C30 88 33 81 32 73
 
           Z
         "
@@ -1113,27 +1181,24 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- crown rim -->
       <path
-        d="M21 41 L79 41"
+        d="M25 40 L75 40"
         fill="none"
         stroke="${accent}"
         stroke-width="4"
       />
 
 
-      <!-- tower rim -->
       <path
-        d="M30 51 L70 51"
+        d="M31 51 L69 51"
         fill="none"
         stroke="${accent}"
         stroke-width="3"
       />
 
 
-      <!-- base -->
       <path
-        d="M23 101 C35 108 65 108 77 101"
+        d="M24 101 C36 108 64 108 76 101"
         fill="none"
         stroke="${accent}"
         stroke-width="4"
@@ -1152,8 +1217,6 @@ function pieceSVG(type,side){
   if(type==="b"){
 
     return start + `
-
-      <!-- bishop body -->
 
       <path
         d="
@@ -1187,7 +1250,6 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- mitre -->
       <path
         d="
           M50 13
@@ -1200,7 +1262,6 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- bishop slit -->
       <path
         d="M59 22 L42 45"
         fill="none"
@@ -1209,7 +1270,6 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- collar -->
       <path
         d="M42 58 C47 63 53 63 58 58"
         fill="none"
@@ -1218,7 +1278,6 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- base -->
       <path
         d="M24 101 C35 108 65 108 76 101"
         fill="none"
@@ -1234,36 +1293,23 @@ function pieceSVG(type,side){
 
   /* =====================================
      KNIGHT
-     PROFIL KUDA KLASIK
   ====================================== */
 
   if(type==="n"){
 
     return start + `
 
-      <!--
-        KUDA:
-        kepala menghadap kanan,
-        telinga,
-        dahi,
-        moncong,
-        mata,
-        leher,
-        dada.
-      -->
-
-      <!-- leher + kepala -->
+      <!-- thick horse neck -->
 
       <path
         d="
+          M28 104
 
-          M29 103
+          C31 96 36 88 38 81
 
-          C32 94 37 88 39 81
+          C41 72 37 65 33 58
 
-          C42 72 38 65 34 58
-
-          C29 50 27 43 29 36
+          C28 50 26 42 29 35
 
           C32 25 41 17 53 14
 
@@ -1275,26 +1321,25 @@ function pieceSVG(type,side){
 
           L70 34
 
-          C77 36 82 41 84 46
+          C78 36 83 41 85 46
 
-          L74 51
+          L75 51
 
           L65 49
 
           C66 58 65 66 60 73
 
-          C56 79 51 82 50 89
+          C55 80 51 83 50 90
 
-          C49 95 54 99 61 103
+          C49 96 54 100 62 104
 
           Z
-
         "
         fill="${main}"
       />
 
 
-      <!-- telinga belakang -->
+      <!-- rear ear -->
 
       <path
         d="
@@ -1307,7 +1352,7 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- telinga depan -->
+      <!-- front ear -->
 
       <path
         d="
@@ -1320,7 +1365,7 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- surai -->
+      <!-- mane -->
 
       <path
         d="
@@ -1346,7 +1391,7 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- dahi -->
+      <!-- forehead -->
 
       <path
         d="
@@ -1360,18 +1405,17 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- moncong -->
+      <!-- muzzle -->
 
       <path
         d="
           M62 34
 
-          C69 34 78 39 84 46
+          C70 34 79 39 85 46
 
-          L74 51
+          C82 50 78 51 74 51
 
           L63 47
-
           L58 41
 
           Z
@@ -1380,10 +1424,10 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- hidung -->
+      <!-- nostril -->
 
       <ellipse
-        cx="78"
+        cx="79"
         cy="46"
         rx="3"
         ry="2"
@@ -1391,25 +1435,25 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- mata -->
+      <!-- eye -->
 
       <circle
         cx="63"
         cy="30"
         r="3"
-        fill="#090909"
+        fill="#080808"
       />
 
       <circle
         cx="64"
         cy="29"
         r="1"
-        fill="#fff"
+        fill="#ffffff"
         stroke="none"
       />
 
 
-      <!-- garis rahang -->
+      <!-- jaw -->
 
       <path
         d="
@@ -1422,15 +1466,15 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- dada -->
+      <!-- chest -->
 
       <path
         d="
           M39 78
 
-          C44 84 47 92 43 103
+          C44 84 47 92 43 104
 
-          L62 103
+          L62 104
 
           C56 94 54 85 59 76
 
@@ -1442,7 +1486,7 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- garis dada -->
+      <!-- chest highlight -->
 
       <path
         d="
@@ -1455,13 +1499,8 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- alas -->
-
       <path
-        d="
-          M22 101
-          C34 108 66 108 78 101
-        "
+        d="M22 101 C34 108 66 108 78 101"
         fill="none"
         stroke="${accent}"
         stroke-width="5"
@@ -1480,8 +1519,6 @@ function pieceSVG(type,side){
   if(type==="q"){
 
     return start + `
-
-      <!-- crown -->
 
       <path
         d="
@@ -1503,8 +1540,6 @@ function pieceSVG(type,side){
       />
 
 
-      <!-- crown balls -->
-
       <circle
         cx="19"
         cy="20"
@@ -1514,691 +1549,4 @@ function pieceSVG(type,side){
 
       <circle
         cx="50"
-        cy="11"
-        r="4"
-        fill="${accent}"
-      />
-
-      <circle
-        cx="81"
-        cy="20"
-        r="4"
-        fill="${accent}"
-      />
-
-
-      <!-- body -->
-
-      <path
-        d="
-          M31 49
-
-          C35 59 42 64 43 72
-
-          C44 81 38 89 30 95
-
-          L23 99
-
-          L20 106
-
-          C20 111 34 114 50 114
-
-          C66 114 80 111 80 106
-
-          L77 99
-
-          L70 95
-
-          C62 89 56 81 57 72
-
-          C58 64 65 59 69 49
-
-          Z
-        "
-        fill="${main}"
-      />
-
-
-      <!-- crown band -->
-
-      <path
-        d="M27 50 L73 50"
-        fill="none"
-        stroke="${accent}"
-        stroke-width="4"
-      />
-
-
-      <!-- body band -->
-
-      <path
-        d="M30 94 C41 100 59 100 70 94"
-        fill="none"
-        stroke="${accent}"
-        stroke-width="4"
-      />
-
-
-      <!-- base -->
-
-      <path
-        d="M23 103 C35 110 65 110 77 103"
-        fill="none"
-        stroke="${accent}"
-        stroke-width="4"
-      />
-
-    ` + end;
-
-  }
-
-
-
-  /* =====================================
-     KING
-  ====================================== */
-
-  if(type==="k"){
-
-    return start + `
-
-      <!-- king body -->
-
-      <path
-        d="
-          M32 51
-
-          C35 61 43 66 43 75
-
-          C43 83 37 90 30 96
-
-          L22 100
-
-          L20 106
-
-          C20 111 34 114 50 114
-
-          C66 114 80 111 80 106
-
-          L78 100
-
-          L70 96
-
-          C63 90 57 83 57 75
-
-          C57 66 65 61 68 51
-
-          Z
-        "
-        fill="${main}"
-      />
-
-
-      <!-- crown -->
-
-      <path
-        d="
-          M33 51
-          L33 38
-
-          L43 38
-          L43 31
-
-          L57 31
-          L57 38
-
-          L67 38
-          L67 51
-
-          Z
-        "
-        fill="${main}"
-      />
-
-
-      <!-- cross -->
-
-      <path
-        d="
-          M44 31
-
-          L44 19
-
-          L39 19
-
-          L39 10
-
-          L44 10
-
-          L44 4
-
-          L56 4
-
-          L56 10
-
-          L61 10
-
-          L61 19
-
-          L56 19
-
-          L56 31
-
-          Z
-        "
-        fill="${accent}"
-      />
-
-
-      <!-- crown band -->
-
-      <path
-        d="M31 51 L69 51"
-        fill="none"
-        stroke="${accent}"
-        stroke-width="4"
-      />
-
-
-      <!-- body band -->
-
-      <path
-        d="M29 95 C41 102 59 102 71 95"
-        fill="none"
-        stroke="${accent}"
-        stroke-width="4"
-      />
-
-
-      <!-- base -->
-
-      <path
-        d="M23 104 C35 111 65 111 77 104"
-        fill="none"
-        stroke="${accent}"
-        stroke-width="4"
-      />
-
-    ` + end;
-
-  }
-
-
-  return "";
-
-}
-
-
-
-/* =========================================
-   CREATE PIECE
-========================================= */
-
-function createPiece(code){
-
-  if(!code){
-    return null;
-  }
-
-  const side = code[0];
-  const type = code[1];
-
-  const piece =
-    document.createElement("div");
-
-  piece.className =
-    "piece " +
-    (side === "w" ? "white" : "black");
-
-  piece.innerHTML =
-    pieceSVG(type,side);
-
-  return piece;
-}
-
-
-
-/* =========================================
-   DRAW BOARD
-========================================= */
-
-function drawBoard(){
-
-  const board =
-    document.getElementById("board");
-
-  board.innerHTML="";
-
-  const files =
-    ["a","b","c","d","e","f","g","h"];
-
-
-  for(let row=0;row<8;row++){
-
-    for(let col=0;col<8;col++){
-
-      const square =
-        document.createElement("div");
-
-
-      square.className =
-        "square " +
-        (
-          (row + col) % 2 === 0
-            ? "light"
-            : "dark"
-        );
-
-
-      square.dataset.row=row;
-      square.dataset.col=col;
-
-
-      /* FILE */
-
-      if(row===7){
-
-        const file =
-          document.createElement("span");
-
-        file.className="coord-file";
-
-        file.textContent=files[col];
-
-        square.appendChild(file);
-
-      }
-
-
-      /* RANK */
-
-      if(col===0){
-
-        const rank =
-          document.createElement("span");
-
-        rank.className="coord-rank";
-
-        rank.textContent=8-row;
-
-        square.appendChild(rank);
-
-      }
-
-
-      /* PIECE */
-
-      const code =
-        boardState[row][col];
-
-      if(code){
-
-        const piece =
-          createPiece(code);
-
-        square.appendChild(piece);
-
-      }
-
-
-      square.addEventListener(
-        "click",
-        function(){
-
-          handleSquareClick(
-            row,
-            col
-          );
-
-        }
-      );
-
-
-      board.appendChild(square);
-
-    }
-
-  }
-
-
-  updateSelection();
-
-}
-
-
-
-/* =========================================
-   CLICK
-========================================= */
-
-function handleSquareClick(row,col){
-
-  const target =
-    boardState[row][col];
-
-
-  /* SELECT */
-
-  if(!selectedSquare){
-
-    if(
-      target &&
-      target[0] === currentTurn
-    ){
-
-      selectedSquare={
-        row:row,
-        col:col
-      };
-
-      updateSelection();
-
-      setStatus(
-        "Pilih kotak tujuan"
-      );
-
-    }
-
-    return;
-  }
-
-
-  /* SELECT ANOTHER */
-
-  if(
-    target &&
-    target[0] === currentTurn
-  ){
-
-    selectedSquare={
-      row:row,
-      col:col
-    };
-
-    updateSelection();
-
-    return;
-  }
-
-
-  /* MOVE */
-
-  boardState[row][col] =
-    boardState[
-      selectedSquare.row
-    ][selectedSquare.col];
-
-
-  boardState[
-    selectedSquare.row
-  ][selectedSquare.col] =
-    null;
-
-
-  selectedSquare=null;
-
-
-  currentTurn =
-    currentTurn === "w"
-      ? "b"
-      : "w";
-
-
-  drawBoard();
-
-
-  setStatus(
-    currentTurn === "w"
-      ? "Giliran <strong>Putih</strong>"
-      : "Giliran <strong>Hitam</strong>"
-  );
-
-}
-
-
-
-/* =========================================
-   SELECTION
-========================================= */
-
-function updateSelection(){
-
-  const squares =
-    document.querySelectorAll(
-      ".square"
-    );
-
-
-  squares.forEach(
-    function(square){
-
-      square.classList.remove(
-        "selected",
-        "possible",
-        "capture"
-      );
-
-
-      if(!selectedSquare){
-        return;
-      }
-
-
-      const row =
-        Number(
-          square.dataset.row
-        );
-
-      const col =
-        Number(
-          square.dataset.col
-        );
-
-
-      if(
-        row === selectedSquare.row &&
-        col === selectedSquare.col
-      ){
-
-        square.classList.add(
-          "selected"
-        );
-
-        return;
-      }
-
-
-      const target =
-        boardState[row][col];
-
-
-      const distance =
-        Math.abs(
-          row-selectedSquare.row
-        ) +
-        Math.abs(
-          col-selectedSquare.col
-        );
-
-
-      if(
-        !target &&
-        distance <= 2
-      ){
-
-        square.classList.add(
-          "possible"
-        );
-
-      }
-
-
-      if(
-        target &&
-        target[0] !== currentTurn
-      ){
-
-        square.classList.add(
-          "capture"
-        );
-
-      }
-
-    }
-  );
-
-}
-
-
-
-/* =========================================
-   STATUS
-========================================= */
-
-function setStatus(text){
-
-  document.getElementById(
-    "status"
-  ).innerHTML=text;
-
-}
-
-
-
-/* =========================================
-   NEW GAME
-========================================= */
-
-function newGame(){
-
-  boardState =
-    JSON.parse(
-      JSON.stringify(initialBoard)
-    );
-
-  selectedSquare=null;
-
-  currentTurn="w";
-
-  mySeconds=600;
-  enemySeconds=600;
-
-  updateTimer(
-    "myTimer",
-    mySeconds
-  );
-
-  updateTimer(
-    "enemyTimer",
-    enemySeconds
-  );
-
-  drawBoard();
-
-  setStatus(
-    "Game baru dimulai — giliran <strong>Putih</strong>"
-  );
-
-}
-
-
-
-/* =========================================
-   FIND OPPONENT
-========================================= */
-
-function findOpponent(){
-
-  setStatus(
-    "⚔ <strong>Mencari lawan...</strong>"
-  );
-
-
-  setTimeout(
-    function(){
-
-      setStatus(
-        "Lawan belum tersedia — mode demo aktif"
-      );
-
-    },
-    1800
-  );
-
-}
-
-
-
-/* =========================================
-   TIMER
-========================================= */
-
-let mySeconds=600;
-
-let enemySeconds=600;
-
-
-setInterval(
-  function(){
-
-    if(currentTurn==="w"){
-
-      if(mySeconds>0){
-        mySeconds--;
-      }
-
-      updateTimer(
-        "myTimer",
-        mySeconds
-      );
-
-    }else{
-
-      if(enemySeconds>0){
-        enemySeconds--;
-      }
-
-      updateTimer(
-        "enemyTimer",
-        enemySeconds
-      );
-
-    }
-
-  },
-  1000
-);
-
-
-
-function updateTimer(id,seconds){
-
-  const minutes =
-    Math.floor(seconds/60);
-
-  const secs =
-    seconds%60;
-
-
-  document.getElementById(id)
-    .textContent =
-      String(minutes).padStart(2,"0")
-      +
-      ":"
-      +
-      String(secs).padStart(2,"0");
-
-}
-
-
-
-/* =========================================
-   START
-========================================= */
-
-drawBoard();
-
-</script>
-
-</body>
-</html>
+        cy="
