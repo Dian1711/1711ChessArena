@@ -1,16 +1,17 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  />
+  >
 
   <title>1711 Chess Arena</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
@@ -20,12 +21,18 @@
     body {
       margin: 0;
       padding: 0;
-      width: 100%;
       min-height: 100%;
       font-family: Arial, Helvetica, sans-serif;
+
       background:
-        radial-gradient(circle at top, #172b4d 0%, #080d16 48%, #03060b 100%);
-      color: white;
+        radial-gradient(
+          circle at top,
+          #252525 0%,
+          #101010 50%,
+          #050505 100%
+        );
+
+      color: #ffffff;
     }
 
     body {
@@ -37,25 +44,27 @@
       font-family: inherit;
     }
 
-    /* =========================
-       MAIN
-    ========================= */
+
+    /* =========================================
+       APP
+    ========================================= */
 
     .app {
       width: 100%;
       max-width: 620px;
-      margin: 0 auto;
+      margin: auto;
       padding: 14px 12px 28px;
     }
 
-    /* =========================
+
+    /* =========================================
        HEADER
-    ========================= */
+    ========================================= */
 
     .header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 12px;
     }
 
@@ -68,29 +77,39 @@
     .brand-icon {
       width: 42px;
       height: 42px;
-      border-radius: 13px;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
+      border-radius: 13px;
+
       background:
-        linear-gradient(145deg, #25a7ff, #1552a5);
+        linear-gradient(
+          145deg,
+          #b98752,
+          #684326
+        );
+
       box-shadow:
-        0 0 18px rgba(35, 143, 255, 0.4),
-        inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        0 0 18px rgba(185, 135, 82, .35),
+        inset 0 1px 2px rgba(255,255,255,.35);
+
       font-size: 25px;
     }
 
     .brand-title {
       font-size: 20px;
       font-weight: 900;
-      letter-spacing: 0.4px;
     }
 
     .brand-sub {
-      font-size: 10px;
-      color: #82a4c9;
       margin-top: 2px;
-      letter-spacing: 1.3px;
+
+      color: #999999;
+
+      font-size: 10px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
     }
 
@@ -98,42 +117,57 @@
       display: flex;
       align-items: center;
       gap: 6px;
+
       padding: 7px 10px;
+
       border-radius: 20px;
-      background: rgba(20, 34, 53, 0.8);
-      border: 1px solid rgba(75, 147, 217, 0.3);
+
+      background: #191919;
+
+      border: 1px solid #3c3c3c;
+
+      color: #aaaaaa;
+
       font-size: 11px;
-      color: #8fb3d9;
     }
 
     .online-dot {
       width: 7px;
       height: 7px;
+
       border-radius: 50%;
-      background: #37e78b;
-      box-shadow: 0 0 10px #37e78b;
+
+      background: #43dc80;
+
+      box-shadow: 0 0 9px #43dc80;
     }
 
-    /* =========================
+
+    /* =========================================
        PLAYER
-    ========================= */
+    ========================================= */
 
     .player {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+
       padding: 10px 12px;
+
       border-radius: 16px;
+
       background:
         linear-gradient(
           145deg,
-          rgba(25, 40, 61, 0.96),
-          rgba(8, 14, 24, 0.96)
+          #242424,
+          #111111
         );
-      border: 1px solid rgba(91, 142, 190, 0.25);
+
+      border: 1px solid #3b3b3b;
+
       box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        0 8px 22px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.05);
     }
 
     .player-left {
@@ -145,178 +179,261 @@
     .avatar {
       width: 46px;
       height: 46px;
-      flex-shrink: 0;
-      border-radius: 14px;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
+      border-radius: 14px;
+
       background:
-        linear-gradient(145deg, #263f5d, #101b2b);
-      border: 2px solid #2e79b9;
-      box-shadow:
-        inset 0 2px 4px rgba(255, 255, 255, 0.12),
-        0 5px 12px rgba(0, 0, 0, 0.3);
+        linear-gradient(
+          145deg,
+          #7b5638,
+          #302319
+        );
+
+      border: 2px solid #b88a5b;
+
       font-size: 24px;
+
+      box-shadow:
+        inset 0 2px 4px rgba(255,255,255,.12),
+        0 5px 12px rgba(0,0,0,.4);
     }
 
     .avatar.enemy {
-      border-color: #b44565;
       background:
-        linear-gradient(145deg, #54233a, #17101b);
+        linear-gradient(
+          145deg,
+          #292929,
+          #080808
+        );
+
+      border-color: #555555;
     }
 
     .player-name {
-      font-weight: 800;
       font-size: 14px;
+      font-weight: 800;
     }
 
     .player-rating {
       margin-top: 4px;
+
+      color: #999999;
+
       font-size: 11px;
-      color: #7d9cbb;
     }
 
     .timer {
       min-width: 75px;
+
       padding: 8px 10px;
-      border-radius: 11px;
+
       text-align: center;
+
+      border-radius: 11px;
+
+      background: #080808;
+
+      border: 1px solid #404040;
+
       font-size: 19px;
       font-weight: 900;
+
       font-variant-numeric: tabular-nums;
-      background: #07101b;
-      border: 1px solid #25445f;
+
       box-shadow:
-        inset 0 2px 6px rgba(0, 0, 0, 0.6),
-        0 2px 7px rgba(0, 0, 0, 0.25);
+        inset 0 2px 6px rgba(0,0,0,.8);
     }
 
     .timer.active {
-      border-color: #31a5ff;
+      border-color: #b88751;
+
       box-shadow:
-        0 0 12px rgba(40, 160, 255, 0.28),
-        inset 0 2px 6px rgba(0, 0, 0, 0.6);
+        0 0 12px rgba(184,135,81,.25),
+        inset 0 2px 6px rgba(0,0,0,.8);
     }
 
-    /* =========================
-       BOARD AREA
-    ========================= */
+
+    /* =========================================
+       BOARD CONTAINER
+    ========================================= */
 
     .board-area {
       margin-top: 12px;
+
       padding: 8px;
-      border-radius: 19px;
+
+      border-radius: 18px;
+
       background:
-        linear-gradient(145deg, #1c2e43, #07101a);
-      border: 1px solid rgba(79, 141, 193, 0.35);
+        linear-gradient(
+          145deg,
+          #303030,
+          #111111
+        );
+
+      border: 1px solid #4a4a4a;
+
       box-shadow:
-        0 16px 35px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        0 16px 35px rgba(0,0,0,.55),
+        inset 0 1px rgba(255,255,255,.08);
     }
 
-    /*
-      PENTING:
-      Grid selalu 8 kolom x 8 baris.
-      Aspect ratio 1:1 membuat seluruh kotak sama ukuran.
-    */
+
+    /* =========================================
+       CHESS BOARD
+    ========================================= */
 
     .board {
       width: 100%;
+
       aspect-ratio: 1 / 1;
+
       display: grid;
-      grid-template-columns: repeat(8, minmax(0, 1fr));
-      grid-template-rows: repeat(8, minmax(0, 1fr));
+
+      grid-template-columns:
+        repeat(8, minmax(0, 1fr));
+
+      grid-template-rows:
+        repeat(8, minmax(0, 1fr));
+
       overflow: hidden;
-      border-radius: 11px;
-      background: #0d1722;
-      border: 2px solid #287fc1;
+
+      border-radius: 8px;
+
+      border: 3px solid #191919;
+
+      background: #888888;
+
       box-shadow:
-        0 0 0 2px rgba(20, 104, 170, 0.18),
-        0 12px 22px rgba(0, 0, 0, 0.35);
+        0 10px 25px rgba(0,0,0,.5);
     }
+
+
+    /* =========================================
+       SQUARE
+    ========================================= */
 
     .square {
       position: relative;
+
       width: 100%;
       height: 100%;
-      min-width: 0;
-      min-height: 0;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
-      border: 1px solid #2774aa;
+      min-width: 0;
+      min-height: 0;
+
       cursor: pointer;
+
       user-select: none;
+
+      border: 1px solid #6f6f6f;
+
+      transition:
+        filter .12s ease;
     }
 
+
+    /* PUTIH */
     .square.light {
       background:
         linear-gradient(
           145deg,
-          #d7e5ee 0%,
-          #b9d0de 50%,
-          #a4c1d2 100%
+          #ffffff,
+          #eeeeee
         );
+
+      border-color: #b7b7b7;
     }
 
+
+    /* ABU-ABU */
     .square.dark {
       background:
         linear-gradient(
           145deg,
-          #315f7d 0%,
-          #23475f 50%,
-          #19374d 100%
+          #a5a5a5,
+          #888888
         );
+
+      border-color: #696969;
     }
 
     .square:hover {
-      filter: brightness(1.12);
+      filter: brightness(1.08);
     }
+
+
+    /* SELECTED */
 
     .square.selected {
       box-shadow:
-        inset 0 0 0 3px #ffd84d,
-        inset 0 0 20px rgba(255, 215, 60, 0.35);
+        inset 0 0 0 3px #d7a04d,
+        inset 0 0 18px rgba(215,160,77,.4);
     }
+
+
+    /* POSSIBLE MOVE */
 
     .square.possible::after {
       content: "";
+
       position: absolute;
-      width: 22%;
-      height: 22%;
+
+      width: 21%;
+      height: 21%;
+
       border-radius: 50%;
-      background: rgba(41, 238, 151, 0.85);
-      box-shadow:
-        0 0 12px rgba(41, 238, 151, 0.7);
+
+      background: rgba(80, 160, 80, .7);
+
       z-index: 1;
     }
+
+
+    /* CAPTURE */
 
     .square.capture::after {
       content: "";
+
       position: absolute;
-      width: 74%;
-      height: 74%;
+
+      width: 73%;
+      height: 73%;
+
       border-radius: 50%;
-      border: 4px solid rgba(255, 82, 107, 0.9);
-      box-shadow:
-        0 0 13px rgba(255, 70, 95, 0.55);
+
+      border: 4px solid rgba(170,50,50,.75);
+
       z-index: 1;
     }
 
-    /* =========================
+
+    /* =========================================
        COORDINATES
-    ========================= */
+    ========================================= */
 
     .coord-file,
     .coord-rank {
       position: absolute;
+
       font-size: 8px;
+
       font-weight: 900;
+
+      opacity: .65;
+
       pointer-events: none;
-      opacity: 0.72;
-      z-index: 4;
+
+      z-index: 5;
     }
 
     .coord-file {
@@ -331,149 +448,181 @@
 
     .square.light .coord-file,
     .square.light .coord-rank {
-      color: #244b68;
+      color: #555555;
     }
 
     .square.dark .coord-file,
     .square.dark .coord-rank {
-      color: #b9e4ff;
+      color: #eeeeee;
     }
 
-    /* =========================
-       CHESS PIECE
-    ========================= */
+
+    /* =========================================
+       PIECES
+    ========================================= */
 
     .piece {
       position: relative;
-      width: 90%;
-      height: 94%;
+
+      width: 91%;
+      height: 95%;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       z-index: 3;
+
       pointer-events: none;
-      transform: translateY(-1%);
     }
 
     .piece svg {
       width: 100%;
       height: 100%;
-      overflow: visible;
+
       display: block;
+
+      overflow: visible;
     }
 
-    .piece.white {
-      filter:
-        drop-shadow(2px 4px 2px rgba(0, 0, 0, 0.5));
-    }
 
-    .piece.black {
-      filter:
-        drop-shadow(2px 4px 2px rgba(0, 0, 0, 0.65));
-    }
-
-    /* =========================
+    /* =========================================
        STATUS
-    ========================= */
+    ========================================= */
 
     .status {
       margin-top: 10px;
+
       padding: 9px 12px;
+
       text-align: center;
+
       border-radius: 11px;
-      background: rgba(7, 16, 27, 0.78);
-      border: 1px solid rgba(61, 108, 148, 0.28);
-      color: #8fb1cc;
+
+      background: #121212;
+
+      border: 1px solid #333333;
+
+      color: #999999;
+
       font-size: 12px;
     }
 
     .status strong {
-      color: #43c1ff;
+      color: #d19a55;
     }
 
-    /* =========================
+
+    /* =========================================
        BUTTONS
-    ========================= */
+    ========================================= */
 
     .buttons {
       display: grid;
+
       grid-template-columns: 1fr 1fr;
+
       gap: 10px;
+
       margin-top: 11px;
     }
 
     .btn {
       border: 0;
+
       border-radius: 13px;
+
       padding: 13px 10px;
-      font-size: 13px;
-      font-weight: 900;
+
       color: white;
+
+      font-size: 13px;
+
+      font-weight: 900;
+
       cursor: pointer;
+
       box-shadow:
-        0 6px 15px rgba(0, 0, 0, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.16);
-      transition:
-        transform 0.12s ease,
-        filter 0.12s ease;
+        0 6px 15px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.18);
     }
 
     .btn:active {
-      transform: translateY(2px) scale(0.99);
+      transform: translateY(2px);
     }
 
-    .btn:hover {
-      filter: brightness(1.12);
-    }
-
-    .btn-blue {
+    .btn-brown {
       background:
-        linear-gradient(145deg, #2699ef, #1558a4);
+        linear-gradient(
+          145deg,
+          #bd8950,
+          #714521
+        );
     }
 
-    .btn-purple {
+    .btn-dark {
       background:
-        linear-gradient(145deg, #a44dff, #5a2bb4);
+        linear-gradient(
+          145deg,
+          #454545,
+          #171717
+        );
+
+      border: 1px solid #555555;
     }
 
-    /* =========================
-       BOTTOM INFO
-    ========================= */
+
+    /* =========================================
+       INFO
+    ========================================= */
 
     .info {
       margin-top: 13px;
+
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 8px;
     }
 
     .info-box {
       padding: 10px 7px;
+
       text-align: center;
+
       border-radius: 12px;
-      background: rgba(15, 27, 42, 0.82);
-      border: 1px solid rgba(72, 119, 159, 0.22);
+
+      background: #151515;
+
+      border: 1px solid #303030;
     }
 
     .info-value {
       font-size: 14px;
       font-weight: 900;
-      color: #d9efff;
     }
 
     .info-label {
       margin-top: 3px;
+
+      color: #777777;
+
       font-size: 9px;
-      color: #6e8da8;
+
       text-transform: uppercase;
-      letter-spacing: 0.7px;
+
+      letter-spacing: .7px;
     }
 
-    /* =========================
-       RESPONSIVE
-    ========================= */
+
+    /* =========================================
+       MOBILE
+    ========================================= */
 
     @media (max-width: 390px) {
+
       .app {
         padding-left: 8px;
         padding-right: 8px;
@@ -483,10 +632,9 @@
         padding: 5px;
       }
 
-      .avatar {
-        width: 40px;
-        height: 40px;
-        font-size: 21px;
+      .piece {
+        width: 94%;
+        height: 97%;
       }
 
       .timer {
@@ -494,1251 +642,1650 @@
         font-size: 17px;
       }
 
-      .brand-title {
-        font-size: 18px;
-      }
-
-      .piece {
-        width: 94%;
-        height: 96%;
+      .avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 21px;
       }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- =====================================================
-       SVG DEFINITIONS
-       ===================================================== -->
+<main class="app">
 
-  <svg
-    width="0"
-    height="0"
-    style="position:absolute; left:-9999px; overflow:hidden;"
-    aria-hidden="true"
+
+  <!-- =====================================
+       HEADER
+  ====================================== -->
+
+  <header class="header">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        ♟
+      </div>
+
+      <div>
+
+        <div class="brand-title">
+          1711 Chess Arena
+        </div>
+
+        <div class="brand-sub">
+          Telegram Mini Game
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="online">
+
+      <span class="online-dot"></span>
+
+      ONLINE
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================
+       OPPONENT
+  ====================================== -->
+
+  <section class="player">
+
+    <div class="player-left">
+
+      <div class="avatar enemy">
+        🧙
+      </div>
+
+      <div>
+
+        <div class="player-name">
+          Opponent
+        </div>
+
+        <div class="player-rating">
+          Rating 1200
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="timer"
+      id="enemyTimer"
+    >
+      10:00
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================
+       BOARD
+  ====================================== -->
+
+  <section class="board-area">
+
+    <div
+      id="board"
+      class="board"
+    ></div>
+
+  </section>
+
+
+
+  <!-- =====================================
+       PLAYER
+  ====================================== -->
+
+  <section class="player">
+
+    <div class="player-left">
+
+      <div class="avatar">
+        🤖
+      </div>
+
+      <div>
+
+        <div class="player-name">
+          1711 Player
+        </div>
+
+        <div class="player-rating">
+          Rating 1200
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="timer active"
+      id="myTimer"
+    >
+      10:00
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================
+       STATUS
+  ====================================== -->
+
+  <div
+    class="status"
+    id="status"
   >
-    <defs>
-
-      <!-- WHITE MATERIAL -->
-      <linearGradient id="whiteMain" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#ffffff"/>
-        <stop offset="28%" stop-color="#f5fbff"/>
-        <stop offset="55%" stop-color="#b9e1f5"/>
-        <stop offset="78%" stop-color="#72b7da"/>
-        <stop offset="100%" stop-color="#397ba3"/>
-      </linearGradient>
-
-      <!-- BLACK MATERIAL -->
-      <linearGradient id="blackMain" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#657789"/>
-        <stop offset="22%" stop-color="#354454"/>
-        <stop offset="50%" stop-color="#1c2733"/>
-        <stop offset="76%" stop-color="#0d141d"/>
-        <stop offset="100%" stop-color="#05080d"/>
-      </linearGradient>
-
-      <!-- WHITE EDGE -->
-      <linearGradient id="whiteEdge" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#fff7bd"/>
-        <stop offset="45%" stop-color="#ffd95a"/>
-        <stop offset="100%" stop-color="#b46b08"/>
-      </linearGradient>
-
-      <!-- BLACK EDGE -->
-      <linearGradient id="blackEdge" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#ff6d91"/>
-        <stop offset="45%" stop-color="#d83262"/>
-        <stop offset="100%" stop-color="#64142f"/>
-      </linearGradient>
-
-      <!-- HIGHLIGHT -->
-      <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-        <stop offset="45%" stop-color="#ffffff" stop-opacity=".65"/>
-        <stop offset="65%" stop-color="#ffffff" stop-opacity=".08"/>
-        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-      </linearGradient>
-
-      <filter
-        id="svgShadow"
-        x="-40%"
-        y="-40%"
-        width="180%"
-        height="190%"
-      >
-        <feDropShadow
-          dx="2.5"
-          dy="4"
-          stdDeviation="2"
-          flood-color="#000000"
-          flood-opacity=".62"
-        />
-      </filter>
-
-    </defs>
-  </svg>
+    Giliran <strong>Putih</strong>
+  </div>
 
 
-  <main class="app">
 
-    <!-- HEADER -->
-    <header class="header">
+  <!-- =====================================
+       BUTTONS
+  ====================================== -->
 
-      <div class="brand">
-        <div class="brand-icon">♟</div>
+  <div class="buttons">
 
-        <div>
-          <div class="brand-title">1711 Chess Arena</div>
-          <div class="brand-sub">Telegram Mini Game</div>
-        </div>
+    <button
+      class="btn btn-brown"
+      onclick="newGame()"
+    >
+      ♟ Game Baru
+    </button>
+
+
+    <button
+      class="btn btn-dark"
+      onclick="findOpponent()"
+    >
+      ⚔ Cari Lawan
+    </button>
+
+  </div>
+
+
+
+  <!-- =====================================
+       INFO
+  ====================================== -->
+
+  <div class="info">
+
+    <div class="info-box">
+
+      <div class="info-value">
+        1200
       </div>
 
-      <div class="online">
-        <span class="online-dot"></span>
-        ONLINE
-      </div>
-
-    </header>
-
-
-    <!-- ENEMY -->
-    <section class="player">
-
-      <div class="player-left">
-
-        <div class="avatar enemy">🧙</div>
-
-        <div>
-          <div class="player-name">Opponent</div>
-          <div class="player-rating">Rating 1200</div>
-        </div>
-
-      </div>
-
-      <div class="timer" id="enemyTimer">
-        10:00
-      </div>
-
-    </section>
-
-
-    <!-- BOARD -->
-    <section class="board-area">
-
-      <div
-        id="board"
-        class="board"
-        aria-label="Papan catur"
-      ></div>
-
-    </section>
-
-
-    <!-- YOU -->
-    <section class="player">
-
-      <div class="player-left">
-
-        <div class="avatar">🤖</div>
-
-        <div>
-          <div class="player-name">1711 Player</div>
-          <div class="player-rating">Rating 1200</div>
-        </div>
-
-      </div>
-
-      <div class="timer active" id="myTimer">
-        10:00
-      </div>
-
-    </section>
-
-
-    <!-- STATUS -->
-    <div class="status" id="status">
-      Giliran <strong>Putih</strong>
-    </div>
-
-
-    <!-- BUTTONS -->
-    <div class="buttons">
-
-      <button
-        class="btn btn-blue"
-        onclick="newGame()"
-      >
-        ♟ Game Baru
-      </button>
-
-      <button
-        class="btn btn-purple"
-        onclick="findOpponent()"
-      >
-        ⚔ Cari Lawan
-      </button>
-
-    </div>
-
-
-    <!-- INFO -->
-    <div class="info">
-
-      <div class="info-box">
-        <div class="info-value">1200</div>
-        <div class="info-label">Rating</div>
-      </div>
-
-      <div class="info-box">
-        <div class="info-value">0</div>
-        <div class="info-label">Menang</div>
-      </div>
-
-      <div class="info-box">
-        <div class="info-value">0</div>
-        <div class="info-label">Kalah</div>
+      <div class="info-label">
+        Rating
       </div>
 
     </div>
 
-  </main>
+
+    <div class="info-box">
+
+      <div class="info-value">
+        0
+      </div>
+
+      <div class="info-label">
+        Menang
+      </div>
+
+    </div>
 
 
-  <script>
+    <div class="info-box">
 
-    /* =====================================================
-       CHESS DATA
-       ===================================================== */
+      <div class="info-value">
+        0
+      </div>
 
-    const initialBoard = [
-      ["br", "bn", "bb", "bq", "bk", "bb", "bn", "br"],
-      ["bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"],
+      <div class="info-label">
+        Kalah
+      </div>
 
-      [null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null],
+    </div>
 
-      ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
-      ["wr", "wn", "wb", "wq", "wk", "wb", "wn", "wr"]
-    ];
+  </div>
 
-    let boardState = JSON.parse(
-      JSON.stringify(initialBoard)
-    );
-
-    let selectedSquare = null;
-    let currentTurn = "w";
+</main>
 
 
-    /* =====================================================
-       SVG CHESS PIECES
-       ===================================================== */
 
-    function pieceSVG(type, side) {
+<!-- =========================================
+     SVG DEFINITIONS
+========================================= -->
 
-      const main =
-        side === "w"
-          ? "url(#whiteMain)"
-          : "url(#blackMain)";
+<svg
+  width="0"
+  height="0"
+  style="position:absolute"
+  aria-hidden="true"
+>
 
-      const edge =
-        side === "w"
-          ? "url(#whiteEdge)"
-          : "url(#blackEdge)";
-
-      const outline =
-        side === "w"
-          ? "#17445f"
-          : "#05070b";
-
-      const highlight =
-        side === "w"
-          ? "#ffffff"
-          : "#8da4b7";
+  <defs>
 
 
-      const start = `
-        <svg
-          viewBox="0 0 100 120"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <g
-            filter="url(#svgShadow)"
-            stroke="${outline}"
-            stroke-width="2.2"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-          >
-      `;
+    <!-- LIGHT BROWN -->
+    <linearGradient
+      id="brownPiece"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%"
+    >
 
-      const end = `
-          </g>
-        </svg>
-      `;
+      <stop
+        offset="0%"
+        stop-color="#fff0c9"
+      />
+
+      <stop
+        offset="20%"
+        stop-color="#d9b27b"
+      />
+
+      <stop
+        offset="48%"
+        stop-color="#b27a43"
+      />
+
+      <stop
+        offset="75%"
+        stop-color="#805127"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#4d2d17"
+      />
+
+    </linearGradient>
 
 
-      /* =========================
-         PAWN
-      ========================= */
+    <!-- BLACK -->
+    <linearGradient
+      id="blackPiece"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%"
+    >
 
-      if (type === "p") {
+      <stop
+        offset="0%"
+        stop-color="#666666"
+      />
 
-        return start + `
+      <stop
+        offset="25%"
+        stop-color="#343434"
+      />
 
-          <!-- base -->
-          <path
-            d="
-              M18 106
-              C18 99 26 95 36 93
-              L40 89
-              L40 78
-              C34 73 31 67 31 59
-              C31 48 39 39 50 39
-              C61 39 69 48 69 59
-              C69 67 66 73 60 78
-              L60 89
-              L64 93
-              C74 95 82 99 82 106
-              C82 111 68 114 50 114
-              C32 114 18 111 18 106
-              Z
-            "
-            fill="${main}"
-          />
+      <stop
+        offset="50%"
+        stop-color="#1d1d1d"
+      />
 
-          <!-- head -->
-          <circle
-            cx="50"
-            cy="29"
-            r="15"
-            fill="${main}"
-          />
+      <stop
+        offset="78%"
+        stop-color="#0b0b0b"
+      />
 
-          <!-- collar -->
-          <path
-            d="M40 76 C44 80 56 80 60 76"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
+      <stop
+        offset="100%"
+        stop-color="#000000"
+      />
 
-          <!-- base rim -->
-          <path
-            d="M21 103 C33 109 67 109 79 103"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
+    </linearGradient>
 
-          <!-- highlight -->
-          <path
-            d="
-              M43 18
-              C38 24 38 34 43 40
-              L45 40
-              C42 30 44 23 48 18
-              Z
-            "
-            fill="${highlight}"
-            opacity=".35"
-            stroke="none"
-          />
 
-        ` + end;
+    <!-- BROWN ACCENT -->
+    <linearGradient
+      id="brownAccent"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%"
+    >
+
+      <stop
+        offset="0%"
+        stop-color="#ffe0a0"
+      />
+
+      <stop
+        offset="50%"
+        stop-color="#c88d4d"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#6a3d1c"
+      />
+
+    </linearGradient>
+
+
+    <!-- BLACK ACCENT -->
+    <linearGradient
+      id="blackAccent"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%"
+    >
+
+      <stop
+        offset="0%"
+        stop-color="#999999"
+      />
+
+      <stop
+        offset="50%"
+        stop-color="#555555"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#1b1b1b"
+      />
+
+    </linearGradient>
+
+
+    <filter
+      id="pieceShadow"
+      x="-40%"
+      y="-40%"
+      width="180%"
+      height="190%"
+    >
+
+      <feDropShadow
+        dx="3"
+        dy="5"
+        stdDeviation="2.5"
+        flood-color="#000000"
+        flood-opacity=".65"
+      />
+
+    </filter>
+
+  </defs>
+
+</svg>
+
+
+
+<script>
+
+
+/* =========================================
+   INITIAL CHESS POSITION
+========================================= */
+
+const initialBoard = [
+
+  ["br","bn","bb","bq","bk","bb","bn","br"],
+
+  ["bp","bp","bp","bp","bp","bp","bp","bp"],
+
+  [null,null,null,null,null,null,null,null],
+
+  [null,null,null,null,null,null,null,null],
+
+  [null,null,null,null,null,null,null,null],
+
+  [null,null,null,null,null,null,null,null],
+
+  ["wp","wp","wp","wp","wp","wp","wp","wp"],
+
+  ["wr","wn","wb","wq","wk","wb","wn","wr"]
+
+];
+
+
+let boardState =
+  JSON.parse(
+    JSON.stringify(initialBoard)
+  );
+
+
+let selectedSquare = null;
+
+let currentTurn = "w";
+
+
+
+/* =========================================
+   PIECE SVG
+========================================= */
+
+function pieceSVG(type, side) {
+
+  const main =
+    side === "w"
+      ? "url(#brownPiece)"
+      : "url(#blackPiece)";
+
+  const accent =
+    side === "w"
+      ? "url(#brownAccent)"
+      : "url(#blackAccent)";
+
+  const outline =
+    side === "w"
+      ? "#40230f"
+      : "#000000";
+
+
+  const start = `
+
+    <svg
+      viewBox="0 0 100 120"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+
+      <g
+        filter="url(#pieceShadow)"
+        stroke="${outline}"
+        stroke-width="2.4"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      >
+
+  `;
+
+
+  const end = `
+
+      </g>
+
+    </svg>
+
+  `;
+
+
+
+  /* =====================================
+     PAWN
+  ====================================== */
+
+  if (type === "p") {
+
+    return start + `
+
+      <!-- HEAD -->
+
+      <circle
+        cx="50"
+        cy="25"
+        r="14"
+        fill="${main}"
+      />
+
+
+      <!-- BODY -->
+
+      <path
+        d="
+          M41 38
+          C42 45 42 50 38 57
+          C36 61 34 67 37 73
+          L29 92
+          C24 94 20 98 20 105
+          C20 111 34 114 50 114
+          C66 114 80 111 80 105
+          C80 98 76 94 71 92
+          L63 73
+          C66 67 64 61 62 57
+          C58 50 58 45 59 38
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- COLLAR -->
+
+      <ellipse
+        cx="50"
+        cy="74"
+        rx="14"
+        ry="5"
+        fill="${accent}"
+      />
+
+
+      <!-- BASE -->
+
+      <path
+        d="
+          M23 98
+          C34 103 66 103 77 98
+        "
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+    ` + end;
+
+  }
+
+
+
+  /* =====================================
+     ROOK
+  ====================================== */
+
+  if (type === "r") {
+
+    return start + `
+
+      <!-- BATTLEMENT -->
+
+      <path
+        d="
+          M22 40
+          L22 18
+          L34 18
+          L34 28
+          L43 28
+          L43 18
+          L57 18
+          L57 28
+          L66 28
+          L66 18
+          L78 18
+          L78 40
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- TOWER -->
+
+      <path
+        d="
+          M29 40
+          L71 40
+          L67 78
+          L73 91
+          L79 97
+          L79 106
+          C79 111 66 114 50 114
+          C34 114 21 111 21 106
+          L21 97
+          L27 91
+          L33 78
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- TOP LINE -->
+
+      <path
+        d="M23 40 L77 40"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <!-- BODY LINE -->
+
+      <path
+        d="M31 50 L69 50"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="3"
+      />
+
+
+      <!-- BASE -->
+
+      <path
+        d="M23 101 C35 108 65 108 77 101"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+    ` + end;
+
+  }
+
+
+
+  /* =====================================
+     BISHOP
+  ====================================== */
+
+  if (type === "b") {
+
+    return start + `
+
+      <!-- HEAD -->
+
+      <path
+        d="
+          M50 11
+          C61 17 66 26 64 36
+          C63 44 57 50 57 56
+          C57 64 66 78 73 92
+          L79 98
+          L79 106
+          C79 111 66 114 50 114
+          C34 114 21 111 21 106
+          L21 98
+          L27 92
+          C34 78 43 64 43 56
+          C43 50 37 44 36 36
+          C34 26 39 17 50 11
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- MITER -->
+
+      <path
+        d="
+          M50 14
+          L39 43
+          L50 51
+          L61 43
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- SLIT -->
+
+      <path
+        d="M58 22 L43 44"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <!-- COLLAR -->
+
+      <path
+        d="M42 58 C47 63 53 63 58 58"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="3"
+      />
+
+
+      <!-- BASE -->
+
+      <path
+        d="M24 101 C35 108 65 108 76 101"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+    ` + end;
+
+  }
+
+
+
+  /* =====================================
+     KNIGHT — KUDA
+  ====================================== */
+
+  if (type === "n") {
+
+    return start + `
+
+      <!--
+        HEAD + NECK KUDA
+        Bentuk dibuat seperti kepala
+        kuda catur klasik.
+      -->
+
+      <path
+        d="
+
+          M31 101
+
+          C34 92 39 87 41 79
+
+          C43 72 41 66 37 60
+
+          C32 53 28 46 29 39
+
+          C30 29 37 21 47 17
+
+          C53 14 59 13 65 14
+
+          L70 22
+
+          L77 19
+
+          L72 30
+
+          C77 34 81 39 82 44
+
+          L72 48
+
+          C74 56 72 64 68 70
+
+          C64 76 58 80 55 86
+
+          C53 90 55 96 61 103
+
+          Z
+
+        "
+        fill="${main}"
+      />
+
+
+      <!-- TELINGA KUDA -->
+
+      <path
+        d="
+          M48 18
+          L47 6
+          L56 15
+          Z
+        "
+        fill="${main}"
+      />
+
+      <path
+        d="
+          M60 16
+          L66 6
+          L68 22
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- MANE / SURAI -->
+
+      <path
+        d="
+          M31 39
+          C25 48 31 58 38 65
+          C43 70 44 76 40 86
+          L47 80
+          C52 76 56 70 57 64
+
+          C51 60 48 54 47 48
+
+          C45 39 49 30 57 22
+
+          L45 23
+
+          C39 27 34 32 31 39
+
+          Z
+        "
+        fill="${accent}"
+      />
+
+
+      <!-- MONCONG KUDA -->
+
+      <path
+        d="
+          M61 34
+          C68 34 74 38 81 44
+          L72 49
+          L62 45
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- HIDUNG -->
+
+      <ellipse
+        cx="76"
+        cy="45"
+        rx="3"
+        ry="2"
+        fill="${accent}"
+      />
+
+
+      <!-- MATA -->
+
+      <circle
+        cx="62"
+        cy="31"
+        r="3"
+        fill="#17100b"
+      />
+
+      <circle
+        cx="63"
+        cy="30"
+        r="1"
+        fill="#ffffff"
+        stroke="none"
+      />
+
+
+      <!-- LEHER / DADA -->
+
+      <path
+        d="
+          M40 78
+          C45 84 47 91 43 103
+
+          L62 103
+
+          C56 94 54 86 59 76
+
+          C53 81 46 82 40 78
+
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- GARIS LEHER -->
+
+      <path
+        d="
+          M37 61
+          C43 67 48 70 54 71
+        "
+        fill="none"
+        stroke="${accent}"
+        stroke-width="3"
+      />
+
+
+      <!-- BASE -->
+
+      <path
+        d="
+          M23 101
+          C35 108 65 108 77 101
+        "
+        fill="none"
+        stroke="${accent}"
+        stroke-width="5"
+      />
+
+    ` + end;
+
+  }
+
+
+
+  /* =====================================
+     QUEEN
+  ====================================== */
+
+  if (type === "q") {
+
+    return start + `
+
+      <!-- CROWN -->
+
+      <path
+        d="
+          M25 49
+          L20 20
+          L36 34
+          L50 12
+          L64 34
+          L80 20
+          L75 49
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- JEWELS -->
+
+      <circle
+        cx="20"
+        cy="20"
+        r="4"
+        fill="${accent}"
+      />
+
+      <circle
+        cx="50"
+        cy="12"
+        r="4"
+        fill="${accent}"
+      />
+
+      <circle
+        cx="80"
+        cy="20"
+        r="4"
+        fill="${accent}"
+      />
+
+
+      <!-- BODY -->
+
+      <path
+        d="
+          M31 49
+          C35 59 42 64 43 72
+          C44 80 38 88 31 94
+          L23 99
+          L20 106
+
+          C20 111 34 114 50 114
+
+          C66 114 80 111 80 106
+
+          L77 99
+          L69 94
+
+          C62 88 56 80 57 72
+
+          C58 64 65 59 69 49
+
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- CROWN BAND -->
+
+      <path
+        d="M27 49 L73 49"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <!-- BODY BAND -->
+
+      <path
+        d="M30 93 C40 99 60 99 70 93"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <!-- BASE -->
+
+      <path
+        d="M23 103 C35 109 65 109 77 103"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+    ` + end;
+
+  }
+
+
+
+  /* =====================================
+     KING
+  ====================================== */
+
+  if (type === "k") {
+
+    return start + `
+
+      <!-- KING BODY -->
+
+      <path
+        d="
+          M32 50
+
+          C35 60 43 65 43 74
+
+          C43 82 37 90 30 96
+
+          L22 100
+
+          L20 106
+
+          C20 111 34 114 50 114
+
+          C66 114 80 111 80 106
+
+          L78 100
+
+          L70 96
+
+          C63 90 57 82 57 74
+
+          C57 65 65 60 68 50
+
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- CROWN -->
+
+      <path
+        d="
+          M33 50
+          L33 38
+          L43 38
+          L43 31
+          L57 31
+          L57 38
+          L67 38
+          L67 50
+          Z
+        "
+        fill="${main}"
+      />
+
+
+      <!-- CROSS -->
+
+      <path
+        d="
+          M44 30
+          L44 18
+          L39 18
+          L39 10
+          L44 10
+          L44 4
+          L56 4
+          L56 10
+          L61 10
+          L61 18
+          L56 18
+          L56 30
+          Z
+        "
+        fill="${accent}"
+      />
+
+
+      <!-- CROWN LINE -->
+
+      <path
+        d="M31 50 L69 50"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <!-- BODY LINE -->
+
+      <path
+        d="M29 94 C41 101 59 101 71 94"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+
+      <!-- BASE -->
+
+      <path
+        d="M23 104 C35 110 65 110 77 104"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="4"
+      />
+
+    ` + end;
+
+  }
+
+
+  return "";
+
+}
+
+
+
+/* =========================================
+   CREATE PIECE
+========================================= */
+
+function createPiece(code) {
+
+  if (!code) {
+    return null;
+  }
+
+  const side = code[0];
+  const type = code[1];
+
+  const element =
+    document.createElement("div");
+
+  element.className =
+    "piece " +
+    (side === "w" ? "white" : "black");
+
+  element.innerHTML =
+    pieceSVG(type, side);
+
+  return element;
+}
+
+
+
+/* =========================================
+   DRAW BOARD
+========================================= */
+
+function drawBoard() {
+
+  const board =
+    document.getElementById("board");
+
+  board.innerHTML = "";
+
+  const files =
+    ["a","b","c","d","e","f","g","h"];
+
+
+  for (
+    let row = 0;
+    row < 8;
+    row++
+  ) {
+
+    for (
+      let col = 0;
+      col < 8;
+      col++
+    ) {
+
+      const square =
+        document.createElement("div");
+
+
+      square.className =
+        "square " +
+        (
+          (row + col) % 2 === 0
+            ? "light"
+            : "dark"
+        );
+
+
+      square.dataset.row = row;
+      square.dataset.col = col;
+
+
+      /* FILE */
+
+      if (row === 7) {
+
+        const file =
+          document.createElement("span");
+
+        file.className =
+          "coord-file";
+
+        file.textContent =
+          files[col];
+
+        square.appendChild(file);
       }
 
 
-      /* =========================
-         ROOK
-      ========================= */
+      /* RANK */
 
-      if (type === "r") {
+      if (col === 0) {
 
-        return start + `
+        const rank =
+          document.createElement("span");
 
-          <!-- tower body -->
-          <path
-            d="
-              M27 39
-              L73 39
-              L68 48
-              L65 82
-              L72 91
-              L80 96
-              L80 106
-              C80 111 67 114 50 114
-              C33 114 20 111 20 106
-              L20 96
-              L28 91
-              L35 82
-              L32 48
-              Z
-            "
-            fill="${main}"
-          />
+        rank.className =
+          "coord-rank";
 
-          <!-- battlement -->
-          <path
-            d="
-              M22 40
-              L22 19
-              L34 19
-              L34 27
-              L43 27
-              L43 19
-              L57 19
-              L57 27
-              L66 27
-              L66 19
-              L78 19
-              L78 40
-              Z
-            "
-            fill="${main}"
-          />
+        rank.textContent =
+          8 - row;
 
-          <!-- upper rim -->
-          <path
-            d="M22 40 L78 40"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- middle rim -->
-          <path
-            d="M31 49 L69 49"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="3"
-          />
-
-          <!-- bottom rim -->
-          <path
-            d="M22 100 C35 106 65 106 78 100"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- highlight -->
-          <path
-            d="M35 45 L40 45 L42 82 L37 90 Z"
-            fill="${highlight}"
-            opacity=".22"
-            stroke="none"
-          />
-
-        ` + end;
+        square.appendChild(rank);
       }
 
 
-      /* =========================
-         BISHOP
-      ========================= */
+      /* PIECE */
 
-      if (type === "b") {
+      const piece =
+        boardState[row][col];
 
-        return start + `
+      if (piece) {
 
-          <!-- body -->
-          <path
-            d="
-              M50 12
-              C61 17 66 26 65 36
-              C64 45 58 50 57 56
-              C56 64 65 76 72 91
-              L80 97
-              L80 106
-              C80 111 67 114 50 114
-              C33 114 20 111 20 106
-              L20 97
-              L28 91
-              C35 76 44 64 43 56
-              C42 50 36 45 35 36
-              C34 26 39 17 50 12
-              Z
-            "
-            fill="${main}"
-          />
+        const pieceElement =
+          createPiece(piece);
 
-          <!-- miter -->
-          <path
-            d="
-              M49 16
-              L39 43
-              L50 51
-              L61 43
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- bishop slit -->
-          <path
-            d="
-              M57 23
-              L44 43
-            "
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- neck -->
-          <path
-            d="M42 58 C47 62 53 62 58 58"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="3"
-          />
-
-          <!-- base -->
-          <path
-            d="M25 96 C37 102 63 102 75 96"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <path
-            d="M37 67 L42 88 L34 94"
-            fill="${highlight}"
-            opacity=".18"
-            stroke="none"
-          />
-
-        ` + end;
+        square.appendChild(
+          pieceElement
+        );
       }
 
 
-      /* =========================
-         KNIGHT
-      ========================= */
-
-      if (type === "n") {
-
-        return start + `
-
-          <!-- horse silhouette -->
-          <path
-            d="
-              M28 103
-
-              C31 94 37 88 39 80
-              C41 72 37 64 32 56
-
-              C27 48 27 38 31 31
-              C36 22 46 16 58 14
-
-              L67 22
-              L73 20
-              L69 31
-              L79 42
-              L70 47
-
-              C73 57 70 67 63 74
-              C57 80 53 84 55 93
-
-              L62 103
-
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- ear -->
-          <path
-            d="
-              M55 16
-              L54 6
-              L63 14
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- mane -->
-          <path
-            d="
-              M33 32
-              C27 46 34 57 42 67
-              C46 72 45 81 41 89
-              L49 82
-              C54 77 59 73 62 68
-              C54 66 50 60 48 53
-              C45 43 49 33 55 25
-              L44 25
-              Z
-            "
-            fill="${edge}"
-            opacity=".9"
-          />
-
-          <!-- face -->
-          <path
-            d="
-              M47 25
-              C55 21 63 23 68 30
-              L61 35
-              L53 34
-              L47 25
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- eye -->
-          <circle
-            cx="61"
-            cy="29"
-            r="2.5"
-            fill="${edge}"
-            stroke="none"
-          />
-
-          <!-- muzzle -->
-          <path
-            d="
-              M61 35
-              L76 43
-              L67 47
-              L59 43
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- chest -->
-          <path
-            d="
-              M39 78
-              C43 87 44 94 41 103
-              L61 103
-              C56 93 55 85 59 76
-              C53 81 46 83 39 78
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- base -->
-          <path
-            d="M23 101 C35 108 65 108 77 101"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="5"
-          />
-
-          <!-- highlight -->
-          <path
-            d="
-              M38 35
-              C34 45 39 56 45 64
-              C48 68 48 73 46 77
-              C42 68 35 59 34 50
-              C33 44 34 39 38 35
-              Z
-            "
-            fill="${highlight}"
-            opacity=".2"
-            stroke="none"
-          />
-
-        ` + end;
-      }
-
-
-      /* =========================
-         QUEEN
-      ========================= */
-
-      if (type === "q") {
-
-        return start + `
-
-          <!-- body -->
-          <path
-            d="
-              M31 48
-              C35 58 42 63 43 71
-              C44 79 38 87 31 94
-              L24 98
-              L20 106
-              C20 111 33 114 50 114
-              C67 114 80 111 80 106
-              L76 98
-              L69 94
-              C62 87 56 79 57 71
-              C58 63 65 58 69 48
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- crown -->
-          <path
-            d="
-              M27 49
-              L22 20
-              L37 34
-              L50 14
-              L63 34
-              L78 20
-              L73 49
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- crown jewels -->
-          <circle cx="22" cy="19" r="4" fill="${edge}" />
-          <circle cx="50" cy="13" r="4" fill="${edge}" />
-          <circle cx="78" cy="19" r="4" fill="${edge}" />
-
-          <!-- crown band -->
-          <path
-            d="M27 49 L73 49"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- body rim -->
-          <path
-            d="M30 92 C41 99 59 99 70 92"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- base -->
-          <path
-            d="M23 103 C35 109 65 109 77 103"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- highlight -->
-          <path
-            d="
-              M39 48
-              C43 60 48 68 47 76
-              C46 84 42 89 38 94
-              L32 91
-              C39 81 41 72 39 63
-              Z
-            "
-            fill="${highlight}"
-            opacity=".22"
-            stroke="none"
-          />
-
-        ` + end;
-      }
-
-
-      /* =========================
-         KING
-      ========================= */
-
-      if (type === "k") {
-
-        return start + `
-
-          <!-- king body -->
-          <path
-            d="
-              M32 50
-              C35 59 43 65 43 74
-              C43 82 37 89 30 96
-              L22 100
-              L20 106
-              C20 111 33 114 50 114
-              C67 114 80 111 80 106
-              L78 100
-              L70 96
-              C63 89 57 82 57 74
-              C57 65 65 59 68 50
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- crown -->
-          <path
-            d="
-              M33 50
-              L33 38
-              L43 38
-              L43 31
-              L50 31
-              L57 31
-              L57 38
-              L67 38
-              L67 50
-              Z
-            "
-            fill="${main}"
-          />
-
-          <!-- cross -->
-          <path
-            d="
-              M44 29
-              L44 17
-              L39 17
-              L39 10
-              L44 10
-              L44 4
-              L56 4
-              L56 10
-              L61 10
-              L61 17
-              L56 17
-              L56 29
-              Z
-            "
-            fill="${edge}"
-          />
-
-          <!-- crown rim -->
-          <path
-            d="M31 50 L69 50"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- body rim -->
-          <path
-            d="M29 94 C41 101 59 101 71 94"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- base -->
-          <path
-            d="M23 104 C35 110 65 110 77 104"
-            fill="none"
-            stroke="${edge}"
-            stroke-width="4"
-          />
-
-          <!-- highlight -->
-          <path
-            d="
-              M39 52
-              C42 63 48 70 47 78
-              C46 86 41 91 36 96
-              L30 94
-              C38 84 41 76 40 67
-              Z
-            "
-            fill="${highlight}"
-            opacity=".22"
-            stroke="none"
-          />
-
-        ` + end;
-      }
-
-      return "";
-    }
-
-
-    /* =====================================================
-       CREATE PIECE
-       ===================================================== */
-
-    function createPiece(code) {
-
-      if (!code) return null;
-
-      const side = code[0];
-      const type = code[1];
-
-      const div = document.createElement("div");
-
-      div.className =
-        "piece " +
-        (side === "w" ? "white" : "black");
-
-      div.innerHTML =
-        pieceSVG(type, side);
-
-      return div;
-    }
-
-
-    /* =====================================================
-       DRAW BOARD
-       ===================================================== */
-
-    function drawBoard() {
-
-      const board =
-        document.getElementById("board");
-
-      board.innerHTML = "";
-
-      const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
-
-      for (let row = 0; row < 8; row++) {
-
-        for (let col = 0; col < 8; col++) {
-
-          const square =
-            document.createElement("div");
-
-          square.className =
-            "square " +
-            ((row + col) % 2 === 0
-              ? "light"
-              : "dark");
-
-          square.dataset.row = row;
-          square.dataset.col = col;
-
-          /* coordinates */
-          if (row === 7) {
-
-            const file =
-              document.createElement("span");
-
-            file.className = "coord-file";
-            file.textContent = files[col];
-
-            square.appendChild(file);
-          }
-
-          if (col === 0) {
-
-            const rank =
-              document.createElement("span");
-
-            rank.className = "coord-rank";
-            rank.textContent = 8 - row;
-
-            square.appendChild(rank);
-          }
-
-
-          /* piece */
-          const piece =
-            boardState[row][col];
-
-          if (piece) {
-
-            const pieceElement =
-              createPiece(piece);
-
-            square.appendChild(pieceElement);
-          }
-
-
-          square.addEventListener(
-            "click",
-            () => handleSquareClick(row, col)
+      square.addEventListener(
+        "click",
+        function() {
+
+          handleSquareClick(
+            row,
+            col
           );
 
-          board.appendChild(square);
         }
-      }
+      );
 
-      updateSelection();
+
+      board.appendChild(square);
+
     }
 
+  }
 
-    /* =====================================================
-       CLICK SQUARE
-    ===================================================== */
 
-    function handleSquareClick(row, col) {
+  updateSelection();
 
-      const clickedPiece =
+}
+
+
+
+/* =========================================
+   HANDLE SQUARE
+========================================= */
+
+function handleSquareClick(row, col) {
+
+  const clickedPiece =
+    boardState[row][col];
+
+
+  /* PILIH BIDAK */
+
+  if (!selectedSquare) {
+
+    if (
+      clickedPiece &&
+      clickedPiece[0] === currentTurn
+    ) {
+
+      selectedSquare = {
+        row: row,
+        col: col
+      };
+
+      updateSelection();
+
+      setStatus(
+        "Pilih kotak tujuan"
+      );
+
+    }
+
+    return;
+  }
+
+
+  /* PILIH BIDAK LAIN */
+
+  if (
+    clickedPiece &&
+    clickedPiece[0] === currentTurn
+  ) {
+
+    selectedSquare = {
+      row: row,
+      col: col
+    };
+
+    updateSelection();
+
+    return;
+  }
+
+
+  /* PINDAH */
+
+  boardState[row][col] =
+    boardState[
+      selectedSquare.row
+    ][selectedSquare.col];
+
+
+  boardState[
+    selectedSquare.row
+  ][selectedSquare.col] =
+    null;
+
+
+  selectedSquare = null;
+
+
+  currentTurn =
+    currentTurn === "w"
+      ? "b"
+      : "w";
+
+
+  drawBoard();
+
+
+  setStatus(
+    currentTurn === "w"
+      ? "Giliran <strong>Putih</strong>"
+      : "Giliran <strong>Hitam</strong>"
+  );
+
+}
+
+
+
+/* =========================================
+   SELECTION
+========================================= */
+
+function updateSelection() {
+
+  const squares =
+    document.querySelectorAll(
+      ".square"
+    );
+
+
+  squares.forEach(
+    function(square) {
+
+      square.classList.remove(
+        "selected",
+        "possible",
+        "capture"
+      );
+
+
+      if (!selectedSquare) {
+        return;
+      }
+
+
+      const row =
+        Number(
+          square.dataset.row
+        );
+
+      const col =
+        Number(
+          square.dataset.col
+        );
+
+
+      if (
+        row === selectedSquare.row &&
+        col === selectedSquare.col
+      ) {
+
+        square.classList.add(
+          "selected"
+        );
+
+        return;
+      }
+
+
+      const target =
         boardState[row][col];
 
 
-      /* Tidak ada selected */
-      if (!selectedSquare) {
-
-        if (
-          clickedPiece &&
-          clickedPiece[0] === currentTurn
-        ) {
-
-          selectedSquare = {
-            row,
-            col
-          };
-
-          updateSelection();
-
-          setStatus(
-            "Pilih kotak tujuan"
-          );
-        }
-
-        return;
-      }
+      const distance =
+        Math.abs(
+          row - selectedSquare.row
+        ) +
+        Math.abs(
+          col - selectedSquare.col
+        );
 
 
-      /* Klik bidak sendiri */
       if (
-        clickedPiece &&
-        clickedPiece[0] === currentTurn
+        !target &&
+        distance <= 2
       ) {
 
-        selectedSquare = {
-          row,
-          col
-        };
+        square.classList.add(
+          "possible"
+        );
 
-        updateSelection();
-
-        return;
       }
 
 
-      /* Pindahkan bidak */
-      boardState[row][col] =
-        boardState[
-          selectedSquare.row
-        ][selectedSquare.col];
+      if (
+        target &&
+        target[0] !== currentTurn
+      ) {
 
-      boardState[
-        selectedSquare.row
-      ][selectedSquare.col] = null;
-
-
-      selectedSquare = null;
-
-      currentTurn =
-        currentTurn === "w"
-          ? "b"
-          : "w";
-
-
-      drawBoard();
-
-      setStatus(
-        currentTurn === "w"
-          ? "Giliran <strong>Putih</strong>"
-          : "Giliran <strong>Hitam</strong>"
-      );
-    }
-
-
-    /* =====================================================
-       SELECTION
-    ===================================================== */
-
-    function updateSelection() {
-
-      const squares =
-        document.querySelectorAll(".square");
-
-      squares.forEach(square => {
-
-        square.classList.remove(
-          "selected",
-          "possible",
+        square.classList.add(
           "capture"
         );
 
-        if (!selectedSquare) {
-          return;
-        }
-
-        const row =
-          Number(square.dataset.row);
-
-        const col =
-          Number(square.dataset.col);
-
-
-        if (
-          row === selectedSquare.row &&
-          col === selectedSquare.col
-        ) {
-
-          square.classList.add(
-            "selected"
-          );
-
-          return;
-        }
-
-
-        const target =
-          boardState[row][col];
-
-
-        /*
-          Demo visual:
-          tampilkan titik pada kotak kosong
-          di sekitar bidak yang dipilih.
-        */
-
-        const distance =
-          Math.abs(
-            row - selectedSquare.row
-          ) +
-          Math.abs(
-            col - selectedSquare.col
-          );
-
-
-        if (
-          !target &&
-          distance <= 2
-        ) {
-
-          square.classList.add(
-            "possible"
-          );
-
-        } else if (
-          target &&
-          target[0] !== currentTurn
-        ) {
-
-          square.classList.add(
-            "capture"
-          );
-        }
-
-      });
-    }
-
-
-    /* =====================================================
-       STATUS
-    ===================================================== */
-
-    function setStatus(text) {
-
-      document.getElementById(
-        "status"
-      ).innerHTML = text;
-    }
-
-
-    /* =====================================================
-       NEW GAME
-    ===================================================== */
-
-    function newGame() {
-
-      boardState =
-        JSON.parse(
-          JSON.stringify(initialBoard)
-        );
-
-      selectedSquare = null;
-      currentTurn = "w";
-
-      document.getElementById(
-        "myTimer"
-      ).textContent = "10:00";
-
-      document.getElementById(
-        "enemyTimer"
-      ).textContent = "10:00";
-
-      drawBoard();
-
-      setStatus(
-        "Game baru dimulai — giliran <strong>Putih</strong>"
-      );
-    }
-
-
-    /* =====================================================
-       FIND OPPONENT
-    ===================================================== */
-
-    function findOpponent() {
-
-      setStatus(
-        "⚔ <strong>Mencari lawan...</strong>"
-      );
-
-      setTimeout(() => {
-
-        setStatus(
-          "Lawan belum tersedia — mode demo aktif"
-        );
-
-      }, 1800);
-    }
-
-
-    /* =====================================================
-       TIMER DEMO
-    ===================================================== */
-
-    let mySeconds = 600;
-    let enemySeconds = 600;
-
-    setInterval(() => {
-
-      if (currentTurn === "w") {
-
-        if (mySeconds > 0) {
-          mySeconds--;
-        }
-
-        updateTimer(
-          "myTimer",
-          mySeconds
-        );
-
-      } else {
-
-        if (enemySeconds > 0) {
-          enemySeconds--;
-        }
-
-        updateTimer(
-          "enemyTimer",
-          enemySeconds
-        );
       }
 
-    }, 1000);
+    }
+  );
+
+}
 
 
-    function updateTimer(id, seconds) {
 
-      const minutes =
-        Math.floor(seconds / 60);
+/* =========================================
+   STATUS
+========================================= */
 
-      const secs =
-        seconds % 60;
+function setStatus(text) {
 
-      document.getElementById(id)
-        .textContent =
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(secs).padStart(2, "0");
+  document.getElementById(
+    "status"
+  ).innerHTML = text;
+
+}
+
+
+
+/* =========================================
+   NEW GAME
+========================================= */
+
+function newGame() {
+
+  boardState =
+    JSON.parse(
+      JSON.stringify(initialBoard)
+    );
+
+
+  selectedSquare = null;
+
+  currentTurn = "w";
+
+
+  mySeconds = 600;
+
+  enemySeconds = 600;
+
+
+  updateTimer(
+    "myTimer",
+    mySeconds
+  );
+
+  updateTimer(
+    "enemyTimer",
+    enemySeconds
+  );
+
+
+  drawBoard();
+
+
+  setStatus(
+    "Game baru dimulai — giliran <strong>Putih</strong>"
+  );
+
+}
+
+
+
+/* =========================================
+   FIND OPPONENT
+========================================= */
+
+function findOpponent() {
+
+  setStatus(
+    "⚔ <strong>Mencari lawan...</strong>"
+  );
+
+
+  setTimeout(
+    function() {
+
+      setStatus(
+        "Lawan belum tersedia — mode demo aktif"
+      );
+
+    },
+    1800
+  );
+
+}
+
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+let mySeconds = 600;
+
+let enemySeconds = 600;
+
+
+setInterval(
+  function() {
+
+    if (currentTurn === "w") {
+
+      if (mySeconds > 0) {
+        mySeconds--;
+      }
+
+      updateTimer(
+        "myTimer",
+        mySeconds
+      );
+
+    } else {
+
+      if (enemySeconds > 0) {
+        enemySeconds--;
+      }
+
+      updateTimer(
+        "enemyTimer",
+        enemySeconds
+      );
+
     }
 
+  },
+  1000
+);
 
-    /* =====================================================
-       START
-    ===================================================== */
 
-    drawBoard();
 
-  </script>
+function updateTimer(
+  id,
+  seconds
+) {
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+  const secs =
+    seconds % 60;
+
+
+  document.getElementById(id)
+    .textContent =
+
+      String(minutes)
+        .padStart(2, "0")
+
+      +
+
+      ":" +
+
+      String(secs)
+        .padStart(2, "0");
+
+}
+
+
+
+/* =========================================
+   START
+========================================= */
+
+drawBoard();
+
+</script>
 
 </body>
 </html>
-```
