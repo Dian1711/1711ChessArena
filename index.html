@@ -2,172 +2,135 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>1711 Chess Arena</title>
 
 <style>
 * {
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html,
-body {
     margin: 0;
     padding: 0;
-    min-height: 100%;
-    background: #11151b;
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #252a2f 0%, #111416 55%, #080909 100%);
+    color: white;
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
+    padding: 18px 10px;
 }
 
-.app {
+.game {
     width: 100%;
     max-width: 520px;
-    min-height: 100vh;
-    padding: 14px;
-    background:
-        radial-gradient(
-            circle at top,
-            #252d37 0%,
-            #11151b 45%,
-            #0b0e12 100%
-        );
 }
-
-/* HEADER */
 
 .header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    align-items: center;
+    margin-bottom: 14px;
 }
 
 .logo {
     font-size: 20px;
-    font-weight: 900;
-    letter-spacing: .5px;
-}
-
-.logo span {
-    color: #d7a96b;
+    font-weight: bold;
 }
 
 .online {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 20px;
-    background: rgba(255,255,255,.07);
     font-size: 11px;
-    color: #aeb8c4;
-}
-
-.online-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #4bd37b;
-    box-shadow: 0 0 8px rgba(75,211,123,.7);
+    background: #183b24;
+    color: #62e28a;
+    border: 1px solid #28643b;
+    padding: 5px 9px;
+    border-radius: 20px;
 }
 
 /* PLAYER */
 
 .player {
+    background: #191d20;
+    border: 1px solid #30363a;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.player-left {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 11px 12px;
-    margin-bottom: 10px;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 14px;
-    background: rgba(255,255,255,.055);
 }
 
-.player-avatar {
-    width: 42px;
-    height: 42px;
+.avatar {
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
+    background: #30363a;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
     font-size: 21px;
-    background: linear-gradient(145deg,#3d4652,#171b21);
-    border: 1px solid rgba(255,255,255,.13);
-}
-
-.player-info {
-    min-width: 0;
-    flex: 1;
 }
 
 .player-name {
+    font-weight: bold;
     font-size: 14px;
-    font-weight: 800;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-.player-rating {
-    margin-top: 3px;
+.rating {
+    color: #90979c;
     font-size: 11px;
-    color: #9ba5b1;
+    margin-top: 3px;
 }
 
 .timer {
-    min-width: 75px;
+    background: #0c0e0f;
+    border: 1px solid #343a3f;
+    border-radius: 8px;
+    padding: 8px 11px;
+    font-size: 17px;
+    font-weight: bold;
+    min-width: 70px;
     text-align: center;
-    padding: 7px 10px;
-    border-radius: 9px;
-    background: #0c1015;
-    border: 1px solid rgba(255,255,255,.08);
-    font-size: 18px;
-    font-weight: 900;
-    font-variant-numeric: tabular-nums;
 }
 
 /* BOARD */
 
 .board-wrap {
     width: 100%;
-    padding: 7px;
-    border-radius: 17px;
-    background: #171c22;
-    border: 1px solid rgba(255,255,255,.09);
+    aspect-ratio: 1 / 1;
+    background: #17191b;
+    border: 5px solid #17191b;
+    border-radius: 7px;
     box-shadow:
-        0 18px 45px rgba(0,0,0,.45),
-        inset 0 0 0 1px rgba(255,255,255,.025);
+        0 12px 35px rgba(0,0,0,.5),
+        0 0 0 1px #35393c;
 }
 
 .board {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     grid-template-rows: repeat(8, minmax(0, 1fr));
     overflow: hidden;
-    border-radius: 9px;
-    background: #999;
+    border-radius: 2px;
 }
-
-/* SQUARE */
 
 .square {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    cursor: pointer;
     border: 1px solid rgba(50,55,60,.28);
 }
 
@@ -179,26 +142,38 @@ body {
     background: #a8adb2;
 }
 
+/* SELECTED */
+
+.square.selected {
+    box-shadow: inset 0 0 0 4px rgba(255, 193, 7, .9);
+}
+
+/* POSSIBLE MOVE */
+
+.square.move::after {
+    content: "";
+    width: 24%;
+    height: 24%;
+    border-radius: 50%;
+    background: rgba(30, 35, 40, .35);
+    position: absolute;
+}
+
+/* POSSIBLE CAPTURE */
+
+.square.capture {
+    box-shadow: inset 0 0 0 5px rgba(180, 40, 40, .65);
+}
+
 /* PIECES */
 
 .piece {
     width: 88%;
     height: 88%;
     object-fit: contain;
-    object-position: center;
-    display: block;
     user-select: none;
     pointer-events: none;
-
-    filter:
-        drop-shadow(0 2px 1px rgba(0,0,0,.25))
-        drop-shadow(0 4px 3px rgba(0,0,0,.15));
 }
-
-/*
-   BIDAK PUTIH
-   COKLAT MUDA
-*/
 
 .white-piece {
     filter:
@@ -211,10 +186,6 @@ body {
         drop-shadow(0 5px 4px rgba(0,0,0,.18));
 }
 
-/*
-   BIDAK HITAM
-*/
-
 .black-piece {
     filter:
         brightness(.10)
@@ -223,103 +194,74 @@ body {
         drop-shadow(0 4px 4px rgba(0,0,0,.35));
 }
 
-/* PAWN */
-
 .pawn {
     width: 72%;
     height: 72%;
 }
 
-/* COORDINATES */
+/* BOTTOM */
 
-.coord {
-    position: absolute;
-    font-size: 7px;
-    font-weight: 700;
-    opacity: .42;
-    pointer-events: none;
+.status {
+    text-align: center;
+    color: #9ca3a7;
+    font-size: 12px;
+    margin: 12px 0;
 }
 
-.coord.rank {
-    left: 3px;
-    top: 2px;
-}
-
-.coord.file {
-    right: 3px;
-    bottom: 2px;
-}
-
-/* BUTTONS */
-
-.controls {
+.buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    margin-top: 12px;
+    gap: 10px;
 }
 
-.btn {
+button {
     border: 0;
-    border-radius: 12px;
-    padding: 13px 10px;
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 800;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.btn-primary {
-    background: linear-gradient(145deg,#c18b4d,#8f5e29);
+.find {
+    background: #d8a23c;
+    color: #151515;
 }
 
-.btn-secondary {
-    background: #252c34;
-    border: 1px solid rgba(255,255,255,.08);
+.lobby {
+    background: #292e32;
+    color: white;
+    border: 1px solid #3d4449;
 }
 
-.btn:active {
+button:active {
     transform: scale(.98);
 }
 
-/* STATUS */
+/* CHECK */
 
-.status {
-    margin-top: 11px;
-    padding: 11px 13px;
-    border-radius: 12px;
-    background: rgba(255,255,255,.045);
-    border: 1px solid rgba(255,255,255,.07);
-    text-align: center;
-    font-size: 11px;
-    color: #9da7b3;
-}
-
-.status strong {
-    color: #d8a967;
+.in-check {
+    box-shadow: inset 0 0 0 5px rgba(220, 50, 50, .85);
 }
 
 /* MOBILE */
 
 @media (max-width: 380px) {
-
-    .app {
-        padding: 9px;
+    body {
+        padding: 12px 7px;
     }
 
-    .player {
-        padding: 9px;
-    }
-
-    .player-avatar {
-        width: 37px;
-        height: 37px;
+    .logo {
         font-size: 18px;
     }
 
     .timer {
-        min-width: 66px;
-        font-size: 16px;
+        font-size: 15px;
+        min-width: 64px;
+    }
+
+    .player {
+        padding: 8px 10px;
     }
 }
 </style>
@@ -327,47 +269,29 @@ body {
 
 <body>
 
-<div class="app">
-
-    <!-- HEADER -->
+<div class="game">
 
     <div class="header">
-
-        <div class="logo">
-            ♟ <span>1711</span> Chess Arena
-        </div>
-
-        <div class="online">
-            <span class="online-dot"></span>
-            ONLINE
-        </div>
-
+        <div class="logo">♟ 1711 Chess Arena</div>
+        <div class="online">● ONLINE</div>
     </div>
-
 
     <!-- OPPONENT -->
 
     <div class="player">
 
-        <div class="player-avatar">
-            👤
-        </div>
+        <div class="player-left">
 
-        <div class="player-info">
+            <div class="avatar">👤</div>
 
-            <div class="player-name">
-                Opponent
-            </div>
-
-            <div class="player-rating">
-                Rating 1200 • Black
+            <div>
+                <div class="player-name">Opponent</div>
+                <div class="rating">1200 • Black</div>
             </div>
 
         </div>
 
-        <div class="timer">
-            10:00
-        </div>
+        <div class="timer" id="blackTimer">10:00</div>
 
     </div>
 
@@ -375,479 +299,355 @@ body {
     <!-- BOARD -->
 
     <div class="board-wrap">
+        <div class="board" id="board"></div>
+    </div>
 
-        <div class="board">
 
-            <!-- RANK 8 -->
+    <!-- YOU -->
 
-            <div class="square light">
+    <div class="player" style="margin-top:10px;">
 
-                <span class="coord rank">8</span>
+        <div class="player-left">
 
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg"
-                    alt="Black Rook"
-                >
+            <div class="avatar">♟</div>
 
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg"
-                    alt="Black Knight"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg"
-                    alt="Black Bishop"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/queen.svg"
-                    alt="Black Queen"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/king.svg"
-                    alt="Black King"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg"
-                    alt="Black Bishop"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg"
-                    alt="Black Knight"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg"
-                    alt="Black Rook"
-                >
-
-            </div>
-
-
-            <!-- RANK 7 -->
-
-            <div class="square dark">
-
-                <span class="coord rank">7</span>
-
-                <img
-                    class="piece black-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-                    alt="Black Pawn"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-                    alt="Black Pawn"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-                    alt="Black Pawn"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-                    alt="Black Pawn"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-                    alt="Black Pawn"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-                    alt="Black Pawn"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece black-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-                    alt="Black Pawn"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece black-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-                    alt="Black Pawn"
-                >
-
-            </div>
-
-
-            <!-- RANK 6 -->
-
-            <div class="square light">
-                <span class="coord rank">6</span>
-            </div>
-
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-
-
-            <!-- RANK 5 -->
-
-            <div class="square dark">
-                <span class="coord rank">5</span>
-            </div>
-
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-
-
-            <!-- RANK 4 -->
-
-            <div class="square light">
-                <span class="coord rank">4</span>
-            </div>
-
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-
-
-            <!-- RANK 3 -->
-
-            <div class="square dark">
-                <span class="coord rank">3</span>
-            </div>
-
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-            <div class="square dark"></div>
-            <div class="square light"></div>
-
-
-            <!-- RANK 2 -->
-
-            <div class="square light">
-
-                <span class="coord rank">2</span>
-
-                <img
-                    class="piece white-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-                    alt="Brown Pawn"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece white-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-                    alt="Brown Pawn"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece white-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-                    alt="Brown Pawn"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece white-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-                    alt="Brown Pawn"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece white-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-                    alt="Brown Pawn"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece white-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-                    alt="Brown Pawn"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece white-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-                    alt="Brown Pawn"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece white-piece pawn"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-                    alt="Brown Pawn"
-                >
-
-            </div>
-
-
-            <!-- RANK 1 -->
-
-            <div class="square dark">
-
-                <span class="coord rank">1</span>
-
-                <img
-                    class="piece white-piece"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg"
-                    alt="Brown Rook"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece white-piece"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/knight.svg"
-                    alt="Brown Knight"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece white-piece"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/bishop.svg"
-                    alt="Brown Bishop"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece white-piece"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/queen.svg"
-                    alt="Brown Queen"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece white-piece"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/king.svg"
-                    alt="Brown King"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece white-piece"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/bishop.svg"
-                    alt="Brown Bishop"
-                >
-
-            </div>
-
-            <div class="square dark">
-
-                <img
-                    class="piece white-piece"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/knight.svg"
-                    alt="Brown Knight"
-                >
-
-            </div>
-
-            <div class="square light">
-
-                <img
-                    class="piece white-piece"
-                    src="https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg"
-                    alt="Brown Rook"
-                >
-
-                <span class="coord file">h</span>
-
+            <div>
+                <div class="player-name">You</div>
+                <div class="rating">1200 • Brown</div>
             </div>
 
         </div>
+
+        <div class="timer" id="whiteTimer">10:00</div>
 
     </div>
 
 
-    <!-- YOUR PLAYER -->
-
-    <div
-        class="player"
-        style="margin-top:10px;"
-    >
-
-        <div class="player-avatar">
-            ♟
-        </div>
-
-        <div class="player-info">
-
-            <div class="player-name">
-                You
-            </div>
-
-            <div class="player-rating">
-                Rating 1200 • Brown
-            </div>
-
-        </div>
-
-        <div class="timer">
-            10:00
-        </div>
-
+    <div class="status" id="status">
+        Giliran kamu — pilih bidak.
     </div>
 
 
-    <!-- CONTROLS -->
-
-    <div class="controls">
-
-        <button
-            class="btn btn-primary"
-            type="button"
-        >
-            ⚔️ Cari Lawan
-        </button>
-
-        <button
-            class="btn btn-secondary"
-            type="button"
-        >
-            🏠 Lobby
-        </button>
-
-    </div>
-
-
-    <!-- STATUS -->
-
-    <div class="status">
-
-        <strong>1711 Chess Arena</strong>
-
-        <br>
-
-        Menunggu koneksi permainan...
-
+    <div class="buttons">
+        <button class="find" onclick="newGame()">⚔️ Game Baru</button>
+        <button class="lobby">🏠 Lobby</button>
     </div>
 
 </div>
 
-</body>
-</html>
+
+<script>
+
+/* =====================================================
+   CHESS PIECES
+===================================================== */
+
+const pieces = {
+
+    white: {
+        king:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/king.svg",
+
+        queen:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/queen.svg",
+
+        rook:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg",
+
+        bishop:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/bishop.svg",
+
+        knight:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/knight.svg",
+
+        pawn:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
+    },
+
+    black: {
+        king:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/king.svg",
+
+        queen:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/queen.svg",
+
+        rook:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg",
+
+        bishop:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg",
+
+        knight:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg",
+
+        pawn:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
+    }
+
+};
+
+
+/* =====================================================
+   INITIAL BOARD
+===================================================== */
+
+let boardState = [
+
+    [
+        {type:"rook", color:"black"},
+        {type:"knight", color:"black"},
+        {type:"bishop", color:"black"},
+        {type:"queen", color:"black"},
+        {type:"king", color:"black"},
+        {type:"bishop", color:"black"},
+        {type:"knight", color:"black"},
+        {type:"rook", color:"black"}
+    ],
+
+    [
+        {type:"pawn", color:"black"},
+        {type:"pawn", color:"black"},
+        {type:"pawn", color:"black"},
+        {type:"pawn", color:"black"},
+        {type:"pawn", color:"black"},
+        {type:"pawn", color:"black"},
+        {type:"pawn", color:"black"},
+        {type:"pawn", color:"black"}
+    ],
+
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+
+    [
+        {type:"pawn", color:"white"},
+        {type:"pawn", color:"white"},
+        {type:"pawn", color:"white"},
+        {type:"pawn", color:"white"},
+        {type:"pawn", color:"white"},
+        {type:"pawn", color:"white"},
+        {type:"pawn", color:"white"},
+        {type:"pawn", color:"white"}
+    ],
+
+    [
+        {type:"rook", color:"white"},
+        {type:"knight", color:"white"},
+        {type:"bishop", color:"white"},
+        {type:"queen", color:"white"},
+        {type:"king", color:"white"},
+        {type:"bishop", color:"white"},
+        {type:"knight", color:"white"},
+        {type:"rook", color:"white"}
+    ]
+
+];
+
+
+/* =====================================================
+   GAME STATE
+===================================================== */
+
+let selected = null;
+let turn = "white";
+let gameOver = false;
+
+
+/* =====================================================
+   DRAW BOARD
+===================================================== */
+
+function drawBoard() {
+
+    const board = document.getElementById("board");
+
+    board.innerHTML = "";
+
+    for(let row = 0; row < 8; row++) {
+
+        for(let col = 0; col < 8; col++) {
+
+            const square = document.createElement("div");
+
+            square.className =
+                ((row + col) % 2 === 0)
+                ? "square light"
+                : "square dark";
+
+            square.dataset.row = row;
+            square.dataset.col = col;
+
+            square.addEventListener("click", function() {
+
+                handleSquareClick(row, col);
+
+            });
+
+
+            const piece = boardState[row][col];
+
+
+            if(piece) {
+
+                const img = document.createElement("img");
+
+                img.className = "piece";
+
+                if(piece.type === "pawn") {
+                    img.classList.add("pawn");
+                }
+
+                img.classList.add(
+                    piece.color === "white"
+                    ? "white-piece"
+                    : "black-piece"
+                );
+
+                img.src = pieces[piece.color][piece.type];
+
+                square.appendChild(img);
+
+            }
+
+            board.appendChild(square);
+
+        }
+
+    }
+
+    highlightMoves();
+
+}
+
+
+/* =====================================================
+   CLICK SQUARE
+===================================================== */
+
+function handleSquareClick(row, col) {
+
+    if(gameOver) return;
+
+
+    const piece = boardState[row][col];
+
+
+    /* SELECT PIECE */
+
+    if(!selected) {
+
+        if(!piece) return;
+
+        if(piece.color !== turn) {
+
+            document.getElementById("status").textContent =
+                "Sekarang giliran " +
+                (turn === "white" ? "kamu." : "Opponent.");
+
+            return;
+
+        }
+
+        selected = {
+            row,
+            col
+        };
+
+        drawBoard();
+
+        return;
+    }
+
+
+    /* CLICK SAME PIECE */
+
+    if(selected.row === row && selected.col === col) {
+
+        selected = null;
+
+        drawBoard();
+
+        return;
+    }
+
+
+    /* SELECT ANOTHER OWN PIECE */
+
+    if(piece && piece.color === turn) {
+
+        selected = {
+            row,
+            col
+        };
+
+        drawBoard();
+
+        return;
+    }
+
+
+    /* MOVE */
+
+    if(isLegalMove(
+        selected.row,
+        selected.col,
+        row,
+        col
+    )) {
+
+        movePiece(
+            selected.row,
+            selected.col,
+            row,
+            col
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   MOVE PIECE
+===================================================== */
+
+function movePiece(fromRow, fromCol, toRow, toCol) {
+
+    const movingPiece = boardState[fromRow][fromCol];
+
+    const capturedPiece = boardState[toRow][toCol];
+
+
+    boardState[toRow][toCol] = movingPiece;
+
+    boardState[fromRow][fromCol] = null;
+
+
+    /* PAWN PROMOTION */
+
+    if(
+        movingPiece.type === "pawn" &&
+        (toRow === 0 || toRow === 7)
+    ) {
+
+        movingPiece.type = "queen";
+
+    }
+
+
+    selected = null;
+
+
+    /* CHECK KING CAPTURE */
+
+    if(
+        capturedPiece &&
+        capturedPiece.type === "king"
+    ) {
+
+        gameOver = true;
+
+        document.getElementById("status").textContent =
+            turn === "white"
+            ? "🏆
