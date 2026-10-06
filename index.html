@@ -8,695 +8,301 @@
 
 <style>
 * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-    background: #080b12;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background:
+    radial-gradient(circle at top, #24304d 0%, #0b0e17 48%, #050609 100%);
+  color: white;
 }
 
 body {
-    overflow-x: hidden;
+  display: flex;
+  justify-content: center;
 }
 
-.app {
-    width: 100%;
-    max-width: 520px;
-    min-height: 100vh;
-    margin: auto;
-    padding: 12px;
-    background:
-        radial-gradient(circle at 50% 30%, #182033 0%, #080b12 55%);
+#app {
+  width: 100%;
+  max-width: 620px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /* HEADER */
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
+  height: 64px;
+  flex-shrink: 0;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8, 11, 20, .88);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+  z-index: 10;
 }
 
 .logo {
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: .5px;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: .5px;
 }
 
 .logo span {
-    color: #d8a84e;
-}
-
-.status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: #9ca6b8;
+  color: #55d6ff;
 }
 
 .online {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #48d597;
-    box-shadow: 0 0 8px #48d597;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #8fffb0;
+}
+
+.online-dot {
+  width: 7px;
+  height: 7px;
+  background: #38e67c;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #38e67c;
 }
 
 /* PLAYER */
 
 .player {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 4px;
+  height: 72px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  gap: 10px;
+  z-index: 5;
 }
 
-.player-left {
-    display: flex;
-    align-items: center;
-    gap: 9px;
+.player.reverse {
+  flex-direction: row-reverse;
 }
 
-.character {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
+.avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,.18);
+  box-shadow: 0 7px 20px rgba(0,0,0,.35);
 }
 
-.character .head {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    left: 12px;
-    top: 3px;
-    border-radius: 50%;
-    background: #d89b6b;
-    z-index: 3;
+.avatar.blue {
+  background: linear-gradient(145deg,#36bfff,#124d91);
 }
 
-.character .hair {
-    position: absolute;
-    width: 26px;
-    height: 14px;
-    left: 11px;
-    top: 1px;
-    border-radius: 15px 15px 5px 5px;
-    background: #20252f;
-    z-index: 4;
+.avatar.red {
+  background: linear-gradient(145deg,#ff6868,#851d32);
 }
 
-.character .body {
-    position: absolute;
-    width: 36px;
-    height: 24px;
-    left: 6px;
-    top: 24px;
-    border-radius: 12px 12px 7px 7px;
-    background: #4d73a8;
+.avatar-head {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #ffd1a8;
+  border-radius: 50%;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
 }
 
-.character .armor {
-    position: absolute;
-    width: 28px;
-    height: 17px;
-    left: 10px;
-    top: 25px;
-    border-radius: 7px;
-    background: #d8a84e;
-    opacity: .9;
+.avatar-body {
+  position: absolute;
+  width: 34px;
+  height: 24px;
+  border-radius: 15px 15px 7px 7px;
+  left: 50%;
+  bottom: 5px;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.82);
 }
 
-.character.enemy .body {
-    background: #713f52;
+.avatar.blue .avatar-body {
+  background: #d9f5ff;
 }
 
-.character.enemy .armor {
-    background: #a85b64;
+.avatar.red .avatar-body {
+  background: #ffe0e0;
+}
+
+.player-info {
+  min-width: 0;
 }
 
 .player-name {
-    font-size: 14px;
-    font-weight: 800;
+  font-weight: 800;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.rating {
-    font-size: 10px;
-    color: #858ea0;
-    margin-top: 2px;
+.player-rating {
+  font-size: 11px;
+  color: #aeb7cb;
+  margin-top: 3px;
 }
 
 .timer {
-    min-width: 78px;
-    padding: 9px 12px;
-    border-radius: 9px;
-    background: #161c29;
-    border: 1px solid #30394b;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing: 1px;
+  margin-left: auto;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #111827;
+  border: 1px solid #303a50;
+  font-size: 17px;
+  font-weight: 900;
+  min-width: 68px;
+  text-align: center;
 }
 
-.timer.active {
-    border-color: #d8a84e;
-    color: #f1c866;
+.reverse .timer {
+  margin-left: 0;
+  margin-right: auto;
 }
 
 /* BOARD */
 
-.board-wrap {
-    width: 100%;
-    padding: 5px;
-    margin: 5px auto 8px;
-    border-radius: 12px;
-    background: linear-gradient(145deg, #3b3020, #15120d);
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.6),
-        inset 0 1px 0 rgba(255,255,255,.08);
+.board-area {
+  width: min(94vw, 540px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  position: relative;
+  flex-shrink: 0;
 }
 
-.board {
-    width: 100%;
-    aspect-ratio: 1;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    border-radius: 7px;
-    overflow: hidden;
-    transform: perspective(700px) rotateX(1deg);
-}
-
-.square {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    cursor: pointer;
-}
-
-.square.light {
-    background: linear-gradient(145deg, #d7c49a, #bba878);
-}
-
-.square.dark {
-    background: linear-gradient(145deg, #705b42, #4d3d2d);
-}
-
-.square.selected {
-    box-shadow: inset 0 0 0 4px #e5b64f;
-}
-
-.square.possible::after {
-    content: "";
-    position: absolute;
-    width: 22%;
-    height: 22%;
-    border-radius: 50%;
-    background: rgba(30,30,30,.35);
-}
-
-.piece {
-    position: relative;
-    z-index: 2;
-    font-family: "Times New Roman", serif;
-    font-size: clamp(29px, 9vw, 53px);
-    line-height: 1;
-    cursor: pointer;
-    transform: translateY(-2px);
-    filter: drop-shadow(2px 4px 2px rgba(0,0,0,.45));
-}
-
-.white-piece {
-    color: #f5f0df;
-    text-shadow:
-        0 2px 0 #b4a98d,
-        1px 3px 3px #222;
-}
-
-.black-piece {
-    color: #20242c;
-    text-shadow:
-        0 1px 0 #555,
-        2px 4px 4px #111;
-}
-
-/* COORDINATES */
-
-.coord {
-    position: absolute;
-    font-size: 7px;
-    font-weight: bold;
-    opacity: .6;
-    pointer-events: none;
-}
-
-.coord.file {
-    bottom: 2px;
-    right: 3px;
-}
-
-.coord.rank {
-    top: 2px;
-    left: 3px;
-}
-
-/* INFO */
-
-.turn {
-    text-align: center;
-    font-size: 11px;
-    color: #9da7b9;
-    margin: 6px 0 10px;
-}
-
-.turn strong {
-    color: #e5b64f;
+#board {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 3px #1c2538,
+    0 18px 50px rgba(0,0,0,.65);
 }
 
 /* BUTTONS */
 
-.actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 12px 14px;
+  z-index: 10;
 }
 
 button {
-    min-height: 45px;
-    border: 0;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 800;
-    cursor: pointer;
+  border: 0;
+  color: white;
+  font-weight: 800;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(135deg,#236cff,#6846ff);
+  box-shadow: 0 7px 20px rgba(43,93,255,.25);
 }
 
-.primary {
-    background: linear-gradient(135deg, #e2b451, #a97a28);
-    color: #17120a;
+button.secondary {
+  background: #171d2b;
+  border: 1px solid #313b50;
+  box-shadow: none;
 }
 
-.secondary {
-    background: #161c29;
-    border: 1px solid #30394b;
-    color: #e5e9f0;
-}
-
-button:active {
-    transform: scale(.97);
-}
-
-/* FOOTER */
-
-.footer {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 9px;
-    color: #5f6878;
+.status {
+  text-align: center;
+  font-size: 11px;
+  color: #8994aa;
+  padding-bottom: 6px;
 }
 
 /* MOBILE */
 
-@media (max-width: 360px) {
-    .app {
-        padding: 8px;
-    }
+@media (max-height: 700px) {
+  .header {
+    height: 55px;
+  }
 
-    .timer {
-        min-width: 68px;
-        font-size: 16px;
-    }
+  .player {
+    height: 57px;
+  }
 
-    .player-name {
-        font-size: 12px;
-    }
+  .avatar {
+    width: 43px;
+    height: 43px;
+  }
 
-    .rating {
-        font-size: 9px;
-    }
+  .avatar-head {
+    transform: translateX(-50%) scale(.8);
+    top: 4px;
+  }
+
+  .avatar-body {
+    transform: translateX(-50%) scale(.8);
+    bottom: 1px;
+  }
+
+  .player-name {
+    font-size: 12px;
+  }
+
+  .timer {
+    padding: 6px 9px;
+    font-size: 14px;
+  }
+
+  .controls {
+    padding: 7px;
+  }
+
+  button {
+    padding: 9px 14px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div id="app">
 
-    <div class="header">
-        <div class="logo">♞ <span>1711</span> Chess Arena</div>
+  <div class="header">
+    <div class="logo">♟ <span>1711</span> CHESS ARENA</div>
 
-        <div class="status">
-            <div class="online"></div>
-            ONLINE
-        </div>
+    <div class="online">
+      <div class="online-dot"></div>
+      ONLINE
+    </div>
+  </div>
+
+  <div class="player">
+    <div class="avatar red">
+      <div class="avatar-head"></div>
+      <div class="avatar-body"></div>
     </div>
 
-    <!-- OPPONENT -->
-
-    <div class="player">
-
-        <div class="player-left">
-
-            <div class="character enemy">
-                <div class="head"></div>
-                <div class="hair"></div>
-                <div class="body"></div>
-                <div class="armor"></div>
-            </div>
-
-            <div>
-                <div class="player-name">Opponent</div>
-                <div class="rating">♟ Rating 1200</div>
-            </div>
-
-        </div>
-
-        <div class="timer" id="enemyTimer">
-            09:59
-        </div>
-
+    <div class="player-info">
+      <div class="player-name">Opponent</div>
+      <div class="player-rating">Rating 1200</div>
     </div>
 
-    <!-- CHESS BOARD -->
-
-    <div class="board-wrap">
-        <div class="board" id="board"></div>
-    </div>
-
-    <div class="turn">
-        Giliran: <strong id="turnText">White</strong>
-    </div>
-
-    <!-- PLAYER -->
-
-    <div class="player">
-
-        <div class="player-left">
-
-            <div class="character">
-                <div class="head"></div>
-                <div class="hair"></div>
-                <div class="body"></div>
-                <div class="armor"></div>
-            </div>
-
-            <div>
-                <div class="player-name">You</div>
-                <div class="rating">♟ Rating 1200</div>
-            </div>
-
-        </div>
-
-        <div class="timer active" id="playerTimer">
-            10:00
-        </div>
-
-    </div>
-
-    <div class="actions">
-        <button class="primary" id="newGame">♟ Game Baru</button>
-        <button class="secondary" id="findOpponent">⚔ Cari Lawan</button>
-    </div>
-
-    <div class="footer">
-        1711 Chess Arena • 3D Top View
-    </div>
-
-</div>
-
-<script>
-
-const boardElement = document.getElementById("board");
-const turnText = document.getElementById("turnText");
-const playerTimer = document.getElementById("playerTimer");
-const enemyTimer = document.getElementById("enemyTimer");
-
-const files = ["a","b","c","d","e","f","g","h"];
-
-const startPosition = [
-    ["♜","♞","♝","♛","♚","♝","♞","♜"],
-    ["♟","♟","♟","♟","♟","♟","♟","♟"],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["♙","♙","♙","♙","♙","♙","♙","♙"],
-    ["♖","♘","♗","♕","♔","♗","♘","♖"]
-];
-
-let position = JSON.parse(JSON.stringify(startPosition));
-let selected = null;
-let whiteTurn = true;
-
-function isWhite(piece) {
-    return "♙♖♘♗♕♔".includes(piece);
-}
-
-function isBlack(piece) {
-    return "♟♜♞♝♛♚".includes(piece);
-}
-
-function renderBoard() {
-
-    boardElement.innerHTML = "";
-
-    for (let row = 0; row < 8; row++) {
-
-        for (let col = 0; col < 8; col++) {
-
-            const square = document.createElement("div");
-
-            square.className =
-                "square " +
-                ((row + col) % 2 === 0 ? "light" : "dark");
-
-            const piece = position[row][col];
-
-            if (piece) {
-
-                const pieceElement = document.createElement("div");
-
-                pieceElement.className =
-                    "piece " +
-                    (isWhite(piece)
-                        ? "white-piece"
-                        : "black-piece");
-
-                pieceElement.textContent = piece;
-
-                square.appendChild(pieceElement);
-            }
-
-            /* coordinates */
-
-            if (row === 7) {
-
-                const file = document.createElement("span");
-
-                file.className = "coord file";
-                file.textContent = files[col];
-
-                square.appendChild(file);
-            }
-
-            if (col === 0) {
-
-                const rank = document.createElement("span");
-
-                rank.className = "coord rank";
-                rank.textContent = 8 - row;
-
-                square.appendChild(rank);
-            }
-
-            square.dataset.row = row;
-            square.dataset.col = col;
-
-            if (
-                selected &&
-                selected.row === row &&
-                selected.col === col
-            ) {
-                square.classList.add("selected");
-            }
-
-            square.addEventListener("click", handleSquareClick);
-
-            boardElement.appendChild(square);
-        }
-    }
-}
-
-function handleSquareClick(e) {
-
-    const square = e.currentTarget;
-
-    const row = Number(square.dataset.row);
-    const col = Number(square.dataset.col);
-
-    const piece = position[row][col];
-
-    /* select piece */
-
-    if (!selected) {
-
-        if (!piece) return;
-
-        if (whiteTurn && !isWhite(piece)) return;
-        if (!whiteTurn && !isBlack(piece)) return;
-
-        selected = { row, col };
-
-        renderBoard();
-
-        return;
-    }
-
-    /* click same square */
-
-    if (
-        selected.row === row &&
-        selected.col === col
-    ) {
-
-        selected = null;
-        renderBoard();
-
-        return;
-    }
-
-    /* move */
-
-    position[row][col] =
-        position[selected.row][selected.col];
-
-    position[selected.row][selected.col] = "";
-
-    selected = null;
-
-    whiteTurn = !whiteTurn;
-
-    turnText.textContent =
-        whiteTurn ? "White" : "Black";
-
-    if (whiteTurn) {
-
-        playerTimer.classList.add("active");
-        enemyTimer.classList.remove("active");
-
-    } else {
-
-        playerTimer.classList.remove("active");
-        enemyTimer.classList.add("active");
-    }
-
-    renderBoard();
-}
-
-
-/* TIMER */
-
-let whiteSeconds = 600;
-let blackSeconds = 599;
-
-function formatTime(seconds) {
-
-    seconds = Math.max(0, seconds);
-
-    const min =
-        Math.floor(seconds / 60)
-        .toString()
-        .padStart(2,"0");
-
-    const sec =
-        (seconds % 60)
-        .toString()
-        .padStart(2,"0");
-
-    return min + ":" + sec;
-}
-
-setInterval(() => {
-
-    if (whiteTurn) {
-
-        whiteSeconds--;
-
-        playerTimer.textContent =
-            formatTime(whiteSeconds);
-
-    } else {
-
-        blackSeconds--;
-
-        enemyTimer.textContent =
-            formatTime(blackSeconds);
-    }
-
-},1000);
-
-
-/* NEW GAME */
-
-document.getElementById("newGame")
-.addEventListener("click", () => {
-
-    position =
-        JSON.parse(JSON.stringify(startPosition));
-
-    selected = null;
-    whiteTurn = true;
-
-    whiteSeconds = 600;
-    blackSeconds = 599;
-
-    playerTimer.textContent =
-        formatTime(whiteSeconds);
-
-    enemyTimer.textContent =
-        formatTime(blackSeconds);
-
-    playerTimer.classList.add("active");
-    enemyTimer.classList.remove("active");
-
-    turnText.textContent = "White";
-
-    renderBoard();
-});
-
-
-/* FIND OPPONENT */
-
-document.getElementById("findOpponent")
-.addEventListener("click", function() {
-
-    this.textContent = "🔎 Mencari...";
-
-    setTimeout(() => {
-
-        this.textContent = "⚔ Lawan ditemukan";
-
-        setTimeout(() => {
-            this.textContent = "⚔ Cari Lawan";
-        },1500);
-
-    },1200);
-});
-
-
-renderBoard();
-
-</script>
-
-</body>
-</html>
+    <div class="timer" id="enemyTime">10:00</div>
+ 
