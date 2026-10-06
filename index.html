@@ -13,12 +13,11 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
     margin: 0;
     padding: 0;
     min-height: 100%;
-    background: #111418;
+    background: #101317;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -35,57 +34,79 @@ body {
     min-height: 100vh;
     padding: 14px;
     background:
-        radial-gradient(circle at top, #252a30 0%, #15191d 45%, #0e1114 100%);
+        radial-gradient(circle at top, #292e34 0%, #171b20 45%, #0e1114 100%);
 }
 
 /* HEADER */
+
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 14px;
+    justify-content: space-between;
+    margin-bottom: 18px;
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 21px;
-    font-weight: 800;
-    letter-spacing: .3px;
+    font-weight: 900;
+}
+
+.logo-piece {
+    font-size: 28px;
 }
 
 .online {
-    font-size: 11px;
-    font-weight: bold;
     padding: 5px 9px;
     border-radius: 20px;
     background: #17351f;
     border: 1px solid #2d7a42;
     color: #67df87;
+    font-size: 10px;
+    font-weight: 800;
 }
 
-/* PLAYER */
-.player {
+/* PROFILE */
+
+.profile {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 11px;
-    margin-bottom: 10px;
-    background: rgba(255,255,255,.055);
-    border: 1px solid rgba(255,255,255,.09);
-    border-radius: 13px;
+    gap: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,.09),
+        rgba(255,255,255,.035)
+    );
+
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 16px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.22);
 }
 
 .avatar {
-    width: 42px;
-    height: 42px;
+    width: 55px;
+    height: 55px;
+
     border-radius: 50%;
+
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+
     flex-shrink: 0;
+
     background: #292e34;
-    border: 1px solid rgba(255,255,255,.13);
+    border: 2px solid #555c63;
+
     overflow: hidden;
-    font-size: 22px;
+
+    font-size: 27px;
 }
 
 .avatar img {
@@ -94,210 +115,478 @@ body {
     object-fit: cover;
 }
 
-.player-info {
-    min-width: 0;
+.profile-info {
     flex: 1;
+    min-width: 0;
 }
 
-.name {
-    font-size: 15px;
-    font-weight: 800;
+.profile-name {
+    font-size: 17px;
+    font-weight: 900;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-username {
+    margin-top: 3px;
+    color: #969da4;
+    font-size: 12px;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .rating {
-    margin-top: 3px;
-    font-size: 11px;
-    color: #aeb4ba;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 
-.timer {
-    min-width: 76px;
-    text-align: center;
-    padding: 8px 9px;
-    border-radius: 9px;
-    border: 1px solid #444a50;
-    background: #111417;
-    color: #f0f0f0;
-    font-size: 18px;
-    font-weight: 800;
-    font-variant-numeric: tabular-nums;
-}
+    margin-top: 7px;
+    padding: 4px 8px;
 
-.timer.active {
-    border-color: #d8a23c;
-    box-shadow: 0 0 10px rgba(216,162,60,.25);
-}
-
-.timer.low {
-    color: #ff6262;
-    border-color: #a93636;
-}
-
-/* BOARD */
-.board-wrap {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    padding: 5px;
-    border-radius: 12px;
-    background: #252a2f;
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.38),
-        0 2px 5px rgba(0,0,0,.4);
-}
-
-.board {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    grid-template-rows: repeat(8, minmax(0, 1fr));
-    overflow: hidden;
     border-radius: 7px;
+
+    background: rgba(216,162,60,.12);
+    border: 1px solid rgba(216,162,60,.25);
+
+    color: #e5bd67;
+    font-size: 11px;
+    font-weight: 800;
 }
 
-.square {
+/* SECTION TITLE */
+
+.section-title {
+    margin: 18px 3px 9px;
+
+    color: #8f979e;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+}
+
+/* MAIN MODES */
+
+.modes {
+    display: grid;
+    gap: 10px;
+}
+
+.mode {
     position: relative;
+
+    width: 100%;
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    background: rgba(255,255,255,.055);
+
+    color: white;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        transform .12s ease,
+        background .12s ease,
+        border-color .12s ease;
+}
+
+.mode:active {
+    transform: scale(.985);
+}
+
+.mode:hover {
+    background: rgba(255,255,255,.08);
+}
+
+.mode-icon {
+    width: 47px;
+    height: 47px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex-shrink: 0;
+
+    margin-right: 12px;
+
+    border-radius: 12px;
+
+    background: #2a3036;
+
+    font-size: 25px;
+}
+
+.mode-content {
     min-width: 0;
-    min-height: 0;
-    border: 1px solid rgba(50,55,60,.28);
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    flex: 1;
 }
 
-.square.light {
-    background: #f1f1ed;
+.mode-title {
+    font-size: 15px;
+    font-weight: 900;
 }
 
-.square.dark {
-    background: #a8adb2;
+.mode-description {
+    margin-top: 4px;
+
+    color: #9299a0;
+
+    font-size: 11px;
+    line-height: 1.3;
 }
 
-.square.selected {
-    box-shadow: inset 0 0 0 4px rgba(216,162,60,.85);
+.mode-arrow {
+    color: #737b82;
+    font-size: 20px;
+    margin-left: 8px;
 }
 
-.square.move-target::after {
-    content: "";
-    position: absolute;
-    width: 19%;
-    height: 19%;
-    border-radius: 50%;
-    background: rgba(35,40,45,.40);
-    pointer-events: none;
+/* BOT */
+
+.bot-mode {
+    border-color: rgba(91,169,104,.25);
 }
 
-.square.capture-target {
-    box-shadow: inset 0 0 0 4px rgba(180,65,65,.72);
+.bot-mode .mode-icon {
+    background: #203726;
 }
 
-.square.check-square {
-    box-shadow: inset 0 0 0 5px rgba(210,55,55,.85);
+/* RANDOM */
+
+.random-mode {
+    border-color: rgba(216,162,60,.27);
 }
 
-/* CHESS PIECES */
-.piece {
-    display: block;
-    width: 88%;
-    height: 88%;
-    object-fit: contain;
-    pointer-events: none;
-    user-select: none;
+.random-mode .mode-icon {
+    background: #3a3020;
 }
 
-.pawn {
-    width: 72%;
-    height: 72%;
+/* PRIVATE */
+
+.private-mode {
+    border-color: rgba(94,143,194,.27);
 }
 
-.white-piece {
-    filter:
-        sepia(1)
-        saturate(2.2)
-        hue-rotate(345deg)
-        brightness(1.05)
-        contrast(1.05)
-        drop-shadow(0 3px 2px rgba(0,0,0,.30))
-        drop-shadow(0 5px 4px rgba(0,0,0,.18));
+.private-mode .mode-icon {
+    background: #202e3d;
 }
 
-.black-piece {
-    filter:
-        brightness(.10)
-        contrast(1.25)
-        drop-shadow(0 2px 1px rgba(255,255,255,.08))
-        drop-shadow(0 4px 4px rgba(0,0,0,.35));
+/* FRIENDS */
+
+.friends-mode {
+    border-color: rgba(151,106,181,.27);
 }
 
-/* STATUS */
-.status {
-    text-align: center;
-    min-height: 22px;
-    margin: 12px 4px;
-    color: #c5cbd0;
-    font-size: 13px;
-    font-weight: 600;
+.friends-mode .mode-icon {
+    background: #30243a;
 }
 
-/* BUTTONS */
-.buttons {
+/* EXTRA */
+
+.extra-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-top: 8px;
 }
 
-button {
-    border: 1px solid #454c53;
-    background: #252b31;
-    color: #fff;
-    border-radius: 11px;
-    padding: 12px 10px;
-    font-size: 14px;
-    font-weight: 800;
+.extra-button {
+    min-height: 62px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px;
+
+    border-radius: 13px;
+
+    border: 1px solid rgba(255,255,255,.09);
+
+    background: rgba(255,255,255,.045);
+
+    color: white;
+
     cursor: pointer;
 }
 
-button:active {
-    transform: scale(.98);
-    background: #30373e;
+.extra-button:active {
+    transform: scale(.985);
 }
 
-/* TELEGRAM */
-.telegram-note {
-    text-align: center;
-    margin-top: 12px;
-    color: #777f86;
+.extra-icon {
+    font-size: 22px;
+}
+
+.extra-text {
+    text-align: left;
+}
+
+.extra-title {
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.extra-desc {
+    margin-top: 3px;
+    color: #7f878e;
+    font-size: 9px;
+}
+
+/* PANEL */
+
+.panel {
+    display: none;
+
+    margin-top: 15px;
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.055);
+
+    border: 1px solid rgba(255,255,255,.10);
+}
+
+.panel.active {
+    display: block;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 13px;
+}
+
+.panel-icon {
+    font-size: 23px;
+}
+
+.panel-title {
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.panel-subtitle {
+    margin-top: 3px;
+    color: #858d94;
     font-size: 10px;
 }
 
-/* SMALL SCREEN */
+/* BOT LEVEL */
+
+.bot-levels {
+    display: grid;
+    gap: 8px;
+}
+
+.level {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 11px;
+
+    border-radius: 11px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    background: #20252a;
+
+    color: white;
+
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.level:active {
+    transform: scale(.985);
+}
+
+.level-icon {
+    width: 34px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.level-name {
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.level-description {
+    margin-top: 2px;
+    color: #858d94;
+    font-size: 9px;
+}
+
+/* PRIVATE */
+
+.room-actions {
+    display: grid;
+    gap: 9px;
+}
+
+.room-button {
+    width: 100%;
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #444b52;
+
+    background: #252b31;
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.room-button:active {
+    transform: scale(.985);
+}
+
+.room-input {
+    width: 100%;
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #41484f;
+
+    background: #111417;
+
+    color: white;
+
+    outline: none;
+
+    font-size: 13px;
+}
+
+.room-input::placeholder {
+    color: #626970;
+}
+
+/* FRIENDS */
+
+.friend-empty {
+    padding: 20px 10px;
+
+    text-align: center;
+
+    color: #777f86;
+
+    font-size: 12px;
+}
+
+.friend-empty-icon {
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+/* FOOTER */
+
+.footer {
+    margin-top: 22px;
+    padding: 12px 5px 5px;
+
+    text-align: center;
+
+    color: #5f676e;
+    font-size: 9px;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 22px;
+
+    transform: translate(-50%, 20px);
+
+    width: calc(100% - 35px);
+    max-width: 450px;
+
+    padding: 12px 14px;
+
+    border-radius: 11px;
+
+    background: #252b30;
+
+    border: 1px solid #464e55;
+
+    color: white;
+
+    text-align: center;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: .2s ease;
+
+    z-index: 100;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* MOBILE */
+
 @media (max-width: 380px) {
+
     .app {
-        padding: 10px;
+        padding: 11px;
     }
 
     .logo {
-        font-size: 19px;
+        font-size: 18px;
     }
 
-    .timer {
-        min-width: 70px;
-        font-size: 16px;
+    .profile {
+        padding: 12px;
     }
 
     .avatar {
-        width: 38px;
-        height: 38px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .mode {
+        min-height: 68px;
+    }
+
+    .mode-icon {
+        width: 43px;
+        height: 43px;
+        font-size: 22px;
     }
 }
 </style>
@@ -307,66 +596,444 @@ button:active {
 
 <div class="app">
 
+    <!-- HEADER -->
     <div class="header">
-        <div class="logo">♟ 1711 Chess Arena</div>
-        <div class="online">● ONLINE</div>
-    </div>
 
-    <!-- OPPONENT -->
-    <div class="player">
-        <div class="avatar">👤</div>
-
-        <div class="player-info">
-            <div class="name">Opponent</div>
-            <div class="rating">1200 • Black</div>
+        <div class="logo">
+            <span class="logo-piece">♟</span>
+            <span>1711 Chess Arena</span>
         </div>
 
-        <div class="timer" id="blackTimer">10:00</div>
-    </div>
-
-    <!-- BOARD -->
-    <div class="board-wrap">
-        <div class="board" id="board"></div>
-    </div>
-
-    <div class="status" id="status">
-        Giliran kamu — pilih bidak.
-    </div>
-
-    <!-- PLAYER -->
-    <div class="player">
-        <div class="avatar" id="playerAvatar">♟</div>
-
-        <div class="player-info">
-            <div class="name" id="playerName">You</div>
-            <div class="rating" id="playerInfo">1200 • Brown</div>
+        <div class="online">
+            ● ONLINE
         </div>
 
-        <div class="timer" id="whiteTimer">10:00</div>
     </div>
 
-    <div class="buttons">
-        <button onclick="newGame()">⚔️ Game Baru</button>
-        <button onclick="goLobby()">🏠 Lobby</button>
+
+    <!-- PROFILE -->
+    <div class="profile">
+
+        <div class="avatar" id="playerAvatar">
+            ♟
+        </div>
+
+        <div class="profile-info">
+
+            <div class="profile-name" id="playerName">
+                You
+            </div>
+
+            <div class="profile-username" id="playerUsername">
+                Telegram belum terhubung
+            </div>
+
+            <div class="rating">
+                ⭐ Rating <span id="playerRating">1200</span>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="telegram-note" id="telegramNote">
-        1711 Chess Arena
+
+    <!-- GAME MODES -->
+    <div class="section-title">
+        Main
+    </div>
+
+    <div class="modes">
+
+        <!-- RANDOM -->
+        <button class="mode random-mode" onclick="showPanel('randomPanel')">
+
+            <div class="mode-icon">
+                ⚔️
+            </div>
+
+            <div class="mode-content">
+
+                <div class="mode-title">
+                    Lawan Random
+                </div>
+
+                <div class="mode-description">
+                    Cari lawan Telegram dengan rating yang sesuai.
+                </div>
+
+            </div>
+
+            <div class="mode-arrow">
+                ›
+            </div>
+
+        </button>
+
+
+        <!-- PRIVATE -->
+        <button class="mode private-mode" onclick="showPanel('privatePanel')">
+
+            <div class="mode-icon">
+                🔒
+            </div>
+
+            <div class="mode-content">
+
+                <div class="mode-title">
+                    Private Room
+                </div>
+
+                <div class="mode-description">
+                    Buat room dan undang teman untuk bermain.
+                </div>
+
+            </div>
+
+            <div class="mode-arrow">
+                ›
+            </div>
+
+        </button>
+
+
+        <!-- BOT -->
+        <button class="mode bot-mode" onclick="showPanel('botPanel')">
+
+            <div class="mode-icon">
+                🤖
+            </div>
+
+            <div class="mode-content">
+
+                <div class="mode-title">
+                    VS Bot
+                </div>
+
+                <div class="mode-description">
+                    Main melawan komputer dengan 3 tingkat kesulitan.
+                </div>
+
+            </div>
+
+            <div class="mode-arrow">
+                ›
+            </div>
+
+        </button>
+
+
+        <!-- FRIENDS -->
+        <button class="mode friends-mode" onclick="showPanel('friendsPanel')">
+
+            <div class="mode-icon">
+                👥
+            </div>
+
+            <div class="mode-content">
+
+                <div class="mode-title">
+                    Teman
+                </div>
+
+                <div class="mode-description">
+                    Tambahkan teman dan tantang mereka bermain.
+                </div>
+
+            </div>
+
+            <div class="mode-arrow">
+                ›
+            </div>
+
+        </button>
+
+    </div>
+
+
+    <!-- RANDOM PANEL -->
+    <div class="panel" id="randomPanel">
+
+        <div class="panel-header">
+
+            <div class="panel-icon">
+                ⚔️
+            </div>
+
+            <div>
+                <div class="panel-title">
+                    Lawan Random
+                </div>
+
+                <div class="panel-subtitle">
+                    Mencari pemain Telegram secara otomatis.
+                </div>
+            </div>
+
+        </div>
+
+        <button class="room-button" onclick="findRandomOpponent()">
+            🔎 Cari Lawan
+        </button>
+
+        <button class="room-button" onclick="closePanels()" style="margin-top:8px;">
+            Batal
+        </button>
+
+    </div>
+
+
+    <!-- PRIVATE PANEL -->
+    <div class="panel" id="privatePanel">
+
+        <div class="panel-header">
+
+            <div class="panel-icon">
+                🔒
+            </div>
+
+            <div>
+                <div class="panel-title">
+                    Private Room
+                </div>
+
+                <div class="panel-subtitle">
+                    Bermain hanya dengan teman yang kamu undang.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="room-actions">
+
+            <button class="room-button" onclick="createRoom()">
+                ➕ Buat Room
+            </button>
+
+            <input
+                class="room-input"
+                id="roomCode"
+                type="text"
+                placeholder="Masukkan kode room"
+                autocomplete="off"
+            >
+
+            <button class="room-button" onclick="joinRoom()">
+                🚪 Gabung Room
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOT PANEL -->
+    <div class="panel" id="botPanel">
+
+        <div class="panel-header">
+
+            <div class="panel-icon">
+                🤖
+            </div>
+
+            <div>
+                <div class="panel-title">
+                    VS Bot
+                </div>
+
+                <div class="panel-subtitle">
+                    Pilih tingkat kesulitan.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bot-levels">
+
+            <button class="level" onclick="selectBot('Easy')">
+
+                <div class="level-icon">
+                    🟢
+                </div>
+
+                <div>
+                    <div class="level-name">
+                        Easy
+                    </div>
+
+                    <div class="level-description">
+                        Cocok untuk pemula.
+                    </div>
+                </div>
+
+            </button>
+
+
+            <button class="level" onclick="selectBot('Normal')">
+
+                <div class="level-icon">
+                    🟡
+                </div>
+
+                <div>
+                    <div class="level-name">
+                        Normal
+                    </div>
+
+                    <div class="level-description">
+                        Permainan lebih seimbang.
+                    </div>
+                </div>
+
+            </button>
+
+
+            <button class="level" onclick="selectBot('Hard')">
+
+                <div class="level-icon">
+                    🔴
+                </div>
+
+                <div>
+                    <div class="level-name">
+                        Hard
+                    </div>
+
+                    <div class="level-description">
+                        Bot bermain lebih kuat.
+                    </div>
+                </div>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FRIENDS PANEL -->
+    <div class="panel" id="friendsPanel">
+
+        <div class="panel-header">
+
+            <div class="panel-icon">
+                👥
+            </div>
+
+            <div>
+                <div class="panel-title">
+                    Teman
+                </div>
+
+                <div class="panel-subtitle">
+                    Kelola teman dan tantang mereka bermain.
+                </div>
+            </div>
+
+        </div>
+
+        <button class="room-button" onclick="addFriend()">
+            ➕ Tambah Teman
+        </button>
+
+        <div class="friend-empty">
+
+            <div class="friend-empty-icon">
+                👥
+            </div>
+
+            Belum ada teman.
+
+            <br>
+
+            Sistem pertemanan akan kita sambungkan ke database.
+
+        </div>
+
+    </div>
+
+
+    <!-- EXTRA MENU -->
+
+    <div class="section-title">
+        Lainnya
+    </div>
+
+    <div class="extra-grid">
+
+        <button class="extra-button" onclick="showToast('Leaderboard akan segera tersedia.')">
+
+            <div class="extra-icon">
+                🏆
+            </div>
+
+            <div class="extra-text">
+
+                <div class="extra-title">
+                    Leaderboard
+                </div>
+
+                <div class="extra-desc">
+                    Ranking pemain
+                </div>
+
+            </div>
+
+        </button>
+
+
+        <button class="extra-button" onclick="showToast('Profile lengkap akan segera tersedia.')">
+
+            <div class="extra-icon">
+                👤
+            </div>
+
+            <div class="extra-text">
+
+                <div class="extra-title">
+                    Profile
+                </div>
+
+                <div class="extra-desc">
+                    Statistik kamu
+                </div>
+
+            </div>
+
+        </button>
+
+    </div>
+
+
+    <div class="footer">
+        1711 Chess Arena • Play • Challenge • Win
     </div>
 
 </div>
 
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
 <script>
+
 /* =========================================================
-   TELEGRAM MINI APP
+   TELEGRAM
 ========================================================= */
 
 function loadTelegramUser() {
+
     const tg = window.Telegram?.WebApp;
 
     if (!tg) {
-        document.getElementById("telegramNote").textContent =
-            "Mode browser — buka melalui Telegram untuk login otomatis.";
+
+        document.getElementById("playerName").textContent =
+            "You";
+
+        document.getElementById("playerUsername").textContent =
+            "Buka melalui Telegram";
+
         return;
     }
 
@@ -374,1336 +1041,201 @@ function loadTelegramUser() {
         tg.ready();
         tg.expand();
     } catch (error) {
-        console.log("Telegram WebApp error:", error);
+        console.log(error);
     }
 
     const user = tg.initDataUnsafe?.user;
 
     if (!user) {
-        document.getElementById("telegramNote").textContent =
-            "Buka game melalui Telegram untuk memuat identitas.";
+
+        document.getElementById("playerName").textContent =
+            "Telegram User";
+
+        document.getElementById("playerUsername").textContent =
+            "Identitas belum tersedia";
+
         return;
     }
+
 
     const fullName = [
         user.first_name,
         user.last_name
     ].filter(Boolean).join(" ");
 
-    const displayName =
+
+    document.getElementById("playerName").textContent =
         fullName ||
-        (user.username ? "@" + user.username : "Telegram User");
+        user.username ||
+        "Telegram User";
 
-    document.getElementById("playerName").textContent = displayName;
-
-    let info = "1200 • Brown";
 
     if (user.username) {
-        info += " • @" + user.username;
+
+        document.getElementById("playerUsername").textContent =
+            "@" + user.username;
+
+    } else {
+
+        document.getElementById("playerUsername").textContent =
+            "Telegram User";
     }
 
-    document.getElementById("playerInfo").textContent = info;
 
     if (user.photo_url) {
-        const avatar = document.getElementById("playerAvatar");
+
+        const avatar =
+            document.getElementById("playerAvatar");
 
         avatar.innerHTML = "";
 
-        const img = document.createElement("img");
+        const img =
+            document.createElement("img");
+
         img.src = user.photo_url;
-        img.alt = displayName;
+        img.alt = "Avatar";
 
         avatar.appendChild(img);
-    } else {
-        document.getElementById("playerAvatar").textContent = "♟";
     }
 
-    document.getElementById("telegramNote").textContent =
-        "Telegram terhubung • ID " + user.id;
 
     console.log("Telegram User:", user);
 }
 
-function goLobby() {
-    alert("Lobby multiplayer akan kita sambungkan berikutnya.");
-}
-
 
 /* =========================================================
-   CHESS DATA
+   PANELS
 ========================================================= */
 
-const pieceUrls = {
-    white: {
-        rook: "https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg",
-        knight: "https://sashite.dev/assets/chess/sides/first/representations/western/knight.svg",
-        bishop: "https://sashite.dev/assets/chess/sides/first/representations/western/bishop.svg",
-        queen: "https://sashite.dev/assets/chess/sides/first/representations/western/queen.svg",
-        king: "https://sashite.dev/assets/chess/sides/first/representations/western/king.svg",
-        pawn: "https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-    },
+function showPanel(panelId) {
 
-    black: {
-        rook: "https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg",
-        knight: "https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg",
-        bishop: "https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg",
-        queen: "https://sashite.dev/assets/chess/sides/second/representations/western/queen.svg",
-        king: "https://sashite.dev/assets/chess/sides/second/representations/western/king.svg",
-        pawn: "https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-    }
-};
+    const panels =
+        document.querySelectorAll(".panel");
 
+    panels.forEach(function(panel) {
+        panel.classList.remove("active");
+    });
 
-/* =========================================================
-   BOARD
-========================================================= */
+    const panel =
+        document.getElementById(panelId);
 
-let boardState = createInitialBoard();
-let selected = null;
-let turn = "white";
-let gameOver = false;
+    if (panel) {
+        panel.classList.add("active");
 
-let whiteTime = 600;
-let blackTime = 600;
-let timerInterval = null;
+        setTimeout(function() {
 
-let castling = {
-    whiteKing: true,
-    whiteRookKing: true,
-    whiteRookQueen: true,
-
-    blackKing: true,
-    blackRookKing: true,
-    blackRookQueen: true
-};
-
-
-function createInitialBoard() {
-
-    const board = Array.from(
-        { length: 8 },
-        () => Array(8).fill(null)
-    );
-
-    const backRank = [
-        "rook",
-        "knight",
-        "bishop",
-        "queen",
-        "king",
-        "bishop",
-        "knight",
-        "rook"
-    ];
-
-    for (let col = 0; col < 8; col++) {
-
-        board[0][col] = {
-            type: backRank[col],
-            color: "black"
-        };
-
-        board[1][col] = {
-            type: "pawn",
-            color: "black"
-        };
-
-        board[6][col] = {
-            type: "pawn",
-            color: "white"
-        };
-
-        board[7][col] = {
-            type: backRank[col],
-            color: "white"
-        };
-    }
-
-    return board;
-}
-
-
-/* =========================================================
-   DRAW BOARD
-========================================================= */
-
-function drawBoard() {
-
-    const boardElement = document.getElementById("board");
-
-    boardElement.innerHTML = "";
-
-    for (let row = 0; row < 8; row++) {
-
-        for (let col = 0; col < 8; col++) {
-
-            const square = document.createElement("div");
-
-            square.className =
-                "square " +
-                ((row + col) % 2 === 0 ? "light" : "dark");
-
-            square.dataset.row = row;
-            square.dataset.col = col;
-
-            const piece = boardState[row][col];
-
-            if (selected &&
-                selected.row === row &&
-                selected.col === col) {
-
-                square.classList.add("selected");
-            }
-
-            if (selected &&
-                isLegalMove(
-                    selected.row,
-                    selected.col,
-                    row,
-                    col
-                )) {
-
-                if (piece) {
-                    square.classList.add("capture-target");
-                } else {
-                    square.classList.add("move-target");
-                }
-            }
-
-            if (
-                piece &&
-                piece.type === "king" &&
-                isKingInCheck(piece.color)
-            ) {
-                square.classList.add("check-square");
-            }
-
-            if (piece) {
-
-                const img = document.createElement("img");
-
-                img.className =
-                    "piece " +
-                    (piece.type === "pawn" ? "pawn " : "") +
-                    (piece.color === "white"
-                        ? "white-piece"
-                        : "black-piece");
-
-                img.src = pieceUrls[piece.color][piece.type];
-                img.alt = piece.color + " " + piece.type;
-
-                square.appendChild(img);
-            }
-
-            square.addEventListener("click", function() {
-                handleSquareClick(row, col);
+            panel.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
             });
 
-            boardElement.appendChild(square);
-        }
+        }, 50);
     }
+}
 
-    updateTimers();
+
+function closePanels() {
+
+    document
+        .querySelectorAll(".panel")
+        .forEach(function(panel) {
+
+            panel.classList.remove("active");
+
+        });
 }
 
 
 /* =========================================================
-   CLICK / MOVE
+   RANDOM
 ========================================================= */
 
-function handleSquareClick(row, col) {
+function findRandomOpponent() {
 
-    if (gameOver) {
-        return;
-    }
+    showToast(
+        "🔎 Fitur matchmaking akan kita sambungkan ke server."
+    );
+}
 
-    const piece = boardState[row][col];
 
-    if (!selected) {
+/* =========================================================
+   PRIVATE ROOM
+========================================================= */
 
-        if (piece && piece.color === turn) {
+function createRoom() {
 
-            selected = {
-                row: row,
-                col: col
-            };
+    showToast(
+        "🔒 Sistem Private Room akan segera aktif."
+    );
+}
 
-            updateStatus();
-            drawBoard();
-        }
 
-        return;
-    }
+function joinRoom() {
 
-    if (
-        selected.row === row &&
-        selected.col === col
-    ) {
+    const code =
+        document.getElementById("roomCode").value.trim();
 
-        selected = null;
-        updateStatus();
-        drawBoard();
-        return;
-    }
+    if (!code) {
 
-    if (
-        piece &&
-        piece.color === turn
-    ) {
-
-        selected = {
-            row: row,
-            col: col
-        };
-
-        updateStatus();
-        drawBoard();
-        return;
-    }
-
-    if (
-        isLegalMove(
-            selected.row,
-            selected.col,
-            row,
-            col
-        )
-    ) {
-
-        performMove(
-            selected.row,
-            selected.col,
-            row,
-            col
+        showToast(
+            "Masukkan kode room terlebih dahulu."
         );
 
-        selected = null;
-
-        switchTurn();
-
-        evaluatePosition();
-
-        drawBoard();
-
-    } else {
-
-        document.getElementById("status").textContent =
-            "Gerakan tidak legal.";
-    }
-}
-
-
-/* =========================================================
-   MOVE
-========================================================= */
-
-function performMove(fr, fc, tr, tc) {
-
-    const piece = boardState[fr][fc];
-
-    if (!piece) {
         return;
     }
 
-    /* CASTLING */
-
-    if (
-        piece.type === "king" &&
-        Math.abs(tc - fc) === 2
-    ) {
-
-        if (tc === 6) {
-
-            boardState[tr][5] =
-                boardState[tr][7];
-
-            boardState[tr][7] = null;
-
-        } else if (tc === 2) {
-
-            boardState[tr][3] =
-                boardState[tr][0];
-
-            boardState[tr][0] = null;
-        }
-    }
-
-    boardState[tr][tc] = piece;
-    boardState[fr][fc] = null;
-
-
-    /* UPDATE CASTLING RIGHTS */
-
-    if (piece.color === "white") {
-
-        if (piece.type === "king") {
-            castling.whiteKing = false;
-        }
-
-        if (
-            piece.type === "rook" &&
-            fr === 7 &&
-            fc === 0
-        ) {
-            castling.whiteRookQueen = false;
-        }
-
-        if (
-            piece.type === "rook" &&
-            fr === 7 &&
-            fc === 7
-        ) {
-            castling.whiteRookKing = false;
-        }
-    }
-
-    if (piece.color === "black") {
-
-        if (piece.type === "king") {
-            castling.blackKing = false;
-        }
-
-        if (
-            piece.type === "rook" &&
-            fr === 0 &&
-            fc === 0
-        ) {
-            castling.blackRookQueen = false;
-        }
-
-        if (
-            piece.type === "rook" &&
-            fr === 0 &&
-            fc === 7
-        ) {
-            castling.blackRookKing = false;
-        }
-    }
-
-
-    /* CAPTURE ROOK */
-
-    const captured = boardState[tr][tc];
-
-    if (captured && captured.type === "rook") {
-
-        if (
-            captured.color === "white" &&
-            tr === 7 &&
-            tc === 0
-        ) {
-            castling.whiteRookQueen = false;
-        }
-
-        if (
-            captured.color === "white" &&
-            tr === 7 &&
-            tc === 7
-        ) {
-            castling.whiteRookKing = false;
-        }
-
-        if (
-            captured.color === "black" &&
-            tr === 0 &&
-            tc === 0
-        ) {
-            castling.blackRookQueen = false;
-        }
-
-        if (
-            captured.color === "black" &&
-            tr === 0 &&
-            tc === 7
-        ) {
-            castling.blackRookKing = false;
-        }
-    }
-
-
-    /* PROMOTION */
-
-    if (
-        piece.type === "pawn" &&
-        (
-            (piece.color === "white" && tr === 0) ||
-            (piece.color === "black" && tr === 7)
-        )
-    ) {
-
-        boardState[tr][tc] = {
-            type: "queen",
-            color: piece.color
-        };
-    }
-}
-
-
-/* =========================================================
-   LEGAL MOVE
-========================================================= */
-
-function isLegalMove(fr, fc, tr, tc) {
-
-    const piece = boardState[fr][fc];
-
-    if (!piece) {
-        return false;
-    }
-
-    if (piece.color !== turn) {
-        return false;
-    }
-
-    const target = boardState[tr][tc];
-
-    if (target && target.color === piece.color) {
-        return false;
-    }
-
-    if (
-        piece.type === "king" &&
-        Math.abs(tc - fc) === 2
-    ) {
-
-        if (!canCastle(fr, fc, tr, tc)) {
-            return false;
-        }
-
-    } else {
-
-        if (
-            !basicMoveAllowed(
-                fr,
-                fc,
-                tr,
-                tc,
-                boardState
-            )
-        ) {
-            return false;
-        }
-    }
-
-
-    /* SIMULATE */
-
-    const testBoard = cloneBoard(boardState);
-
-    testBoard[tr][tc] = testBoard[fr][fc];
-    testBoard[fr][fc] = null;
-
-
-    /* CASTLING ROOK */
-
-    if (
-        piece.type === "king" &&
-        Math.abs(tc - fc) === 2
-    ) {
-
-        if (tc === 6) {
-
-            testBoard[tr][5] =
-                testBoard[tr][7];
-
-            testBoard[tr][7] = null;
-
-        } else if (tc === 2) {
-
-            testBoard[tr][3] =
-                testBoard[tr][0];
-
-            testBoard[tr][0] = null;
-        }
-    }
-
-
-    if (isKingInCheckOnBoard(piece.color, testBoard)) {
-        return false;
-    }
-
-    return true;
-}
-
-
-/* =========================================================
-   BASIC MOVE RULES
-========================================================= */
-
-function basicMoveAllowed(fr, fc, tr, tc, board) {
-
-    const piece = board[fr][fc];
-
-    if (!piece) {
-        return false;
-    }
-
-    const dr = tr - fr;
-    const dc = tc - fc;
-
-    const adr = Math.abs(dr);
-    const adc = Math.abs(dc);
-
-    if (piece.type === "pawn") {
-
-        const direction =
-            piece.color === "white" ? -1 : 1;
-
-        const startRow =
-            piece.color === "white" ? 6 : 1;
-
-        if (
-            dc === 0 &&
-            dr === direction &&
-            !board[tr][tc]
-        ) {
-            return true;
-        }
-
-        if (
-            dc === 0 &&
-            fr === startRow &&
-            dr === direction * 2 &&
-            !board[fr + direction][fc] &&
-            !board[tr][tc]
-        ) {
-            return true;
-        }
-
-        if (
-            adc === 1 &&
-            dr === direction &&
-            board[tr][tc] &&
-            board[tr][tc].color !== piece.color
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    if (piece.type === "knight") {
-
-        return (
-            (adr === 2 && adc === 1) ||
-            (adr === 1 && adc === 2)
-        );
-    }
-
-
-    if (piece.type === "bishop") {
-
-        return (
-            adr === adc &&
-            pathClear(fr, fc, tr, tc, board)
-        );
-    }
-
-
-    if (piece.type === "rook") {
-
-        return (
-            (dr === 0 || dc === 0) &&
-            pathClear(fr, fc, tr, tc, board)
-        );
-    }
-
-
-    if (piece.type === "queen") {
-
-        return (
-            (
-                adr === adc ||
-                dr === 0 ||
-                dc === 0
-            ) &&
-            pathClear(fr, fc, tr, tc, board)
-        );
-    }
-
-
-    if (piece.type === "king") {
-
-        return adr <= 1 && adc <= 1;
-    }
-
-
-    return false;
-}
-
-
-/* =========================================================
-   PATH
-========================================================= */
-
-function pathClear(fr, fc, tr, tc, board) {
-
-    const dr = Math.sign(tr - fr);
-    const dc = Math.sign(tc - fc);
-
-    let r = fr + dr;
-    let c = fc + dc;
-
-    while (r !== tr || c !== tc) {
-
-        if (board[r][c]) {
-            return false;
-        }
-
-        r += dr;
-        c += dc;
-    }
-
-    return true;
-}
-
-
-/* =========================================================
-   CLONE
-========================================================= */
-
-function cloneBoard(board) {
-
-    return board.map(row =>
-        row.map(piece =>
-            piece ? { ...piece } : null
-        )
+    showToast(
+        "🚪 Room " + code + " akan diproses."
     );
 }
 
 
 /* =========================================================
-   ATTACK DETECTION
+   BOT
 ========================================================= */
 
-function isSquareAttacked(row, col, byColor, board) {
+function selectBot(level) {
 
-    for (let r = 0; r < 8; r++) {
-
-        for (let c = 0; c < 8; c++) {
-
-            const piece = board[r][c];
-
-            if (
-                !piece ||
-                piece.color !== byColor
-            ) {
-                continue;
-            }
-
-            const dr = row - r;
-            const dc = col - c;
-
-            const adr = Math.abs(dr);
-            const adc = Math.abs(dc);
-
-
-            if (piece.type === "pawn") {
-
-                const direction =
-                    byColor === "white" ? -1 : 1;
-
-                if (
-                    dr === direction &&
-                    adc === 1
-                ) {
-                    return true;
-                }
-            }
-
-
-            if (piece.type === "knight") {
-
-                if (
-                    (adr === 2 && adc === 1) ||
-                    (adr === 1 && adc === 2)
-                ) {
-                    return true;
-                }
-            }
-
-
-            if (piece.type === "king") {
-
-                if (adr <= 1 && adc <= 1) {
-                    return true;
-                }
-            }
-
-
-            if (piece.type === "bishop") {
-
-                if (
-                    adr === adc &&
-                    pathClear(r, c, row, col, board)
-                ) {
-                    return true;
-                }
-            }
-
-
-            if (piece.type === "rook") {
-
-                if (
-                    (dr === 0 || dc === 0) &&
-                    pathClear(r, c, row, col, board)
-                ) {
-                    return true;
-                }
-            }
-
-
-            if (piece.type === "queen") {
-
-                if (
-                    (
-                        adr === adc ||
-                        dr === 0 ||
-                        dc === 0
-                    ) &&
-                    pathClear(r, c, row, col, board)
-                ) {
-                    return true;
-                }
-            }
-        }
-    }
-
-    return false;
-}
-
-
-/* =========================================================
-   KING CHECK
-========================================================= */
-
-function isKingInCheck(color) {
-    return isKingInCheckOnBoard(color, boardState);
-}
-
-
-function isKingInCheckOnBoard(color, board) {
-
-    let kingRow = -1;
-    let kingCol = -1;
-
-    for (let r = 0; r < 8; r++) {
-
-        for (let c = 0; c < 8; c++) {
-
-            const piece = board[r][c];
-
-            if (
-                piece &&
-                piece.color === color &&
-                piece.type === "king"
-            ) {
-
-                kingRow = r;
-                kingCol = c;
-            }
-        }
-    }
-
-    if (kingRow === -1) {
-        return true;
-    }
-
-    const opponent =
-        color === "white" ? "black" : "white";
-
-    return isSquareAttacked(
-        kingRow,
-        kingCol,
-        opponent,
-        board
+    showToast(
+        "🤖 VS Bot " + level + " akan kita aktifkan berikutnya."
     );
 }
 
 
 /* =========================================================
-   CASTLING
+   FRIEND
 ========================================================= */
 
-function canCastle(fr, fc, tr, tc) {
+function addFriend() {
 
-    const piece = boardState[fr][fc];
-
-    if (!piece || piece.type !== "king") {
-        return false;
-    }
-
-    if (fr !== tr) {
-        return false;
-    }
-
-    if (Math.abs(tc - fc) !== 2) {
-        return false;
-    }
-
-    if (isKingInCheck(piece.color)) {
-        return false;
-    }
-
-
-    const enemy =
-        piece.color === "white" ? "black" : "white";
-
-
-    if (piece.color === "white") {
-
-        if (tc === 6) {
-
-            if (!castling.whiteKing ||
-                !castling.whiteRookKing) {
-                return false;
-            }
-
-            if (
-                !boardState[7][7] ||
-                boardState[7][7].type !== "rook" ||
-                boardState[7][7].color !== "white"
-            ) {
-                return false;
-            }
-
-            if (
-                boardState[7][5] ||
-                boardState[7][6]
-            ) {
-                return false;
-            }
-
-            if (
-                isSquareAttacked(7, 5, enemy, boardState) ||
-                isSquareAttacked(7, 6, enemy, boardState)
-            ) {
-                return false;
-            }
-
-            return true;
-        }
-
-
-        if (tc === 2) {
-
-            if (!castling.whiteKing ||
-                !castling.whiteRookQueen) {
-                return false;
-            }
-
-            if (
-                !boardState[7][0] ||
-                boardState[7][0].type !== "rook" ||
-                boardState[7][0].color !== "white"
-            ) {
-                return false;
-            }
-
-            if (
-                boardState[7][1] ||
-                boardState[7][2] ||
-                boardState[7][3]
-            ) {
-                return false;
-            }
-
-            if (
-                isSquareAttacked(7, 3, enemy, boardState) ||
-                isSquareAttacked(7, 2, enemy, boardState)
-            ) {
-                return false;
-            }
-
-            return true;
-        }
-    }
-
-
-    if (piece.color === "black") {
-
-        if (tc === 6) {
-
-            if (!castling.blackKing ||
-                !castling.blackRookKing) {
-                return false;
-            }
-
-            if (
-                !boardState[0][7] ||
-                boardState[0][7].type !== "rook" ||
-                boardState[0][7].color !== "black"
-            ) {
-                return false;
-            }
-
-            if (
-                boardState[0][5] ||
-                boardState[0][6]
-            ) {
-                return false;
-            }
-
-            if (
-                isSquareAttacked(0, 5, enemy, boardState) ||
-                isSquareAttacked(0, 6, enemy, boardState)
-            ) {
-                return false;
-            }
-
-            return true;
-        }
-
-
-        if (tc === 2) {
-
-            if (!castling.blackKing ||
-                !castling.blackRookQueen) {
-                return false;
-            }
-
-            if (
-                !boardState[0][0] ||
-                boardState[0][0].type !== "rook" ||
-                boardState[0][0].color !== "black"
-            ) {
-                return false;
-            }
-
-            if (
-                boardState[0][1] ||
-                boardState[0][2] ||
-                boardState[0][3]
-            ) {
-                return false;
-            }
-
-            if (
-                isSquareAttacked(0, 3, enemy, boardState) ||
-                isSquareAttacked(0, 2, enemy, boardState)
-            ) {
-                return false;
-            }
-
-            return true;
-        }
-    }
-
-    return false;
-}
-
-
-/* =========================================================
-   ANY LEGAL MOVE
-========================================================= */
-
-function hasAnyLegalMove(color) {
-
-    const oldTurn = turn;
-
-    turn = color;
-
-    for (let fr = 0; fr < 8; fr++) {
-
-        for (let fc = 0; fc < 8; fc++) {
-
-            const piece = boardState[fr][fc];
-
-            if (
-                !piece ||
-                piece.color !== color
-            ) {
-                continue;
-            }
-
-            for (let tr = 0; tr < 8; tr++) {
-
-                for (let tc = 0; tc < 8; tc++) {
-
-                    if (
-                        isLegalMove(
-                            fr,
-                            fc,
-                            tr,
-                            tc
-                        )
-                    ) {
-
-                        turn = oldTurn;
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-
-    turn = oldTurn;
-
-    return false;
-}
-
-
-/* =========================================================
-   POSITION EVALUATION
-========================================================= */
-
-function evaluatePosition() {
-
-    const checked = isKingInCheck(turn);
-
-    const moves = hasAnyLegalMove(turn);
-
-    if (!moves) {
-
-        gameOver = true;
-        stopTimer();
-
-        if (checked) {
-
-            const winner =
-                turn === "white"
-                    ? "Kamu"
-                    : "Opponent";
-
-            document.getElementById("status").textContent =
-                "♔ CHECKMATE — " + winner + " menang!";
-
-        } else {
-
-            document.getElementById("status").textContent =
-                "🤝 STALEMATE — Remis.";
-        }
-
-        updateTimers();
-
-        return;
-    }
-
-    if (checked) {
-
-        document.getElementById("status").textContent =
-            "⚠️ CHECK — Raja sedang diserang!";
-
-    } else {
-
-        updateStatus();
-    }
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-function updateStatus() {
-
-    if (gameOver) {
-        return;
-    }
-
-    if (selected) {
-
-        document.getElementById("status").textContent =
-            "Pilih kotak tujuan.";
-
-        return;
-    }
-
-    if (turn === "white") {
-
-        document.getElementById("status").textContent =
-            "Giliran kamu — pilih bidak.";
-
-    } else {
-
-        document.getElementById("status").textContent =
-            "Giliran Opponent.";
-    }
-}
-
-
-/* =========================================================
-   TURN
-========================================================= */
-
-function switchTurn() {
-
-    turn =
-        turn === "white"
-            ? "black"
-            : "white";
-
-    updateTimers();
-}
-
-
-/* =========================================================
-   TIMER
-========================================================= */
-
-function startTimer() {
-
-    stopTimer();
-
-    timerInterval = setInterval(function() {
-
-        if (gameOver) {
-
-            stopTimer();
-            return;
-        }
-
-        if (turn === "white") {
-
-            if (whiteTime > 0) {
-                whiteTime--;
-            }
-
-            if (whiteTime <= 0) {
-
-                whiteTime = 0;
-                gameOver = true;
-
-                stopTimer();
-                updateTimers();
-
-                document.getElementById("status").textContent =
-                    "⏱️ Waktu habis — Opponent menang!";
-
-                return;
-            }
-
-        } else {
-
-            if (blackTime > 0) {
-                blackTime--;
-            }
-
-            if (blackTime <= 0) {
-
-                blackTime = 0;
-                gameOver = true;
-
-                stopTimer();
-                updateTimers();
-
-                document.getElementById("status").textContent =
-                    "⏱️ Waktu habis — Kamu menang!";
-
-                return;
-            }
-        }
-
-        updateTimers();
-
-    }, 1000);
-}
-
-
-function stopTimer() {
-
-    if (timerInterval !== null) {
-
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
-}
-
-
-function formatTime(seconds) {
-
-    const minutes =
-        Math.floor(seconds / 60);
-
-    const secs =
-        seconds % 60;
-
-    return (
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(secs).padStart(2, "0")
-    );
-}
-
-
-function updateTimers() {
-
-    const whiteTimer =
-        document.getElementById("whiteTimer");
-
-    const blackTimer =
-        document.getElementById("blackTimer");
-
-    whiteTimer.textContent =
-        formatTime(whiteTime);
-
-    blackTimer.textContent =
-        formatTime(blackTime);
-
-
-    whiteTimer.classList.toggle(
-        "active",
-        turn === "white" && !gameOver
-    );
-
-    blackTimer.classList.toggle(
-        "active",
-        turn === "black" && !gameOver
-    );
-
-
-    whiteTimer.classList.toggle(
-        "low",
-        whiteTime <= 30
-    );
-
-    blackTimer.classList.toggle(
-        "low",
-        blackTime <= 30
+    showToast(
+        "👥 Sistem Add Friend akan kita sambungkan berikutnya."
     );
 }
 
 
 /* =========================================================
-   NEW GAME
+   TOAST
 ========================================================= */
 
-function newGame() {
+let toastTimer = null;
 
-    stopTimer();
+function showToast(message) {
 
-    boardState =
-        createInitialBoard();
+    const toast =
+        document.getElementById("toast");
 
-    selected = null;
+    toast.textContent = message;
 
-    turn = "white";
+    toast.classList.add("show");
 
-    gameOver = false;
+    clearTimeout(toastTimer);
 
-    whiteTime = 600;
-    blackTime = 600;
+    toastTimer = setTimeout(function() {
 
-    castling = {
+        toast.classList.remove("show");
 
-        whiteKing: true,
-        whiteRookKing: true,
-        whiteRookQueen: true,
-
-        blackKing: true,
-        blackRookKing: true,
-        blackRookQueen: true
-    };
-
-    document.getElementById("status").textContent =
-        "Giliran kamu — pilih bidak.";
-
-    updateTimers();
-
-    drawBoard();
-
-    startTimer();
+    }, 2600);
 }
 
 
@@ -1712,7 +1244,6 @@ function newGame() {
 ========================================================= */
 
 loadTelegramUser();
-newGame();
 
 </script>
 
