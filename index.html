@@ -3,38 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>1711 Chess Arena</title>
 
 <style>
-
 *{
   box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
   margin:0;
   padding:0;
-  width:100%;
   min-height:100%;
+  background:#151515;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  background:#151515;
-  color:white;
-  font-family:Arial,sans-serif;
+  display:flex;
+  justify-content:center;
 }
 
 .app{
   width:100%;
   max-width:620px;
-  margin:auto;
   padding:14px;
 }
 
 /* HEADER */
-
 .header{
   display:flex;
   justify-content:space-between;
@@ -44,116 +41,94 @@ body{
 
 .logo{
   font-size:21px;
-  font-weight:bold;
+  font-weight:900;
 }
 
 .online{
-  background:#252525;
-  border:1px solid #444;
-  border-radius:20px;
   padding:6px 10px;
+  border-radius:20px;
+  background:#252525;
+  border:1px solid #414141;
   font-size:11px;
 }
 
 /* PLAYER */
-
 .player{
-  width:100%;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-
-  background:#222;
-  border:1px solid #3a3a3a;
+  justify-content:space-between;
+  padding:9px 11px;
+  margin-bottom:9px;
   border-radius:12px;
-
-  padding:9px;
-  margin-bottom:10px;
+  background:#222;
+  border:1px solid #383838;
 }
 
 .playerInfo{
   display:flex;
   align-items:center;
-  gap:9px;
+  gap:10px;
 }
 
 .avatar{
   width:42px;
   height:42px;
-
-  border-radius:50%;
-
   display:flex;
   justify-content:center;
   align-items:center;
-
+  border-radius:50%;
   background:#ddd;
   font-size:23px;
 }
 
 .name{
   font-size:14px;
-  font-weight:bold;
+  font-weight:800;
 }
 
 .rating{
   margin-top:3px;
-  font-size:11px;
   color:#999;
+  font-size:11px;
 }
 
 .timer{
+  min-width:78px;
+  padding:8px 10px;
+  border-radius:8px;
   background:#111;
   border:1px solid #444;
-  border-radius:8px;
-
-  padding:8px 11px;
-
-  font-size:19px;
-  font-weight:bold;
+  text-align:center;
+  font-size:20px;
+  font-weight:900;
 }
 
-
-/* ==================================================
-   BOARD
-   ================================================== */
-
+/* BOARD */
 .board{
   width:100%;
   aspect-ratio:1 / 1;
 
   display:grid;
-
-  grid-template-columns:
-    repeat(8,1fr);
-
-  grid-template-rows:
-    repeat(8,1fr);
+  grid-template-columns:repeat(8,minmax(0,1fr));
+  grid-template-rows:repeat(8,minmax(0,1fr));
 
   border:4px solid #292929;
-
   background:#292929;
-
-  margin:8px auto 10px;
 
   overflow:hidden;
 }
 
-
-/* ==================================================
-   SQUARE
-   ================================================== */
-
 .square{
-  width:100%;
-  height:100%;
+  position:relative;
 
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 
-  border:1px solid #666;
+  min-width:0;
+  min-height:0;
 
+  border:1px solid #686868;
   overflow:hidden;
 }
 
@@ -165,50 +140,59 @@ body{
   background:#a5a5a5;
 }
 
+/* PIECE */
+.piece{
+  width:84%;
+  height:92%;
 
-/* ==================================================
-   BIDAK
-   ================================================== */
-
-.chess{
-  line-height:1;
-
-  font-family:
-    "DejaVu Sans",
-    "Arial Unicode MS",
-    sans-serif;
-
-  font-size:clamp(30px,8.8vw,58px);
-
-  user-select:none;
-
-  text-shadow:
-    1px 2px 2px rgba(0,0,0,.45);
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
+.piece svg{
+  width:100%;
+  height:100%;
+  display:block;
 
-/* BIDAK COKLAT MUDA */
+  overflow:visible;
 
-.whitePiece{
-  color:#c89457;
-
-  -webkit-text-stroke:
-    1px #70451f;
+  filter:
+    drop-shadow(2px 3px 2px rgba(0,0,0,.38));
 }
 
-
-/* BIDAK HITAM */
-
-.blackPiece{
-  color:#171717;
-
-  -webkit-text-stroke:
-    1px #000;
+/* PROPORSI */
+.pawn{
+  width:55%;
+  height:68%;
 }
 
+.rook{
+  width:68%;
+  height:77%;
+}
 
-/* TOMBOL */
+.knight{
+  width:84%;
+  height:91%;
+}
 
+.bishop{
+  width:76%;
+  height:89%;
+}
+
+.queen{
+  width:78%;
+  height:91%;
+}
+
+.king{
+  width:80%;
+  height:95%;
+}
+
+/* BUTTON */
 .buttons{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -219,15 +203,15 @@ body{
 button{
   padding:13px;
   border-radius:10px;
-  border:0;
-
   font-size:14px;
-  font-weight:bold;
+  font-weight:800;
+  cursor:pointer;
 }
 
 .new{
-  background:#e1e1e1;
+  background:#e0e0e0;
   color:#111;
+  border:0;
 }
 
 .find{
@@ -238,314 +222,633 @@ button{
 
 .status{
   text-align:center;
+  margin-top:10px;
   color:#999;
   font-size:12px;
-  margin-top:10px;
 }
 
+@media(max-width:430px){
+
+  .app{
+    padding:10px;
+  }
+
+  .logo{
+    font-size:18px;
+  }
+
+  .pawn{
+    width:53%;
+    height:65%;
+  }
+
+  .rook{
+    width:66%;
+    height:74%;
+  }
+}
 </style>
 </head>
-
 
 <body>
 
 <div class="app">
 
+<div class="header">
+  <div class="logo">♟ 1711 Chess Arena</div>
 
-  <!-- HEADER -->
+  <div class="online">
+    🟢 ONLINE
+  </div>
+</div>
 
-  <div class="header">
 
-    <div class="logo">
-      ♟ 1711 Chess Arena
-    </div>
+<!-- OPPONENT -->
 
-    <div class="online">
-      🟢 ONLINE
+<div class="player">
+
+  <div class="playerInfo">
+
+    <div class="avatar">🧑</div>
+
+    <div>
+      <div class="name">Opponent</div>
+      <div class="rating">Rating 1200</div>
     </div>
 
   </div>
 
+  <div class="timer">10:00</div>
 
-  <!-- LAWAN -->
+</div>
 
-  <div class="player">
 
-    <div class="playerInfo">
+<!-- =====================================================
+     PAPAN CATUR
+     ===================================================== -->
 
-      <div class="avatar">
-        🧑
+<div class="board">
+
+
+<!-- =====================================================
+     HITAM
+     ===================================================== -->
+
+<!-- RANK 8 -->
+
+<div class="square light">
+
+<div class="piece rook">
+<svg viewBox="0 0 100 120">
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M15 108
+C15 101 22 97 31 95
+L34 88
+L66 88
+L69 95
+C78 97 85 101 85 108
+L85 112
+L15 112Z"/>
+
+<path fill="#101010" stroke="#000" stroke-width="2" d="
+M34 89
+L37 49
+L63 49
+L66 89Z"/>
+
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M28 51
+L28 29
+L37 29
+L37 37
+L44 37
+L44 29
+L56 29
+L56 37
+L63 37
+L63 29
+L72 29
+L72 51Z"/>
+
+<path fill="#333" stroke="#000" stroke-width="2" d="
+M28 51
+L72 51
+L67 45
+L33 45Z"/>
+</svg>
+</div>
+
+</div>
+
+
+<div class="square dark">
+
+<div class="piece knight">
+<svg viewBox="0 0 100 120">
+
+<!-- base -->
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M14 108
+C15 101 22 97 31 95
+L35 89
+L66 89
+L70 95
+C79 97 86 101 87 108
+L87 112
+L14 112Z"/>
+
+<!-- neck -->
+<path fill="#111" stroke="#000" stroke-width="2" d="
+M33 94
+C36 82 37 72 34 61
+C31 50 30 41 35 34
+L43 27
+L58 31
+C60 43 57 55 60 66
+C62 77 67 86 70 94Z"/>
+
+<!-- horse head -->
+<path fill="#111" stroke="#000" stroke-width="2" d="
+M35 62
+C28 55 26 47 28 40
+C30 33 35 28 41 25
+L35 13
+L47 21
+C53 19 59 21 63 26
+L70 30
+L66 35
+L78 42
+L69 49
+L73 55
+C64 61 52 65 43 65Z"/>
+
+<!-- ears -->
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M41 26L35 13L47 21Z"/>
+
+<path fill="#151515" stroke="#000" stroke-width="2" d="
+M52 24L56 12L63 27Z"/>
+
+<!-- muzzle -->
+<path fill="#222" stroke="#000" stroke-width="2" d="
+M62 35
+C70 37 76 40 80 45
+C77 51 70 53 64 50
+L58 45Z"/>
+
+<!-- jaw -->
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M35 50
+C42 59 53 62 65 56
+C62 65 52 68 43 64
+C38 60 35 55 35 50Z"/>
+
+<!-- mane -->
+<path fill="#222" stroke="#000" stroke-width="2" d="
+M39 29
+C33 42 34 53 41 63
+L35 72
+L44 68
+L40 80
+L49 70
+L47 85
+L55 69
+L56 51
+C49 45 44 36 39 29Z"/>
+
+<!-- eye -->
+<circle cx="58" cy="32" r="2.5" fill="#eee" stroke="none"/>
+
+<!-- nostril -->
+<ellipse cx="70" cy="44" rx="2" ry="1.3" fill="#eee" stroke="none"/>
+
+</svg>
+</div>
+
+</div>
+
+
+<div class="square light">
+
+<div class="piece bishop">
+<svg viewBox="0 0 100 120">
+
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M15 108
+C16 101 23 97 31 95
+L35 90
+L65 90
+L69 95
+C77 97 84 101 85 108
+L85 112
+L15 112Z"/>
+
+<path fill="#111" stroke="#000" stroke-width="2" d="
+M38 95
+C41 85 43 78 43 69
+C43 62 38 57 38 51
+C38 43 44 38 47 35
+L53 35
+C56 38 62 43 62 51
+C62 57 57 62 57 69
+C57 78 59 85 62 95Z"/>
+
+<path fill="#222" stroke="#000" stroke-width="2" d="
+M37 53
+C42 48 58 48 63 53
+L60 59
+L40 59Z"/>
+
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M50 13
+C42 22 39 30 41 38
+C44 43 56 43 59 38
+C61 30 58 22 50 13Z"/>
+
+<path d="M56 18L44 37"
+stroke="#888"
+stroke-width="4"
+fill="none"
+stroke-linecap="round"/>
+
+</svg>
+</div>
+
+</div>
+
+
+<div class="square dark">
+
+<div class="piece queen">
+<svg viewBox="0 0 100 120">
+
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M14 108
+C15 101 22 97 30 95
+L34 90
+L66 90
+L70 95
+C78 97 85 101 86 108
+L86 112
+L14 112Z"/>
+
+<path fill="#111" stroke="#000" stroke-width="2" d="
+M36 95
+C39 85 42 78 42 70
+L38 57
+L44 51
+L50 58
+L56 51
+L62 57
+L58 70
+C58 78 61 85 64 95Z"/>
+
+<path fill="#222" stroke="#000" stroke-width="2" d="
+M39 58
+C43 53 47 52 50 52
+C53 52 57 53 61 58
+C57 62 43 62 39 58Z"/>
+
+<!-- crown -->
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M40 51
+L42 39
+L46 45
+L50 35
+L54 45
+L58 39
+L60 51Z"/>
+
+<circle cx="42" cy="38" r="2.5" fill="#333"/>
+<circle cx="50" cy="34" r="2.5" fill="#333"/>
+<circle cx="58" cy="38" r="2.5" fill="#333"/>
+
+</svg>
+</div>
+
+</div>
+
+
+<div class="square light">
+
+<div class="piece king">
+<svg viewBox="0 0 100 120">
+
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M13 108
+C14 101 21 97 29 95
+L33 90
+L67 90
+L71 95
+C79 97 86 101 87 108
+L87 112
+L13 112Z"/>
+
+<path fill="#111" stroke="#000" stroke-width="2" d="
+M36 95
+C39 85 42 78 42 69
+L38 57
+L62 57
+L58 69
+C58 78 61 85 64 95Z"/>
+
+<path fill="#222" stroke="#000" stroke-width="2" d="
+M38 57
+C42 52 46 50 50 50
+C54 50 58 52 62 57
+C58 61 42 61 38 57Z"/>
+
+<!-- crown -->
+<path fill="#050505" stroke="#000" stroke-width="2" d="
+M43 50
+L45 36
+L55 36
+L57 50Z"/>
+
+<!-- cross -->
+<path fill="#222" stroke="#000" stroke-width="2" d="
+M47 36
+L47 27
+L42 27
+L42 21
+L47 21
+L47 15
+L53 15
+L53 21
+L58 21
+L58 27
+L53 27
+L53 36Z"/>
+
+</svg>
+</div>
+
+</div>
+
+
+<div class="square dark">
+
+<div class="piece bishop">
+<svg viewBox="0 0 100 120">
+<path fill="#050505" stroke="#000" stroke-width="2" d="M15 108C16 101 23 97 31 95L35 90H65L69 95C77 97 84 101 85 108V112H15Z"/>
+<path fill="#111" stroke="#000" stroke-width="2" d="M38 95C41 85 43 78 43 69C43 62 38 57 38 51C38 43 44 38 47 35H53C56 38 62 43 62 51C62 57 57 62 57 69C57 78 59 85 62 95Z"/>
+<path fill="#050505" stroke="#000" stroke-width="2" d="M50 13C42 22 39 30 41 38C44 43 56 43 59 38C61 30 58 22 50 13Z"/>
+<path d="M56 18L44 37" stroke="#888" stroke-width="4" fill="none"/>
+</svg>
+</div>
+
+</div>
+
+
+<div class="square light">
+
+<div class="piece knight">
+<svg viewBox="0 0 100 120">
+<path fill="#050505" stroke="#000" stroke-width="2" d="M14 108C15 101 22 97 31 95L35 89H66L70 95C79 97 86 101 87 108V112H14Z"/>
+<path fill="#111" stroke="#000" stroke-width="2" d="M33 94C36 82 37 72 34 61C31 50 30 41 35 34L43 27L58 31C60 43 57 55 60 66C62 77 67 86 70 94Z"/>
+<path fill="#111" stroke="#000" stroke-width="2" d="M35 62C28 55 26 47 28 40C30 33 35 28 41 25L35 13L47 21C53 19 59 21 63 26L70 30L66 35L78 42L69 49L73 55C64 61 52 65 43 65Z"/>
+<path fill="#222" stroke="#000" stroke-width="2" d="M62 35C70 37 76 40 80 45C77 51 70 53 64 50L58 45Z"/>
+<path fill="#050505" stroke="#000" stroke-width="2" d="M35 50C42 59 53 62 65 56C62 65 52 68 43 64C38 60 35 55 35 50Z"/>
+<path fill="#222" stroke="#000" stroke-width="2" d="M39 29C33 42 34 53 41 63L35 72L44 68L40 80L49 70L47 85L55 69L56 51C49 45 44 36 39 29Z"/>
+<circle cx="58" cy="32" r="2.5" fill="#eee" stroke="none"/>
+</svg>
+</div>
+
+</div>
+
+
+<div class="square dark">
+
+<div class="piece rook">
+<svg viewBox="0 0 100 120">
+<path fill="#050505" stroke="#000" stroke-width="2" d="M15 108C15 101 22 97 31 95L34 88H66L69 95C78 97 85 101 85 108V112H15Z"/>
+<path fill="#101010" stroke="#000" stroke-width="2" d="M34 89L37 49H63L66 89Z"/>
+<path fill="#050505" stroke="#000" stroke-width="2" d="M28 51V29H37V37H44V29H56V37H63V29H72V51Z"/>
+<path fill="#333" stroke="#000" stroke-width="2" d="M28 51H72L67 45H33Z"/>
+</svg>
+</div>
+
+</div>
+
+
+<!-- BARIS 7 -->
+
+<div class="square dark"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#050505"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#111"/><ellipse cx="50" cy="75" rx="13" ry="5" fill="#333"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#111"/><circle cx="50" cy="39" r="12" fill="#222"/></svg></div></div>
+<div class="square light"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#050505"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#111"/><circle cx="50" cy="39" r="12" fill="#222"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#111"/></svg></div></div>
+<div class="square dark"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#050505"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#111"/><circle cx="50" cy="39" r="12" fill="#222"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#111"/></svg></div></div>
+<div class="square light"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#050505"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#111"/><circle cx="50" cy="39" r="12" fill="#222"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#111"/></svg></div></div>
+<div class="square dark"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#050505"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#111"/><circle cx="50" cy="39" r="12" fill="#222"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#111"/></svg></div></div>
+<div class="square light"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#050505"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#111"/><circle cx="50" cy="39" r="12" fill="#222"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#111"/></svg></div></div>
+<div class="square dark"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#050505"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#111"/><circle cx="50" cy="39" r="12" fill="#222"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#111"/></svg></div></div>
+<div class="square light"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#050505"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#111"/><circle cx="50" cy="39" r="12" fill="#222"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#111"/></svg></div></div>
+
+
+<!-- TENGAH -->
+
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+<div class="square dark"></div>
+<div class="square light"></div>
+
+
+<!-- PUTIH -->
+
+<div class="square light"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#70451f"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#c9955a"/><ellipse cx="50" cy="75" rx="13" ry="5" fill="#e4bd83"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#c9955a"/><circle cx="50" cy="39" r="12" fill="#e4bd83"/></svg></div></div>
+<div class="square dark"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#70451f"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#c9955a"/><circle cx="50" cy="39" r="12" fill="#e4bd83"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#c9955a"/></svg></div></div>
+<div class="square light"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#70451f"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#c9955a"/><circle cx="50" cy="39" r="12" fill="#e4bd83"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#c9955a"/></svg></div></div>
+<div class="square dark"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#70451f"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#c9955a"/><circle cx="50" cy="39" r="12" fill="#e4bd83"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#c9955a"/></svg></div></div>
+<div class="square light"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#70451f"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#c9955a"/><circle cx="50" cy="39" r="12" fill="#e4bd83"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#c9955a"/></svg></div></div>
+<div class="square dark"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#70451f"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#c9955a"/><circle cx="50" cy="39" r="12" fill="#e4bd83"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#c9955a"/></svg></div></div>
+<div class="square light"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#70451f"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#c9955a"/><circle cx="50" cy="39" r="12" fill="#e4bd83"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#c9955a"/></svg></div></div>
+<div class="square dark"><div class="piece pawn"><svg viewBox="0 0 100 120"><ellipse cx="50" cy="106" rx="32" ry="8" fill="#70451f"/><path d="M27 104C29 96 35 92 42 90L45 76H55L58 90C65 92 71 96 73 104Z" fill="#c9955a"/><circle cx="50" cy="39" r="12" fill="#e4bd83"/><path d="M45 72C45 65 42 59 40 54C37 48 38 42 43 38C47 34 53 34 57 38C62 42 63 48 60 54C57 59 55 65 55 72Z" fill="#c9955a"/></svg></div></div>
+
+
+<!-- PUTIH BARIS 1 -->
+
+<div class="square dark">
+<div class="piece rook">
+<svg viewBox="0 0 100 120">
+<path fill="#70451f" d="M15 108C15 101 22 97 31 95L34 88H66L69 95C78 97 85 101 85 108V112H15Z"/>
+<path fill="#c9955a" d="M34 89L37 49H63L66 89Z"/>
+<path fill="#c9955a" d="M28 51V29H37V37H44V29H56V37H63V29H72V51Z"/>
+<path fill="#e4bd83" d="M28 51H72L67 45H33Z"/>
+</svg>
+</div>
+</div>
+
+
+<div class="square light">
+<div class="piece knight">
+<svg viewBox="0 0 100 120">
+<path fill="#70451f" d="M14 108C15 101 22 97 31 95L35 89H66L70 95C79 97 86 101 87 108V112H14Z"/>
+<path fill="#c9955a" d="M33 94C36 82 37 72 34 61C31 50 30 41 35 34L43 27L58 31C60 43 57 55 60 66C62 77 67 86 70 94Z"/>
+<path fill="#c9955a" d="M35 62C28 55 26 47 28 40C30 33 35 28 41 25L35 13L47 21C53 19 59 21 63 26L70 30L66 35L78 42L69 49L73 55C64 61 52 65 43 65Z"/>
+<path fill="#e4bd83" d="M62 35C70 37 76 40 80 45C77 51 70 53 64 50L58 45Z"/>
+<path fill="#70451f" d="M35 50C42 59 53 62 65 56C62 65 52 68 43 64C38 60 35 55 35 50Z"/>
+<path fill="#e4bd83" d="M39 29C33 42 34 53 41 63L35 72L44 68L40 80L49 70L47 85L55 69L56 51C49 45 44 36 39 29Z"/>
+<circle cx="58" cy="32" r="2.5" fill="#301b0a" stroke="none"/>
+</svg>
+</div>
+</div>
+
+
+<div class="square dark">
+<div class="piece bishop">
+<svg viewBox="0 0 100 120">
+<path fill="#70451f" d="M15 108C16 101 23 97 31 95L35 90H65L69 95C77 97 84 101 85 108V112H15Z"/>
+<path fill="#c9955a" d="M38 95C41 85 43 78 43 69C43 62 38 57 38 51C38 43 44 38 47 35H53C56 38 62 43 62 51C62 57 57 62 57 69C57 78 59 85 62 95Z"/>
+<path fill="#e4bd83" d="M37 53C42 48 58 48 63 53L60 59H40Z"/>
+<path fill="#c9955a" d="M50 13C42 22 39 30 41 38C44 43 56 43 59 38C61 30 58 22 50 13Z"/>
+<path d="M56 18L44 37" stroke="#70451f" stroke-width="4" fill="none"/>
+</svg>
+</div>
+</div>
+
+
+<div class="square light">
+<div class="piece queen">
+<svg viewBox="0 0 100 120">
+<path fill="#70451f" d="M14 108C15 101 22 97 30 95L34 90H66L70 95C78 97 85 101 86 108V112H14Z"/>
+<path fill="#c9955a" d="M36 95C39 85 42 78 42 70L38 57L44 51L50 58L56 51L62 57L58 70C58 78 61 85 64 95Z"/>
+<path fill="#e4bd83" d="M39 58C43 53 47 52 50 52C53 52 57 53 61 58C57 62 43 62 39 58Z"/>
+<path fill="#c9955a" d="M40 51L42 39L46 45L50 35L54 45L58 39L60 51Z"/>
+<circle cx="42" cy="38" r="2.5" fill="#e4bd83"/>
+<circle cx="50" cy="34" r="2.5" fill="#e4bd83"/>
+<circle cx="58" cy="38" r="2.5" fill="#e4bd83"/>
+</svg>
+</div>
+</div>
+
+
+<div class="square dark">
+<div class="piece king">
+<svg viewBox="0 0 100 120">
+<path fill="#70451f" d="M13 108C14 101 21 97 29 95L33 90H67L71 95C79 97 86 101 87 108V112H13Z"/>
+<path fill="#c9955a" d="M36 95C39 85 42 78 42 69L38 57H62L58 69C58 78 61 85 64 95Z"/>
+<path fill="#e4bd83" d="M38 57C42 52 46 50 50 50C54 50 58 52 62 57C58 61 42 61 38 57Z"/>
+<path fill="#c9955a" d="M43 50L45 36H55L57 50Z"/>
+<path fill="#e4bd83" d="M47 36V27H42V21H47V15H53V21H58V27H53V36Z"/>
+</svg>
+</div>
+</div>
+
+
+<div class="square light">
+<div class="piece bishop">
+<svg viewBox="0 0 100 120">
+<path fill="#70451f" d="M15 108C16 101 23 97 31 95L35 90H65L69 95C77 97 84 101 85 108V112H15Z"/>
+<path fill="#c9955a" d="M38 95C41 85 43 78 43 69C43 62 38 57 38 51C38 43 44 38 47 35H53C56 38 62 43 62 51C62 57 57 62 57 69C57 78 59 85 62 95Z"/>
+<path fill="#e4bd83" d="M50 13C42 22 39 30 41 38C44 43 56 43 59 38C61 30 58 22 50 13Z"/>
+<path d="M56 18L44 37" stroke="#70451f" stroke-width="4" fill="none"/>
+</svg>
+</div>
+</div>
+
+
+<div class="square dark">
+<div class="piece knight">
+<svg viewBox="0 0 100 120">
+<path fill="#70451f" d="M14 108C15 101 22 97 31 95L35 89H66L70 95C79 97 86 101 87 108V112H14Z"/>
+<path fill="#c9955a" d="M33 94C36 82 37 72 34 61C31 50 30 41 35 34L43 27L58 31C60 43 57 55 60 66C62 77 67 86 70 94Z"/>
+<path fill="#c9955a" d="M35 62C28 55 26 47 28 40C30 33 35 28 41 25L35 13L47 21C53 19 59 21 63 26L70 30L66 35L78 42L69 49L73 55C64 61 52 65 43 65Z"/>
+<path fill="#e4bd83" d="M62 35C70 37 76 40 80 45C77 51 70 53 64 50L58 45Z"/>
+<path fill="#70451f" d="M35 50C42 59 53 62 65 56C62 65 52 68 43 64C38 60 35 55 35 50Z"/>
+<path fill="#e4bd83" d="M39 29C33 42 34 53 41 63L35 72L44 68L40 80L49 70L47 85L55 69L56 51C49 45 44 36 39 29Z"/>
+<circle cx="58" cy="32" r="2.5" fill="#301b0a" stroke="none"/>
+</svg>
+</div>
+</div>
+
+
+<div class="square light">
+<div class="piece rook">
+<svg viewBox="0 0 100 120">
+<path fill="#70451f" d="M15 108C15 101 22 97 31 95L34 88H66L69 95C78 97 85 101 85 108V112H15Z"/>
+<path fill="#c9955a" d="M34 89L37 49H63L66 89Z"/>
+<path fill="#c9955a" d="M28 51V29H37V37H44V29H56V37H63V29H72V51Z"/>
+<path fill="#e4bd83" d="M28 51H72L67 45H33Z"/>
+</svg>
+</div>
+</div>
+
+</div>
+
+
+<!-- PLAYER -->
+
+<div class="player">
+
+  <div class="playerInfo">
+
+    <div class="avatar">
+      🧔
+    </div>
+
+    <div>
+      <div class="name">
+        Dian1711
       </div>
 
-      <div>
-
-        <div class="name">
-          Opponent
-        </div>
-
-        <div class="rating">
-          Rating 1200
-        </div>
-
+      <div class="rating">
+        Rating 1200
       </div>
-
-    </div>
-
-    <div class="timer">
-      10:00
     </div>
 
   </div>
 
-
-  <!-- ==================================================
-       PAPAN CATUR
-       ================================================== -->
-
-  <div class="board">
-
-
-    <!-- BARIS 8 -->
-
-    <div class="square light">
-      <span class="chess blackPiece">♜</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess blackPiece">♞</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess blackPiece">♝</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess blackPiece">♛</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess blackPiece">♚</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess blackPiece">♝</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess blackPiece">♞</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess blackPiece">♜</span>
-    </div>
-
-
-    <!-- BARIS 7 -->
-
-    <div class="square dark">
-      <span class="chess blackPiece">♟</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess blackPiece">♟</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess blackPiece">♟</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess blackPiece">♟</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess blackPiece">♟</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess blackPiece">♟</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess blackPiece">♟</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess blackPiece">♟</span>
-    </div>
-
-
-    <!-- BARIS 6 -->
-
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-
-
-    <!-- BARIS 5 -->
-
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-
-
-    <!-- BARIS 4 -->
-
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-
-
-    <!-- BARIS 3 -->
-
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-    <div class="square dark"></div>
-    <div class="square light"></div>
-
-
-    <!-- BARIS 2 -->
-
-    <div class="square light">
-      <span class="chess whitePiece">♙</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess whitePiece">♙</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess whitePiece">♙</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess whitePiece">♙</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess whitePiece">♙</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess whitePiece">♙</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess whitePiece">♙</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess whitePiece">♙</span>
-    </div>
-
-
-    <!-- BARIS 1 -->
-
-    <div class="square dark">
-      <span class="chess whitePiece">♖</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess whitePiece">♘</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess whitePiece">♗</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess whitePiece">♕</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess whitePiece">♔</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess whitePiece">♗</span>
-    </div>
-
-    <div class="square dark">
-      <span class="chess whitePiece">♘</span>
-    </div>
-
-    <div class="square light">
-      <span class="chess whitePiece">♖</span>
-    </div>
-
-
+  <div class="timer">
+    10:00
   </div>
 
-
-  <!-- PEMAIN -->
-
-  <div class="player">
-
-    <div class="playerInfo">
-
-      <div class="avatar">
-        🧔
-      </div>
-
-      <div>
-
-        <div class="name">
-          Dian1711
-        </div>
-
-        <div class="rating">
-          Rating 1200
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="timer">
-      10:00
-    </div>
-
-  </div>
+</div>
 
 
-  <!-- BUTTON -->
+<div class="buttons">
 
-  <div class="buttons">
+  <button class="new">
+    Game Baru
+  </button>
 
-    <button class="new">
-      Game Baru
-    </button>
+  <button class="find">
+    Cari Lawan
+  </button>
 
-    <button class="find">
-      Cari Lawan
-    </button>
+</div>
 
-  </div>
-
-
-  <div class="status">
-    Giliran putih
-  </div>
-
+<div class="status">
+  Giliran putih
+</div>
 
 </div>
 
