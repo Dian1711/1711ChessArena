@@ -2,7 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
 <title>1711 Chess Arena</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -27,8 +28,13 @@ body{
     min-height:100vh;
 }
 
-button{
+button,
+input{
     font:inherit;
+}
+
+button{
+    cursor:pointer;
 }
 
 .app{
@@ -46,7 +52,7 @@ button{
 }
 
 .logo{
-    font-size:21px;
+    font-size:20px;
     font-weight:800;
 }
 
@@ -58,8 +64,8 @@ button{
     display:flex;
     align-items:center;
     gap:8px;
+    color:#aab6c8;
     font-size:12px;
-    color:#b9c2d0;
 }
 
 .avatar{
@@ -80,7 +86,7 @@ button{
 }
 
 .card{
-    background:rgba(18,25,39,.92);
+    background:rgba(18,25,39,.94);
     border:1px solid #27344a;
     border-radius:18px;
     padding:16px;
@@ -116,7 +122,6 @@ button{
     border-radius:15px;
     background:#141d2c;
     color:#fff;
-    cursor:pointer;
     font-weight:700;
 }
 
@@ -130,6 +135,15 @@ button{
     margin-bottom:7px;
 }
 
+.back{
+    display:inline-flex;
+    align-items:center;
+    border:0;
+    background:none;
+    color:#9db7d9;
+    padding:5px 0 12px;
+}
+
 .btn{
     width:100%;
     min-height:46px;
@@ -138,7 +152,6 @@ button{
     background:#2387ff;
     color:#fff;
     font-weight:700;
-    cursor:pointer;
     margin-top:10px;
 }
 
@@ -151,26 +164,58 @@ button{
     background:#b52c3b;
 }
 
-.btn:disabled{
-    opacity:.5;
+.section-title{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:12px;
 }
 
-.back{
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
-    border:0;
-    background:none;
-    color:#9db7d9;
-    padding:5px 0 12px;
-    cursor:pointer;
+.small{
+    color:#7f8da0;
+    font-size:12px;
+}
+
+input{
+    width:100%;
+    height:48px;
+    border-radius:12px;
+    border:1px solid #35445b;
+    background:#0c1421;
+    color:#fff;
+    outline:none;
+    padding:0 14px;
+    font-size:16px;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+input:focus{
+    border-color:#3f9cff;
+}
+
+.room-code{
+    font-size:34px;
+    font-weight:900;
+    letter-spacing:7px;
+    text-align:center;
+    padding:18px 10px;
+    border-radius:15px;
+    background:#0c1421;
+    color:#65b3ff;
+    margin:15px 0;
+}
+
+.room-status{
+    text-align:center;
+    color:#9aa8ba;
+    font-size:13px;
 }
 
 .profile-box{
     text-align:center;
 }
 
-.profile-box .big-avatar{
+.big-avatar{
     width:80px;
     height:80px;
     border-radius:50%;
@@ -201,52 +246,6 @@ button{
     font-size:25px;
     font-weight:800;
     color:#ffd166;
-}
-
-.section-title{
-    font-size:18px;
-    font-weight:800;
-    margin-bottom:12px;
-}
-
-.room-code{
-    font-size:34px;
-    font-weight:900;
-    letter-spacing:7px;
-    text-align:center;
-    padding:18px 10px;
-    border-radius:15px;
-    background:#0c1421;
-    color:#65b3ff;
-    margin:15px 0;
-}
-
-.room-status{
-    text-align:center;
-    color:#9aa8ba;
-    font-size:13px;
-}
-
-input{
-    width:100%;
-    height:48px;
-    border-radius:12px;
-    border:1px solid #35445b;
-    background:#0c1421;
-    color:#fff;
-    outline:none;
-    padding:0 14px;
-    font-size:16px;
-    text-align:center;
-    text-transform:uppercase;
-}
-
-input:focus{
-    border-color:#3f9cff;
-}
-
-.chess-wrap{
-    margin-top:10px;
 }
 
 .game-info{
@@ -296,7 +295,6 @@ input:focus{
     display:flex;
     align-items:center;
     justify-content:center;
-    cursor:pointer;
 }
 
 .light{
@@ -372,7 +370,12 @@ input:focus{
     border:1px solid #33435b;
     background:#141d2b;
     color:#fff;
-    cursor:pointer;
+}
+
+.loading{
+    text-align:center;
+    color:#8f9caf;
+    padding:20px;
 }
 
 .toast{
@@ -398,22 +401,8 @@ input:focus{
     transform:translateX(-50%) translateY(0);
 }
 
-.loading{
-    text-align:center;
-    color:#8f9caf;
-    padding:20px;
-}
-
-.small{
-    font-size:12px;
-    color:#7f8da0;
-}
-
-.hidden{
-    display:none!important;
-}
-
 @media(max-width:380px){
+
     .menu button{
         min-height:70px;
     }
@@ -430,65 +419,107 @@ input:focus{
 <div class="app">
 
     <div class="header">
-        <div class="logo">♟ <span>1711</span> Chess Arena</div>
+
+        <div class="logo">
+            ♟ <span>1711</span> Chess Arena
+        </div>
 
         <div class="user-mini">
-            <span id="miniName">Guest</span>
-            <img id="miniAvatar"
-                 class="avatar"
-                 src="https://telegram.org/img/t_logo.png">
+
+            <span id="miniName">
+                Guest
+            </span>
+
+            <img
+                id="miniAvatar"
+                class="avatar"
+                src="https://telegram.org/img/t_logo.png"
+            >
+
         </div>
+
     </div>
 
+
     <!-- HOME -->
-    <section id="homeScreen" class="screen active">
+
+    <section
+        id="homeScreen"
+        class="screen active"
+    >
 
         <div class="card welcome">
-            <h1>1711 Chess Arena</h1>
-            <p>Main catur online, lawan bot atau teman.</p>
+
+            <h1>
+                1711 Chess Arena
+            </h1>
+
+            <p>
+                Main catur online, lawan bot atau teman.
+            </p>
 
             <div class="menu">
 
-                <button onclick="startRandomGame()">
+                <button
+                    onclick="startRandomGame()"
+                >
                     <span class="icon">⚔️</span>
                     Lawan Random
                 </button>
 
-                <button onclick="showScreen('privateScreen')">
+                <button
+                    onclick="showScreen('privateScreen')"
+                >
                     <span class="icon">🔒</span>
                     Private Room
                 </button>
 
-                <button onclick="showScreen('botScreen')">
+                <button
+                    onclick="showScreen('botScreen')"
+                >
                     <span class="icon">🤖</span>
                     VS Bot
                 </button>
 
-                <button onclick="showScreen('friendsScreen')">
+                <button
+                    onclick="showScreen('friendsScreen')"
+                >
                     <span class="icon">👥</span>
                     Teman
                 </button>
 
-                <button onclick="showScreen('leaderboardScreen')">
+                <button
+                    onclick="showScreen('leaderboardScreen')"
+                >
                     <span class="icon">🏆</span>
                     Leaderboard
                 </button>
 
-                <button onclick="openProfile()">
+                <button
+                    onclick="openProfile()"
+                >
                     <span class="icon">👤</span>
                     Profile
                 </button>
 
             </div>
+
         </div>
 
     </section>
 
 
     <!-- PRIVATE ROOM -->
-    <section id="privateScreen" class="screen">
 
-        <button class="back" onclick="showScreen('homeScreen')">
+    <section
+        id="privateScreen"
+        class="screen"
+    >
+
+        <button
+            class="back"
+            onclick="showScreen('homeScreen')"
+        >
             ← Kembali
         </button>
 
@@ -502,11 +533,16 @@ input:focus{
                 Buat room lalu kirim kode kepada teman.
             </p>
 
-            <button class="btn" onclick="createPrivateRoom()">
+            <button
+                class="btn"
+                onclick="createPrivateRoom()"
+            >
                 ➕ Buat Room
             </button>
 
-            <div style="margin:18px 0;border-top:1px solid #27354a;"></div>
+            <div
+                style="margin:18px 0;border-top:1px solid #27354a;"
+            ></div>
 
             <input
                 id="joinCode"
@@ -514,7 +550,10 @@ input:focus{
                 placeholder="MASUKKAN KODE"
             >
 
-            <button class="btn" onclick="joinPrivateRoom()">
+            <button
+                class="btn"
+                onclick="joinPrivateRoom()"
+            >
                 🚪 Gabung Room
             </button>
 
@@ -523,10 +562,17 @@ input:focus{
     </section>
 
 
-    <!-- ROOM WAITING -->
-    <section id="roomWaitingScreen" class="screen">
+    <!-- WAITING ROOM -->
 
-        <button class="back" onclick="leavePrivateRoom()">
+    <section
+        id="roomWaitingScreen"
+        class="screen"
+    >
+
+        <button
+            class="back"
+            onclick="leavePrivateRoom()"
+        >
             ← Keluar Room
         </button>
 
@@ -536,21 +582,31 @@ input:focus{
                 🔒 Private Room
             </div>
 
-            <div class="room-code" id="roomCodeDisplay">
+            <div
+                id="roomCodeDisplay"
+                class="room-code"
+            >
                 ------
             </div>
 
-            <div class="room-status" id="roomStatus">
+            <div
+                id="roomStatus"
+                class="room-status"
+            >
                 Menunggu lawan...
             </div>
 
-            <button class="btn secondary"
-                    onclick="copyRoomCode()">
+            <button
+                class="btn secondary"
+                onclick="copyRoomCode()"
+            >
                 📋 Salin Kode
             </button>
 
-            <button class="btn danger"
-                    onclick="leavePrivateRoom()">
+            <button
+                class="btn danger"
+                onclick="leavePrivateRoom()"
+            >
                 Keluar Room
             </button>
 
@@ -560,9 +616,16 @@ input:focus{
 
 
     <!-- BOT -->
-    <section id="botScreen" class="screen">
 
-        <button class="back" onclick="showScreen('homeScreen')">
+    <section
+        id="botScreen"
+        class="screen"
+    >
+
+        <button
+            class="back"
+            onclick="showScreen('homeScreen')"
+        >
             ← Kembali
         </button>
 
@@ -574,15 +637,21 @@ input:focus{
 
             <div class="levels">
 
-                <button onclick="startBotGame('easy')">
+                <button
+                    onclick="startBotGame('easy')"
+                >
                     Easy
                 </button>
 
-                <button onclick="startBotGame('normal')">
+                <button
+                    onclick="startBotGame('normal')"
+                >
                     Normal
                 </button>
 
-                <button onclick="startBotGame('hard')">
+                <button
+                    onclick="startBotGame('hard')"
+                >
                     Hard
                 </button>
 
@@ -594,9 +663,16 @@ input:focus{
 
 
     <!-- FRIENDS -->
-    <section id="friendsScreen" class="screen">
 
-        <button class="back" onclick="showScreen('homeScreen')">
+    <section
+        id="friendsScreen"
+        class="screen"
+    >
+
+        <button
+            class="back"
+            onclick="showScreen('homeScreen')"
+        >
             ← Kembali
         </button>
 
@@ -616,9 +692,16 @@ input:focus{
 
 
     <!-- LEADERBOARD -->
-    <section id="leaderboardScreen" class="screen">
 
-        <button class="back" onclick="showScreen('homeScreen')">
+    <section
+        id="leaderboardScreen"
+        class="screen"
+    >
+
+        <button
+            class="back"
+            onclick="showScreen('homeScreen')"
+        >
             ← Kembali
         </button>
 
@@ -638,24 +721,38 @@ input:focus{
 
 
     <!-- PROFILE -->
-    <section id="profileScreen" class="screen">
 
-        <button class="back" onclick="showScreen('homeScreen')">
+    <section
+        id="profileScreen"
+        class="screen"
+    >
+
+        <button
+            class="back"
+            onclick="showScreen('homeScreen')"
+        >
             ← Kembali
         </button>
 
         <div class="card profile-box">
 
-            <img id="profileAvatar"
-                 class="big-avatar"
-                 src="https://telegram.org/img/t_logo.png">
+            <img
+                id="profileAvatar"
+                class="big-avatar"
+                src="https://telegram.org/img/t_logo.png"
+            >
 
-            <div class="profile-name" id="profileName">
+            <div
+                id="profileName"
+                class="profile-name"
+            >
                 Guest
             </div>
 
-            <div class="profile-username"
-                 id="profileUsername">
+            <div
+                id="profileUsername"
+                class="profile-username"
+            >
                 —
             </div>
 
@@ -665,18 +762,26 @@ input:focus{
                     Rating
                 </div>
 
-                <div class="rating-value">
+                <div
+                    id="profileRating"
+                    class="rating-value"
+                >
                     1000
                 </div>
 
             </div>
 
-            <div class="small" style="margin-top:15px;">
+            <div
+                class="small"
+                style="margin-top:15px;"
+            >
                 Telegram ID
             </div>
 
-            <div id="profileTelegramId"
-                 style="font-weight:bold;margin-top:5px;">
+            <div
+                id="profileTelegramId"
+                style="font-weight:bold;margin-top:5px;"
+            >
                 —
             </div>
 
@@ -685,50 +790,76 @@ input:focus{
     </section>
 
 
-    <!-- CHESS GAME -->
-    <section id="gameScreen" class="screen">
+    <!-- GAME -->
 
-        <button class="back" onclick="exitGame()">
+    <section
+        id="gameScreen"
+        class="screen"
+    >
+
+        <button
+            class="back"
+            onclick="exitGame()"
+        >
             ← Keluar Game
         </button>
 
         <div class="game-info">
 
-            <div class="player-box" id="blackPlayerBox">
+            <div
+                id="blackPlayerBox"
+                class="player-box"
+            >
+
                 <div class="player-label">
                     ♟ BLACK
                 </div>
-                <div class="player-time"
-                     id="blackTime">
+
+                <div
+                    id="blackTime"
+                    class="player-time"
+                >
                     05:00
                 </div>
+
             </div>
 
-            <div class="player-box" id="whitePlayerBox">
+            <div
+                id="whitePlayerBox"
+                class="player-box"
+            >
+
                 <div class="player-label">
                     ♙ WHITE
                 </div>
-                <div class="player-time"
-                     id="whiteTime">
+
+                <div
+                    id="whiteTime"
+                    class="player-time"
+                >
                     05:00
                 </div>
+
             </div>
 
         </div>
 
-        <div class="chess-wrap">
-            <div id="board"
-                 class="board">
-            </div>
-        </div>
+        <div
+            id="board"
+            class="board"
+        ></div>
 
-        <div class="game-message"
-             id="gameMessage">
+        <div
+            id="gameMessage"
+            class="game-message"
+        >
             Giliran White
         </div>
 
-        <button class="btn secondary"
-                onclick="restartCurrentGame()">
+        <button
+            class="btn secondary"
+            onclick="restartCurrentGame()"
+        >
             🔄 Restart
         </button>
 
@@ -736,9 +867,10 @@ input:focus{
 
 </div>
 
-<div id="toast"
-     class="toast">
-</div>
+<div
+    id="toast"
+    class="toast"
+></div>
 
 
 <script>
@@ -773,6 +905,7 @@ const tg =
 let myTelegramUser = null;
 let myUserId = null;
 
+
 async function loadTelegramUser(){
 
     try{
@@ -798,37 +931,51 @@ async function loadTelegramUser(){
             return false;
         }
 
+        /*
+         * PENTING:
+         * users.id = Telegram ID
+         */
+
         myUserId =
             Number(myTelegramUser.id);
 
-        const first =
+        const firstName =
             myTelegramUser.first_name || "";
 
-        const last =
+        const lastName =
             myTelegramUser.last_name || "";
 
         const fullName =
-            (first + " " + last).trim() ||
-            "Player";
+            (
+                firstName +
+                " " +
+                lastName
+            ).trim() || "Player";
+
 
         document.getElementById(
             "miniName"
-        ).textContent = fullName;
+        ).textContent =
+            fullName;
 
         document.getElementById(
             "profileName"
-        ).textContent = fullName;
+        ).textContent =
+            fullName;
 
         document.getElementById(
             "profileUsername"
         ).textContent =
             myTelegramUser.username
-                ? "@" + myTelegramUser.username
+                ? "@" +
+                  myTelegramUser.username
                 : "Tanpa username";
 
         document.getElementById(
             "profileTelegramId"
-        ).textContent = myUserId;
+        ).textContent =
+            myUserId;
+
 
         if(myTelegramUser.photo_url){
 
@@ -843,6 +990,7 @@ async function loadTelegramUser(){
                 myTelegramUser.photo_url;
         }
 
+
         await saveUser();
 
         return true;
@@ -854,6 +1002,10 @@ async function loadTelegramUser(){
             error
         );
 
+        toast(
+            "Gagal memuat akun Telegram."
+        );
+
         return false;
     }
 }
@@ -861,7 +1013,7 @@ async function loadTelegramUser(){
 
 /* =========================================================
    SAVE USER
-   HANYA telegram_id
+   users.id = TELEGRAM ID
 ========================================================= */
 
 async function saveUser(){
@@ -870,19 +1022,52 @@ async function saveUser(){
         return false;
 
     const telegramId =
-        Number(myTelegramUser.id);
+        Number(
+            myTelegramUser.id
+        );
 
-    const { error } =
+    if(!telegramId)
+        return false;
+
+
+    const firstName =
+        myTelegramUser.first_name || "";
+
+    const lastName =
+        myTelegramUser.last_name || "";
+
+    const username =
+        myTelegramUser.username || null;
+
+    const photoUrl =
+        myTelegramUser.photo_url || null;
+
+
+    /*
+     * TIDAK ADA telegram_id
+     * TIDAK ADA name
+     */
+
+    const { data, error } =
         await supabaseClient
         .from("users")
         .upsert(
             {
-                telegram_id:telegramId
+                id:telegramId,
+                username:username,
+                first_name:firstName,
+                last_name:lastName,
+                photo_url:photoUrl
             },
             {
-                onConflict:"telegram_id"
+                onConflict:"id"
             }
-        );
+        )
+        .select(
+            "id,rating,wins,losses,draws"
+        )
+        .single();
+
 
     if(error){
 
@@ -891,50 +1076,123 @@ async function saveUser(){
             error
         );
 
+        toast(
+            "Gagal menyimpan user: " +
+            error.message
+        );
+
         return false;
     }
+
+
+    if(data){
+
+        const rating =
+            Number(
+                data.rating || 1000
+            );
+
+        document.getElementById(
+            "profileRating"
+        ).textContent =
+            rating;
+    }
+
 
     return true;
 }
 
 
 /* =========================================================
-   ENSURE USER
+   ENSURE USER EXISTS
 ========================================================= */
 
 async function ensureUserExists(){
 
-    if(!myTelegramUser || !myUserId){
+    if(!myUserId){
 
         throw new Error(
             "Telegram user belum terdeteksi."
         );
     }
 
+
     const telegramId =
         Number(myUserId);
 
-    const { error } =
+
+    const { data, error } =
         await supabaseClient
         .from("users")
-        .upsert(
-            {
-                telegram_id:telegramId
-            },
-            {
-                onConflict:"telegram_id"
-            }
-        );
+        .select("id")
+        .eq(
+            "id",
+            telegramId
+        )
+        .maybeSingle();
 
-    if(error){
 
-        console.error(
-            "ENSURE USER ERROR:",
-            error
-        );
-
+    if(error)
         throw error;
+
+
+    if(data)
+        return true;
+
+
+    /*
+     * Kalau belum ada,
+     * buat user baru.
+     */
+
+    const firstName =
+        myTelegramUser?.first_name || "";
+
+    const lastName =
+        myTelegramUser?.last_name || "";
+
+    const username =
+        myTelegramUser?.username || null;
+
+    const photoUrl =
+        myTelegramUser?.photo_url || null;
+
+
+    const { error:insertError } =
+        await supabaseClient
+        .from("users")
+        .insert({
+            id:telegramId,
+            username:username,
+            first_name:firstName,
+            last_name:lastName,
+            photo_url:photoUrl,
+            rating:1000,
+            wins:0,
+            losses:0,
+            draws:0
+        });
+
+
+    if(insertError){
+
+        /*
+         * Kalau ternyata user dibuat
+         * bersamaan dari proses lain,
+         * cek lagi.
+         */
+
+        if(
+            insertError.code ===
+            "23505"
+        ){
+
+            return true;
+        }
+
+        throw insertError;
     }
+
 
     return true;
 }
@@ -948,43 +1206,58 @@ function showScreen(id){
 
     document
         .querySelectorAll(".screen")
-        .forEach(screen => {
+        .forEach(
+            screen =>
+                screen.classList.remove(
+                    "active"
+                )
+        );
 
-            screen.classList.remove(
-                "active"
-            );
-
-        });
 
     const target =
         document.getElementById(id);
 
-    if(target)
-        target.classList.add("active");
+
+    if(target){
+
+        target.classList.add(
+            "active"
+        );
+    }
 }
 
 
 function toast(message){
 
-    const el =
-        document.getElementById("toast");
+    const element =
+        document.getElementById(
+            "toast"
+        );
 
-    el.textContent = message;
+    element.textContent =
+        message;
 
-    el.classList.add("show");
+    element.classList.add(
+        "show"
+    );
+
 
     clearTimeout(
         toast.timer
     );
 
+
     toast.timer =
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            el.classList.remove(
-                "show"
-            );
+                element.classList.remove(
+                    "show"
+                );
 
-        },3000);
+            },
+            3000
+        );
 }
 
 
@@ -997,12 +1270,13 @@ function openProfile(){
 
 
 /* =========================================================
-   ROOM
+   PRIVATE ROOM
 ========================================================= */
 
 let currentRoom = null;
 let roomChannel = null;
 let roomPollTimer = null;
+let privateGameId = null;
 
 
 function generateRoomCode(){
@@ -1010,11 +1284,15 @@ function generateRoomCode(){
     const chars =
         "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-    let result = "";
+    let code = "";
 
-    for(let i=0;i<6;i++){
+    for(
+        let i = 0;
+        i < 6;
+        i++
+    ){
 
-        result +=
+        code +=
             chars[
                 Math.floor(
                     Math.random() *
@@ -1023,7 +1301,7 @@ function generateRoomCode(){
             ];
     }
 
-    return result;
+    return code;
 }
 
 
@@ -1040,14 +1318,24 @@ async function createPrivateRoom(){
             return;
         }
 
+
+        /*
+         * Pastikan users.id
+         * sudah ada.
+         */
+
         await ensureUserExists();
+
 
         let roomCode =
             generateRoomCode();
 
-        let existing = null;
 
-        for(let i=0;i<5;i++){
+        /*
+         * Pastikan kode belum digunakan.
+         */
+
+        for(let i=0;i<10;i++){
 
             const { data } =
                 await supabaseClient
@@ -1059,74 +1347,90 @@ async function createPrivateRoom(){
                 )
                 .maybeSingle();
 
-            if(!data){
 
-                existing = null;
+            if(!data)
                 break;
-            }
 
-            existing = data;
 
             roomCode =
                 generateRoomCode();
         }
 
-        if(existing){
-
-            toast(
-                "Gagal membuat kode room."
-            );
-
-            return;
-        }
 
         const { data:room, error } =
             await supabaseClient
             .from("rooms")
             .insert({
+
                 room_code:roomCode,
-                host_id:Number(myUserId),
+
+                host_id:
+                    Number(myUserId),
+
                 status:"waiting"
+
             })
             .select()
             .single();
 
+
         if(error)
             throw error;
 
-        const { error:playerError } =
+
+        /*
+         * Host masuk sebagai White.
+         */
+
+        const {
+            error:playerError
+        } =
             await supabaseClient
             .from("room_players")
             .insert({
+
                 room_id:room.id,
-                user_id:Number(myUserId),
+
+                user_id:
+                    Number(myUserId),
+
                 color:"white"
+
             });
+
 
         if(playerError)
             throw playerError;
 
-        currentRoom = room;
+
+        currentRoom =
+            room;
+
 
         document.getElementById(
             "roomCodeDisplay"
         ).textContent =
             room.room_code;
 
+
         document.getElementById(
             "roomStatus"
         ).textContent =
             "Menunggu lawan masuk...";
 
+
         showScreen(
             "roomWaitingScreen"
         );
 
+
         startRoomWatcher();
+
 
         toast(
             "Room berhasil dibuat!"
         );
+
 
     }catch(error){
 
@@ -1134,6 +1438,7 @@ async function createPrivateRoom(){
             "CREATE ROOM ERROR:",
             error
         );
+
 
         toast(
             "Gagal membuat room: " +
@@ -1156,15 +1461,18 @@ async function joinPrivateRoom(){
             return;
         }
 
+
         const input =
             document.getElementById(
                 "joinCode"
             );
 
+
         const code =
             input.value
                 .trim()
                 .toUpperCase();
+
 
         if(code.length !== 6){
 
@@ -1175,9 +1483,23 @@ async function joinPrivateRoom(){
             return;
         }
 
+
+        /*
+         * Pastikan user kedua
+         * sudah ada di users.
+         */
+
         await ensureUserExists();
 
-        const { data:room, error } =
+
+        /*
+         * Cari room.
+         */
+
+        const {
+            data:room,
+            error:roomError
+        } =
             await supabaseClient
             .from("rooms")
             .select("*")
@@ -1187,8 +1509,10 @@ async function joinPrivateRoom(){
             )
             .maybeSingle();
 
-        if(error)
-            throw error;
+
+        if(roomError)
+            throw roomError;
+
 
         if(!room){
 
@@ -1199,14 +1523,19 @@ async function joinPrivateRoom(){
             return;
         }
 
-        if(room.status !== "waiting"){
+
+        if(
+            room.status !==
+            "waiting"
+        ){
 
             toast(
-                "Room sudah dimulai."
+                "Room sudah tidak tersedia."
             );
 
             return;
         }
+
 
         if(
             Number(room.host_id) ===
@@ -1220,7 +1549,15 @@ async function joinPrivateRoom(){
             return;
         }
 
-        const { data:players, error:playersError } =
+
+        /*
+         * Ambil pemain room.
+         */
+
+        const {
+            data:players,
+            error:playersError
+        } =
             await supabaseClient
             .from("room_players")
             .select("*")
@@ -1229,14 +1566,18 @@ async function joinPrivateRoom(){
                 room.id
             );
 
+
         if(playersError)
             throw playersError;
+
 
         if(
             players &&
             players.some(
-                p =>
-                    Number(p.user_id) ===
+                player =>
+                    Number(
+                        player.user_id
+                    ) ===
                     Number(myUserId)
             )
         ){
@@ -1247,6 +1588,7 @@ async function joinPrivateRoom(){
 
             return;
         }
+
 
         if(
             players &&
@@ -1260,39 +1602,60 @@ async function joinPrivateRoom(){
             return;
         }
 
-        const { error:joinError } =
+
+        /*
+         * User kedua = Black.
+         */
+
+        const {
+            error:joinError
+        } =
             await supabaseClient
             .from("room_players")
             .insert({
+
                 room_id:room.id,
-                user_id:Number(myUserId),
+
+                user_id:
+                    Number(myUserId),
+
                 color:"black"
+
             });
+
 
         if(joinError)
             throw joinError;
 
-        currentRoom = room;
+
+        currentRoom =
+            room;
+
 
         document.getElementById(
             "roomCodeDisplay"
         ).textContent =
             room.room_code;
 
+
         document.getElementById(
             "roomStatus"
         ).textContent =
             "Berhasil masuk. Menunggu game dimulai...";
 
+
         showScreen(
             "roomWaitingScreen"
         );
 
+
         startRoomWatcher();
+
 
         toast(
             "Berhasil masuk room!"
         );
+
 
     }catch(error){
 
@@ -1300,6 +1663,7 @@ async function joinPrivateRoom(){
             "JOIN ROOM ERROR:",
             error
         );
+
 
         toast(
             "Gagal masuk room: " +
@@ -1309,14 +1673,22 @@ async function joinPrivateRoom(){
 }
 
 
+/* =========================================================
+   ROOM WATCHER
+========================================================= */
+
 async function checkRoomPlayers(){
 
     if(!currentRoom)
         return;
 
+
     try{
 
-        const { data:players, error } =
+        const {
+            data:players,
+            error
+        } =
             await supabaseClient
             .from("room_players")
             .select("*")
@@ -1331,8 +1703,10 @@ async function checkRoomPlayers(){
                 }
             );
 
+
         if(error)
             throw error;
+
 
         if(
             players &&
@@ -1344,12 +1718,15 @@ async function checkRoomPlayers(){
             ).textContent =
                 "Lawan ditemukan! Memulai game...";
 
+
             clearRoomWatcher();
+
 
             await startPrivateGame(
                 players
             );
         }
+
 
     }catch(error){
 
@@ -1365,7 +1742,15 @@ function startRoomWatcher(){
 
     clearRoomWatcher();
 
+
     checkRoomPlayers();
+
+
+    /*
+     * Polling setiap 2 detik.
+     * Jadi tetap bekerja walaupun
+     * realtime belum aktif.
+     */
 
     roomPollTimer =
         setInterval(
@@ -1373,16 +1758,28 @@ function startRoomWatcher(){
             2000
         );
 
-    if(roomChannel)
+
+    /*
+     * Realtime tambahan.
+     */
+
+    if(roomChannel){
+
         supabaseClient.removeChannel(
             roomChannel
         );
+
+        roomChannel = null;
+    }
+
 
     roomChannel =
         supabaseClient
         .channel(
             "room-" +
-            currentRoom.id
+            currentRoom.id +
+            "-" +
+            Date.now()
         )
         .on(
             "postgres_changes",
@@ -1415,6 +1812,7 @@ function clearRoomWatcher(){
         roomPollTimer = null;
     }
 
+
     if(roomChannel){
 
         supabaseClient.removeChannel(
@@ -1429,6 +1827,7 @@ function clearRoomWatcher(){
 async function leavePrivateRoom(){
 
     clearRoomWatcher();
+
 
     if(
         currentRoom &&
@@ -1448,7 +1847,11 @@ async function leavePrivateRoom(){
         );
     }
 
+
     currentRoom = null;
+
+    privateGameId = null;
+
 
     showScreen(
         "privateScreen"
@@ -1463,6 +1866,7 @@ async function copyRoomCode(){
             "roomCodeDisplay"
         ).textContent;
 
+
     try{
 
         await navigator.clipboard.writeText(
@@ -1476,19 +1880,21 @@ async function copyRoomCode(){
     }catch{
 
         toast(
-            "Kode room: " + code
+            "Kode room: " +
+            code
         );
     }
 }
 
 
 /* =========================================================
-   CHESS ENGINE
+   CHESS
 ========================================================= */
 
 const pieceImages = {
 
     w:{
+
         rook:
         "https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg",
 
@@ -1506,9 +1912,11 @@ const pieceImages = {
 
         pawn:
         "https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
+
     },
 
     b:{
+
         rook:
         "https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg",
 
@@ -1526,22 +1934,37 @@ const pieceImages = {
 
         pawn:
         "https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
+
     }
 };
 
 
 let board = [];
+
 let selectedSquare = null;
+
 let legalMoves = [];
+
 let chessTurn = "w";
+
 let gameOver = false;
+
 let gameMode = "bot";
+
 let botLevel = "normal";
+
 let playerColor = "w";
+
 let chessTimer = null;
+
 let whiteSeconds = 300;
+
 let blackSeconds = 300;
 
+
+/* =========================================================
+   INITIAL BOARD
+========================================================= */
 
 function createInitialBoard(){
 
@@ -1570,8 +1993,11 @@ function createInitialBoard(){
         ],
 
         [null,null,null,null,null,null,null,null],
+
         [null,null,null,null,null,null,null,null],
+
         [null,null,null,null,null,null,null,null],
+
         [null,null,null,null,null,null,null,null],
 
         [
@@ -1595,7 +2021,22 @@ function createInitialBoard(){
             {c:"w",p:"knight"},
             {c:"w",p:"rook"}
         ]
+
     ];
+}
+
+
+function cloneBoard(b){
+
+    return b.map(
+        row =>
+            row.map(
+                piece =>
+                    piece
+                        ? {...piece}
+                        : null
+            )
+    );
 }
 
 
@@ -1610,33 +2051,25 @@ function inside(r,c){
 }
 
 
-function cloneBoard(b){
-
-    return b.map(row =>
-        row.map(piece =>
-            piece
-                ? {...piece}
-                : null
-        )
-    );
-}
-
-
 function findKing(b,color){
 
     for(let r=0;r<8;r++){
 
         for(let c=0;c<8;c++){
 
-            const p=b[r][c];
+            const piece =
+                b[r][c];
 
             if(
-                p &&
-                p.c === color &&
-                p.p === "king"
+                piece &&
+                piece.c === color &&
+                piece.p === "king"
             ){
 
-                return {r,c};
+                return {
+                    r:r,
+                    c:c
+                };
             }
         }
     }
@@ -1645,72 +2078,9 @@ function findKing(b,color){
 }
 
 
-function isSquareAttacked(
-    b,
-    r,
-    c,
-    byColor
-){
-
-    for(let rr=0;rr<8;rr++){
-
-        for(let cc=0;cc<8;cc++){
-
-            const p=b[rr][cc];
-
-            if(
-                !p ||
-                p.c !== byColor
-            )
-                continue;
-
-            const moves =
-                pseudoMoves(
-                    b,
-                    rr,
-                    cc,
-                    true
-                );
-
-            if(
-                moves.some(
-                    m =>
-                        m.r === r &&
-                        m.c === c
-                )
-            )
-                return true;
-        }
-    }
-
-    return false;
-}
-
-
-function isInCheck(
-    b,
-    color
-){
-
-    const king =
-        findKing(b,color);
-
-    if(!king)
-        return true;
-
-    const enemy =
-        color === "w"
-            ? "b"
-            : "w";
-
-    return isSquareAttacked(
-        b,
-        king.r,
-        king.c,
-        enemy
-    );
-}
-
+/* =========================================================
+   MOVE ENGINE
+========================================================= */
 
 function pseudoMoves(
     b,
@@ -1719,26 +2089,33 @@ function pseudoMoves(
     attacksOnly=false
 ){
 
-    const piece = b[r][c];
+    const piece =
+        b[r][c];
 
     if(!piece)
         return [];
 
+
     const result = [];
 
-    const color = piece.c;
+    const color =
+        piece.c;
+
     const enemy =
         color === "w"
             ? "b"
             : "w";
+
 
     function add(nr,nc){
 
         if(!inside(nr,nc))
             return;
 
+
         const target =
             b[nr][nc];
+
 
         if(
             !target ||
@@ -1752,15 +2129,23 @@ function pseudoMoves(
         }
     }
 
+
     function slide(directions){
 
-        for(const [
-            dr,
-            dc
-        ] of directions){
+        for(
+            const [
+                dr,
+                dc
+            ]
+            of directions
+        ){
 
-            let nr = r + dr;
-            let nc = c + dc;
+            let nr =
+                r + dr;
+
+            let nc =
+                c + dc;
+
 
             while(
                 inside(nr,nc)
@@ -1768,6 +2153,7 @@ function pseudoMoves(
 
                 const target =
                     b[nr][nc];
+
 
                 if(!target){
 
@@ -1791,6 +2177,7 @@ function pseudoMoves(
                     break;
                 }
 
+
                 nr += dr;
                 nc += dc;
             }
@@ -1800,7 +2187,7 @@ function pseudoMoves(
 
     if(piece.p === "pawn"){
 
-        const dir =
+        const direction =
             color === "w"
                 ? -1
                 : 1;
@@ -1810,10 +2197,12 @@ function pseudoMoves(
                 ? 6
                 : 1;
 
+
         if(!attacksOnly){
 
             const nr =
-                r + dir;
+                r + direction;
+
 
             if(
                 inside(nr,c) &&
@@ -1822,60 +2211,74 @@ function pseudoMoves(
 
                 result.push({
                     r:nr,
-                    c
+                    c:c
                 });
 
+
                 const nr2 =
-                    r + dir * 2;
+                    r +
+                    direction *
+                    2;
+
 
                 if(
                     r === startRow &&
+                    inside(nr2,c) &&
                     !b[nr2][c]
                 ){
 
                     result.push({
                         r:nr2,
-                        c
+                        c:c
                     });
                 }
             }
         }
 
-        for(const dc of [-1,1]){
+
+        for(
+            const dc
+            of [-1,1]
+        ){
 
             const nr =
-                r + dir;
+                r + direction;
 
             const nc =
                 c + dc;
 
+
             if(
-                inside(nr,nc)
+                !inside(nr,nc)
+            )
+                continue;
+
+
+            if(attacksOnly){
+
+                result.push({
+                    r:nr,
+                    c:nc
+                });
+
+            }else if(
+                b[nr][nc] &&
+                b[nr][nc].c === enemy
             ){
 
-                if(attacksOnly){
-
-                    result.push({
-                        r:nr,
-                        c:nc
-                    });
-
-                }else if(
-                    b[nr][nc] &&
-                    b[nr][nc].c === enemy
-                ){
-
-                    result.push({
-                        r:nr,
-                        c:nc
-                    });
-                }
+                result.push({
+                    r:nr,
+                    c:nc
+                });
             }
         }
 
-    }else if(piece.p === "knight"){
 
-        const jumps = [
+    }else if(
+        piece.p === "knight"
+    ){
+
+        [
             [-2,-1],
             [-2,1],
             [-1,-2],
@@ -1884,9 +2287,7 @@ function pseudoMoves(
             [1,2],
             [2,-1],
             [2,1]
-        ];
-
-        jumps.forEach(
+        ].forEach(
             ([dr,dc]) =>
                 add(
                     r+dr,
@@ -1894,7 +2295,10 @@ function pseudoMoves(
                 )
         );
 
-    }else if(piece.p === "bishop"){
+
+    }else if(
+        piece.p === "bishop"
+    ){
 
         slide([
             [-1,-1],
@@ -1903,7 +2307,10 @@ function pseudoMoves(
             [1,1]
         ]);
 
-    }else if(piece.p === "rook"){
+
+    }else if(
+        piece.p === "rook"
+    ){
 
         slide([
             [-1,0],
@@ -1912,7 +2319,10 @@ function pseudoMoves(
             [0,1]
         ]);
 
-    }else if(piece.p === "queen"){
+
+    }else if(
+        piece.p === "queen"
+    ){
 
         slide([
             [-1,-1],
@@ -1925,7 +2335,10 @@ function pseudoMoves(
             [0,1]
         ]);
 
-    }else if(piece.p === "king"){
+
+    }else if(
+        piece.p === "king"
+    ){
 
         for(
             let dr=-1;
@@ -1945,6 +2358,7 @@ function pseudoMoves(
                 )
                     continue;
 
+
                 add(
                     r+dr,
                     c+dc
@@ -1953,7 +2367,87 @@ function pseudoMoves(
         }
     }
 
+
     return result;
+}
+
+
+function isSquareAttacked(
+    b,
+    r,
+    c,
+    byColor
+){
+
+    for(let rr=0;rr<8;rr++){
+
+        for(let cc=0;cc<8;cc++){
+
+            const piece =
+                b[rr][cc];
+
+            if(
+                !piece ||
+                piece.c !== byColor
+            )
+                continue;
+
+
+            const moves =
+                pseudoMoves(
+                    b,
+                    rr,
+                    cc,
+                    true
+                );
+
+
+            if(
+                moves.some(
+                    move =>
+                        move.r === r &&
+                        move.c === c
+                )
+            ){
+
+                return true;
+            }
+        }
+    }
+
+
+    return false;
+}
+
+
+function isInCheck(
+    b,
+    color
+){
+
+    const king =
+        findKing(
+            b,
+            color
+        );
+
+
+    if(!king)
+        return true;
+
+
+    const enemy =
+        color === "w"
+            ? "b"
+            : "w";
+
+
+    return isSquareAttacked(
+        b,
+        king.r,
+        king.c,
+        enemy
+    );
 }
 
 
@@ -1963,10 +2457,13 @@ function getLegalMoves(
     c
 ){
 
-    const piece = b[r][c];
+    const piece =
+        b[r][c];
+
 
     if(!piece)
         return [];
+
 
     const pseudo =
         pseudoMoves(
@@ -1976,32 +2473,44 @@ function getLegalMoves(
             false
         );
 
+
     const legal = [];
 
-    for(const move of pseudo){
+
+    for(
+        const move
+        of pseudo
+    ){
 
         const test =
             cloneBoard(b);
 
+
         test[move.r][move.c] =
             test[r][c];
 
-        test[r][c] = null;
 
-        const movingPiece =
+        test[r][c] =
+            null;
+
+
+        const moved =
             test[move.r][move.c];
 
+
         if(
-            movingPiece &&
-            movingPiece.p === "pawn" &&
+            moved &&
+            moved.p === "pawn" &&
             (
                 move.r === 0 ||
                 move.r === 7
             )
         ){
 
-            movingPiece.p = "queen";
+            moved.p =
+                "queen";
         }
+
 
         if(
             !isInCheck(
@@ -2010,9 +2519,12 @@ function getLegalMoves(
             )
         ){
 
-            legal.push(move);
+            legal.push(
+                move
+            );
         }
     }
+
 
     return legal;
 }
@@ -2027,35 +2539,49 @@ function hasAnyLegalMove(
 
         for(let c=0;c<8;c++){
 
-            const p=b[r][c];
+            const piece =
+                b[r][c];
+
 
             if(
-                p &&
-                p.c === color &&
-                getLegalMoves(
-                    b,r,c
-                ).length
-            )
-                return true;
+                piece &&
+                piece.c === color
+            ){
+
+                if(
+                    getLegalMoves(
+                        b,
+                        r,
+                        c
+                    ).length > 0
+                ){
+
+                    return true;
+                }
+            }
         }
     }
+
 
     return false;
 }
 
 
 /* =========================================================
-   BOARD UI
+   BOARD RENDER
 ========================================================= */
 
 function renderBoard(){
 
-    const boardEl =
+    const boardElement =
         document.getElementById(
             "board"
         );
 
-    boardEl.innerHTML = "";
+
+    boardElement.innerHTML =
+        "";
+
 
     for(let r=0;r<8;r++){
 
@@ -2066,6 +2592,7 @@ function renderBoard(){
                     "div"
                 );
 
+
             square.className =
                 "square " +
                 (
@@ -2073,6 +2600,7 @@ function renderBoard(){
                         ? "light"
                         : "dark"
                 );
+
 
             if(
                 selectedSquare &&
@@ -2085,37 +2613,52 @@ function renderBoard(){
                 );
             }
 
-            if(
+
+            const legal =
                 legalMoves.some(
-                    m =>
-                        m.r === r &&
-                        m.c === c
-                )
-            ){
+                    move =>
+                        move.r === r &&
+                        move.c === c
+                );
+
+
+            if(legal){
 
                 square.classList.add(
                     "legal"
                 );
+
+
+                if(board[r][c]){
+
+                    square.classList.add(
+                        "capture"
+                    );
+                }
             }
+
 
             const piece =
                 board[r][c];
 
+
             if(piece){
 
-                const img =
+                const image =
                     document.createElement(
                         "img"
                     );
 
-                img.src =
+
+                image.src =
                     pieceImages[
                         piece.c
                     ][
                         piece.p
                     ];
 
-                img.className =
+
+                image.className =
                     "piece " +
                     (
                         piece.c === "w"
@@ -2123,38 +2666,48 @@ function renderBoard(){
                             : "black-piece"
                     );
 
-                img.alt =
+
+                image.alt =
                     piece.c +
                     " " +
                     piece.p;
 
+
                 square.appendChild(
-                    img
+                    image
                 );
             }
+
 
             square.addEventListener(
                 "click",
                 () =>
                     handleSquareClick(
-                        r,c
+                        r,
+                        c
                     )
             );
 
-            boardEl.appendChild(
+
+            boardElement.appendChild(
                 square
             );
         }
     }
 
+
     updateTurnUI();
 }
 
 
-function handleSquareClick(r,c){
+function handleSquareClick(
+    r,
+    c
+){
 
     if(gameOver)
         return;
+
 
     if(
         gameMode === "bot" &&
@@ -2162,17 +2715,27 @@ function handleSquareClick(r,c){
     )
         return;
 
+
+    if(
+        gameMode === "private" &&
+        chessTurn !== playerColor
+    )
+        return;
+
+
     const piece =
         board[r][c];
+
 
     if(selectedSquare){
 
         const target =
             legalMoves.find(
-                m =>
-                    m.r === r &&
-                    m.c === c
+                move =>
+                    move.r === r &&
+                    move.c === c
             );
+
 
         if(target){
 
@@ -2187,15 +2750,17 @@ function handleSquareClick(r,c){
         }
     }
 
+
     if(
         piece &&
         piece.c === chessTurn
     ){
 
         selectedSquare = {
-            r,
-            c
+            r:r,
+            c:c
         };
+
 
         legalMoves =
             getLegalMoves(
@@ -2204,12 +2769,17 @@ function handleSquareClick(r,c){
                 c
             );
 
+
         renderBoard();
+
 
     }else{
 
-        selectedSquare = null;
-        legalMoves = [];
+        selectedSquare =
+            null;
+
+        legalMoves =
+            [];
 
         renderBoard();
     }
@@ -2217,7 +2787,7 @@ function handleSquareClick(r,c){
 
 
 /* =========================================================
-   MOVE
+   MAKE MOVE
 ========================================================= */
 
 function makeMove(
@@ -2230,17 +2800,22 @@ function makeMove(
     if(gameOver)
         return;
 
+
     const piece =
         board[fromR][fromC];
+
 
     if(!piece)
         return;
 
+
     board[toR][toC] =
         piece;
 
+
     board[fromR][fromC] =
         null;
+
 
     if(
         piece.p === "pawn" &&
@@ -2250,20 +2825,29 @@ function makeMove(
         )
     ){
 
-        piece.p = "queen";
+        piece.p =
+            "queen";
     }
 
-    selectedSquare = null;
-    legalMoves = [];
+
+    selectedSquare =
+        null;
+
+    legalMoves =
+        [];
+
 
     chessTurn =
         chessTurn === "w"
             ? "b"
             : "w";
 
+
     renderBoard();
 
+
     checkGameState();
+
 
     if(
         !gameOver &&
@@ -2276,8 +2860,21 @@ function makeMove(
             350
         );
     }
+
+
+    if(
+        !gameOver &&
+        gameMode === "private"
+    ){
+
+        savePrivateMove();
+    }
 }
 
+
+/* =========================================================
+   GAME STATE
+========================================================= */
 
 function checkGameState(){
 
@@ -2287,11 +2884,14 @@ function checkGameState(){
             chessTurn
         );
 
+
     if(!moves){
 
-        gameOver = true;
+        gameOver =
+            true;
 
         stopTimer();
+
 
         if(
             isInCheck(
@@ -2304,6 +2904,7 @@ function checkGameState(){
                 chessTurn === "w"
                     ? "Black"
                     : "White";
+
 
             setMessage(
                 "♚ Checkmate! " +
@@ -2318,8 +2919,10 @@ function checkGameState(){
             );
         }
 
+
         return;
     }
+
 
     if(
         isInCheck(
@@ -2356,7 +2959,8 @@ function setMessage(text){
 
     document.getElementById(
         "gameMessage"
-    ).textContent = text;
+    ).textContent =
+        text;
 }
 
 
@@ -2372,18 +2976,23 @@ function formatTime(seconds){
             Number(seconds)
         );
 
-    const min =
+
+    const minutes =
         Math.floor(
             seconds / 60
         );
 
-    const sec =
+
+    const secs =
         seconds % 60;
 
+
     return (
-        String(min).padStart(2,"0") +
+        String(minutes)
+            .padStart(2,"0") +
         ":" +
-        String(sec).padStart(2,"0")
+        String(secs)
+            .padStart(2,"0")
     );
 }
 
@@ -2397,6 +3006,7 @@ function updateTimerUI(){
             whiteSeconds
         );
 
+
     document.getElementById(
         "blackTime"
     ).textContent =
@@ -2408,22 +3018,17 @@ function updateTimerUI(){
 
 function updateTurnUI(){
 
-    const white =
-        document.getElementById(
-            "whitePlayerBox"
-        );
-
-    const black =
-        document.getElementById(
-            "blackPlayerBox"
-        );
-
-    white.classList.toggle(
+    document.getElementById(
+        "whitePlayerBox"
+    ).classList.toggle(
         "active-turn",
         chessTurn === "w"
     );
 
-    black.classList.toggle(
+
+    document.getElementById(
+        "blackPlayerBox"
+    ).classList.toggle(
         "active-turn",
         chessTurn === "b"
     );
@@ -2434,6 +3039,7 @@ function startTimer(){
 
     stopTimer();
 
+
     chessTimer =
         setInterval(
             () => {
@@ -2441,44 +3047,57 @@ function startTimer(){
                 if(gameOver)
                     return;
 
-                if(chessTurn === "w"){
+
+                if(
+                    chessTurn === "w"
+                ){
 
                     whiteSeconds--;
+
 
                     if(
                         whiteSeconds <= 0
                     ){
 
-                        whiteSeconds = 0;
+                        whiteSeconds =
+                            0;
 
-                        gameOver = true;
+                        gameOver =
+                            true;
 
                         stopTimer();
+
 
                         setMessage(
                             "⏱️ White kehabisan waktu. Black menang."
                         );
                     }
 
+
                 }else{
 
                     blackSeconds--;
+
 
                     if(
                         blackSeconds <= 0
                     ){
 
-                        blackSeconds = 0;
+                        blackSeconds =
+                            0;
 
-                        gameOver = true;
+                        gameOver =
+                            true;
 
                         stopTimer();
+
 
                         setMessage(
                             "⏱️ Black kehabisan waktu. White menang."
                         );
                     }
                 }
+
 
                 updateTimerUI();
 
@@ -2496,36 +3115,34 @@ function stopTimer(){
             chessTimer
         );
 
-        chessTimer = null;
+        chessTimer =
+            null;
     }
 }
 
 
 /* =========================================================
-   START GAME
+   BOT
 ========================================================= */
 
 function startBotGame(level){
 
-    botLevel = level;
+    gameMode =
+        "bot";
 
-    gameMode = "bot";
+    botLevel =
+        level;
 
-    playerColor = "w";
+    playerColor =
+        "w";
+
 
     startChessGame();
 
+
     toast(
-        "Bot level: " +
+        "Bot: " +
         level.toUpperCase()
-    );
-}
-
-
-function startRandomGame(){
-
-    toast(
-        "Mode Random akan segera tersedia."
     );
 }
 
@@ -2535,27 +3152,44 @@ function startChessGame(){
     board =
         createInitialBoard();
 
-    selectedSquare = null;
-    legalMoves = [];
 
-    chessTurn = "w";
+    selectedSquare =
+        null;
 
-    gameOver = false;
+    legalMoves =
+        [];
 
-    whiteSeconds = 300;
-    blackSeconds = 300;
+
+    chessTurn =
+        "w";
+
+
+    gameOver =
+        false;
+
+
+    whiteSeconds =
+        300;
+
+    blackSeconds =
+        300;
+
 
     showScreen(
         "gameScreen"
     );
 
+
     renderBoard();
 
+
     updateTimerUI();
+
 
     setMessage(
         "Giliran White"
     );
+
 
     startTimer();
 }
@@ -2563,15 +3197,29 @@ function startChessGame(){
 
 function restartCurrentGame(){
 
+    if(
+        gameMode === "private"
+    ){
+
+        toast(
+            "Restart hanya tersedia untuk VS Bot."
+        );
+
+        return;
+    }
+
+
     startChessGame();
 }
 
 
 function exitGame(){
 
-    gameOver = true;
+    gameOver =
+        true;
 
     stopTimer();
+
 
     showScreen(
         "homeScreen"
@@ -2580,120 +3228,8 @@ function exitGame(){
 
 
 /* =========================================================
-   BOT
+   BOT AI
 ========================================================= */
-
-function botMove(){
-
-    if(
-        gameOver ||
-        gameMode !== "bot" ||
-        chessTurn === playerColor
-    )
-        return;
-
-    const moves = [];
-
-    for(let r=0;r<8;r++){
-
-        for(let c=0;c<8;c++){
-
-            const p =
-                board[r][c];
-
-            if(
-                p &&
-                p.c === chessTurn
-            ){
-
-                const legal =
-                    getLegalMoves(
-                        board,
-                        r,
-                        c
-                    );
-
-                legal.forEach(
-                    move => {
-
-                        moves.push({
-                            fromR:r,
-                            fromC:c,
-                            toR:move.r,
-                            toC:move.c,
-                            score:
-                                evaluateMove(
-                                    r,c,
-                                    move.r,
-                                    move.c
-                                )
-                        });
-
-                    }
-                );
-            }
-        }
-    }
-
-    if(!moves.length)
-        return;
-
-    let selected;
-
-    if(botLevel === "easy"){
-
-        selected =
-            moves[
-                Math.floor(
-                    Math.random() *
-                    moves.length
-                )
-            ];
-
-    }else if(
-        botLevel === "normal"
-    ){
-
-        moves.sort(
-            (a,b) =>
-                b.score -
-                a.score
-        );
-
-        const bestCount =
-            Math.min(
-                4,
-                moves.length
-            );
-
-        selected =
-            moves[
-                Math.floor(
-                    Math.random() *
-                    bestCount
-                )
-            ];
-
-    }else{
-
-        moves.sort(
-            (a,b) =>
-                b.score -
-                a.score
-        );
-
-        selected =
-            moves[0];
-    }
-
-    makeMove(
-        selected.fromR,
-        selected.fromC,
-        selected.toR,
-        selected.toC
-    );
-}
-
 
 function evaluateMove(
     fromR,
@@ -2705,28 +3241,33 @@ function evaluateMove(
     let score =
         Math.random() * 10;
 
+
     const target =
         board[toR][toC];
 
+
+    const values = {
+
+        pawn:100,
+        knight:320,
+        bishop:330,
+        rook:500,
+        queen:900,
+        king:10000
+
+    };
+
+
     if(target){
-
-        const values = {
-
-            pawn:100,
-            knight:320,
-            bishop:330,
-            rook:500,
-            queen:900,
-            king:10000
-
-        };
 
         score +=
             values[target.p] || 0;
     }
 
+
     const piece =
         board[fromR][fromC];
+
 
     if(
         piece &&
@@ -2737,42 +3278,184 @@ function evaluateMove(
         )
     ){
 
-        score += 900;
+        score +=
+            900;
     }
+
 
     return score;
 }
 
 
+function botMove(){
+
+    if(
+        gameOver ||
+        gameMode !== "bot" ||
+        chessTurn === playerColor
+    )
+        return;
+
+
+    const moves = [];
+
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const piece =
+                board[r][c];
+
+
+            if(
+                piece &&
+                piece.c === chessTurn
+            ){
+
+                const legal =
+                    getLegalMoves(
+                        board,
+                        r,
+                        c
+                    );
+
+
+                legal.forEach(
+                    move => {
+
+                        moves.push({
+
+                            fromR:r,
+                            fromC:c,
+
+                            toR:move.r,
+                            toC:move.c,
+
+                            score:
+                                evaluateMove(
+                                    r,
+                                    c,
+                                    move.r,
+                                    move.c
+                                )
+
+                        });
+                    }
+                );
+            }
+        }
+    }
+
+
+    if(!moves.length)
+        return;
+
+
+    let selected;
+
+
+    if(
+        botLevel === "easy"
+    ){
+
+        selected =
+            moves[
+                Math.floor(
+                    Math.random() *
+                    moves.length
+                )
+            ];
+
+
+    }else{
+
+        moves.sort(
+            (a,b) =>
+                b.score -
+                a.score
+        );
+
+
+        const count =
+            botLevel === "normal"
+                ? Math.min(
+                    4,
+                    moves.length
+                )
+                : 1;
+
+
+        selected =
+            moves[
+                Math.floor(
+                    Math.random() *
+                    count
+                )
+            ];
+    }
+
+
+    makeMove(
+        selected.fromR,
+        selected.fromC,
+        selected.toR,
+        selected.toC
+    );
+}
+
+
 /* =========================================================
-   PRIVATE GAME
+   PRIVATE CHESS GAME
 ========================================================= */
 
-async function startPrivateGame(players){
+async function startPrivateGame(
+    players
+){
 
     try{
 
         if(!currentRoom)
             return;
 
+
         const white =
             players.find(
-                p =>
-                    p.color === "white"
+                player =>
+                    player.color ===
+                    "white"
             );
+
 
         const black =
             players.find(
-                p =>
-                    p.color === "black"
+                player =>
+                    player.color ===
+                    "black"
             );
 
-        if(!white || !black)
+
+        if(!white || !black){
+
+            toast(
+                "Pemain room belum lengkap."
+            );
+
             return;
+        }
+
+
+        /*
+         * Cek apakah game sudah ada.
+         */
 
         let game = null;
 
-        const { data:existingGame } =
+
+        const {
+            data:existingGame,
+            error:findError
+        } =
             await supabaseClient
             .from("games")
             .select("*")
@@ -2782,37 +3465,69 @@ async function startPrivateGame(players){
             )
             .maybeSingle();
 
+
+        if(findError)
+            throw findError;
+
+
         if(existingGame){
 
-            game = existingGame;
+            game =
+                existingGame;
 
         }else{
 
-            const { data:newGame, error } =
+            /*
+             * Buat game.
+             */
+
+            const {
+                data:newGame,
+                error:createError
+            } =
                 await supabaseClient
                 .from("games")
                 .insert({
-                    room_id:currentRoom.id,
-                    white_player:Number(
-                        white.user_id
-                    ),
-                    black_player:Number(
-                        black.user_id
-                    ),
+
+                    room_id:
+                        currentRoom.id,
+
+                    white_player:
+                        Number(
+                            white.user_id
+                        ),
+
+                    black_player:
+                        Number(
+                            black.user_id
+                        ),
+
                     status:"playing",
+
                     board_state:
                         createInitialBoard(),
+
                     turn:"w",
+
                     white_time:300,
+
                     black_time:300
+
                 })
                 .select()
                 .single();
 
-            if(error){
+
+            if(createError){
+
+                /*
+                 * Jika player satunya
+                 * sudah membuat game,
+                 * ambil game tersebut.
+                 */
 
                 if(
-                    error.code ===
+                    createError.code ===
                     "23505"
                 ){
 
@@ -2826,19 +3541,26 @@ async function startPrivateGame(players){
                         )
                         .maybeSingle();
 
+
+                    if(retry.error)
+                        throw retry.error;
+
+
                     game =
                         retry.data;
 
                 }else{
 
-                    throw error;
+                    throw createError;
                 }
 
             }else{
 
-                game = newGame;
+                game =
+                    newGame;
             }
         }
+
 
         if(!game){
 
@@ -2849,38 +3571,59 @@ async function startPrivateGame(players){
             return;
         }
 
-        gameMode = "private";
+
+        privateGameId =
+            game.id;
+
+
+        gameMode =
+            "private";
+
 
         playerColor =
-            Number(white.user_id) ===
+            Number(
+                white.user_id
+            ) ===
             Number(myUserId)
                 ? "w"
                 : "b";
+
 
         board =
             game.board_state ||
             createInitialBoard();
 
+
         chessTurn =
             game.turn || "w";
+
 
         whiteSeconds =
             Number(
                 game.white_time || 300
             );
 
+
         blackSeconds =
             Number(
                 game.black_time || 300
             );
 
-        selectedSquare = null;
-        legalMoves = [];
-        gameOver = false;
+
+        selectedSquare =
+            null;
+
+        legalMoves =
+            [];
+
+        gameOver =
+            false;
+
 
         showScreen(
             "gameScreen"
         );
+
 
         renderBoard();
 
@@ -2888,18 +3631,21 @@ async function startPrivateGame(players){
 
         startTimer();
 
-        toast(
+
+        setMessage(
             playerColor === "w"
-                ? "Kamu White"
-                : "Kamu Black"
+                ? "Kamu White — Giliran White"
+                : "Kamu Black — Menunggu White"
         );
+
 
     }catch(error){
 
         console.error(
-            "START PRIVATE GAME ERROR:",
+            "PRIVATE GAME ERROR:",
             error
         );
+
 
         toast(
             "Game gagal dimulai: " +
@@ -2910,17 +3656,91 @@ async function startPrivateGame(players){
 
 
 /* =========================================================
-   INITIALIZATION
+   SAVE PRIVATE MOVE
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
+async function savePrivateMove(){
 
-        await loadTelegramUser();
+    /*
+     * Untuk tahap ini game lokal
+     * tetap berjalan walaupun insert
+     * move gagal.
+     */
 
+    if(!privateGameId)
+        return;
+
+
+    try{
+
+        await supabaseClient
+        .from("games")
+        .update({
+
+            board_state:board,
+
+            turn:chessTurn,
+
+            white_time:
+                whiteSeconds,
+
+            black_time:
+                blackSeconds
+
+        })
+        .eq(
+            "id",
+            privateGameId
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "SAVE GAME ERROR:",
+            error
+        );
     }
-);
+}
+
+
+/* =========================================================
+   RANDOM
+========================================================= */
+
+function startRandomGame(){
+
+    toast(
+        "Mode Random akan segera tersedia."
+    );
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+async function initialize(){
+
+    await loadTelegramUser();
+
+}
+
+
+if(
+    document.readyState ===
+    "loading"
+){
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initialize
+    );
+
+}else{
+
+    initialize();
+}
 
 </script>
 
