@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
 <title>1711 Chess Arena</title>
 
@@ -15,55 +15,40 @@
     -webkit-tap-highlight-color:transparent;
 }
 
-body{
+html,body{
     margin:0;
-    background:#101318;
+    padding:0;
+    min-height:100%;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top,#18243d 0%,#0b1020 48%,#050812 100%);
     color:#fff;
-    font-family:Arial,sans-serif;
+}
+
+body{
     min-height:100vh;
 }
 
 button{
     border:0;
-    border-radius:12px;
-    padding:14px;
-    font-size:15px;
-    font-weight:bold;
     cursor:pointer;
-}
-
-input{
-    width:100%;
-    padding:14px;
-    margin-bottom:10px;
-    border-radius:10px;
-    border:1px solid #39404b;
-    background:#11151b;
-    color:white;
-    font-size:16px;
-    outline:none;
-    text-transform:uppercase;
+    color:#fff;
+    font-weight:700;
 }
 
 .app{
+    width:100%;
     max-width:520px;
     margin:auto;
-    padding:15px;
-}
-
-.screen{
-    display:none;
-}
-
-.screen.active{
-    display:block;
+    min-height:100vh;
+    padding-bottom:30px;
 }
 
 .header{
+    padding:18px 16px 12px;
     display:flex;
     align-items:center;
     gap:12px;
-    margin-bottom:15px;
 }
 
 .avatar{
@@ -71,112 +56,202 @@ input{
     height:48px;
     border-radius:50%;
     object-fit:cover;
-    background:#252a32;
+    background:#26334f;
+    border:2px solid rgba(255,255,255,.15);
 }
 
-.title{
-    font-size:21px;
-    font-weight:bold;
+.user-info{
+    flex:1;
+    min-width:0;
 }
 
-.subtitle{
-    color:#9ca3af;
-    font-size:13px;
+.user-name{
+    font-size:17px;
+    font-weight:800;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.user-username{
+    font-size:12px;
+    color:#94a3b8;
     margin-top:3px;
 }
 
-.card{
-    background:#1a1f27;
-    border:1px solid #292f38;
-    border-radius:16px;
-    padding:15px;
-    margin-bottom:12px;
+.rating-box{
+    background:rgba(255,255,255,.07);
+    padding:8px 11px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.rating-label{
+    font-size:10px;
+    color:#94a3b8;
+}
+
+.rating{
+    font-size:16px;
+    font-weight:900;
+}
+
+.screen{
+    display:none;
+    padding:10px 16px;
+}
+
+.screen.active{
+    display:block;
+}
+
+.logo{
+    text-align:center;
+    padding:20px 0 22px;
+}
+
+.logo-icon{
+    font-size:58px;
+}
+
+.logo h1{
+    margin:5px 0 4px;
+    font-size:28px;
+}
+
+.logo p{
+    margin:0;
+    color:#94a3b8;
+    font-size:13px;
 }
 
 .menu{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:10px;
+    gap:12px;
 }
 
-.menu button{
-    background:#242a33;
-    color:#fff;
-    min-height:72px;
+.menu-btn{
+    min-height:78px;
+    border-radius:18px;
+    padding:15px;
+    background:linear-gradient(145deg,#17243d,#10182b);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+    font-size:14px;
 }
 
-.back{
-    background:#292f38;
-    color:white;
-    margin-bottom:12px;
+.menu-btn:active{
+    transform:scale(.97);
+}
+
+.menu-btn .icon{
+    display:block;
+    font-size:26px;
+    margin-bottom:7px;
+}
+
+.card{
+    background:rgba(16,24,43,.9);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:14px;
+}
+
+.card h2{
+    margin:0 0 8px;
+    font-size:20px;
+}
+
+.card p{
+    color:#94a3b8;
+    font-size:13px;
+    line-height:1.5;
 }
 
 .primary{
     width:100%;
-    background:#2d8cff;
-    color:white;
+    padding:14px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    margin-top:10px;
 }
 
-.green{
-    background:#16a34a;
-    color:white;
+.secondary{
+    width:100%;
+    padding:13px;
+    border-radius:13px;
+    background:#202c44;
+    margin-top:9px;
 }
 
-.red{
-    background:#dc2626;
-    color:white;
+.danger{
+    background:#7f1d1d;
 }
 
-.gray{
-    background:#353b45;
-    color:white;
-}
-
-.center{
+input{
+    width:100%;
+    padding:14px;
+    border-radius:13px;
+    border:1px solid rgba(255,255,255,.1);
+    background:#0b1221;
+    color:#fff;
+    outline:none;
+    font-size:17px;
     text-align:center;
+    letter-spacing:3px;
 }
 
-.status{
-    text-align:center;
-    color:#aeb6c2;
-    margin:15px 0;
-    line-height:1.5;
+input:focus{
+    border-color:#4f7cff;
 }
 
 .room-code{
     font-size:34px;
-    font-weight:bold;
-    letter-spacing:7px;
+    font-weight:900;
+    letter-spacing:8px;
     text-align:center;
-    margin:20px 0;
+    padding:15px 0;
+    color:#60a5fa;
 }
 
-.profile-line{
-    padding:10px 0;
-    border-bottom:1px solid #292f38;
+.room-status{
+    text-align:center;
+    color:#cbd5e1;
+    font-size:14px;
+    line-height:1.5;
 }
 
-.profile-line:last-child{
-    border-bottom:0;
+.back{
+    width:100%;
+    padding:12px;
+    background:transparent;
+    color:#94a3b8;
+    margin-top:6px;
 }
 
-.levels{
-    display:grid;
-    gap:10px;
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translateX(-50%) translateY(20px);
+    background:#111827;
+    border:1px solid rgba(255,255,255,.12);
+    padding:12px 16px;
+    border-radius:13px;
+    font-size:13px;
+    z-index:9999;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    max-width:90%;
+    text-align:center;
 }
 
-.levels button{
-    background:#252b34;
-    color:white;
-    text-align:left;
-}
-
-.levels button span{
-    display:block;
-    color:#9ca3af;
-    font-size:12px;
-    margin-top:5px;
-    font-weight:normal;
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
 }
 
 /* CHESS */
@@ -188,27 +263,34 @@ input{
     margin-bottom:10px;
 }
 
-.player-label{
-    color:#9ca3af;
-    font-size:13px;
-    margin-bottom:4px;
+.game-title{
+    font-size:18px;
+    font-weight:900;
 }
 
 .timer{
-    background:#202630;
-    border-radius:10px;
-    padding:9px 14px;
-    font-size:20px;
-    font-weight:bold;
-    min-width:85px;
-    text-align:center;
+    display:flex;
+    gap:8px;
 }
 
-.turn{
+.clock{
+    min-width:72px;
     text-align:center;
-    color:#aeb6c2;
-    font-size:13px;
-    margin-bottom:10px;
+    padding:8px 9px;
+    border-radius:10px;
+    background:#111827;
+    border:1px solid rgba(255,255,255,.08);
+    font-weight:900;
+}
+
+.clock.active{
+    background:#1d4ed8;
+}
+
+.board-wrap{
+    width:100%;
+    max-width:500px;
+    margin:auto;
 }
 
 .board{
@@ -218,7 +300,7 @@ input{
     grid-template-columns:repeat(8,1fr);
     border-radius:10px;
     overflow:hidden;
-    box-shadow:0 8px 30px #0008;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
 }
 
 .square{
@@ -226,45 +308,38 @@ input{
     display:flex;
     justify-content:center;
     align-items:center;
-    cursor:pointer;
+    aspect-ratio:1;
 }
 
 .square.light{
-    background:#e8d0a7;
+    background:#e7d3ad;
 }
 
 .square.dark{
-    background:#9b7046;
+    background:#8b5e3c;
 }
 
 .square.selected{
-    box-shadow:inset 0 0 0 4px #22c55e;
+    box-shadow:inset 0 0 0 4px #facc15;
 }
 
-.square.legal::after{
-    content:"";
-    width:22%;
-    height:22%;
-    border-radius:50%;
-    background:#22c55eaa;
-    position:absolute;
+.square.legal{
+    box-shadow:inset 0 0 0 4px rgba(34,197,94,.7);
 }
 
-.square.capture::after{
-    content:"";
-    width:72%;
-    height:72%;
-    border-radius:50%;
-    border:4px solid #ef4444aa;
-    position:absolute;
+.square.capture{
+    box-shadow:inset 0 0 0 4px rgba(239,68,68,.8);
+}
+
+.square.check{
+    box-shadow:inset 0 0 0 5px #ef4444;
 }
 
 .piece{
     width:88%;
     height:88%;
     object-fit:contain;
-    position:relative;
-    z-index:2;
+    user-select:none;
     pointer-events:none;
 }
 
@@ -287,27 +362,64 @@ input{
         drop-shadow(0 4px 4px rgba(0,0,0,.35));
 }
 
-.game-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:12px;
+.game-info{
+    text-align:center;
+    margin:12px 0;
+    color:#cbd5e1;
+    font-size:13px;
+    min-height:20px;
 }
 
-#toast{
-    position:fixed;
-    left:50%;
-    bottom:25px;
-    transform:translateX(-50%);
-    background:#242a33;
-    color:white;
-    padding:12px 16px;
+.game-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.game-buttons button{
+    flex:1;
+}
+
+.difficulty{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+
+.diff-btn{
+    flex:1;
+    padding:11px 5px;
     border-radius:10px;
-    display:none;
-    z-index:99999;
-    max-width:90%;
+    background:#202c44;
+    font-size:12px;
+}
+
+.diff-btn.active{
+    background:#2563eb;
+}
+
+.profile-row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.profile-row:last-child{
+    border-bottom:0;
+}
+
+.muted{
+    color:#94a3b8;
+}
+
+.center{
     text-align:center;
-    box-shadow:0 5px 20px #0008;
+}
+
+.loading{
+    padding:50px 20px;
+    text-align:center;
+    color:#94a3b8;
 }
 </style>
 </head>
@@ -316,379 +428,285 @@ input{
 
 <div class="app">
 
-<!-- HOME -->
-<div id="homeScreen" class="screen active">
-
     <div class="header">
-
-        <img id="avatar" class="avatar" src="">
-
-        <div>
-            <div class="title">1711 Chess Arena</div>
-            <div class="subtitle" id="welcome">
-                Memuat Telegram...
-            </div>
+        <img id="avatar" class="avatar" src="" alt="">
+        <div class="user-info">
+            <div id="userName" class="user-name">Loading...</div>
+            <div id="userUsername" class="user-username">Telegram</div>
         </div>
 
+        <div class="rating-box">
+            <div class="rating-label">RATING</div>
+            <div id="rating" class="rating">1000</div>
+        </div>
     </div>
 
-    <div class="card">
+    <!-- HOME -->
+    <section id="homeScreen" class="screen active">
 
-        <div class="profile-line">
-            ⭐ Rating:
-            <b id="rating">1000</b>
+        <div class="logo">
+            <div class="logo-icon">♟️</div>
+            <h1>1711 Chess Arena</h1>
+            <p>Play chess • Challenge players • Have fun</p>
         </div>
 
-        <div class="profile-line">
-            👤 Telegram:
-            <b id="telegramName">-</b>
-        </div>
+        <div class="menu">
 
-    </div>
-
-    <div class="menu">
-
-        <button onclick="showScreen('randomScreen')">
-            ⚔️<br>Lawan Random
-        </button>
-
-        <button onclick="showScreen('privateScreen')">
-            🔒<br>Private Room
-        </button>
-
-        <button onclick="showScreen('botScreen')">
-            🤖<br>VS Bot
-        </button>
-
-        <button onclick="showScreen('friendsScreen')">
-            👥<br>Teman
-        </button>
-
-        <button onclick="showScreen('leaderboardScreen')">
-            🏆<br>Leaderboard
-        </button>
-
-        <button onclick="showScreen('profileScreen')">
-            👤<br>Profile
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- RANDOM -->
-<div id="randomScreen" class="screen">
-
-    <button class="back" onclick="showScreen('homeScreen')">
-        ← Kembali
-    </button>
-
-    <div class="card center">
-
-        <h2>⚔️ Lawan Random</h2>
-
-        <p style="color:#aaa">
-            Matchmaking random akan tersedia pada tahap berikutnya.
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- BOT -->
-<div id="botScreen" class="screen">
-
-    <button class="back" onclick="showScreen('homeScreen')">
-        ← Kembali
-    </button>
-
-    <div class="card">
-
-        <h2>🤖 VS Bot</h2>
-
-        <p style="color:#aaa">
-            Pilih tingkat kesulitan.
-        </p>
-
-        <div class="levels">
-
-            <button onclick="startBotGame('easy')">
-                🟢 Easy
-                <span>Bot membuat langkah sederhana.</span>
+            <button class="menu-btn" onclick="startRandomGame()">
+                <span class="icon">⚔️</span>
+                Lawan Random
             </button>
 
-            <button onclick="startBotGame('normal')">
-                🟡 Normal
-                <span>Bot memilih langkah yang lebih baik.</span>
+            <button class="menu-btn" onclick="showScreen('privateMenuScreen')">
+                <span class="icon">🔒</span>
+                Private Room
             </button>
 
-            <button onclick="startBotGame('hard')">
-                🔴 Hard
-                <span>Bot menggunakan evaluasi posisi.</span>
+            <button class="menu-btn" onclick="showBotMenu()">
+                <span class="icon">🤖</span>
+                VS Bot
+            </button>
+
+            <button class="menu-btn" onclick="showScreen('friendsScreen')">
+                <span class="icon">👥</span>
+                Teman
+            </button>
+
+            <button class="menu-btn" onclick="showScreen('leaderboardScreen')">
+                <span class="icon">🏆</span>
+                Leaderboard
+            </button>
+
+            <button class="menu-btn" onclick="showScreen('profileScreen')">
+                <span class="icon">👤</span>
+                Profile
             </button>
 
         </div>
 
-    </div>
+    </section>
 
-</div>
+    <!-- PRIVATE MENU -->
+    <section id="privateMenuScreen" class="screen">
 
+        <div class="card">
+            <h2>🔒 Private Room</h2>
+            <p>Buat room dan bagikan kode kepada temanmu.</p>
 
-<!-- PRIVATE -->
-<div id="privateScreen" class="screen">
-
-    <button class="back" onclick="showScreen('homeScreen')">
-        ← Kembali
-    </button>
-
-    <div class="card">
-
-        <h2>🔒 Private Room</h2>
-
-        <button
-            class="primary"
-            onclick="createPrivateRoom()"
-        >
-            ➕ Buat Room
-        </button>
-
-        <div style="height:12px"></div>
-
-        <input
-            id="joinRoomInput"
-            maxlength="6"
-            placeholder="KODE ROOM"
-            autocomplete="off"
-        >
-
-        <button
-            class="green"
-            style="width:100%"
-            onclick="joinPrivateRoom()"
-        >
-            🚪 Gabung Room
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- WAITING ROOM -->
-<div id="privateRoomScreen" class="screen">
-
-    <button
-        class="back"
-        onclick="cancelPrivateRoom()"
-    >
-        ← Batalkan
-    </button>
-
-    <div class="card center">
-
-        <h2>🔒 Private Room</h2>
-
-        <div
-            class="room-code"
-            id="privateRoomCode"
-        >
-            ------
+            <button class="primary" onclick="createPrivateRoom()">
+                Buat Room
+            </button>
         </div>
 
-        <p style="color:#aaa">
-            Bagikan kode ini kepada temanmu.
-        </p>
+        <div class="card">
+            <h2>🚪 Join Room</h2>
+            <p>Masukkan kode room temanmu.</p>
 
-        <div
-            class="status"
-            id="privateRoomStatus"
-        >
-            Menunggu pemain kedua...
-        </div>
-
-        <button
-            class="red"
-            style="width:100%"
-            onclick="cancelPrivateRoom()"
-        >
-            Batalkan Room
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- GAME -->
-<div id="gameScreen" class="screen">
-
-    <button
-        class="back"
-        onclick="exitGame()"
-    >
-        ← Keluar
-    </button>
-
-    <div class="game-top">
-
-        <div>
-
-            <div
-                class="player-label"
-                id="opponentLabel"
+            <input
+                id="joinRoomInput"
+                maxlength="6"
+                placeholder="KODE"
+                autocomplete="off"
             >
-                Lawan
-            </div>
 
-            <div
-                class="timer"
-                id="blackTimer"
-            >
-                10:00
-            </div>
-
+            <button class="primary" onclick="joinPrivateRoom()">
+                Masuk Room
+            </button>
         </div>
 
-        <div>
-
-            <div class="player-label">
-                Kamu
-            </div>
-
-            <div
-                class="timer"
-                id="whiteTimer"
-            >
-                10:00
-            </div>
-
-        </div>
-
-    </div>
-
-    <div
-        class="turn"
-        id="turnLabel"
-    >
-        Giliran putih
-    </div>
-
-    <div
-        id="board"
-        class="board"
-    ></div>
-
-    <div class="game-buttons">
-
-        <button
-            class="gray"
-            onclick="resetCurrentGame()"
-        >
-            🔄 Ulang
+        <button class="back" onclick="showScreen('homeScreen')">
+            ← Kembali
         </button>
 
-        <button
-            class="red"
-            onclick="exitGame()"
-        >
-            🚪 Keluar
+    </section>
+
+    <!-- PRIVATE WAITING -->
+    <section id="privateRoomScreen" class="screen">
+
+        <div class="card center">
+
+            <h2>🔒 Private Room</h2>
+
+            <div id="privateRoomCode" class="room-code">
+                ------
+            </div>
+
+            <p>Bagikan kode ini kepada temanmu.</p>
+
+            <div id="privateRoomStatus" class="room-status">
+                Menunggu pemain...
+            </div>
+
+            <button class="primary" onclick="copyPrivateCode()">
+                📋 Salin Kode
+            </button>
+
+            <button class="secondary" onclick="leavePrivateRoom()">
+                Keluar Room
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- BOT -->
+    <section id="botMenuScreen" class="screen">
+
+        <div class="card">
+            <h2>🤖 VS Bot</h2>
+            <p>Pilih tingkat kesulitan.</p>
+
+            <div class="difficulty">
+
+                <button
+                    id="easyBtn"
+                    class="diff-btn active"
+                    onclick="setBotDifficulty('easy')"
+                >
+                    Easy
+                </button>
+
+                <button
+                    id="normalBtn"
+                    class="diff-btn"
+                    onclick="setBotDifficulty('normal')"
+                >
+                    Normal
+                </button>
+
+                <button
+                    id="hardBtn"
+                    class="diff-btn"
+                    onclick="setBotDifficulty('hard')"
+                >
+                    Hard
+                </button>
+
+            </div>
+
+            <button class="primary" onclick="startBotGame()">
+                Mulai Game
+            </button>
+        </div>
+
+        <button class="back" onclick="showScreen('homeScreen')">
+            ← Kembali
         </button>
 
-    </div>
+    </section>
 
-</div>
+    <!-- GAME -->
+    <section id="gameScreen" class="screen">
 
+        <div class="game-top">
 
-<!-- FRIENDS -->
-<div id="friendsScreen" class="screen">
+            <div class="game-title" id="gameTitle">
+                Chess Game
+            </div>
 
-    <button
-        class="back"
-        onclick="showScreen('homeScreen')"
-    >
-        ← Kembali
-    </button>
+            <div class="timer">
+                <div id="whiteClock" class="clock">
+                    05:00
+                </div>
 
-    <div class="card center">
+                <div id="blackClock" class="clock">
+                    05:00
+                </div>
+            </div>
 
-        <h2>👥 Teman</h2>
-
-        <p style="color:#aaa">
-            Sistem teman akan dikembangkan berikutnya.
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- LEADERBOARD -->
-<div id="leaderboardScreen" class="screen">
-
-    <button
-        class="back"
-        onclick="showScreen('homeScreen')"
-    >
-        ← Kembali
-    </button>
-
-    <div class="card center">
-
-        <h2>🏆 Leaderboard</h2>
-
-        <p style="color:#aaa">
-            Leaderboard akan diaktifkan setelah sistem rating multiplayer selesai.
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- PROFILE -->
-<div id="profileScreen" class="screen">
-
-    <button
-        class="back"
-        onclick="showScreen('homeScreen')"
-    >
-        ← Kembali
-    </button>
-
-    <div class="card">
-
-        <h2>👤 Profile</h2>
-
-        <div class="profile-line">
-            Nama:
-            <b id="profileName">-</b>
         </div>
 
-        <div class="profile-line">
-            Username:
-            <b id="profileUsername">-</b>
+        <div class="board-wrap">
+            <div id="board" class="board"></div>
         </div>
 
-        <div class="profile-line">
-            Telegram ID:
-            <b id="profileId">-</b>
+        <div id="gameInfo" class="game-info">
+            Giliran Putih
         </div>
 
-        <div class="profile-line">
-            Rating:
-            <b id="profileRating">1000</b>
+        <div class="game-buttons">
+
+            <button class="secondary" onclick="exitGame()">
+                Keluar
+            </button>
+
         </div>
 
-    </div>
+    </section>
+
+    <!-- FRIENDS -->
+    <section id="friendsScreen" class="screen">
+
+        <div class="card center">
+            <h2>👥 Teman</h2>
+            <p>Fitur teman akan tersedia pada update berikutnya.</p>
+        </div>
+
+        <button class="back" onclick="showScreen('homeScreen')">
+            ← Kembali
+        </button>
+
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section id="leaderboardScreen" class="screen">
+
+        <div class="card">
+
+            <h2>🏆 Leaderboard</h2>
+
+            <div id="leaderboardList">
+                <div class="loading">
+                    Memuat leaderboard...
+                </div>
+            </div>
+
+        </div>
+
+        <button class="back" onclick="showScreen('homeScreen')">
+            ← Kembali
+        </button>
+
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profileScreen" class="screen">
+
+        <div class="card">
+
+            <h2>👤 Profile</h2>
+
+            <div class="profile-row">
+                <span class="muted">Nama</span>
+                <strong id="profileName">-</strong>
+            </div>
+
+            <div class="profile-row">
+                <span class="muted">Username</span>
+                <strong id="profileUsername">-</strong>
+            </div>
+
+            <div class="profile-row">
+                <span class="muted">Telegram ID</span>
+                <strong id="profileTelegramId">-</strong>
+            </div>
+
+            <div class="profile-row">
+                <span class="muted">Rating</span>
+                <strong id="profileRating">1000</strong>
+            </div>
+
+        </div>
+
+        <button class="back" onclick="showScreen('homeScreen')">
+            ← Kembali
+        </button>
+
+    </section>
 
 </div>
 
-</div>
-
-<div id="toast"></div>
-
+<div id="toast" class="toast"></div>
 
 <script>
 
@@ -713,72 +731,224 @@ const supabaseClient =
    TELEGRAM
 ========================================================= */
 
-const tg =
-    window.Telegram.WebApp;
+const tg = window.Telegram &&
+           window.Telegram.WebApp
+           ? window.Telegram.WebApp
+           : null;
 
-tg.ready();
-tg.expand();
-
-let myUserId = null;
 let myTelegramUser = null;
+let myUserId = null;
 let myRating = 1000;
 
 
-function loadTelegramUser(){
+/* =========================================================
+   PRIVATE ROOM
+========================================================= */
 
-    const user =
-        tg.initDataUnsafe &&
-        tg.initDataUnsafe.user;
+let privateRoomId = null;
+let privateRoomCode = null;
+let privateIsHost = false;
 
-    if(!user){
+let privateRoomChannel = null;
+let privateGameChannel = null;
+let privatePollTimer = null;
+let privateGamePollTimer = null;
 
-        document.getElementById("welcome").textContent =
-            "Buka game melalui Telegram";
 
-        return;
+/* =========================================================
+   BOT
+========================================================= */
+
+let botDifficulty = "easy";
+
+
+/* =========================================================
+   CHESS STATE
+========================================================= */
+
+let boardState = [];
+let selectedSquare = null;
+let legalTargets = [];
+
+let currentTurn = "white";
+
+let gameMode = null;
+let currentGameId = null;
+
+let whiteTime = 300;
+let blackTime = 300;
+let timerInterval = null;
+
+let gameOver = false;
+
+let privateWhitePlayer = null;
+let privateBlackPlayer = null;
+
+
+/* =========================================================
+   PIECES
+========================================================= */
+
+const PIECES = {
+
+    white:{
+        rook:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg",
+
+        knight:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/knight.svg",
+
+        bishop:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/bishop.svg",
+
+        queen:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/queen.svg",
+
+        king:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/king.svg",
+
+        pawn:
+        "https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
+    },
+
+    black:{
+        rook:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg",
+
+        knight:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg",
+
+        bishop:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg",
+
+        queen:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/queen.svg",
+
+        king:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/king.svg",
+
+        pawn:
+        "https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
     }
 
-    myTelegramUser = user;
+};
 
-    myUserId =
-        Number(user.id);
 
-    const fullName =
-        ((user.first_name || "") +
-        " " +
-        (user.last_name || "")).trim();
+/* =========================================================
+   UTILITY
+========================================================= */
 
-    document.getElementById("welcome").textContent =
-        "Halo, " +
-        (fullName || "Player");
+function toast(message){
 
-    document.getElementById("telegramName").textContent =
-        user.username
-            ? "@" + user.username
-            : fullName;
+    const el =
+        document.getElementById("toast");
 
-    document.getElementById("profileName").textContent =
-        fullName || "-";
+    el.textContent = message;
 
-    document.getElementById("profileUsername").textContent =
-        user.username
-            ? "@" + user.username
-            : "-";
+    el.classList.add("show");
 
-    document.getElementById("profileId").textContent =
-        user.id;
+    clearTimeout(el._timer);
 
-    if(user.photo_url){
-
-        document.getElementById("avatar").src =
-            user.photo_url;
-    }
-
-    saveUser();
+    el._timer =
+        setTimeout(()=>{
+            el.classList.remove("show");
+        },3000);
 }
 
 
-async function saveUser(){
+function showScreen(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(el=>{
+            el.classList.remove("active");
+        });
+
+    const screen =
+        document.getElementById(id);
+
+    if(screen){
+        screen.classList.add("active");
+    }
+}
+
+
+function randomRoomCode(){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code = "";
+
+    for(let i=0;i<6;i++){
+        code += chars[
+            Math.floor(Math.random()*chars.length)
+        ];
+    }
+
+    return code;
+}
+
+
+function sleep(ms){
+    return new Promise(resolve=>setTimeout(resolve,ms));
+}
+
+
+/* =========================================================
+   TELEGRAM USER
+========================================================= */
+
+async function loadTelegramUser(){
+
+    if(tg){
+
+        try{
+            tg.ready();
+            tg.expand();
+        }catch(e){
+            console.warn(e);
+        }
+
+        if(tg.initDataUnsafe &&
+           tg.initDataUnsafe.user){
+
+            myTelegramUser =
+                tg.initDataUnsafe.user;
+
+            myUserId =
+                Number(myTelegramUser.id);
+
+            updateUserUI();
+
+            /*
+             * IMPORTANT:
+             * Tunggu saveUser selesai.
+             * Ini mencegah foreign key error.
+             */
+            await saveUser();
+
+            await loadRating();
+            await loadLeaderboard();
+
+            return;
+        }
+    }
+
+    /*
+     * Fallback untuk testing browser.
+     */
+    document.getElementById("userName").textContent =
+        "Browser Mode";
+
+    document.getElementById("userUsername").textContent =
+        "Telegram tidak terdeteksi";
+
+    await loadLeaderboard();
+}
+
+
+function updateUserUI(){
 
     if(!myTelegramUser)
         return;
@@ -791,16 +961,70 @@ async function saveUser(){
         " " +
         (user.last_name || "")).trim();
 
-    const {
-        data,
-        error
-    } =
+    document.getElementById("userName").textContent =
+        fullName || "Telegram User";
+
+    document.getElementById("userUsername").textContent =
+        user.username
+        ? "@" + user.username
+        : "Telegram User";
+
+    document.getElementById("profileName").textContent =
+        fullName || "-";
+
+    document.getElementById("profileUsername").textContent =
+        user.username
+        ? "@" + user.username
+        : "-";
+
+    document.getElementById("profileTelegramId").textContent =
+        user.id || "-";
+
+    if(user.photo_url){
+
+        document.getElementById("avatar").src =
+            user.photo_url;
+
+    }else{
+
+        document.getElementById("avatar").src =
+            "https://ui-avatars.com/api/?name=" +
+            encodeURIComponent(fullName || "User");
+
+    }
+}
+
+
+/* =========================================================
+   SAVE USER
+========================================================= */
+
+async function saveUser(){
+
+    if(!myTelegramUser)
+        return false;
+
+    const user =
+        myTelegramUser;
+
+    const fullName =
+        ((user.first_name || "") +
+        " " +
+        (user.last_name || "")).trim();
+
+    const { data, error } =
         await supabaseClient
         .from("users")
         .upsert({
+
             telegram_id:Number(user.id),
-            name:fullName,
-            username:user.username || null
+
+            name:
+                fullName || "Telegram User",
+
+            username:
+                user.username || null
+
         },{
             onConflict:"telegram_id"
         })
@@ -811,6 +1035,106 @@ async function saveUser(){
 
         console.error(
             "SAVE USER:",
+            error
+        );
+
+        toast(
+            "Gagal menyimpan data user: " +
+            error.message
+        );
+
+        return false;
+    }
+
+    if(data){
+
+        myRating =
+            Number(data.rating || 1000);
+
+        document.getElementById("rating").textContent =
+            myRating;
+
+        document.getElementById("profileRating").textContent =
+            myRating;
+    }
+
+    return true;
+}
+
+
+/*
+ * EXTRA SAFETY
+ *
+ * Fungsi ini dipanggil tepat sebelum
+ * insert ke room_players.
+ *
+ * Jadi walaupun user baru saja membuka
+ * Mini App, foreign key tetap aman.
+ */
+async function ensureUserExists(){
+
+    if(!myTelegramUser || !myUserId){
+
+        throw new Error(
+            "Telegram user belum terdeteksi."
+        );
+    }
+
+    const user =
+        myTelegramUser;
+
+    const fullName =
+        ((user.first_name || "") +
+        " " +
+        (user.last_name || "")).trim();
+
+    const { error } =
+        await supabaseClient
+        .from("users")
+        .upsert({
+
+            telegram_id:Number(user.id),
+
+            name:
+                fullName || "Telegram User",
+
+            username:
+                user.username || null
+
+        },{
+            onConflict:"telegram_id"
+        });
+
+    if(error){
+
+        console.error(
+            "ENSURE USER:",
+            error
+        );
+
+        throw error;
+    }
+
+    return true;
+}
+
+
+async function loadRating(){
+
+    if(!myUserId)
+        return;
+
+    const { data,error } =
+        await supabaseClient
+        .from("users")
+        .select("rating")
+        .eq("telegram_id",Number(myUserId))
+        .maybeSingle();
+
+    if(error){
+
+        console.error(
+            "LOAD RATING:",
             error
         );
 
@@ -832,1839 +1156,83 @@ async function saveUser(){
 
 
 /* =========================================================
-   SCREEN
+   LEADERBOARD
 ========================================================= */
 
-function showScreen(id){
+async function loadLeaderboard(){
 
-    document
-        .querySelectorAll(".screen")
-        .forEach(
-            el => el.classList.remove("active")
-        );
+    const container =
+        document.getElementById("leaderboardList");
 
-    const screen =
-        document.getElementById(id);
-
-    if(screen)
-        screen.classList.add("active");
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer = null;
-
-function toast(message){
-
-    const el =
-        document.getElementById("toast");
-
-    el.textContent =
-        message;
-
-    el.style.display =
-        "block";
-
-    clearTimeout(toastTimer);
-
-    toastTimer =
-        setTimeout(()=>{
-            el.style.display =
-                "none";
-        },3500);
-}
-
-
-/* =========================================================
-   PIECES
-========================================================= */
-
-const PIECES = {
-
-    w:{
-        p:"https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg",
-        r:"https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg",
-        n:"https://sashite.dev/assets/chess/sides/first/representations/western/knight.svg",
-        b:"https://sashite.dev/assets/chess/sides/first/representations/western/bishop.svg",
-        q:"https://sashite.dev/assets/chess/sides/first/representations/western/queen.svg",
-        k:"https://sashite.dev/assets/chess/sides/first/representations/western/king.svg"
-    },
-
-    b:{
-        p:"https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg",
-        r:"https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg",
-        n:"https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg",
-        b:"https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg",
-        q:"https://sashite.dev/assets/chess/sides/second/representations/western/queen.svg",
-        k:"https://sashite.dev/assets/chess/sides/second/representations/western/king.svg"
-    }
-
-};
-
-
-/* =========================================================
-   CHESS STATE
-========================================================= */
-
-const initialBoard = [
-
-    ["br","bn","bb","bq","bk","bb","bn","br"],
-    ["bp","bp","bp","bp","bp","bp","bp","bp"],
-    [null,null,null,null,null,null,null,null],
-    [null,null,null,null,null,null,null,null],
-    [null,null,null,null,null,null,null,null],
-    [null,null,null,null,null,null,null,null],
-    ["wp","wp","wp","wp","wp","wp","wp","wp"],
-    ["wr","wn","wb","wq","wk","wb","wn","wr"]
-
-];
-
-let boardState = null;
-
-let selectedSquare = null;
-
-let currentTurn = "w";
-
-let gameMode = null;
-
-let botLevel = "easy";
-
-let playerColor = "w";
-
-let botColor = "b";
-
-let botThinking = false;
-
-let gameTimer = null;
-
-let whiteTime = 600;
-
-let blackTime = 600;
-
-
-/* =========================================================
-   PRIVATE STATE
-========================================================= */
-
-let privateRoomId = null;
-
-let privateRoomCode = null;
-
-let privateGameId = null;
-
-let privateIsHost = false;
-
-let privateRoomChannel = null;
-
-let privateGameChannel = null;
-
-let privatePollTimer = null;
-
-let privateStartingGame = false;
-
-
-/* =========================================================
-   CHESS HELPERS
-========================================================= */
-
-function cloneBoard(board){
-
-    return board.map(
-        row => row.map(
-            piece => piece ? piece : null
-        )
-    );
-}
-
-
-function createInitialBoard(){
-
-    return cloneBoard(
-        initialBoard
-    );
-}
-
-
-function inside(r,c){
-
-    return (
-        r >= 0 &&
-        r < 8 &&
-        c >= 0 &&
-        c < 8
-    );
-}
-
-
-function colorOf(piece){
-
-    return piece
-        ? piece[0]
-        : null;
-}
-
-
-function typeOf(piece){
-
-    return piece
-        ? piece[1]
-        : null;
-}
-
-
-function opposite(color){
-
-    return color === "w"
-        ? "b"
-        : "w";
-}
-
-
-/* =========================================================
-   ATTACK
-========================================================= */
-
-function isSquareAttacked(
-    board,
-    r,
-    c,
-    byColor
-){
-
-    const pawnDir =
-        byColor === "w"
-            ? -1
-            : 1;
-
-    const pawnRow =
-        r - pawnDir;
-
-    for(
-        const dc of [-1,1]
-    ){
-
-        const pc =
-            c + dc;
-
-        if(
-            inside(
-                pawnRow,
-                pc
-            )
-        ){
-
-            if(
-                board[pawnRow][pc] ===
-                byColor + "p"
-            ){
-                return true;
-            }
-        }
-    }
-
-
-    const knightMoves = [
-
-        [-2,-1],
-        [-2,1],
-        [-1,-2],
-        [-1,2],
-        [1,-2],
-        [1,2],
-        [2,-1],
-        [2,1]
-
-    ];
-
-
-    for(
-        const [dr,dc]
-        of knightMoves
-    ){
-
-        const nr =
-            r + dr;
-
-        const nc =
-            c + dc;
-
-        if(
-            inside(nr,nc) &&
-            board[nr][nc] ===
-            byColor + "n"
-        ){
-            return true;
-        }
-    }
-
-
-    const diagonal = [
-
-        [-1,-1],
-        [-1,1],
-        [1,-1],
-        [1,1]
-
-    ];
-
-
-    for(
-        const [dr,dc]
-        of diagonal
-    ){
-
-        let nr =
-            r + dr;
-
-        let nc =
-            c + dc;
-
-        while(
-            inside(nr,nc)
-        ){
-
-            const p =
-                board[nr][nc];
-
-            if(p){
-
-                if(
-                    colorOf(p) === byColor &&
-                    (
-                        typeOf(p) === "b" ||
-                        typeOf(p) === "q"
-                    )
-                ){
-                    return true;
-                }
-
-                break;
-            }
-
-            nr += dr;
-            nc += dc;
-        }
-    }
-
-
-    const straight = [
-
-        [-1,0],
-        [1,0],
-        [0,-1],
-        [0,1]
-
-    ];
-
-
-    for(
-        const [dr,dc]
-        of straight
-    ){
-
-        let nr =
-            r + dr;
-
-        let nc =
-            c + dc;
-
-        while(
-            inside(nr,nc)
-        ){
-
-            const p =
-                board[nr][nc];
-
-            if(p){
-
-                if(
-                    colorOf(p) === byColor &&
-                    (
-                        typeOf(p) === "r" ||
-                        typeOf(p) === "q"
-                    )
-                ){
-                    return true;
-                }
-
-                break;
-            }
-
-            nr += dr;
-            nc += dc;
-        }
-    }
-
-
-    for(
-        let dr=-1;
-        dr<=1;
-        dr++
-    ){
-
-        for(
-            let dc=-1;
-            dc<=1;
-            dc++
-        ){
-
-            if(
-                dr===0 &&
-                dc===0
-            ){
-                continue;
-            }
-
-            const nr =
-                r + dr;
-
-            const nc =
-                c + dc;
-
-            if(
-                inside(nr,nc) &&
-                board[nr][nc] ===
-                byColor + "k"
-            ){
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-
-function findKing(board,color){
-
-    for(
-        let r=0;
-        r<8;
-        r++
-    ){
-
-        for(
-            let c=0;
-            c<8;
-            c++
-        ){
-
-            if(
-                board[r][c] ===
-                color + "k"
-            ){
-                return [r,c];
-            }
-        }
-    }
-
-    return null;
-}
-
-
-function isInCheck(
-    board,
-    color
-){
-
-    const king =
-        findKing(
-            board,
-            color
-        );
-
-    if(!king)
-        return true;
-
-    return isSquareAttacked(
-        board,
-        king[0],
-        king[1],
-        opposite(color)
-    );
-}
-
-
-/* =========================================================
-   MOVES
-========================================================= */
-
-function pseudoMoves(
-    board,
-    r,
-    c
-){
-
-    const piece =
-        board[r][c];
-
-    if(!piece)
-        return [];
-
-    const color =
-        colorOf(piece);
-
-    const type =
-        typeOf(piece);
-
-    const moves=[];
-
-
-    if(type==="p"){
-
-        const dir =
-            color==="w"
-                ? -1
-                : 1;
-
-        const startRow =
-            color==="w"
-                ? 6
-                : 1;
-
-        const oneR =
-            r + dir;
-
-        if(
-            inside(oneR,c) &&
-            !board[oneR][c]
-        ){
-
-            moves.push([
-                oneR,
-                c
-            ]);
-
-            const twoR =
-                r + dir*2;
-
-            if(
-                r===startRow &&
-                !board[twoR][c]
-            ){
-
-                moves.push([
-                    twoR,
-                    c
-                ]);
-            }
-        }
-
-
-        for(
-            const dc of [-1,1]
-        ){
-
-            const nr =
-                r + dir;
-
-            const nc =
-                c + dc;
-
-            if(
-                inside(nr,nc) &&
-                board[nr][nc] &&
-                colorOf(board[nr][nc]) !== color
-            ){
-
-                moves.push([
-                    nr,
-                    nc
-                ]);
-            }
-        }
-    }
-
-
-    if(type==="n"){
-
-        const offsets=[
-
-            [-2,-1],
-            [-2,1],
-            [-1,-2],
-            [-1,2],
-            [1,-2],
-            [1,2],
-            [2,-1],
-            [2,1]
-
-        ];
-
-        for(
-            const [dr,dc]
-            of offsets
-        ){
-
-            const nr =
-                r + dr;
-
-            const nc =
-                c + dc;
-
-            if(!inside(nr,nc))
-                continue;
-
-            if(
-                !board[nr][nc] ||
-                colorOf(board[nr][nc]) !== color
-            ){
-
-                moves.push([
-                    nr,
-                    nc
-                ]);
-            }
-        }
-    }
-
-
-    if(
-        type==="b" ||
-        type==="r" ||
-        type==="q"
-    ){
-
-        const dirs=[];
-
-
-        if(
-            type==="b" ||
-            type==="q"
-        ){
-
-            dirs.push(
-                [-1,-1],
-                [-1,1],
-                [1,-1],
-                [1,1]
-            );
-        }
-
-
-        if(
-            type==="r" ||
-            type==="q"
-        ){
-
-            dirs.push(
-                [-1,0],
-                [1,0],
-                [0,-1],
-                [0,1]
-            );
-        }
-
-
-        for(
-            const [dr,dc]
-            of dirs
-        ){
-
-            let nr =
-                r + dr;
-
-            let nc =
-                c + dc;
-
-            while(
-                inside(nr,nc)
-            ){
-
-                if(
-                    !board[nr][nc]
-                ){
-
-                    moves.push([
-                        nr,
-                        nc
-                    ]);
-
-                }else{
-
-                    if(
-                        colorOf(board[nr][nc]) !== color
-                    ){
-
-                        moves.push([
-                            nr,
-                            nc
-                        ]);
-                    }
-
-                    break;
-                }
-
-                nr += dr;
-                nc += dc;
-            }
-        }
-    }
-
-
-    if(type==="k"){
-
-        for(
-            let dr=-1;
-            dr<=1;
-            dr++
-        ){
-
-            for(
-                let dc=-1;
-                dc<=1;
-                dc++
-            ){
-
-                if(
-                    dr===0 &&
-                    dc===0
-                ){
-                    continue;
-                }
-
-                const nr =
-                    r + dr;
-
-                const nc =
-                    c + dc;
-
-                if(!inside(nr,nc))
-                    continue;
-
-                if(
-                    !board[nr][nc] ||
-                    colorOf(board[nr][nc]) !== color
-                ){
-
-                    moves.push([
-                        nr,
-                        nc
-                    ]);
-                }
-            }
-        }
-    }
-
-
-    return moves;
-}
-
-
-function legalMoves(
-    board,
-    r,
-    c
-){
-
-    const piece =
-        board[r][c];
-
-    if(!piece)
-        return [];
-
-    const color =
-        colorOf(piece);
-
-    const candidates =
-        pseudoMoves(
-            board,
-            r,
-            c
-        );
-
-    const legal=[];
-
-
-    for(
-        const [tr,tc]
-        of candidates
-    ){
-
-        const copy =
-            cloneBoard(board);
-
-        copy[tr][tc] =
-            copy[r][c];
-
-        copy[r][c]=null;
-
-
-        if(
-            typeOf(copy[tr][tc])==="p" &&
-            (
-                tr===0 ||
-                tr===7
-            )
-        ){
-
-            copy[tr][tc] =
-                color + "q";
-        }
-
-
-        if(
-            !isInCheck(
-                copy,
-                color
-            )
-        ){
-
-            legal.push([
-                tr,
-                tc
-            ]);
-        }
-    }
-
-    return legal;
-}
-
-
-function allLegalMoves(
-    board,
-    color
-){
-
-    const result=[];
-
-
-    for(
-        let r=0;
-        r<8;
-        r++
-    ){
-
-        for(
-            let c=0;
-            c<8;
-            c++
-        ){
-
-            if(
-                board[r][c] &&
-                colorOf(board[r][c]) === color
-            ){
-
-                const moves =
-                    legalMoves(
-                        board,
-                        r,
-                        c
-                    );
-
-                for(
-                    const [tr,tc]
-                    of moves
-                ){
-
-                    result.push({
-                        fr:r,
-                        fc:c,
-                        tr:tr,
-                        tc:tc
-                    });
-                }
-            }
-        }
-    }
-
-    return result;
-}
-
-
-/* =========================================================
-   BOARD
-========================================================= */
-
-function renderBoard(){
-
-    const board =
-        document.getElementById("board");
-
-    board.innerHTML="";
-
-
-    for(
-        let r=0;
-        r<8;
-        r++
-    ){
-
-        for(
-            let c=0;
-            c<8;
-            c++
-        ){
-
-            const square =
-                document.createElement("div");
-
-            square.className =
-                "square " +
-                (
-                    (r+c)%2===0
-                        ? "light"
-                        : "dark"
-                );
-
-
-            if(
-                selectedSquare &&
-                selectedSquare[0]===r &&
-                selectedSquare[1]===c
-            ){
-
-                square.classList.add(
-                    "selected"
-                );
-            }
-
-
-            if(selectedSquare){
-
-                const legal =
-                    legalMoves(
-                        boardState,
-                        selectedSquare[0],
-                        selectedSquare[1]
-                    );
-
-
-                if(
-                    legal.some(
-                        m =>
-                        m[0]===r &&
-                        m[1]===c
-                    )
-                ){
-
-                    if(
-                        boardState[r][c]
-                    ){
-
-                        square.classList.add(
-                            "capture"
-                        );
-
-                    }else{
-
-                        square.classList.add(
-                            "legal"
-                        );
-                    }
-                }
-            }
-
-
-            const piece =
-                boardState[r][c];
-
-
-            if(piece){
-
-                const img =
-                    document.createElement("img");
-
-                img.className =
-                    "piece " +
-                    (
-                        colorOf(piece)==="w"
-                            ? "white-piece"
-                            : "black-piece"
-                    );
-
-                img.src =
-                    PIECES[
-                        colorOf(piece)
-                    ][
-                        typeOf(piece)
-                    ];
-
-                square.appendChild(img);
-            }
-
-
-            square.onclick =
-                () =>
-                handleSquareClick(
-                    r,
-                    c
-                );
-
-            board.appendChild(square);
-        }
-    }
-}
-
-
-async function handleSquareClick(
-    r,
-    c
-){
-
-    if(!boardState)
+    if(!container)
         return;
 
-
-    if(
-        currentTurn !==
-        playerColor
-    ){
-        return;
-    }
-
-
-    if(
-        gameMode==="bot" &&
-        botThinking
-    ){
-        return;
-    }
-
-
-    const piece =
-        boardState[r][c];
-
-
-    if(selectedSquare){
-
-        const [
-            sr,
-            sc
-        ] =
-            selectedSquare;
-
-
-        const legal =
-            legalMoves(
-                boardState,
-                sr,
-                sc
-            );
-
-
-        const allowed =
-            legal.some(
-                m =>
-                m[0]===r &&
-                m[1]===c
-            );
-
-
-        if(allowed){
-
-            if(
-                gameMode==="private"
-            ){
-
-                await privatePlayerMove(
-                    sr,
-                    sc,
-                    r,
-                    c
-                );
-
-            }else{
-
-                makeMove(
-                    sr,
-                    sc,
-                    r,
-                    c
-                );
-            }
-
-            return;
-        }
-    }
-
-
-    if(
-        piece &&
-        colorOf(piece)===currentTurn
-    ){
-
-        selectedSquare=[
-            r,
-            c
-        ];
-
-        renderBoard();
-
-        return;
-    }
-
-
-    selectedSquare=null;
-
-    renderBoard();
-}
-
-
-/* =========================================================
-   LOCAL MOVE / BOT
-========================================================= */
-
-function makeMove(
-    fr,
-    fc,
-    tr,
-    tc
-){
-
-    boardState[tr][tc] =
-        boardState[fr][fc];
-
-    boardState[fr][fc]=null;
-
-
-    if(
-        typeOf(boardState[tr][tc])==="p" &&
-        (
-            tr===0 ||
-            tr===7
-        )
-    ){
-
-        boardState[tr][tc] =
-            colorOf(
-                boardState[tr][tc]
-            ) + "q";
-    }
-
-
-    selectedSquare=null;
-
-    currentTurn =
-        opposite(
-            currentTurn
-        );
-
-
-    renderBoard();
-
-    updateTurnText();
-
-    checkGameState();
-
-
-    if(
-        gameMode==="bot" &&
-        currentTurn===botColor
-    ){
-
-        botThinking=true;
-
-        setTimeout(
-            botMove,
-            350
-        );
-    }
-}
-
-
-function updateTurnText(){
-
-    const el =
-        document.getElementById(
-            "turnLabel"
-        );
-
-    el.textContent =
-        currentTurn==="w"
-            ? "Giliran putih"
-            : "Giliran hitam";
-}
-
-
-function checkGameState(){
-
-    const moves =
-        allLegalMoves(
-            boardState,
-            currentTurn
-        );
-
-
-    if(!moves.length){
-
-        stopTimer();
-
-        if(
-            isInCheck(
-                boardState,
-                currentTurn
-            )
-        ){
-
-            toast(
-                opposite(currentTurn)==="w"
-                    ? "♔ Putih menang — Checkmate!"
-                    : "♚ Hitam menang — Checkmate!"
-            );
-
-        }else{
-
-            toast(
-                "Remis — Stalemate!"
-            );
-        }
-
-        return true;
-    }
-
-    return false;
-}
-
-
-/* =========================================================
-   TIMER
-========================================================= */
-
-function formatTime(
-    seconds
-){
-
-    seconds =
-        Math.max(
-            0,
-            seconds
-        );
-
-    const m =
-        Math.floor(
-            seconds / 60
-        );
-
-    const s =
-        seconds % 60;
-
-    return (
-        String(m).padStart(2,"0") +
-        ":" +
-        String(s).padStart(2,"0")
-    );
-}
-
-
-function updateTimers(){
-
-    document.getElementById(
-        "whiteTimer"
-    ).textContent =
-        formatTime(
-            whiteTime
-        );
-
-    document.getElementById(
-        "blackTimer"
-    ).textContent =
-        formatTime(
-            blackTime
-        );
-}
-
-
-function startTimer(){
-
-    stopTimer();
-
-    gameTimer =
-        setInterval(
-            ()=>{
-
-                if(
-                    currentTurn==="w"
-                ){
-
-                    whiteTime--;
-
-                    if(
-                        whiteTime<=0
-                    ){
-
-                        whiteTime=0;
-
-                        stopTimer();
-
-                        toast(
-                            "⏱️ Waktu putih habis!"
-                        );
-
-                        return;
-                    }
-
-                }else{
-
-                    blackTime--;
-
-                    if(
-                        blackTime<=0
-                    ){
-
-                        blackTime=0;
-
-                        stopTimer();
-
-                        toast(
-                            "⏱️ Waktu hitam habis!"
-                        );
-
-                        return;
-                    }
-                }
-
-                updateTimers();
-
-            },
-            1000
-        );
-}
-
-
-function stopTimer(){
-
-    if(gameTimer){
-
-        clearInterval(
-            gameTimer
-        );
-
-        gameTimer=null;
-    }
-}
-
-
-/* =========================================================
-   BOT
-========================================================= */
-
-const pieceValue={
-    p:100,
-    n:320,
-    b:330,
-    r:500,
-    q:900,
-    k:20000
-};
-
-
-function evaluateBoard(board){
-
-    let score=0;
-
-
-    for(
-        let r=0;
-        r<8;
-        r++
-    ){
-
-        for(
-            let c=0;
-            c<8;
-            c++
-        ){
-
-            const p =
-                board[r][c];
-
-            if(!p)
-                continue;
-
-            const value =
-                pieceValue[
-                    typeOf(p)
-                ];
-
-            score +=
-                colorOf(p)==="b"
-                    ? value
-                    : -value;
-        }
-    }
-
-    return score;
-}
-
-
-function randomBotMove(){
-
-    const moves =
-        allLegalMoves(
-            boardState,
-            botColor
-        );
-
-    if(!moves.length)
-        return null;
-
-    return moves[
-        Math.floor(
-            Math.random() *
-            moves.length
-        )
-    ];
-}
-
-
-function normalBotMove(){
-
-    const moves =
-        allLegalMoves(
-            boardState,
-            botColor
-        );
-
-    if(!moves.length)
-        return null;
-
-    let best=-Infinity;
-
-    let choices=[];
-
-
-    for(
-        const move of moves
-    ){
-
-        const copy =
-            cloneBoard(
-                boardState
-            );
-
-        copy[move.tr][move.tc] =
-            copy[move.fr][move.fc];
-
-        copy[move.fr][move.fc]=null;
-
-
-        if(
-            typeOf(
-                copy[move.tr][move.tc]
-            )==="p" &&
-            (
-                move.tr===0 ||
-                move.tr===7
-            )
-        ){
-
-            copy[move.tr][move.tc] =
-                botColor+"q";
-        }
-
-
-        const score =
-            evaluateBoard(
-                copy
-            );
-
-
-        const capture =
-            boardState[
-                move.tr
-            ][
-                move.tc
-            ];
-
-
-        const bonus =
-            capture
-                ? pieceValue[
-                    typeOf(capture)
-                  ]
-                : 0;
-
-
-        const total =
-            botColor==="b"
-                ? score+bonus
-                : -score+bonus;
-
-
-        if(total>best){
-
-            best=total;
-            choices=[move];
-
-        }else if(total===best){
-
-            choices.push(move);
-        }
-    }
-
-
-    return choices[
-        Math.floor(
-            Math.random() *
-            choices.length
-        )
-    ];
-}
-
-
-function hardBotMove(){
-
-    const moves =
-        allLegalMoves(
-            boardState,
-            botColor
-        );
-
-    if(!moves.length)
-        return null;
-
-    let bestMove=null;
-
-    let bestScore=-Infinity;
-
-
-    for(
-        const move of moves
-    ){
-
-        const copy =
-            cloneBoard(
-                boardState
-            );
-
-        copy[move.tr][move.tc] =
-            copy[move.fr][move.fc];
-
-        copy[move.fr][move.fc]=null;
-
-
-        if(
-            typeOf(
-                copy[move.tr][move.tc]
-            )==="p" &&
-            (
-                move.tr===0 ||
-                move.tr===7
-            )
-        ){
-
-            copy[move.tr][move.tc] =
-                botColor+"q";
-        }
-
-
-        let score =
-            evaluateBoard(
-                copy
-            );
-
-
-        const enemyMoves =
-            allLegalMoves(
-                copy,
-                opposite(botColor)
-            );
-
-
-        if(enemyMoves.length){
-
-            let worst=Infinity;
-
-
-            for(
-                const enemyMove
-                of enemyMoves
-            ){
-
-                const next =
-                    cloneBoard(
-                        copy
-                    );
-
-                next[
-                    enemyMove.tr
-                ][
-                    enemyMove.tc
-                ] =
-                    next[
-                        enemyMove.fr
-                    ][
-                        enemyMove.fc
-                    ];
-
-                next[
-                    enemyMove.fr
-                ][
-                    enemyMove.fc
-                ]=null;
-
-
-                const v =
-                    evaluateBoard(
-                        next
-                    );
-
-
-                const perspective =
-                    botColor==="b"
-                        ? v
-                        : -v;
-
-
-                worst =
-                    Math.min(
-                        worst,
-                        perspective
-                    );
-            }
-
-
-            score =
-                botColor==="b"
-                    ? worst
-                    : -worst;
-        }
-
-
-        const capture =
-            boardState[
-                move.tr
-            ][
-                move.tc
-            ];
-
-
-        if(capture){
-
-            score +=
-                pieceValue[
-                    typeOf(capture)
-                ] / 10;
-        }
-
-
-        if(
-            score>bestScore
-        ){
-
-            bestScore=score;
-
-            bestMove=move;
-        }
-    }
-
-
-    return bestMove || moves[0];
-}
-
-
-function botMove(){
-
-    if(
-        gameMode!=="bot" ||
-        currentTurn!==botColor
-    ){
-
-        botThinking=false;
-
-        return;
-    }
-
-
-    let move=null;
-
-
-    if(
-        botLevel==="easy"
-    ){
-        move=randomBotMove();
-    }
-
-
-    if(
-        botLevel==="normal"
-    ){
-        move=normalBotMove();
-    }
-
-
-    if(
-        botLevel==="hard"
-    ){
-        move=hardBotMove();
-    }
-
-
-    if(!move){
-
-        botThinking=false;
-
-        checkGameState();
-
-        return;
-    }
-
-
-    makeMove(
-        move.fr,
-        move.fc,
-        move.tr,
-        move.tc
-    );
-
-    botThinking=false;
-}
-
-
-/* =========================================================
-   START BOT
-========================================================= */
-
-function startBotGame(
-    level
-){
-
-    gameMode="bot";
-
-    botLevel=level;
-
-    playerColor="w";
-
-    botColor="b";
-
-    boardState =
-        createInitialBoard();
-
-    currentTurn="w";
-
-    selectedSquare=null;
-
-    whiteTime=600;
-
-    blackTime=600;
-
-    botThinking=false;
-
-
-    document.getElementById(
-        "opponentLabel"
-    ).textContent =
-        "🤖 Bot — " +
-        level.charAt(0).toUpperCase() +
-        level.slice(1);
-
-
-    updateTimers();
-
-    showScreen(
-        "gameScreen"
-    );
-
-    renderBoard();
-
-    updateTurnText();
-
-    startTimer();
-}
-
-
-/* =========================================================
-   PRIVATE ROOM HELPERS
-========================================================= */
-
-function generateRoomCode(){
-
-    const chars =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-    let code="";
-
-    for(
-        let i=0;
-        i<6;
-        i++
-    ){
-
-        code +=
-            chars[
-                Math.floor(
-                    Math.random() *
-                    chars.length
-                )
-            ];
-    }
-
-    return code;
-}
-
-
-function stopPrivatePolling(){
-
-    if(privatePollTimer){
-
-        clearInterval(
-            privatePollTimer
-        );
-
-        privatePollTimer=null;
-    }
-}
-
-
-function startPrivatePolling(){
-
-    stopPrivatePolling();
-
-    privatePollTimer =
-        setInterval(
-            async ()=>{
-                if(privateRoomId){
-                    await checkPrivateRoom();
-                }
-            },
-            1500
-        );
-}
-
-
-async function getRoomPlayers(
-    roomId
-){
-
-    const {
-        data,
-        error
-    } =
+    const { data,error } =
         await supabaseClient
-        .from("room_players")
-        .select("*")
-        .eq(
-            "room_id",
-            roomId
-        )
-        .order(
-            "joined_at",
-            {
-                ascending:true
-            }
-        );
+        .from("users")
+        .select("telegram_id,name,username,rating")
+        .order("rating",{
+            ascending:false
+        })
+        .limit(20);
 
     if(error){
 
         console.error(
-            "ROOM PLAYERS:",
+            "LEADERBOARD:",
             error
         );
 
-        return null;
+        container.innerHTML =
+            "<div class='loading'>Leaderboard belum tersedia.</div>";
+
+        return;
     }
 
-    return data || [];
+    if(!data || !data.length){
+
+        container.innerHTML =
+            "<div class='loading'>Belum ada pemain.</div>";
+
+        return;
+    }
+
+    container.innerHTML =
+        data.map((user,index)=>{
+
+            const name =
+                user.name ||
+                user.username ||
+                "Player";
+
+            return `
+                <div class="profile-row">
+                    <span>
+                        #${index+1} ${escapeHtml(name)}
+                    </span>
+                    <strong>
+                        ${Number(user.rating || 1000)}
+                    </strong>
+                </div>
+            `;
+
+        }).join("");
+}
+
+
+function escapeHtml(text){
+
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 }
 
 
 /* =========================================================
-   CREATE PRIVATE ROOM
+   PRIVATE ROOM
 ========================================================= */
 
 async function createPrivateRoom(){
@@ -2678,53 +1246,99 @@ async function createPrivateRoom(){
         return;
     }
 
-
-    if(privateRoomId){
-
-        toast(
-            "Kamu sudah berada di room."
-        );
-
-        return;
-    }
-
-
     try{
 
-        const code =
-            generateRoomCode();
+        /*
+         * Pastikan user sudah ada
+         * sebelum membuat room/player.
+         */
+        await ensureUserExists();
 
+        toast("Membuat room...");
 
-        const {
-            data:room,
-            error:roomError
-        } =
-            await supabaseClient
-            .from("rooms")
-            .insert({
-                room_code:code,
-                host_id:Number(myUserId),
-                status:"waiting"
-            })
-            .select()
-            .single();
+        let room = null;
 
+        /*
+         * Coba beberapa kode sampai mendapat
+         * kode room yang belum digunakan.
+         */
+        for(let attempt=0;attempt<5;attempt++){
 
-        if(roomError){
+            const code =
+                randomRoomCode();
 
-            console.error(
-                "CREATE ROOM:",
-                roomError
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                .from("rooms")
+                .insert({
+
+                    room_code:code,
+
+                    host_id:Number(myUserId),
+
+                    status:"waiting"
+
+                })
+                .select()
+                .single();
+
+            if(!error && data){
+
+                room = data;
+                break;
+            }
+
+            console.warn(
+                "CREATE ROOM ATTEMPT:",
+                error
             );
-
-            toast(
-                "Gagal membuat room: " +
-                roomError.message
-            );
-
-            return;
         }
 
+        if(!room){
+
+            throw new Error(
+                "Tidak bisa membuat room."
+            );
+        }
+
+        /*
+         * Host masuk sebagai player putih.
+         */
+        const {
+            error:playerError
+        } =
+            await supabaseClient
+            .from("room_players")
+            .insert({
+
+                room_id:room.id,
+
+                user_id:Number(myUserId),
+
+                color:"white"
+
+            });
+
+        if(playerError){
+
+            console.error(
+                "CREATE ROOM PLAYER:",
+                playerError
+            );
+
+            /*
+             * Bersihkan room jika player gagal dibuat.
+             */
+            await supabaseClient
+                .from("rooms")
+                .delete()
+                .eq("id",room.id);
+
+            throw playerError;
+        }
 
         privateRoomId =
             room.id;
@@ -2732,82 +1346,30 @@ async function createPrivateRoom(){
         privateRoomCode =
             room.room_code;
 
-        privateIsHost=true;
-
-
-        const {
-            error:playerError
-        } =
-            await supabaseClient
-            .from("room_players")
-            .insert({
-                room_id:room.id,
-                user_id:Number(myUserId),
-                color:"white"
-            });
-
-
-        if(playerError){
-
-            console.error(
-                "HOST PLAYER:",
-                playerError
-            );
-
-
-            await supabaseClient
-                .from("rooms")
-                .delete()
-                .eq(
-                    "id",
-                    room.id
-                );
-
-
-            privateRoomId=null;
-
-            privateRoomCode=null;
-
-            toast(
-                "Gagal masuk room: " +
-                playerError.message
-            );
-
-            return;
-        }
-
+        privateIsHost =
+            true;
 
         document.getElementById(
             "privateRoomCode"
         ).textContent =
             privateRoomCode;
 
-
         document.getElementById(
             "privateRoomStatus"
         ).textContent =
-            "Menunggu pemain kedua...";
-
+            "Menunggu teman masuk ke room...";
 
         showScreen(
             "privateRoomScreen"
         );
 
-
         subscribePrivateRoom(
             privateRoomId
         );
 
-
         startPrivatePolling();
 
-
         await checkPrivateRoom();
-
-
-        toast(
-            "Room berhasil dibuat!"
-        );
 
     }catch(error){
 
@@ -2818,18 +1380,11 @@ async function createPrivateRoom(){
 
         toast(
             "Gagal membuat room: " +
-            (
-                error.message ||
-                String(error)
-            )
+            (error.message || String(error))
         );
     }
 }
 
-
-/* =========================================================
-   JOIN PRIVATE ROOM
-========================================================= */
 
 async function joinPrivateRoom(){
 
@@ -2842,18 +1397,15 @@ async function joinPrivateRoom(){
         return;
     }
 
-
     const input =
         document.getElementById(
             "joinRoomInput"
         );
 
-
     const code =
         input.value
         .trim()
         .toUpperCase();
-
 
     if(code.length !== 6){
 
@@ -2864,13 +1416,19 @@ async function joinPrivateRoom(){
         return;
     }
 
-
     try{
 
-        toast(
-            "Mencari room..."
-        );
+        toast("Mencari room...");
 
+        /*
+         * =====================================================
+         * FIX FOREIGN KEY
+         * =====================================================
+         *
+         * Pastikan user yang sedang join sudah ada
+         * di tabel users sebelum room_players.insert().
+         */
+        await ensureUserExists();
 
         const {
             data:room,
@@ -2887,7 +1445,6 @@ async function joinPrivateRoom(){
             )
             .maybeSingle();
 
-
         if(roomError){
 
             console.error(
@@ -2903,7 +1460,6 @@ async function joinPrivateRoom(){
             return;
         }
 
-
         if(!room){
 
             toast(
@@ -2913,7 +1469,6 @@ async function joinPrivateRoom(){
             return;
         }
 
-
         if(room.status !== "waiting"){
 
             toast(
@@ -2922,7 +1477,6 @@ async function joinPrivateRoom(){
 
             return;
         }
-
 
         if(
             Number(room.host_id) ===
@@ -2936,12 +1490,10 @@ async function joinPrivateRoom(){
             return;
         }
 
-
         const players =
             await getRoomPlayers(
                 room.id
             );
-
 
         if(players === null){
 
@@ -2952,14 +1504,12 @@ async function joinPrivateRoom(){
             return;
         }
 
-
         const alreadyJoined =
             players.find(
                 p =>
-                Number(p.user_id) ===
-                Number(myUserId)
+                    Number(p.user_id) ===
+                    Number(myUserId)
             );
-
 
         if(alreadyJoined){
 
@@ -2972,6 +1522,11 @@ async function joinPrivateRoom(){
             privateIsHost =
                 Number(room.host_id) ===
                 Number(myUserId);
+
+            document.getElementById(
+                "privateRoomCode"
+            ).textContent =
+                privateRoomCode;
 
             showScreen(
                 "privateRoomScreen"
@@ -2988,7 +1543,6 @@ async function joinPrivateRoom(){
             return;
         }
 
-
         if(players.length >= 2){
 
             toast(
@@ -2998,22 +1552,24 @@ async function joinPrivateRoom(){
             return;
         }
 
-
         /*
-           PEMAIN KEDUA SELALU BLACK
-        */
-
+         * USER SUDAH DIPASTIKAN ADA
+         * DI TABEL users.
+         */
         const {
             error:joinError
         } =
             await supabaseClient
             .from("room_players")
             .insert({
-                room_id:room.id,
-                user_id:Number(myUserId),
-                color:"black"
-            });
 
+                room_id:room.id,
+
+                user_id:Number(myUserId),
+
+                color:"black"
+
+            });
 
         if(joinError){
 
@@ -3030,43 +1586,36 @@ async function joinPrivateRoom(){
             return;
         }
 
-
         privateRoomId =
             room.id;
 
         privateRoomCode =
             room.room_code;
 
-        privateIsHost=false;
-
+        privateIsHost =
+            false;
 
         document.getElementById(
             "privateRoomCode"
         ).textContent =
             privateRoomCode;
 
-
         document.getElementById(
             "privateRoomStatus"
         ).textContent =
             "Berhasil masuk. Menunggu game dimulai...";
 
-
         showScreen(
             "privateRoomScreen"
         );
-
 
         subscribePrivateRoom(
             privateRoomId
         );
 
-
         startPrivatePolling();
 
-
         await checkPrivateRoom();
-
 
     }catch(error){
 
@@ -3077,58 +1626,181 @@ async function joinPrivateRoom(){
 
         toast(
             "Gagal bergabung: " +
-            (
-                error.message ||
-                String(error)
-            )
+            (error.message || String(error))
         );
     }
 }
 
 
-/* =========================================================
-   CHECK ROOM
-========================================================= */
+async function getRoomPlayers(roomId){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("room_players")
+        .select(
+            "id,room_id,user_id,color,joined_at"
+        )
+        .eq(
+            "room_id",
+            roomId
+        )
+        .order(
+            "joined_at",
+            {ascending:true}
+        );
+
+    if(error){
+
+        console.error(
+            "GET ROOM PLAYERS:",
+            error
+        );
+
+        return null;
+    }
+
+    return data || [];
+}
+
+
+function subscribePrivateRoom(roomId){
+
+    if(privateRoomChannel){
+
+        supabaseClient.removeChannel(
+            privateRoomChannel
+        );
+
+        privateRoomChannel = null;
+    }
+
+    privateRoomChannel =
+        supabaseClient
+        .channel(
+            "private-room-" + roomId
+        )
+        .on(
+            "postgres_changes",
+            {
+                event:"*",
+                schema:"public",
+                table:"room_players",
+                filter:
+                    "room_id=eq." + roomId
+            },
+            async()=>{
+                await checkPrivateRoom();
+            }
+        )
+        .on(
+            "postgres_changes",
+            {
+                event:"*",
+                schema:"public",
+                table:"games",
+                filter:
+                    "room_id=eq." + roomId
+            },
+            async(payload)=>{
+
+                if(payload.new){
+
+                    await handlePrivateGameUpdate(
+                        payload.new
+                    );
+                }
+
+                await checkPrivateRoom();
+            }
+        )
+        .subscribe();
+}
+
+
+function startPrivatePolling(){
+
+    stopPrivatePolling();
+
+    privatePollTimer =
+        setInterval(
+            async()=>{
+                await checkPrivateRoom();
+            },
+            1500
+        );
+}
+
+
+function stopPrivatePolling(){
+
+    if(privatePollTimer){
+
+        clearInterval(
+            privatePollTimer
+        );
+
+        privatePollTimer = null;
+    }
+
+    if(privateGamePollTimer){
+
+        clearInterval(
+            privateGamePollTimer
+        );
+
+        privateGamePollTimer = null;
+    }
+}
+
 
 async function checkPrivateRoom(){
 
     if(!privateRoomId)
         return;
 
-
     const players =
         await getRoomPlayers(
             privateRoomId
         );
 
-
     if(!players)
         return;
 
-
     if(players.length < 2){
 
-        document.getElementById(
-            "privateRoomStatus"
-        ).textContent =
-            "Menunggu pemain kedua...";
+        if(
+            document.getElementById(
+                "privateRoomStatus"
+            )
+        ){
+
+            document.getElementById(
+                "privateRoomStatus"
+            ).textContent =
+                "Menunggu teman masuk ke room...";
+        }
 
         return;
     }
 
+    privateWhitePlayer =
+        players.find(
+            p => p.color === "white"
+        );
 
-    document.getElementById(
-        "privateRoomStatus"
-    ).textContent =
-        "👥 2 pemain terhubung. Menyiapkan game...";
-
+    privateBlackPlayer =
+        players.find(
+            p => p.color === "black"
+        );
 
     /*
-       CEK GAME YANG SUDAH ADA
-    */
-
+     * Cek apakah game sudah ada.
+     */
     const {
-        data:existingGames,
+        data:existingGame,
         error:gameFindError
     } =
         await supabaseClient
@@ -3140,766 +1812,1409 @@ async function checkPrivateRoom(){
         )
         .order(
             "created_at",
-            {
-                ascending:false
-            }
+            {ascending:false}
         )
-        .limit(1);
-
+        .limit(1)
+        .maybeSingle();
 
     if(gameFindError){
 
         console.error(
-            "FIND GAME:",
+            "FIND PRIVATE GAME:",
             gameFindError
         );
 
         return;
     }
 
+    if(existingGame){
 
-    if(
-        existingGames &&
-        existingGames.length
-    ){
-
-        startPrivateGameUI(
-            existingGames[0]
+        await handlePrivateGameUpdate(
+            existingGame
         );
 
         return;
     }
-
 
     /*
-       HANYA HOST YANG MEMBUAT GAME
-    */
+     * Host membuat game.
+     */
+    if(privateIsHost){
 
-    if(!privateIsHost)
+        await createPrivateGame(
+            privateWhitePlayer,
+            privateBlackPlayer
+        );
+    }
+}
+
+
+function initialBoard(){
+
+    return [
+
+        [
+            {type:"rook",color:"black"},
+            {type:"knight",color:"black"},
+            {type:"bishop",color:"black"},
+            {type:"queen",color:"black"},
+            {type:"king",color:"black"},
+            {type:"bishop",color:"black"},
+            {type:"knight",color:"black"},
+            {type:"rook",color:"black"}
+        ],
+
+        [
+            {type:"pawn",color:"black"},
+            {type:"pawn",color:"black"},
+            {type:"pawn",color:"black"},
+            {type:"pawn",color:"black"},
+            {type:"pawn",color:"black"},
+            {type:"pawn",color:"black"},
+            {type:"pawn",color:"black"},
+            {type:"pawn",color:"black"}
+        ],
+
+        [
+            null,null,null,null,
+            null,null,null,null
+        ],
+
+        [
+            null,null,null,null,
+            null,null,null,null
+        ],
+
+        [
+            null,null,null,null,
+            null,null,null,null
+        ],
+
+        [
+            null,null,null,null,
+            null,null,null,null
+        ],
+
+        [
+            {type:"pawn",color:"white"},
+            {type:"pawn",color:"white"},
+            {type:"pawn",color:"white"},
+            {type:"pawn",color:"white"},
+            {type:"pawn",color:"white"},
+            {type:"pawn",color:"white"},
+            {type:"pawn",color:"white"},
+            {type:"pawn",color:"white"}
+        ],
+
+        [
+            {type:"rook",color:"white"},
+            {type:"knight",color:"white"},
+            {type:"bishop",color:"white"},
+            {type:"queen",color:"white"},
+            {type:"king",color:"white"},
+            {type:"bishop",color:"white"},
+            {type:"knight",color:"white"},
+            {type:"rook",color:"white"}
+        ]
+
+    ];
+}
+
+
+async function createPrivateGame(
+    whitePlayer,
+    blackPlayer
+){
+
+    if(!whitePlayer || !blackPlayer)
         return;
 
+    const {
+        data:game,
+        error
+    } =
+        await supabaseClient
+        .from("games")
+        .insert({
 
-    if(privateStartingGame)
-        return;
+            room_id:privateRoomId,
 
+            white_player:
+                Number(whitePlayer.user_id),
 
-    privateStartingGame=true;
+            black_player:
+                Number(blackPlayer.user_id),
 
+            status:"playing",
 
-    try{
+            board_state:
+                initialBoard(),
+
+            turn:"white",
+
+            white_time:300,
+
+            black_time:300
+
+        })
+        .select()
+        .single();
+
+    if(error){
 
         /*
-           Cek sekali lagi supaya tidak
-           terjadi double insert.
-        */
-
-        const {
-            data:doubleCheck
-        } =
-            await supabaseClient
-            .from("games")
-            .select("id")
-            .eq(
-                "room_id",
-                privateRoomId
-            )
-            .limit(1);
-
-
+         * Bisa terjadi race realtime/polling.
+         * Jika game sudah dibuat oleh proses lain,
+         * tidak perlu dianggap error fatal.
+         */
         if(
-            doubleCheck &&
-            doubleCheck.length
+            !String(error.message || "")
+            .toLowerCase()
+            .includes("duplicate")
         ){
 
-            privateStartingGame=false;
-
-            return;
-        }
-
-
-        const white =
-            players.find(
-                p =>
-                p.color === "white"
-            );
-
-
-        const black =
-            players.find(
-                p =>
-                p.color === "black"
-            );
-
-
-        if(!white || !black){
-
-            privateStartingGame=false;
-
-            return;
-        }
-
-
-        const {
-            data:game,
-            error:createGameError
-        } =
-            await supabaseClient
-            .from("games")
-            .insert({
-                room_id:privateRoomId,
-                white_player:Number(
-                    white.user_id
-                ),
-                black_player:Number(
-                    black.user_id
-                ),
-                status:"playing",
-                board_state:createInitialBoard(),
-                turn:"w",
-                white_time:600,
-                black_time:600
-            })
-            .select()
-            .single();
-
-
-        if(createGameError){
-
             console.error(
-                "CREATE GAME:",
-                createGameError
-            );
-
-            /*
-               Kalau ternyata host lain sudah
-               membuat game, jangan tampilkan error
-               fatal.
-            */
-
-            if(
-                createGameError.code ===
-                "23505"
-            ){
-                await checkPrivateRoom();
-            }else{
-
-                toast(
-                    "Gagal membuat game: " +
-                    createGameError.message
-                );
-            }
-
-            privateStartingGame=false;
-
-            return;
-        }
-
-
-        privateStartingGame=false;
-
-
-        if(game){
-
-            startPrivateGameUI(
-                game
+                "CREATE PRIVATE GAME:",
+                error
             );
         }
 
-    }catch(error){
+        return;
+    }
 
-        privateStartingGame=false;
+    if(game){
 
-        console.error(
-            "START PRIVATE GAME:",
-            error
+        await handlePrivateGameUpdate(
+            game
         );
     }
 }
 
 
-/* =========================================================
-   PRIVATE REALTIME ROOM
-========================================================= */
-
-function subscribePrivateRoom(
-    roomId
-){
-
-    if(privateRoomChannel){
-
-        supabaseClient.removeChannel(
-            privateRoomChannel
-        );
-
-        privateRoomChannel=null;
-    }
-
-
-    privateRoomChannel =
-        supabaseClient
-        .channel(
-            "private-room-" +
-            roomId +
-            "-" +
-            Date.now()
-        )
-        .on(
-            "postgres_changes",
-            {
-                event:"*",
-                schema:"public",
-                table:"room_players",
-                filter:
-                    "room_id=eq." +
-                    roomId
-            },
-            async payload => {
-
-                console.log(
-                    "PRIVATE ROOM EVENT",
-                    payload
-                );
-
-                await checkPrivateRoom();
-            }
-        )
-        .subscribe(
-            status => {
-
-                console.log(
-                    "ROOM CHANNEL:",
-                    status
-                );
-            }
-        );
-}
-
-
-/* =========================================================
-   PRIVATE GAME UI
-========================================================= */
-
-function startPrivateGameUI(
-    game
-){
+async function handlePrivateGameUpdate(game){
 
     if(!game)
         return;
 
-
-    if(
-        privateGameId ===
-        game.id &&
-        gameMode === "private"
-    ){
-        return;
-    }
-
-
-    stopPrivatePolling();
-
-
-    privateGameId =
+    currentGameId =
         game.id;
 
+    gameMode =
+        "private";
 
-    gameMode="private";
-
-
-    playerColor =
-        Number(game.white_player) ===
-        Number(myUserId)
-            ? "w"
-            : "b";
-
-
-    botColor =
-        opposite(
-            playerColor
-        );
-
-
-    boardState =
-        game.board_state
-            ? cloneBoard(
-                game.board_state
-              )
-            : createInitialBoard();
-
-
-    currentTurn =
-        game.turn || "w";
-
-
-    whiteTime =
-        Number(
-            game.white_time ?? 600
-        );
-
-
-    blackTime =
-        Number(
-            game.black_time ?? 600
-        );
-
-
-    selectedSquare=null;
-
-
-    document.getElementById(
-        "opponentLabel"
-    ).textContent =
-        "👤 Pemain";
-
-
-    updateTimers();
-
-    updateTurnText();
-
-    showScreen(
-        "gameScreen"
-    );
-
-    renderBoard();
-
-    startTimer();
-
-    subscribePrivateGame(
-        game.id
-    );
-}
-
-
-/* =========================================================
-   PRIVATE GAME REALTIME
-========================================================= */
-
-function subscribePrivateGame(
-    gameId
-){
-
-    if(privateGameChannel){
-
-        supabaseClient.removeChannel(
-            privateGameChannel
-        );
-
-        privateGameChannel=null;
-    }
-
-
-    privateGameChannel =
-        supabaseClient
-        .channel(
-            "private-game-" +
-            gameId +
-            "-" +
-            Date.now()
-        )
-        .on(
-            "postgres_changes",
-            {
-                event:"UPDATE",
-                schema:"public",
-                table:"games",
-                filter:
-                    "id=eq." +
-                    gameId
-            },
-            payload => {
-
-                const game =
-                    payload.new;
-
-
-                if(!game)
-                    return;
-
-
-                /*
-                   Jangan timpa board saat user
-                   sedang melakukan langkah sendiri
-                   dengan data lama.
-                */
-
-                boardState =
-                    game.board_state
-                        ? cloneBoard(
-                            game.board_state
-                          )
-                        : boardState;
-
-
-                currentTurn =
-                    game.turn ||
-                    currentTurn;
-
-
-                whiteTime =
-                    Number(
-                        game.white_time ??
-                        whiteTime
-                    );
-
-
-                blackTime =
-                    Number(
-                        game.black_time ??
-                        blackTime
-                    );
-
-
-                renderBoard();
-
-                updateTimers();
-
-                updateTurnText();
-
-
-                if(
-                    game.status ===
-                    "finished"
-                ){
-
-                    stopTimer();
-                }
-            }
-        )
-        .subscribe(
-            status => {
-
-                console.log(
-                    "GAME CHANNEL:",
-                    status
-                );
-            }
-        );
-}
-
-
-/* =========================================================
-   PRIVATE MOVE
-========================================================= */
-
-async function privatePlayerMove(
-    fr,
-    fc,
-    tr,
-    tc
-){
-
-    if(!privateGameId)
-        return;
-
-
-    if(
-        currentTurn !==
-        playerColor
-    ){
-        return;
-    }
-
-
-    /*
-       Ambil game terbaru dulu.
-       Ini mencegah pemain memainkan posisi
-       lama.
-    */
-
-    const {
-        data:latestGame,
-        error:latestError
-    } =
-        await supabaseClient
-        .from("games")
-        .select("*")
-        .eq(
-            "id",
-            privateGameId
-        )
-        .single();
-
-
-    if(latestError){
-
-        toast(
-            "Gagal membaca game."
-        );
-
-        return;
-    }
-
-
-    if(
-        latestGame.turn !==
-        playerColor
-    ){
-
-        toast(
-            "Bukan giliran kamu."
-        );
-
-        return;
-    }
-
-
-    const latestBoard =
-        latestGame.board_state
-            ? cloneBoard(
-                latestGame.board_state
-              )
-            : null;
-
-
-    if(!latestBoard){
-
-        toast(
-            "Board belum siap."
-        );
-
-        return;
-    }
-
-
-    /*
-       Pastikan langkah masih legal.
-    */
-
-    const legal =
-        legalMoves(
-            latestBoard,
-            fr,
-            fc
-        );
-
-
-    const allowed =
-        legal.some(
-            m =>
-            m[0]===tr &&
-            m[1]===tc
-        );
-
-
-    if(!allowed){
-
-        selectedSquare=null;
+    try{
 
         boardState =
-            latestBoard;
+            typeof game.board_state === "string"
+            ? JSON.parse(game.board_state)
+            : game.board_state;
 
-        renderBoard();
-
-        return;
-    }
-
-
-    const newBoard =
-        cloneBoard(
-            latestBoard
-        );
-
-
-    newBoard[tr][tc] =
-        newBoard[fr][fc];
-
-
-    newBoard[fr][fc]=null;
-
-
-    let promotion=null;
-
-
-    if(
-        typeOf(
-            newBoard[tr][tc]
-        ) === "p" &&
-        (
-            tr===0 ||
-            tr===7
-        )
-    ){
-
-        promotion="q";
-
-        newBoard[tr][tc] =
-            playerColor + "q";
-    }
-
-
-    const moveNumber =
-        await getNextMoveNumber(
-            privateGameId
-        );
-
-
-    /*
-       Simpan move.
-    */
-
-    const {
-        error:moveError
-    } =
-        await supabaseClient
-        .from("moves")
-        .insert({
-            game_id:privateGameId,
-            move_number:moveNumber,
-            player_id:Number(myUserId),
-            from_square:squareName(
-                fr,
-                fc
-            ),
-            to_square:squareName(
-                tr,
-                tc
-            ),
-            promotion:promotion
-        });
-
-
-    if(moveError){
+    }catch(e){
 
         console.error(
-            "MOVE:",
-            moveError
-        );
-
-        toast(
-            "Gagal menyimpan langkah."
+            "BOARD PARSE:",
+            e
         );
 
         return;
     }
-
-
-    /*
-       Update game.
-    */
-
-    const nextTurn =
-        opposite(
-            playerColor
-        );
-
-
-    const {
-        error:updateError
-    } =
-        await supabaseClient
-        .from("games")
-        .update({
-            board_state:newBoard,
-            turn:nextTurn,
-            white_time:Number(
-                latestGame.white_time
-            ),
-            black_time:Number(
-                latestGame.black_time
-            )
-        })
-        .eq(
-            "id",
-            privateGameId
-        )
-        .eq(
-            "turn",
-            playerColor
-        );
-
-
-    if(updateError){
-
-        console.error(
-            "GAME UPDATE:",
-            updateError
-        );
-
-        toast(
-            "Gagal mengirim langkah."
-        );
-
-        return;
-    }
-
-
-    boardState =
-        newBoard;
 
     currentTurn =
-        nextTurn;
+        game.turn || "white";
 
-    selectedSquare=null;
+    whiteTime =
+        Number(game.white_time ?? 300);
 
+    blackTime =
+        Number(game.black_time ?? 300);
+
+    if(game.status === "finished"){
+
+        gameOver = true;
+
+    }else{
+
+        gameOver = false;
+    }
+
+    showScreen("gameScreen");
+
+    document.getElementById(
+        "gameTitle"
+    ).textContent =
+        "🔒 Private Match";
 
     renderBoard();
 
-    updateTurnText();
+    updateClockUI();
+
+    updateGameInfo();
+
+    startTimer();
 }
 
 
-/* =========================================================
-   MOVE NUMBER
-========================================================= */
+function startPrivateGamePolling(){
 
-async function getNextMoveNumber(
-    gameId
-){
+    if(privateGamePollTimer)
+        clearInterval(privateGamePollTimer);
+
+    privateGamePollTimer =
+        setInterval(
+            async()=>{
+                if(currentGameId)
+                    await fetchPrivateGame();
+            },
+            1200
+        );
+}
+
+
+async function fetchPrivateGame(){
+
+    if(!currentGameId)
+        return;
 
     const {
         data,
         error
     } =
         await supabaseClient
-        .from("moves")
-        .select(
-            "move_number"
-        )
+        .from("games")
+        .select("*")
         .eq(
-            "game_id",
-            gameId
+            "id",
+            currentGameId
         )
-        .order(
-            "move_number",
-            {
-                ascending:false
-            }
-        )
-        .limit(1);
-
+        .maybeSingle();
 
     if(error){
 
         console.error(
-            "MOVE NUMBER:",
+            "FETCH GAME:",
             error
         );
 
-        return 1;
+        return;
     }
 
+    if(data){
 
-    if(
-        !data ||
-        !data.length
-    ){
+        await handlePrivateGameUpdate(
+            data
+        );
+    }
+}
 
-        return 1;
+
+/* =========================================================
+   COPY / LEAVE ROOM
+========================================================= */
+
+async function copyPrivateCode(){
+
+    if(!privateRoomCode)
+        return;
+
+    try{
+
+        await navigator.clipboard.writeText(
+            privateRoomCode
+        );
+
+        toast(
+            "Kode room disalin."
+        );
+
+    }catch(e){
+
+        toast(
+            "Kode room: " +
+            privateRoomCode
+        );
+    }
+}
+
+
+async function leavePrivateRoom(){
+
+    stopPrivatePolling();
+
+    if(privateRoomChannel){
+
+        await supabaseClient.removeChannel(
+            privateRoomChannel
+        );
+
+        privateRoomChannel = null;
     }
 
+    if(privateGameChannel){
 
-    return (
-        Number(
-            data[0].move_number
-        ) + 1
+        await supabaseClient.removeChannel(
+            privateGameChannel
+        );
+
+        privateGameChannel = null;
+    }
+
+    privateRoomId = null;
+    privateRoomCode = null;
+    privateIsHost = false;
+
+    privateWhitePlayer = null;
+    privateBlackPlayer = null;
+
+    showScreen(
+        "homeScreen"
     );
 }
 
 
-function squareName(
+/* =========================================================
+   CHESS ENGINE
+========================================================= */
+
+function cloneBoard(board){
+
+    return JSON.parse(
+        JSON.stringify(board)
+    );
+}
+
+
+function inside(r,c){
+
+    return (
+        r >= 0 &&
+        r < 8 &&
+        c >= 0 &&
+        c < 8
+    );
+}
+
+
+function opposite(color){
+
+    return color === "white"
+        ? "black"
+        : "white";
+}
+
+
+function findKing(board,color){
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const piece =
+                board[r][c];
+
+            if(
+                piece &&
+                piece.color === color &&
+                piece.type === "king"
+            ){
+
+                return {
+                    r,
+                    c
+                };
+            }
+        }
+    }
+
+    return null;
+}
+
+
+function squareAttacked(
+    board,
+    r,
+    c,
+    byColor
+){
+
+    /*
+     * Pawn
+     */
+    const pawnRow =
+        byColor === "white"
+        ? r + 1
+        : r - 1;
+
+    for(const dc of [-1,1]){
+
+        const pc = c + dc;
+
+        if(inside(pawnRow,pc)){
+
+            const p =
+                board[pawnRow][pc];
+
+            if(
+                p &&
+                p.color === byColor &&
+                p.type === "pawn"
+            ){
+
+                return true;
+            }
+        }
+    }
+
+    /*
+     * Knight
+     */
+    const knightMoves = [
+        [-2,-1],
+        [-2,1],
+        [-1,-2],
+        [-1,2],
+        [1,-2],
+        [1,2],
+        [2,-1],
+        [2,1]
+    ];
+
+    for(const [dr,dc] of knightMoves){
+
+        const nr = r + dr;
+        const nc = c + dc;
+
+        if(inside(nr,nc)){
+
+            const p =
+                board[nr][nc];
+
+            if(
+                p &&
+                p.color === byColor &&
+                p.type === "knight"
+            ){
+
+                return true;
+            }
+        }
+    }
+
+    /*
+     * King
+     */
+    for(let dr=-1;dr<=1;dr++){
+
+        for(let dc=-1;dc<=1;dc++){
+
+            if(!dr && !dc)
+                continue;
+
+            const nr = r + dr;
+            const nc = c + dc;
+
+            if(inside(nr,nc)){
+
+                const p =
+                    board[nr][nc];
+
+                if(
+                    p &&
+                    p.color === byColor &&
+                    p.type === "king"
+                ){
+
+                    return true;
+                }
+            }
+        }
+    }
+
+    /*
+     * Sliding pieces
+     */
+
+    const lines = [
+
+        {
+            dirs:[
+                [-1,0],
+                [1,0],
+                [0,-1],
+                [0,1]
+            ],
+            types:[
+                "rook",
+                "queen"
+            ]
+        },
+
+        {
+            dirs:[
+                [-1,-1],
+                [-1,1],
+                [1,-1],
+                [1,1]
+            ],
+            types:[
+                "bishop",
+                "queen"
+            ]
+        }
+
+    ];
+
+    for(const group of lines){
+
+        for(const [dr,dc] of group.dirs){
+
+            let nr = r + dr;
+            let nc = c + dc;
+
+            while(inside(nr,nc)){
+
+                const p =
+                    board[nr][nc];
+
+                if(p){
+
+                    if(
+                        p.color === byColor &&
+                        group.types.includes(p.type)
+                    ){
+
+                        return true;
+                    }
+
+                    break;
+                }
+
+                nr += dr;
+                nc += dc;
+            }
+        }
+    }
+
+    return false;
+}
+
+
+function isKingInCheck(
+    board,
+    color
+){
+
+    const king =
+        findKing(board,color);
+
+    if(!king)
+        return true;
+
+    return squareAttacked(
+        board,
+        king.r,
+        king.c,
+        opposite(color)
+    );
+}
+
+
+function pseudoMoves(
+    board,
     r,
     c
 ){
+
+    const piece =
+        board[r][c];
+
+    if(!piece)
+        return [];
+
+    const moves = [];
+
+    function add(nr,nc){
+
+        if(!inside(nr,nc))
+            return false;
+
+        const target =
+            board[nr][nc];
+
+        if(
+            !target ||
+            target.color !== piece.color
+        ){
+
+            moves.push({
+                from:{r,c},
+                to:{
+                    r:nr,
+                    c:nc
+                }
+            });
+        }
+
+        return !target;
+    }
+
+
+    if(piece.type === "pawn"){
+
+        const dir =
+            piece.color === "white"
+            ? -1
+            : 1;
+
+        const startRow =
+            piece.color === "white"
+            ? 6
+            : 1;
+
+        const oneR =
+            r + dir;
+
+        if(
+            inside(oneR,c) &&
+            !board[oneR][c]
+        ){
+
+            moves.push({
+                from:{r,c},
+                to:{
+                    r:oneR,
+                    c
+                }
+            });
+
+            const twoR =
+                r + dir*2;
+
+            if(
+                r === startRow &&
+                !board[twoR][c]
+            ){
+
+                moves.push({
+                    from:{r,c},
+                    to:{
+                        r:twoR,
+                        c
+                    }
+                });
+            }
+        }
+
+        for(const dc of [-1,1]){
+
+            const nr = r + dir;
+            const nc = c + dc;
+
+            if(!inside(nr,nc))
+                continue;
+
+            const target =
+                board[nr][nc];
+
+            if(
+                target &&
+                target.color !== piece.color
+            ){
+
+                moves.push({
+                    from:{r,c},
+                    to:{
+                        r:nr,
+                        c:nc
+                    }
+                });
+            }
+        }
+
+        return moves;
+    }
+
+
+    if(piece.type === "knight"){
+
+        const dirs = [
+            [-2,-1],
+            [-2,1],
+            [-1,-2],
+            [-1,2],
+            [1,-2],
+            [1,2],
+            [2,-1],
+            [2,1]
+        ];
+
+        for(const [dr,dc] of dirs)
+            add(r+dr,c+dc);
+
+        return moves;
+    }
+
+
+    if(piece.type === "king"){
+
+        for(let dr=-1;dr<=1;dr++){
+
+            for(let dc=-1;dc<=1;dc++){
+
+                if(!dr && !dc)
+                    continue;
+
+                add(
+                    r+dr,
+                    c+dc
+                );
+            }
+        }
+
+        return moves;
+    }
+
+
+    let dirs = [];
+
+    if(
+        piece.type === "rook" ||
+        piece.type === "queen"
+    ){
+
+        dirs.push(
+            [-1,0],
+            [1,0],
+            [0,-1],
+            [0,1]
+        );
+    }
+
+    if(
+        piece.type === "bishop" ||
+        piece.type === "queen"
+    ){
+
+        dirs.push(
+            [-1,-1],
+            [-1,1],
+            [1,-1],
+            [1,1]
+        );
+    }
+
+    for(const [dr,dc] of dirs){
+
+        let nr = r + dr;
+        let nc = c + dc;
+
+        while(inside(nr,nc)){
+
+            const target =
+                board[nr][nc];
+
+            if(!target){
+
+                moves.push({
+                    from:{r,c},
+                    to:{
+                        r:nr,
+                        c:nc
+                    }
+                });
+
+            }else{
+
+                if(
+                    target.color !==
+                    piece.color
+                ){
+
+                    moves.push({
+                        from:{r,c},
+                        to:{
+                            r:nr,
+                            c:nc
+                        }
+                    });
+                }
+
+                break;
+            }
+
+            nr += dr;
+            nc += dc;
+        }
+    }
+
+    return moves;
+}
+
+
+function applyMove(
+    board,
+    move
+){
+
+    const next =
+        cloneBoard(board);
+
+    const piece =
+        next[
+            move.from.r
+        ][
+            move.from.c
+        ];
+
+    next[
+        move.to.r
+    ][
+        move.to.c
+    ] = piece;
+
+    next[
+        move.from.r
+    ][
+        move.from.c
+    ] = null;
+
+    /*
+     * Auto promotion to queen.
+     */
+    if(
+        piece &&
+        piece.type === "pawn" &&
+        (
+            move.to.r === 0 ||
+            move.to.r === 7
+        )
+    ){
+
+        next[
+            move.to.r
+        ][
+            move.to.c
+        ].type =
+            "queen";
+    }
+
+    return next;
+}
+
+
+function legalMovesForPiece(
+    board,
+    r,
+    c
+){
+
+    const piece =
+        board[r][c];
+
+    if(!piece)
+        return [];
+
+    const pseudo =
+        pseudoMoves(
+            board,
+            r,
+            c
+        );
+
+    return pseudo.filter(move=>{
+
+        const next =
+            applyMove(
+                board,
+                move
+            );
+
+        return !isKingInCheck(
+            next,
+            piece.color
+        );
+    });
+}
+
+
+function allLegalMoves(
+    board,
+    color
+){
+
+    const result = [];
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const piece =
+                board[r][c];
+
+            if(
+                piece &&
+                piece.color === color
+            ){
+
+                result.push(
+                    ...legalMovesForPiece(
+                        board,
+                        r,
+                        c
+                    )
+                );
+            }
+        }
+    }
+
+    return result;
+}
+
+
+function gameState(
+    board,
+    color
+){
+
+    const moves =
+        allLegalMoves(
+            board,
+            color
+        );
+
+    const check =
+        isKingInCheck(
+            board,
+            color
+        );
+
+    return {
+        check,
+        checkmate:
+            check && moves.length === 0,
+        stalemate:
+            !check && moves.length === 0
+    };
+}
+
+
+/* =========================================================
+   BOARD RENDER
+========================================================= */
+
+function renderBoard(){
+
+    const boardEl =
+        document.getElementById("board");
+
+    boardEl.innerHTML = "";
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const square =
+                document.createElement("div");
+
+            square.className =
+                "square " +
+                (
+                    (r+c)%2===0
+                    ? "light"
+                    : "dark"
+                );
+
+            square.dataset.r = r;
+            square.dataset.c = c;
+
+            if(
+                selectedSquare &&
+                selectedSquare.r === r &&
+                selectedSquare.c === c
+            ){
+
+                square.classList.add(
+                    "selected"
+                );
+            }
+
+            const isLegal =
+                legalTargets.some(
+                    m =>
+                        m.to.r === r &&
+                        m.to.c === c
+                );
+
+            if(isLegal){
+
+                const target =
+                    boardState[r][c];
+
+                square.classList.add(
+                    target
+                    ? "capture"
+                    : "legal"
+                );
+            }
+
+            const piece =
+                boardState[r][c];
+
+            if(piece){
+
+                const img =
+                    document.createElement("img");
+
+                img.className =
+                    "piece " +
+                    (
+                        piece.color === "white"
+                        ? "white-piece"
+                        : "black-piece"
+                    );
+
+                img.src =
+                    PIECES[
+                        piece.color
+                    ][
+                        piece.type
+                    ];
+
+                img.alt =
+                    piece.color +
+                    " " +
+                    piece.type;
+
+                square.appendChild(img);
+            }
+
+            square.addEventListener(
+                "click",
+                ()=>{
+                    handleSquareClick(
+                        r,
+                        c
+                    );
+                }
+            );
+
+            boardEl.appendChild(
+                square
+            );
+        }
+    }
+
+    /*
+     * Highlight king in check.
+     */
+    for(const color of [
+        "white",
+        "black"
+    ]){
+
+        if(
+            isKingInCheck(
+                boardState,
+                color
+            )
+        ){
+
+            const king =
+                findKing(
+                    boardState,
+                    color
+                );
+
+            if(king){
+
+                const index =
+                    king.r*8 +
+                    king.c;
+
+                const el =
+                    boardEl.children[index];
+
+                if(el)
+                    el.classList.add(
+                        "check"
+                    );
+            }
+        }
+    }
+}
+
+
+async function handleSquareClick(r,c){
+
+    if(gameOver)
+        return;
+
+    if(!isMyTurn())
+        return;
+
+    const piece =
+        boardState[r][c];
+
+    /*
+     * Click own piece.
+     */
+    if(
+        piece &&
+        piece.color === currentTurn
+    ){
+
+        selectedSquare = {
+            r,
+            c
+        };
+
+        legalTargets =
+            legalMovesForPiece(
+                boardState,
+                r,
+                c
+            );
+
+        renderBoard();
+
+        return;
+    }
+
+    /*
+     * Move selected piece.
+     */
+    if(selectedSquare){
+
+        const move =
+            legalTargets.find(
+                m =>
+                    m.to.r === r &&
+                    m.to.c === c
+            );
+
+        if(move){
+
+            await makeMove(
+                move
+            );
+
+            return;
+        }
+    }
+
+    selectedSquare = null;
+    legalTargets = [];
+
+    renderBoard();
+}
+
+
+function isMyTurn(){
+
+    if(gameMode === "bot"){
+
+        return currentTurn === "white";
+    }
+
+    if(gameMode === "private"){
+
+        if(privateIsHost){
+
+            return (
+                privateWhitePlayer &&
+                Number(
+                    privateWhitePlayer.user_id
+                ) === Number(myUserId)
+                &&
+                currentTurn === "white"
+            );
+
+        }else{
+
+            return (
+                privateBlackPlayer &&
+                Number(
+                    privateBlackPlayer.user_id
+                ) === Number(myUserId)
+                &&
+                currentTurn === "black"
+            );
+        }
+    }
+
+    return true;
+}
+
+
+/* =========================================================
+   MAKE MOVE
+========================================================= */
+
+async function makeMove(move){
+
+    if(gameOver)
+        return;
+
+    const movingColor =
+        currentTurn;
+
+    boardState =
+        applyMove(
+            boardState,
+            move
+        );
+
+    selectedSquare = null;
+    legalTargets = [];
+
+    currentTurn =
+        opposite(
+            currentTurn
+        );
+
+    renderBoard();
+    updateGameInfo();
+
+    const state =
+        gameState(
+            boardState,
+            currentTurn
+        );
+
+    if(
+        state.checkmate ||
+        state.stalemate
+    ){
+
+        gameOver = true;
+
+        stopTimer();
+
+        if(state.checkmate){
+
+            document.getElementById(
+                "gameInfo"
+            ).textContent =
+                "Checkmate! " +
+                movingColor +
+                " menang.";
+
+        }else{
+
+            document.getElementById(
+                "gameInfo"
+            ).textContent =
+                "Stalemate! Game seri.";
+        }
+    }
+
+    if(gameMode === "bot"){
+
+        if(!gameOver &&
+           currentTurn === "black"){
+
+            startBotTurn();
+        }
+
+        return;
+    }
+
+    if(gameMode === "private"){
+
+        await savePrivateMove(
+            move
+        );
+    }
+}
+
+
+async function savePrivateMove(move){
+
+    if(!currentGameId)
+        return;
+
+    /*
+     * Simpan move.
+     */
+    const {
+        error:moveError
+    } =
+        await supabaseClient
+        .from("moves")
+        .insert({
+
+            game_id:
+                currentGameId,
+
+            move_number:
+                1,
+
+            player_id:
+                Number(myUserId),
+
+            from_square:
+                squareName(
+                    move.from.r,
+                    move.from.c
+                ),
+
+            to_square:
+                squareName(
+                    move.to.r,
+                    move.to.c
+                ),
+
+            promotion:
+                null
+
+        });
+
+    if(moveError){
+
+        console.warn(
+            "MOVE SAVE:",
+            moveError
+        );
+    }
+
+    /*
+     * Update game state.
+     */
+    const {
+        error
+    } =
+        await supabaseClient
+        .from("games")
+        .update({
+
+            board_state:
+                boardState,
+
+            turn:
+                currentTurn,
+
+            white_time:
+                whiteTime,
+
+            black_time:
+                blackTime
+
+        })
+        .eq(
+            "id",
+            currentGameId
+        );
+
+    if(error){
+
+        console.error(
+            "GAME UPDATE:",
+            error
+        );
+    }
+}
+
+
+function squareName(r,c){
 
     const files =
         "abcdefgh";
@@ -3912,100 +3227,585 @@ function squareName(
 
 
 /* =========================================================
-   CANCEL PRIVATE
+   TIMER
 ========================================================= */
 
-async function cancelPrivateRoom(){
-
-    stopPrivatePolling();
+function startTimer(){
 
     stopTimer();
 
+    if(gameOver)
+        return;
 
-    if(privateRoomChannel){
+    timerInterval =
+        setInterval(
+            async()=>{
 
-        supabaseClient.removeChannel(
-            privateRoomChannel
+                if(gameOver){
+
+                    stopTimer();
+                    return;
+                }
+
+                if(currentTurn === "white"){
+
+                    whiteTime--;
+
+                    if(whiteTime <= 0){
+
+                        whiteTime = 0;
+
+                        gameOver = true;
+
+                        stopTimer();
+
+                        document.getElementById(
+                            "gameInfo"
+                        ).textContent =
+                            "Waktu putih habis. Hitam menang.";
+
+                    }
+
+                }else{
+
+                    blackTime--;
+
+                    if(blackTime <= 0){
+
+                        blackTime = 0;
+
+                        gameOver = true;
+
+                        stopTimer();
+
+                        document.getElementById(
+                            "gameInfo"
+                        ).textContent =
+                            "Waktu hitam habis. Putih menang.";
+                    }
+                }
+
+                updateClockUI();
+
+            },
+            1000
+        );
+}
+
+
+function stopTimer(){
+
+    if(timerInterval){
+
+        clearInterval(
+            timerInterval
         );
 
-        privateRoomChannel=null;
+        timerInterval = null;
     }
+}
 
 
-    if(privateGameChannel){
+function formatTime(seconds){
 
-        supabaseClient.removeChannel(
-            privateGameChannel
+    seconds =
+        Math.max(
+            0,
+            Number(seconds || 0)
         );
 
-        privateGameChannel=null;
-    }
+    const min =
+        Math.floor(
+            seconds / 60
+        );
+
+    const sec =
+        seconds % 60;
+
+    return (
+        String(min).padStart(2,"0") +
+        ":" +
+        String(sec).padStart(2,"0")
+    );
+}
 
 
-    if(privateRoomId){
+function updateClockUI(){
 
-        try{
+    document.getElementById(
+        "whiteClock"
+    ).textContent =
+        formatTime(
+            whiteTime
+        );
 
-            /*
-               Hapus player sendiri.
-            */
+    document.getElementById(
+        "blackClock"
+    ).textContent =
+        formatTime(
+            blackTime
+        );
 
-            await supabaseClient
-                .from("room_players")
-                .delete()
-                .eq(
-                    "room_id",
-                    privateRoomId
-                )
-                .eq(
-                    "user_id",
-                    Number(myUserId)
-                );
+    document.getElementById(
+        "whiteClock"
+    ).classList.toggle(
+        "active",
+        currentTurn === "white" &&
+        !gameOver
+    );
+
+    document.getElementById(
+        "blackClock"
+    ).classList.toggle(
+        "active",
+        currentTurn === "black" &&
+        !gameOver
+    );
+}
 
 
-            /*
-               Hanya host yang menghapus room.
-            */
+function updateGameInfo(){
 
-            if(privateIsHost){
+    if(gameOver)
+        return;
 
-                await supabaseClient
-                    .from("rooms")
-                    .delete()
-                    .eq(
-                        "id",
-                        privateRoomId
-                    )
-                    .eq(
-                        "host_id",
-                        Number(myUserId)
-                    );
-            }
+    const state =
+        gameState(
+            boardState,
+            currentTurn
+        );
 
-        }catch(error){
+    if(state.check){
 
-            console.error(
-                "CANCEL:",
-                error
+        document.getElementById(
+            "gameInfo"
+        ).textContent =
+            "Check! Giliran " +
+            (
+                currentTurn === "white"
+                ? "Putih"
+                : "Hitam"
             );
+
+    }else{
+
+        document.getElementById(
+            "gameInfo"
+        ).textContent =
+            "Giliran " +
+            (
+                currentTurn === "white"
+                ? "Putih"
+                : "Hitam"
+            );
+    }
+}
+
+
+/* =========================================================
+   BOT
+========================================================= */
+
+function showBotMenu(){
+
+    showScreen(
+        "botMenuScreen"
+    );
+}
+
+
+function setBotDifficulty(level){
+
+    botDifficulty =
+        level;
+
+    document
+        .querySelectorAll(".diff-btn")
+        .forEach(btn=>{
+            btn.classList.remove(
+                "active"
+            );
+        });
+
+    document.getElementById(
+        level + "Btn"
+    ).classList.add(
+        "active"
+    );
+}
+
+
+function startBotGame(){
+
+    stopPrivatePolling();
+
+    gameMode = "bot";
+    currentGameId = null;
+
+    boardState =
+        initialBoard();
+
+    selectedSquare = null;
+    legalTargets = [];
+
+    currentTurn = "white";
+
+    whiteTime = 300;
+    blackTime = 300;
+
+    gameOver = false;
+
+    document.getElementById(
+        "gameTitle"
+    ).textContent =
+        "🤖 VS Bot - " +
+        capitalize(
+            botDifficulty
+        );
+
+    showScreen(
+        "gameScreen"
+    );
+
+    renderBoard();
+
+    updateClockUI();
+
+    updateGameInfo();
+
+    startTimer();
+}
+
+
+function capitalize(text){
+
+    return text.charAt(0).toUpperCase() +
+           text.slice(1);
+}
+
+
+async function startBotTurn(){
+
+    if(gameOver)
+        return;
+
+    await sleep(
+        botDifficulty === "easy"
+        ? 450
+        : botDifficulty === "normal"
+        ? 650
+        : 850
+    );
+
+    if(gameOver)
+        return;
+
+    const moves =
+        allLegalMoves(
+            boardState,
+            "black"
+        );
+
+    if(!moves.length){
+
+        const state =
+            gameState(
+                boardState,
+                "black"
+            );
+
+        gameOver = true;
+        stopTimer();
+
+        document.getElementById(
+            "gameInfo"
+        ).textContent =
+            state.checkmate
+            ? "Checkmate! Kamu menang."
+            : "Stalemate! Seri.";
+
+        return;
+    }
+
+    let move;
+
+    if(botDifficulty === "easy"){
+
+        move =
+            randomBotMove(
+                moves
+            );
+
+    }else if(botDifficulty === "normal"){
+
+        move =
+            normalBotMove(
+                moves
+            );
+
+    }else{
+
+        move =
+            hardBotMove(
+                moves
+            );
+    }
+
+    boardState =
+        applyMove(
+            boardState,
+            move
+        );
+
+    currentTurn = "white";
+
+    renderBoard();
+
+    updateGameInfo();
+}
+
+
+function randomBotMove(moves){
+
+    return moves[
+        Math.floor(
+            Math.random() *
+            moves.length
+        )
+    ];
+}
+
+
+const PIECE_VALUES = {
+    pawn:100,
+    knight:320,
+    bishop:330,
+    rook:500,
+    queen:900,
+    king:20000
+};
+
+
+function evaluateBoard(board){
+
+    let score = 0;
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const p =
+                board[r][c];
+
+            if(!p)
+                continue;
+
+            const value =
+                PIECE_VALUES[p.type] || 0;
+
+            score +=
+                p.color === "black"
+                ? value
+                : -value;
         }
     }
 
+    return score;
+}
 
-    privateRoomId=null;
 
-    privateRoomCode=null;
+function normalBotMove(moves){
 
-    privateGameId=null;
+    let bestScore =
+        -Infinity;
 
-    privateIsHost=false;
+    let bestMoves = [];
 
-    privateStartingGame=false;
+    for(const move of moves){
 
-    gameMode=null;
+        const next =
+            applyMove(
+                boardState,
+                move
+            );
 
-    showScreen(
-        "privateScreen"
+        const score =
+            evaluateBoard(
+                next
+            );
+
+        if(score > bestScore){
+
+            bestScore = score;
+            bestMoves = [move];
+
+        }else if(score === bestScore){
+
+            bestMoves.push(move);
+        }
+    }
+
+    return bestMoves[
+        Math.floor(
+            Math.random() *
+            bestMoves.length
+        )
+    ];
+}
+
+
+function minimax(
+    board,
+    color,
+    depth,
+    maximizing
+){
+
+    if(depth === 0){
+
+        return evaluateBoard(
+            board
+        );
+    }
+
+    const moves =
+        allLegalMoves(
+            board,
+            color
+        );
+
+    if(!moves.length){
+
+        const check =
+            isKingInCheck(
+                board,
+                color
+            );
+
+        if(check){
+
+            return color === "black"
+                ? -999999
+                : 999999;
+        }
+
+        return 0;
+    }
+
+    if(maximizing){
+
+        let best =
+            -Infinity;
+
+        for(const move of moves){
+
+            const next =
+                applyMove(
+                    board,
+                    move
+                );
+
+            best =
+                Math.max(
+                    best,
+                    minimax(
+                        next,
+                        opposite(color),
+                        depth-1,
+                        false
+                    )
+                );
+        }
+
+        return best;
+
+    }else{
+
+        let best =
+            Infinity;
+
+        for(const move of moves){
+
+            const next =
+                applyMove(
+                    board,
+                    move
+                );
+
+            best =
+                Math.min(
+                    best,
+                    minimax(
+                        next,
+                        opposite(color),
+                        depth-1,
+                        true
+                    )
+                );
+        }
+
+        return best;
+    }
+}
+
+
+function hardBotMove(moves){
+
+    /*
+     * Batasi depth agar tetap ringan
+     * di Telegram Mini App.
+     */
+    const depth = 2;
+
+    let bestScore =
+        -Infinity;
+
+    let candidates = [];
+
+    for(const move of moves){
+
+        const next =
+            applyMove(
+                boardState,
+                move
+            );
+
+        const score =
+            minimax(
+                next,
+                "white",
+                depth,
+                false
+            );
+
+        if(score > bestScore){
+
+            bestScore = score;
+            candidates = [move];
+
+        }else if(score === bestScore){
+
+            candidates.push(move);
+        }
+    }
+
+    return candidates[
+        Math.floor(
+            Math.random() *
+            candidates.length
+        )
+    ];
+}
+
+
+/* =========================================================
+   RANDOM GAME
+========================================================= */
+
+function startRandomGame(){
+
+    toast(
+        "Mode Random Match belum tersedia. Gunakan Private Room atau VS Bot."
     );
 }
 
@@ -4018,24 +3818,41 @@ function exitGame(){
 
     stopTimer();
 
-    selectedSquare=null;
+    if(gameMode === "private"){
 
-    botThinking=false;
+        stopPrivatePolling();
 
+        if(privateRoomChannel){
 
-    if(privateGameChannel){
+            supabaseClient.removeChannel(
+                privateRoomChannel
+            );
 
-        supabaseClient.removeChannel(
-            privateGameChannel
-        );
+            privateRoomChannel = null;
+        }
 
-        privateGameChannel=null;
+        if(privateGameChannel){
+
+            supabaseClient.removeChannel(
+                privateGameChannel
+            );
+
+            privateGameChannel = null;
+        }
+
+        privateRoomId = null;
+        privateRoomCode = null;
+        privateIsHost = false;
+
+        privateWhitePlayer = null;
+        privateBlackPlayer = null;
     }
 
+    currentGameId = null;
+    gameMode = null;
 
-    gameMode=null;
-
-    privateGameId=null;
+    selectedSquare = null;
+    legalTargets = [];
 
     showScreen(
         "homeScreen"
@@ -4044,42 +3861,34 @@ function exitGame(){
 
 
 /* =========================================================
-   RESET
+   INITIALIZE
 ========================================================= */
 
-function resetCurrentGame(){
+(async function(){
 
-    if(
-        gameMode==="bot"
-    ){
+    /*
+     * Telegram WebApp harus siap dulu.
+     */
+    if(tg){
 
-        startBotGame(
-            botLevel
-        );
-
-        return;
+        try{
+            tg.ready();
+            tg.expand();
+        }catch(e){
+            console.warn(e);
+        }
     }
 
+    /*
+     * IMPORTANT:
+     * loadTelegramUser sekarang di-await.
+     *
+     * Artinya saveUser selesai sebelum
+     * user mulai melakukan aksi room.
+     */
+    await loadTelegramUser();
 
-    if(
-        gameMode==="private"
-    ){
-
-        toast(
-            "Game private tidak bisa diulang sendiri."
-        );
-
-        return;
-    }
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-loadTelegramUser();
-
+})();
 </script>
 
 </body>
