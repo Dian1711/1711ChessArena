@@ -2,8 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>1711 Chess Arena</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -12,7 +11,6 @@
 <style>
 *{
     box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
@@ -21,7 +19,7 @@ html,body{
     min-height:100%;
     font-family:Arial,Helvetica,sans-serif;
     background:
-        radial-gradient(circle at top,#18243d 0%,#0b1020 48%,#050812 100%);
+        radial-gradient(circle at top,#18243d 0%,#090d16 55%,#05070b 100%);
     color:#fff;
 }
 
@@ -30,267 +28,255 @@ body{
 }
 
 button{
-    border:0;
-    cursor:pointer;
-    color:#fff;
-    font-weight:700;
+    font:inherit;
 }
 
 .app{
     width:100%;
     max-width:520px;
     margin:auto;
-    min-height:100vh;
-    padding-bottom:30px;
+    padding:14px;
 }
 
 .header{
-    padding:18px 16px 12px;
     display:flex;
     align-items:center;
-    gap:12px;
+    justify-content:space-between;
+    margin-bottom:14px;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:800;
+}
+
+.logo span{
+    color:#58a6ff;
+}
+
+.user-mini{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    color:#b9c2d0;
 }
 
 .avatar{
-    width:48px;
-    height:48px;
+    width:34px;
+    height:34px;
     border-radius:50%;
     object-fit:cover;
-    background:#26334f;
-    border:2px solid rgba(255,255,255,.15);
-}
-
-.user-info{
-    flex:1;
-    min-width:0;
-}
-
-.user-name{
-    font-size:17px;
-    font-weight:800;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.user-username{
-    font-size:12px;
-    color:#94a3b8;
-    margin-top:3px;
-}
-
-.rating-box{
-    background:rgba(255,255,255,.07);
-    padding:8px 11px;
-    border-radius:12px;
-    text-align:center;
-}
-
-.rating-label{
-    font-size:10px;
-    color:#94a3b8;
-}
-
-.rating{
-    font-size:16px;
-    font-weight:900;
+    background:#202938;
+    border:1px solid #34445e;
 }
 
 .screen{
     display:none;
-    padding:10px 16px;
 }
 
 .screen.active{
     display:block;
 }
 
-.logo{
+.card{
+    background:rgba(18,25,39,.92);
+    border:1px solid #27344a;
+    border-radius:18px;
+    padding:16px;
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
+}
+
+.welcome{
     text-align:center;
-    padding:20px 0 22px;
+    padding:22px 15px;
 }
 
-.logo-icon{
-    font-size:58px;
+.welcome h1{
+    margin:0 0 7px;
+    font-size:27px;
 }
 
-.logo h1{
-    margin:5px 0 4px;
-    font-size:28px;
-}
-
-.logo p{
+.welcome p{
     margin:0;
-    color:#94a3b8;
+    color:#98a5b8;
     font-size:13px;
 }
 
 .menu{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:12px;
+    gap:10px;
+    margin-top:15px;
 }
 
-.menu-btn{
+.menu button{
     min-height:78px;
-    border-radius:18px;
-    padding:15px;
-    background:linear-gradient(145deg,#17243d,#10182b);
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:0 8px 20px rgba(0,0,0,.2);
-    font-size:14px;
+    border:1px solid #2c3b54;
+    border-radius:15px;
+    background:#141d2c;
+    color:#fff;
+    cursor:pointer;
+    font-weight:700;
 }
 
-.menu-btn:active{
-    transform:scale(.97);
+.menu button:active{
+    transform:scale(.98);
 }
 
-.menu-btn .icon{
+.menu .icon{
     display:block;
     font-size:26px;
     margin-bottom:7px;
 }
 
-.card{
-    background:rgba(16,24,43,.9);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:14px;
-}
-
-.card h2{
-    margin:0 0 8px;
-    font-size:20px;
-}
-
-.card p{
-    color:#94a3b8;
-    font-size:13px;
-    line-height:1.5;
-}
-
-.primary{
+.btn{
     width:100%;
-    padding:14px;
-    border-radius:13px;
-    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    min-height:46px;
+    border:0;
+    border-radius:12px;
+    background:#2387ff;
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
     margin-top:10px;
 }
 
-.secondary{
-    width:100%;
-    padding:13px;
-    border-radius:13px;
-    background:#202c44;
-    margin-top:9px;
+.btn.secondary{
+    background:#202b3e;
+    border:1px solid #34445e;
 }
 
-.danger{
-    background:#7f1d1d;
+.btn.danger{
+    background:#b52c3b;
 }
 
-input{
-    width:100%;
+.btn:disabled{
+    opacity:.5;
+}
+
+.back{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    border:0;
+    background:none;
+    color:#9db7d9;
+    padding:5px 0 12px;
+    cursor:pointer;
+}
+
+.profile-box{
+    text-align:center;
+}
+
+.profile-box .big-avatar{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #30425e;
+}
+
+.profile-name{
+    font-size:20px;
+    font-weight:800;
+    margin-top:10px;
+}
+
+.profile-username{
+    color:#8d9aae;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.rating{
+    margin-top:15px;
     padding:14px;
     border-radius:13px;
-    border:1px solid rgba(255,255,255,.1);
-    background:#0b1221;
-    color:#fff;
-    outline:none;
-    font-size:17px;
-    text-align:center;
-    letter-spacing:3px;
+    background:#111927;
 }
 
-input:focus{
-    border-color:#4f7cff;
+.rating-value{
+    font-size:25px;
+    font-weight:800;
+    color:#ffd166;
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:12px;
 }
 
 .room-code{
     font-size:34px;
     font-weight:900;
-    letter-spacing:8px;
+    letter-spacing:7px;
     text-align:center;
-    padding:15px 0;
-    color:#60a5fa;
+    padding:18px 10px;
+    border-radius:15px;
+    background:#0c1421;
+    color:#65b3ff;
+    margin:15px 0;
 }
 
 .room-status{
     text-align:center;
-    color:#cbd5e1;
-    font-size:14px;
-    line-height:1.5;
-}
-
-.back{
-    width:100%;
-    padding:12px;
-    background:transparent;
-    color:#94a3b8;
-    margin-top:6px;
-}
-
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:22px;
-    transform:translateX(-50%) translateY(20px);
-    background:#111827;
-    border:1px solid rgba(255,255,255,.12);
-    padding:12px 16px;
-    border-radius:13px;
+    color:#9aa8ba;
     font-size:13px;
-    z-index:9999;
-    opacity:0;
-    pointer-events:none;
-    transition:.25s;
-    max-width:90%;
+}
+
+input{
+    width:100%;
+    height:48px;
+    border-radius:12px;
+    border:1px solid #35445b;
+    background:#0c1421;
+    color:#fff;
+    outline:none;
+    padding:0 14px;
+    font-size:16px;
     text-align:center;
+    text-transform:uppercase;
 }
 
-.toast.show{
-    opacity:1;
-    transform:translateX(-50%) translateY(0);
+input:focus{
+    border-color:#3f9cff;
 }
 
-/* CHESS */
+.chess-wrap{
+    margin-top:10px;
+}
 
-.game-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.game-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
     margin-bottom:10px;
 }
 
-.game-title{
-    font-size:18px;
+.player-box{
+    background:#111927;
+    border:1px solid #27354a;
+    border-radius:12px;
+    padding:10px;
+}
+
+.player-label{
+    font-size:11px;
+    color:#8e9bae;
+}
+
+.player-time{
+    font-size:25px;
     font-weight:900;
+    margin-top:4px;
 }
 
-.timer{
-    display:flex;
-    gap:8px;
-}
-
-.clock{
-    min-width:72px;
-    text-align:center;
-    padding:8px 9px;
-    border-radius:10px;
-    background:#111827;
-    border:1px solid rgba(255,255,255,.08);
-    font-weight:900;
-}
-
-.clock.active{
-    background:#1d4ed8;
-}
-
-.board-wrap{
-    width:100%;
-    max-width:500px;
-    margin:auto;
+.player-box.active-turn{
+    border-color:#4d9fff;
+    box-shadow:0 0 0 1px #4d9fff inset;
 }
 
 .board{
@@ -300,47 +286,51 @@ input:focus{
     grid-template-columns:repeat(8,1fr);
     border-radius:10px;
     overflow:hidden;
-    box-shadow:0 12px 30px rgba(0,0,0,.35);
+    border:3px solid #27364d;
+    user-select:none;
+    touch-action:manipulation;
 }
 
 .square{
     position:relative;
     display:flex;
-    justify-content:center;
     align-items:center;
-    aspect-ratio:1;
+    justify-content:center;
+    cursor:pointer;
 }
 
-.square.light{
-    background:#e7d3ad;
+.light{
+    background:#e6d6b8;
 }
 
-.square.dark{
-    background:#8b5e3c;
+.dark{
+    background:#8b6548;
 }
 
 .square.selected{
-    box-shadow:inset 0 0 0 4px #facc15;
+    box-shadow:inset 0 0 0 4px rgba(55,160,255,.9);
 }
 
-.square.legal{
-    box-shadow:inset 0 0 0 4px rgba(34,197,94,.7);
+.square.legal::after{
+    content:"";
+    width:25%;
+    height:25%;
+    border-radius:50%;
+    background:rgba(30,110,220,.65);
+    position:absolute;
 }
 
 .square.capture{
-    box-shadow:inset 0 0 0 4px rgba(239,68,68,.8);
-}
-
-.square.check{
-    box-shadow:inset 0 0 0 5px #ef4444;
+    box-shadow:inset 0 0 0 4px rgba(220,70,70,.7);
 }
 
 .piece{
-    width:88%;
-    height:88%;
+    width:82%;
+    height:82%;
     object-fit:contain;
-    user-select:none;
     pointer-events:none;
+    position:relative;
+    z-index:2;
 }
 
 .white-piece{
@@ -362,64 +352,75 @@ input:focus{
         drop-shadow(0 4px 4px rgba(0,0,0,.35));
 }
 
-.game-info{
+.game-message{
     text-align:center;
-    margin:12px 0;
-    color:#cbd5e1;
-    font-size:13px;
-    min-height:20px;
-}
-
-.game-buttons{
-    display:flex;
-    gap:8px;
-}
-
-.game-buttons button{
-    flex:1;
-}
-
-.difficulty{
-    display:flex;
-    gap:8px;
     margin-top:10px;
+    min-height:22px;
+    color:#a9b7ca;
+    font-size:13px;
 }
 
-.diff-btn{
-    flex:1;
-    padding:11px 5px;
-    border-radius:10px;
-    background:#202c44;
-    font-size:12px;
+.levels{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
 }
 
-.diff-btn.active{
-    background:#2563eb;
+.levels button{
+    padding:12px 5px;
+    border-radius:11px;
+    border:1px solid #33435b;
+    background:#141d2b;
+    color:#fff;
+    cursor:pointer;
 }
 
-.profile-row{
-    display:flex;
-    justify-content:space-between;
-    padding:12px 0;
-    border-bottom:1px solid rgba(255,255,255,.07);
-}
-
-.profile-row:last-child{
-    border-bottom:0;
-}
-
-.muted{
-    color:#94a3b8;
-}
-
-.center{
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%) translateY(20px);
+    background:#182235;
+    border:1px solid #34445c;
+    padding:11px 15px;
+    border-radius:12px;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:9999;
+    max-width:90%;
     text-align:center;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
 }
 
 .loading{
-    padding:50px 20px;
     text-align:center;
-    color:#94a3b8;
+    color:#8f9caf;
+    padding:20px;
+}
+
+.small{
+    font-size:12px;
+    color:#7f8da0;
+}
+
+.hidden{
+    display:none!important;
+}
+
+@media(max-width:380px){
+    .menu button{
+        min-height:70px;
+    }
+
+    .logo{
+        font-size:18px;
+    }
 }
 </style>
 </head>
@@ -429,119 +430,127 @@ input:focus{
 <div class="app">
 
     <div class="header">
-        <img id="avatar" class="avatar" src="" alt="">
-        <div class="user-info">
-            <div id="userName" class="user-name">Loading...</div>
-            <div id="userUsername" class="user-username">Telegram</div>
-        </div>
+        <div class="logo">♟ <span>1711</span> Chess Arena</div>
 
-        <div class="rating-box">
-            <div class="rating-label">RATING</div>
-            <div id="rating" class="rating">1000</div>
+        <div class="user-mini">
+            <span id="miniName">Guest</span>
+            <img id="miniAvatar"
+                 class="avatar"
+                 src="https://telegram.org/img/t_logo.png">
         </div>
     </div>
 
     <!-- HOME -->
     <section id="homeScreen" class="screen active">
 
-        <div class="logo">
-            <div class="logo-icon">♟️</div>
+        <div class="card welcome">
             <h1>1711 Chess Arena</h1>
-            <p>Play chess • Challenge players • Have fun</p>
-        </div>
+            <p>Main catur online, lawan bot atau teman.</p>
 
-        <div class="menu">
+            <div class="menu">
 
-            <button class="menu-btn" onclick="startRandomGame()">
-                <span class="icon">⚔️</span>
-                Lawan Random
-            </button>
+                <button onclick="startRandomGame()">
+                    <span class="icon">⚔️</span>
+                    Lawan Random
+                </button>
 
-            <button class="menu-btn" onclick="showScreen('privateMenuScreen')">
-                <span class="icon">🔒</span>
-                Private Room
-            </button>
+                <button onclick="showScreen('privateScreen')">
+                    <span class="icon">🔒</span>
+                    Private Room
+                </button>
 
-            <button class="menu-btn" onclick="showBotMenu()">
-                <span class="icon">🤖</span>
-                VS Bot
-            </button>
+                <button onclick="showScreen('botScreen')">
+                    <span class="icon">🤖</span>
+                    VS Bot
+                </button>
 
-            <button class="menu-btn" onclick="showScreen('friendsScreen')">
-                <span class="icon">👥</span>
-                Teman
-            </button>
+                <button onclick="showScreen('friendsScreen')">
+                    <span class="icon">👥</span>
+                    Teman
+                </button>
 
-            <button class="menu-btn" onclick="showScreen('leaderboardScreen')">
-                <span class="icon">🏆</span>
-                Leaderboard
-            </button>
+                <button onclick="showScreen('leaderboardScreen')">
+                    <span class="icon">🏆</span>
+                    Leaderboard
+                </button>
 
-            <button class="menu-btn" onclick="showScreen('profileScreen')">
-                <span class="icon">👤</span>
-                Profile
-            </button>
+                <button onclick="openProfile()">
+                    <span class="icon">👤</span>
+                    Profile
+                </button>
 
+            </div>
         </div>
 
     </section>
 
-    <!-- PRIVATE MENU -->
-    <section id="privateMenuScreen" class="screen">
 
-        <div class="card">
-            <h2>🔒 Private Room</h2>
-            <p>Buat room dan bagikan kode kepada temanmu.</p>
-
-            <button class="primary" onclick="createPrivateRoom()">
-                Buat Room
-            </button>
-        </div>
-
-        <div class="card">
-            <h2>🚪 Join Room</h2>
-            <p>Masukkan kode room temanmu.</p>
-
-            <input
-                id="joinRoomInput"
-                maxlength="6"
-                placeholder="KODE"
-                autocomplete="off"
-            >
-
-            <button class="primary" onclick="joinPrivateRoom()">
-                Masuk Room
-            </button>
-        </div>
+    <!-- PRIVATE ROOM -->
+    <section id="privateScreen" class="screen">
 
         <button class="back" onclick="showScreen('homeScreen')">
             ← Kembali
         </button>
 
+        <div class="card">
+
+            <div class="section-title">
+                🔒 Private Room
+            </div>
+
+            <p class="small">
+                Buat room lalu kirim kode kepada teman.
+            </p>
+
+            <button class="btn" onclick="createPrivateRoom()">
+                ➕ Buat Room
+            </button>
+
+            <div style="margin:18px 0;border-top:1px solid #27354a;"></div>
+
+            <input
+                id="joinCode"
+                maxlength="6"
+                placeholder="MASUKKAN KODE"
+            >
+
+            <button class="btn" onclick="joinPrivateRoom()">
+                🚪 Gabung Room
+            </button>
+
+        </div>
+
     </section>
 
-    <!-- PRIVATE WAITING -->
-    <section id="privateRoomScreen" class="screen">
 
-        <div class="card center">
+    <!-- ROOM WAITING -->
+    <section id="roomWaitingScreen" class="screen">
 
-            <h2>🔒 Private Room</h2>
+        <button class="back" onclick="leavePrivateRoom()">
+            ← Keluar Room
+        </button>
 
-            <div id="privateRoomCode" class="room-code">
+        <div class="card">
+
+            <div class="section-title">
+                🔒 Private Room
+            </div>
+
+            <div class="room-code" id="roomCodeDisplay">
                 ------
             </div>
 
-            <p>Bagikan kode ini kepada temanmu.</p>
-
-            <div id="privateRoomStatus" class="room-status">
-                Menunggu pemain...
+            <div class="room-status" id="roomStatus">
+                Menunggu lawan...
             </div>
 
-            <button class="primary" onclick="copyPrivateCode()">
+            <button class="btn secondary"
+                    onclick="copyRoomCode()">
                 📋 Salin Kode
             </button>
 
-            <button class="secondary" onclick="leavePrivateRoom()">
+            <button class="btn danger"
+                    onclick="leavePrivateRoom()">
                 Keluar Room
             </button>
 
@@ -549,164 +558,188 @@ input:focus{
 
     </section>
 
+
     <!-- BOT -->
-    <section id="botMenuScreen" class="screen">
+    <section id="botScreen" class="screen">
+
+        <button class="back" onclick="showScreen('homeScreen')">
+            ← Kembali
+        </button>
 
         <div class="card">
-            <h2>🤖 VS Bot</h2>
-            <p>Pilih tingkat kesulitan.</p>
 
-            <div class="difficulty">
+            <div class="section-title">
+                🤖 Pilih Level Bot
+            </div>
 
-                <button
-                    id="easyBtn"
-                    class="diff-btn active"
-                    onclick="setBotDifficulty('easy')"
-                >
+            <div class="levels">
+
+                <button onclick="startBotGame('easy')">
                     Easy
                 </button>
 
-                <button
-                    id="normalBtn"
-                    class="diff-btn"
-                    onclick="setBotDifficulty('normal')"
-                >
+                <button onclick="startBotGame('normal')">
                     Normal
                 </button>
 
-                <button
-                    id="hardBtn"
-                    class="diff-btn"
-                    onclick="setBotDifficulty('hard')"
-                >
+                <button onclick="startBotGame('hard')">
                     Hard
                 </button>
 
             </div>
 
-            <button class="primary" onclick="startBotGame()">
-                Mulai Game
-            </button>
-        </div>
-
-        <button class="back" onclick="showScreen('homeScreen')">
-            ← Kembali
-        </button>
-
-    </section>
-
-    <!-- GAME -->
-    <section id="gameScreen" class="screen">
-
-        <div class="game-top">
-
-            <div class="game-title" id="gameTitle">
-                Chess Game
-            </div>
-
-            <div class="timer">
-                <div id="whiteClock" class="clock">
-                    05:00
-                </div>
-
-                <div id="blackClock" class="clock">
-                    05:00
-                </div>
-            </div>
-
-        </div>
-
-        <div class="board-wrap">
-            <div id="board" class="board"></div>
-        </div>
-
-        <div id="gameInfo" class="game-info">
-            Giliran Putih
-        </div>
-
-        <div class="game-buttons">
-
-            <button class="secondary" onclick="exitGame()">
-                Keluar
-            </button>
-
         </div>
 
     </section>
+
 
     <!-- FRIENDS -->
     <section id="friendsScreen" class="screen">
 
-        <div class="card center">
-            <h2>👥 Teman</h2>
-            <p>Fitur teman akan tersedia pada update berikutnya.</p>
+        <button class="back" onclick="showScreen('homeScreen')">
+            ← Kembali
+        </button>
+
+        <div class="card">
+
+            <div class="section-title">
+                👥 Teman
+            </div>
+
+            <div class="loading">
+                Fitur teman akan segera tersedia.
+            </div>
+
         </div>
+
+    </section>
+
+
+    <!-- LEADERBOARD -->
+    <section id="leaderboardScreen" class="screen">
 
         <button class="back" onclick="showScreen('homeScreen')">
             ← Kembali
         </button>
 
-    </section>
-
-    <!-- LEADERBOARD -->
-    <section id="leaderboardScreen" class="screen">
-
         <div class="card">
 
-            <h2>🏆 Leaderboard</h2>
+            <div class="section-title">
+                🏆 Leaderboard
+            </div>
 
-            <div id="leaderboardList">
-                <div class="loading">
-                    Memuat leaderboard...
+            <div class="loading">
+                Leaderboard akan tersedia setelah sistem rating aktif.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+    <section id="profileScreen" class="screen">
+
+        <button class="back" onclick="showScreen('homeScreen')">
+            ← Kembali
+        </button>
+
+        <div class="card profile-box">
+
+            <img id="profileAvatar"
+                 class="big-avatar"
+                 src="https://telegram.org/img/t_logo.png">
+
+            <div class="profile-name" id="profileName">
+                Guest
+            </div>
+
+            <div class="profile-username"
+                 id="profileUsername">
+                —
+            </div>
+
+            <div class="rating">
+
+                <div class="small">
+                    Rating
+                </div>
+
+                <div class="rating-value">
+                    1000
+                </div>
+
+            </div>
+
+            <div class="small" style="margin-top:15px;">
+                Telegram ID
+            </div>
+
+            <div id="profileTelegramId"
+                 style="font-weight:bold;margin-top:5px;">
+                —
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHESS GAME -->
+    <section id="gameScreen" class="screen">
+
+        <button class="back" onclick="exitGame()">
+            ← Keluar Game
+        </button>
+
+        <div class="game-info">
+
+            <div class="player-box" id="blackPlayerBox">
+                <div class="player-label">
+                    ♟ BLACK
+                </div>
+                <div class="player-time"
+                     id="blackTime">
+                    05:00
+                </div>
+            </div>
+
+            <div class="player-box" id="whitePlayerBox">
+                <div class="player-label">
+                    ♙ WHITE
+                </div>
+                <div class="player-time"
+                     id="whiteTime">
+                    05:00
                 </div>
             </div>
 
         </div>
 
-        <button class="back" onclick="showScreen('homeScreen')">
-            ← Kembali
-        </button>
-
-    </section>
-
-    <!-- PROFILE -->
-    <section id="profileScreen" class="screen">
-
-        <div class="card">
-
-            <h2>👤 Profile</h2>
-
-            <div class="profile-row">
-                <span class="muted">Nama</span>
-                <strong id="profileName">-</strong>
+        <div class="chess-wrap">
+            <div id="board"
+                 class="board">
             </div>
-
-            <div class="profile-row">
-                <span class="muted">Username</span>
-                <strong id="profileUsername">-</strong>
-            </div>
-
-            <div class="profile-row">
-                <span class="muted">Telegram ID</span>
-                <strong id="profileTelegramId">-</strong>
-            </div>
-
-            <div class="profile-row">
-                <span class="muted">Rating</span>
-                <strong id="profileRating">1000</strong>
-            </div>
-
         </div>
 
-        <button class="back" onclick="showScreen('homeScreen')">
-            ← Kembali
+        <div class="game-message"
+             id="gameMessage">
+            Giliran White
+        </div>
+
+        <button class="btn secondary"
+                onclick="restartCurrentGame()">
+            🔄 Restart
         </button>
 
     </section>
 
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast"
+     class="toast">
+</div>
+
 
 <script>
 
@@ -731,67 +764,731 @@ const supabaseClient =
    TELEGRAM
 ========================================================= */
 
-const tg = window.Telegram &&
-           window.Telegram.WebApp
-           ? window.Telegram.WebApp
-           : null;
+const tg =
+    window.Telegram &&
+    window.Telegram.WebApp
+        ? window.Telegram.WebApp
+        : null;
 
 let myTelegramUser = null;
 let myUserId = null;
-let myRating = 1000;
+
+async function loadTelegramUser(){
+
+    try{
+
+        if(tg){
+
+            tg.ready();
+            tg.expand();
+
+            myTelegramUser =
+                tg.initDataUnsafe &&
+                tg.initDataUnsafe.user
+                    ? tg.initDataUnsafe.user
+                    : null;
+        }
+
+        if(!myTelegramUser){
+
+            console.log(
+                "Telegram user tidak ditemukan."
+            );
+
+            return false;
+        }
+
+        myUserId =
+            Number(myTelegramUser.id);
+
+        const first =
+            myTelegramUser.first_name || "";
+
+        const last =
+            myTelegramUser.last_name || "";
+
+        const fullName =
+            (first + " " + last).trim() ||
+            "Player";
+
+        document.getElementById(
+            "miniName"
+        ).textContent = fullName;
+
+        document.getElementById(
+            "profileName"
+        ).textContent = fullName;
+
+        document.getElementById(
+            "profileUsername"
+        ).textContent =
+            myTelegramUser.username
+                ? "@" + myTelegramUser.username
+                : "Tanpa username";
+
+        document.getElementById(
+            "profileTelegramId"
+        ).textContent = myUserId;
+
+        if(myTelegramUser.photo_url){
+
+            document.getElementById(
+                "miniAvatar"
+            ).src =
+                myTelegramUser.photo_url;
+
+            document.getElementById(
+                "profileAvatar"
+            ).src =
+                myTelegramUser.photo_url;
+        }
+
+        await saveUser();
+
+        return true;
+
+    }catch(error){
+
+        console.error(
+            "LOAD TELEGRAM ERROR:",
+            error
+        );
+
+        return false;
+    }
+}
 
 
 /* =========================================================
-   PRIVATE ROOM
+   SAVE USER
+   HANYA telegram_id
 ========================================================= */
 
-let privateRoomId = null;
-let privateRoomCode = null;
-let privateIsHost = false;
+async function saveUser(){
 
-let privateRoomChannel = null;
-let privateGameChannel = null;
-let privatePollTimer = null;
-let privateGamePollTimer = null;
+    if(!myTelegramUser)
+        return false;
+
+    const telegramId =
+        Number(myTelegramUser.id);
+
+    const { error } =
+        await supabaseClient
+        .from("users")
+        .upsert(
+            {
+                telegram_id:telegramId
+            },
+            {
+                onConflict:"telegram_id"
+            }
+        );
+
+    if(error){
+
+        console.error(
+            "SAVE USER ERROR:",
+            error
+        );
+
+        return false;
+    }
+
+    return true;
+}
 
 
 /* =========================================================
-   BOT
+   ENSURE USER
 ========================================================= */
 
-let botDifficulty = "easy";
+async function ensureUserExists(){
+
+    if(!myTelegramUser || !myUserId){
+
+        throw new Error(
+            "Telegram user belum terdeteksi."
+        );
+    }
+
+    const telegramId =
+        Number(myUserId);
+
+    const { error } =
+        await supabaseClient
+        .from("users")
+        .upsert(
+            {
+                telegram_id:telegramId
+            },
+            {
+                onConflict:"telegram_id"
+            }
+        );
+
+    if(error){
+
+        console.error(
+            "ENSURE USER ERROR:",
+            error
+        );
+
+        throw error;
+    }
+
+    return true;
+}
 
 
 /* =========================================================
-   CHESS STATE
+   UI
 ========================================================= */
 
-let boardState = [];
-let selectedSquare = null;
-let legalTargets = [];
+function showScreen(id){
 
-let currentTurn = "white";
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen => {
 
-let gameMode = null;
-let currentGameId = null;
+            screen.classList.remove(
+                "active"
+            );
 
-let whiteTime = 300;
-let blackTime = 300;
-let timerInterval = null;
+        });
 
-let gameOver = false;
+    const target =
+        document.getElementById(id);
 
-let privateWhitePlayer = null;
-let privateBlackPlayer = null;
+    if(target)
+        target.classList.add("active");
+}
+
+
+function toast(message){
+
+    const el =
+        document.getElementById("toast");
+
+    el.textContent = message;
+
+    el.classList.add("show");
+
+    clearTimeout(
+        toast.timer
+    );
+
+    toast.timer =
+        setTimeout(() => {
+
+            el.classList.remove(
+                "show"
+            );
+
+        },3000);
+}
+
+
+function openProfile(){
+
+    showScreen(
+        "profileScreen"
+    );
+}
 
 
 /* =========================================================
-   PIECES
+   ROOM
 ========================================================= */
 
-const PIECES = {
+let currentRoom = null;
+let roomChannel = null;
+let roomPollTimer = null;
 
-    white:{
+
+function generateRoomCode(){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let result = "";
+
+    for(let i=0;i<6;i++){
+
+        result +=
+            chars[
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            ];
+    }
+
+    return result;
+}
+
+
+async function createPrivateRoom(){
+
+    try{
+
+        if(!myUserId){
+
+            toast(
+                "Telegram user belum terdeteksi."
+            );
+
+            return;
+        }
+
+        await ensureUserExists();
+
+        let roomCode =
+            generateRoomCode();
+
+        let existing = null;
+
+        for(let i=0;i<5;i++){
+
+            const { data } =
+                await supabaseClient
+                .from("rooms")
+                .select("id")
+                .eq(
+                    "room_code",
+                    roomCode
+                )
+                .maybeSingle();
+
+            if(!data){
+
+                existing = null;
+                break;
+            }
+
+            existing = data;
+
+            roomCode =
+                generateRoomCode();
+        }
+
+        if(existing){
+
+            toast(
+                "Gagal membuat kode room."
+            );
+
+            return;
+        }
+
+        const { data:room, error } =
+            await supabaseClient
+            .from("rooms")
+            .insert({
+                room_code:roomCode,
+                host_id:Number(myUserId),
+                status:"waiting"
+            })
+            .select()
+            .single();
+
+        if(error)
+            throw error;
+
+        const { error:playerError } =
+            await supabaseClient
+            .from("room_players")
+            .insert({
+                room_id:room.id,
+                user_id:Number(myUserId),
+                color:"white"
+            });
+
+        if(playerError)
+            throw playerError;
+
+        currentRoom = room;
+
+        document.getElementById(
+            "roomCodeDisplay"
+        ).textContent =
+            room.room_code;
+
+        document.getElementById(
+            "roomStatus"
+        ).textContent =
+            "Menunggu lawan masuk...";
+
+        showScreen(
+            "roomWaitingScreen"
+        );
+
+        startRoomWatcher();
+
+        toast(
+            "Room berhasil dibuat!"
+        );
+
+    }catch(error){
+
+        console.error(
+            "CREATE ROOM ERROR:",
+            error
+        );
+
+        toast(
+            "Gagal membuat room: " +
+            error.message
+        );
+    }
+}
+
+
+async function joinPrivateRoom(){
+
+    try{
+
+        if(!myUserId){
+
+            toast(
+                "Telegram user belum terdeteksi."
+            );
+
+            return;
+        }
+
+        const input =
+            document.getElementById(
+                "joinCode"
+            );
+
+        const code =
+            input.value
+                .trim()
+                .toUpperCase();
+
+        if(code.length !== 6){
+
+            toast(
+                "Kode room harus 6 karakter."
+            );
+
+            return;
+        }
+
+        await ensureUserExists();
+
+        const { data:room, error } =
+            await supabaseClient
+            .from("rooms")
+            .select("*")
+            .eq(
+                "room_code",
+                code
+            )
+            .maybeSingle();
+
+        if(error)
+            throw error;
+
+        if(!room){
+
+            toast(
+                "Room tidak ditemukan."
+            );
+
+            return;
+        }
+
+        if(room.status !== "waiting"){
+
+            toast(
+                "Room sudah dimulai."
+            );
+
+            return;
+        }
+
+        if(
+            Number(room.host_id) ===
+            Number(myUserId)
+        ){
+
+            toast(
+                "Kamu adalah pembuat room."
+            );
+
+            return;
+        }
+
+        const { data:players, error:playersError } =
+            await supabaseClient
+            .from("room_players")
+            .select("*")
+            .eq(
+                "room_id",
+                room.id
+            );
+
+        if(playersError)
+            throw playersError;
+
+        if(
+            players &&
+            players.some(
+                p =>
+                    Number(p.user_id) ===
+                    Number(myUserId)
+            )
+        ){
+
+            toast(
+                "Kamu sudah berada di room."
+            );
+
+            return;
+        }
+
+        if(
+            players &&
+            players.length >= 2
+        ){
+
+            toast(
+                "Room sudah penuh."
+            );
+
+            return;
+        }
+
+        const { error:joinError } =
+            await supabaseClient
+            .from("room_players")
+            .insert({
+                room_id:room.id,
+                user_id:Number(myUserId),
+                color:"black"
+            });
+
+        if(joinError)
+            throw joinError;
+
+        currentRoom = room;
+
+        document.getElementById(
+            "roomCodeDisplay"
+        ).textContent =
+            room.room_code;
+
+        document.getElementById(
+            "roomStatus"
+        ).textContent =
+            "Berhasil masuk. Menunggu game dimulai...";
+
+        showScreen(
+            "roomWaitingScreen"
+        );
+
+        startRoomWatcher();
+
+        toast(
+            "Berhasil masuk room!"
+        );
+
+    }catch(error){
+
+        console.error(
+            "JOIN ROOM ERROR:",
+            error
+        );
+
+        toast(
+            "Gagal masuk room: " +
+            error.message
+        );
+    }
+}
+
+
+async function checkRoomPlayers(){
+
+    if(!currentRoom)
+        return;
+
+    try{
+
+        const { data:players, error } =
+            await supabaseClient
+            .from("room_players")
+            .select("*")
+            .eq(
+                "room_id",
+                currentRoom.id
+            )
+            .order(
+                "joined_at",
+                {
+                    ascending:true
+                }
+            );
+
+        if(error)
+            throw error;
+
+        if(
+            players &&
+            players.length >= 2
+        ){
+
+            document.getElementById(
+                "roomStatus"
+            ).textContent =
+                "Lawan ditemukan! Memulai game...";
+
+            clearRoomWatcher();
+
+            await startPrivateGame(
+                players
+            );
+        }
+
+    }catch(error){
+
+        console.error(
+            "ROOM CHECK ERROR:",
+            error
+        );
+    }
+}
+
+
+function startRoomWatcher(){
+
+    clearRoomWatcher();
+
+    checkRoomPlayers();
+
+    roomPollTimer =
+        setInterval(
+            checkRoomPlayers,
+            2000
+        );
+
+    if(roomChannel)
+        supabaseClient.removeChannel(
+            roomChannel
+        );
+
+    roomChannel =
+        supabaseClient
+        .channel(
+            "room-" +
+            currentRoom.id
+        )
+        .on(
+            "postgres_changes",
+            {
+                event:"*",
+                schema:"public",
+                table:"room_players",
+                filter:
+                    "room_id=eq." +
+                    currentRoom.id
+            },
+            () => {
+
+                checkRoomPlayers();
+
+            }
+        )
+        .subscribe();
+}
+
+
+function clearRoomWatcher(){
+
+    if(roomPollTimer){
+
+        clearInterval(
+            roomPollTimer
+        );
+
+        roomPollTimer = null;
+    }
+
+    if(roomChannel){
+
+        supabaseClient.removeChannel(
+            roomChannel
+        );
+
+        roomChannel = null;
+    }
+}
+
+
+async function leavePrivateRoom(){
+
+    clearRoomWatcher();
+
+    if(
+        currentRoom &&
+        myUserId
+    ){
+
+        await supabaseClient
+        .from("room_players")
+        .delete()
+        .eq(
+            "room_id",
+            currentRoom.id
+        )
+        .eq(
+            "user_id",
+            Number(myUserId)
+        );
+    }
+
+    currentRoom = null;
+
+    showScreen(
+        "privateScreen"
+    );
+}
+
+
+async function copyRoomCode(){
+
+    const code =
+        document.getElementById(
+            "roomCodeDisplay"
+        ).textContent;
+
+    try{
+
+        await navigator.clipboard.writeText(
+            code
+        );
+
+        toast(
+            "Kode berhasil disalin."
+        );
+
+    }catch{
+
+        toast(
+            "Kode room: " + code
+        );
+    }
+}
+
+
+/* =========================================================
+   CHESS ENGINE
+========================================================= */
+
+const pieceImages = {
+
+    w:{
         rook:
         "https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg",
 
@@ -811,7 +1508,7 @@ const PIECES = {
         "https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
     },
 
-    black:{
+    b:{
         rook:
         "https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg",
 
@@ -830,1356 +1527,75 @@ const PIECES = {
         pawn:
         "https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
     }
-
 };
 
 
-/* =========================================================
-   UTILITY
-========================================================= */
-
-function toast(message){
-
-    const el =
-        document.getElementById("toast");
-
-    el.textContent = message;
-
-    el.classList.add("show");
-
-    clearTimeout(el._timer);
-
-    el._timer =
-        setTimeout(()=>{
-            el.classList.remove("show");
-        },3000);
-}
-
-
-function showScreen(id){
-
-    document
-        .querySelectorAll(".screen")
-        .forEach(el=>{
-            el.classList.remove("active");
-        });
-
-    const screen =
-        document.getElementById(id);
-
-    if(screen){
-        screen.classList.add("active");
-    }
-}
-
-
-function randomRoomCode(){
-
-    const chars =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-    let code = "";
-
-    for(let i=0;i<6;i++){
-        code += chars[
-            Math.floor(Math.random()*chars.length)
-        ];
-    }
-
-    return code;
-}
-
-
-function sleep(ms){
-    return new Promise(resolve=>setTimeout(resolve,ms));
-}
-
-
-/* =========================================================
-   TELEGRAM USER
-========================================================= */
-
-async function loadTelegramUser(){
-
-    if(tg){
-
-        try{
-            tg.ready();
-            tg.expand();
-        }catch(e){
-            console.warn(e);
-        }
-
-        if(tg.initDataUnsafe &&
-           tg.initDataUnsafe.user){
-
-            myTelegramUser =
-                tg.initDataUnsafe.user;
-
-            myUserId =
-                Number(myTelegramUser.id);
-
-            updateUserUI();
-
-            /*
-             * IMPORTANT:
-             * Tunggu saveUser selesai.
-             * Ini mencegah foreign key error.
-             */
-            await saveUser();
-
-            await loadRating();
-            await loadLeaderboard();
-
-            return;
-        }
-    }
-
-    /*
-     * Fallback untuk testing browser.
-     */
-    document.getElementById("userName").textContent =
-        "Browser Mode";
-
-    document.getElementById("userUsername").textContent =
-        "Telegram tidak terdeteksi";
-
-    await loadLeaderboard();
-}
-
-
-function updateUserUI(){
-
-    if(!myTelegramUser)
-        return;
-
-    const user =
-        myTelegramUser;
-
-    const fullName =
-        ((user.first_name || "") +
-        " " +
-        (user.last_name || "")).trim();
-
-    document.getElementById("userName").textContent =
-        fullName || "Telegram User";
-
-    document.getElementById("userUsername").textContent =
-        user.username
-        ? "@" + user.username
-        : "Telegram User";
-
-    document.getElementById("profileName").textContent =
-        fullName || "-";
-
-    document.getElementById("profileUsername").textContent =
-        user.username
-        ? "@" + user.username
-        : "-";
-
-    document.getElementById("profileTelegramId").textContent =
-        user.id || "-";
-
-    if(user.photo_url){
-
-        document.getElementById("avatar").src =
-            user.photo_url;
-
-    }else{
-
-        document.getElementById("avatar").src =
-            "https://ui-avatars.com/api/?name=" +
-            encodeURIComponent(fullName || "User");
-
-    }
-}
-
-
-/* =========================================================
-   SAVE USER
-========================================================= */
-
-async function saveUser(){
-
-    if(!myTelegramUser)
-        return false;
-
-    const user =
-        myTelegramUser;
-
-    const fullName =
-        ((user.first_name || "") +
-        " " +
-        (user.last_name || "")).trim();
-
-    const { data, error } =
-        await supabaseClient
-        .from("users")
-        .upsert({
-
-            telegram_id:Number(user.id),
-
-            name:
-                fullName || "Telegram User",
-
-            username:
-                user.username || null
-
-        },{
-            onConflict:"telegram_id"
-        })
-        .select()
-        .single();
-
-    if(error){
-
-        console.error(
-            "SAVE USER:",
-            error
-        );
-
-        toast(
-            "Gagal menyimpan data user: " +
-            error.message
-        );
-
-        return false;
-    }
-
-    if(data){
-
-        myRating =
-            Number(data.rating || 1000);
-
-        document.getElementById("rating").textContent =
-            myRating;
-
-        document.getElementById("profileRating").textContent =
-            myRating;
-    }
-
-    return true;
-}
-
-
-/*
- * EXTRA SAFETY
- *
- * Fungsi ini dipanggil tepat sebelum
- * insert ke room_players.
- *
- * Jadi walaupun user baru saja membuka
- * Mini App, foreign key tetap aman.
- */
-async function ensureUserExists(){
-
-    if(!myTelegramUser || !myUserId){
-
-        throw new Error(
-            "Telegram user belum terdeteksi."
-        );
-    }
-
-    const user =
-        myTelegramUser;
-
-    const fullName =
-        ((user.first_name || "") +
-        " " +
-        (user.last_name || "")).trim();
-
-    const { error } =
-        await supabaseClient
-        .from("users")
-        .upsert({
-
-            telegram_id:Number(user.id),
-
-            name:
-                fullName || "Telegram User",
-
-            username:
-                user.username || null
-
-        },{
-            onConflict:"telegram_id"
-        });
-
-    if(error){
-
-        console.error(
-            "ENSURE USER:",
-            error
-        );
-
-        throw error;
-    }
-
-    return true;
-}
-
-
-async function loadRating(){
-
-    if(!myUserId)
-        return;
-
-    const { data,error } =
-        await supabaseClient
-        .from("users")
-        .select("rating")
-        .eq("telegram_id",Number(myUserId))
-        .maybeSingle();
-
-    if(error){
-
-        console.error(
-            "LOAD RATING:",
-            error
-        );
-
-        return;
-    }
-
-    if(data){
-
-        myRating =
-            Number(data.rating || 1000);
-
-        document.getElementById("rating").textContent =
-            myRating;
-
-        document.getElementById("profileRating").textContent =
-            myRating;
-    }
-}
-
-
-/* =========================================================
-   LEADERBOARD
-========================================================= */
-
-async function loadLeaderboard(){
-
-    const container =
-        document.getElementById("leaderboardList");
-
-    if(!container)
-        return;
-
-    const { data,error } =
-        await supabaseClient
-        .from("users")
-        .select("telegram_id,name,username,rating")
-        .order("rating",{
-            ascending:false
-        })
-        .limit(20);
-
-    if(error){
-
-        console.error(
-            "LEADERBOARD:",
-            error
-        );
-
-        container.innerHTML =
-            "<div class='loading'>Leaderboard belum tersedia.</div>";
-
-        return;
-    }
-
-    if(!data || !data.length){
-
-        container.innerHTML =
-            "<div class='loading'>Belum ada pemain.</div>";
-
-        return;
-    }
-
-    container.innerHTML =
-        data.map((user,index)=>{
-
-            const name =
-                user.name ||
-                user.username ||
-                "Player";
-
-            return `
-                <div class="profile-row">
-                    <span>
-                        #${index+1} ${escapeHtml(name)}
-                    </span>
-                    <strong>
-                        ${Number(user.rating || 1000)}
-                    </strong>
-                </div>
-            `;
-
-        }).join("");
-}
-
-
-function escapeHtml(text){
-
-    return String(text)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-}
-
-
-/* =========================================================
-   PRIVATE ROOM
-========================================================= */
-
-async function createPrivateRoom(){
-
-    if(!myUserId){
-
-        toast(
-            "Telegram user belum terdeteksi."
-        );
-
-        return;
-    }
-
-    try{
-
-        /*
-         * Pastikan user sudah ada
-         * sebelum membuat room/player.
-         */
-        await ensureUserExists();
-
-        toast("Membuat room...");
-
-        let room = null;
-
-        /*
-         * Coba beberapa kode sampai mendapat
-         * kode room yang belum digunakan.
-         */
-        for(let attempt=0;attempt<5;attempt++){
-
-            const code =
-                randomRoomCode();
-
-            const {
-                data,
-                error
-            } =
-                await supabaseClient
-                .from("rooms")
-                .insert({
-
-                    room_code:code,
-
-                    host_id:Number(myUserId),
-
-                    status:"waiting"
-
-                })
-                .select()
-                .single();
-
-            if(!error && data){
-
-                room = data;
-                break;
-            }
-
-            console.warn(
-                "CREATE ROOM ATTEMPT:",
-                error
-            );
-        }
-
-        if(!room){
-
-            throw new Error(
-                "Tidak bisa membuat room."
-            );
-        }
-
-        /*
-         * Host masuk sebagai player putih.
-         */
-        const {
-            error:playerError
-        } =
-            await supabaseClient
-            .from("room_players")
-            .insert({
-
-                room_id:room.id,
-
-                user_id:Number(myUserId),
-
-                color:"white"
-
-            });
-
-        if(playerError){
-
-            console.error(
-                "CREATE ROOM PLAYER:",
-                playerError
-            );
-
-            /*
-             * Bersihkan room jika player gagal dibuat.
-             */
-            await supabaseClient
-                .from("rooms")
-                .delete()
-                .eq("id",room.id);
-
-            throw playerError;
-        }
-
-        privateRoomId =
-            room.id;
-
-        privateRoomCode =
-            room.room_code;
-
-        privateIsHost =
-            true;
-
-        document.getElementById(
-            "privateRoomCode"
-        ).textContent =
-            privateRoomCode;
-
-        document.getElementById(
-            "privateRoomStatus"
-        ).textContent =
-            "Menunggu teman masuk ke room...";
-
-        showScreen(
-            "privateRoomScreen"
-        );
-
-        subscribePrivateRoom(
-            privateRoomId
-        );
-
-        startPrivatePolling();
-
-        await checkPrivateRoom();
-
-    }catch(error){
-
-        console.error(
-            "CREATE ROOM ERROR:",
-            error
-        );
-
-        toast(
-            "Gagal membuat room: " +
-            (error.message || String(error))
-        );
-    }
-}
-
-
-async function joinPrivateRoom(){
-
-    if(!myUserId){
-
-        toast(
-            "Telegram user belum terdeteksi."
-        );
-
-        return;
-    }
-
-    const input =
-        document.getElementById(
-            "joinRoomInput"
-        );
-
-    const code =
-        input.value
-        .trim()
-        .toUpperCase();
-
-    if(code.length !== 6){
-
-        toast(
-            "Kode room harus 6 karakter."
-        );
-
-        return;
-    }
-
-    try{
-
-        toast("Mencari room...");
-
-        /*
-         * =====================================================
-         * FIX FOREIGN KEY
-         * =====================================================
-         *
-         * Pastikan user yang sedang join sudah ada
-         * di tabel users sebelum room_players.insert().
-         */
-        await ensureUserExists();
-
-        const {
-            data:room,
-            error:roomError
-        } =
-            await supabaseClient
-            .from("rooms")
-            .select(
-                "id,room_code,host_id,status"
-            )
-            .eq(
-                "room_code",
-                code
-            )
-            .maybeSingle();
-
-        if(roomError){
-
-            console.error(
-                "FIND ROOM:",
-                roomError
-            );
-
-            toast(
-                "Gagal mencari room: " +
-                roomError.message
-            );
-
-            return;
-        }
-
-        if(!room){
-
-            toast(
-                "Room tidak ditemukan."
-            );
-
-            return;
-        }
-
-        if(room.status !== "waiting"){
-
-            toast(
-                "Room sudah tidak menunggu pemain."
-            );
-
-            return;
-        }
-
-        if(
-            Number(room.host_id) ===
-            Number(myUserId)
-        ){
-
-            toast(
-                "Kamu adalah pembuat room ini."
-            );
-
-            return;
-        }
-
-        const players =
-            await getRoomPlayers(
-                room.id
-            );
-
-        if(players === null){
-
-            toast(
-                "Gagal membaca pemain room."
-            );
-
-            return;
-        }
-
-        const alreadyJoined =
-            players.find(
-                p =>
-                    Number(p.user_id) ===
-                    Number(myUserId)
-            );
-
-        if(alreadyJoined){
-
-            privateRoomId =
-                room.id;
-
-            privateRoomCode =
-                room.room_code;
-
-            privateIsHost =
-                Number(room.host_id) ===
-                Number(myUserId);
-
-            document.getElementById(
-                "privateRoomCode"
-            ).textContent =
-                privateRoomCode;
-
-            showScreen(
-                "privateRoomScreen"
-            );
-
-            subscribePrivateRoom(
-                privateRoomId
-            );
-
-            startPrivatePolling();
-
-            await checkPrivateRoom();
-
-            return;
-        }
-
-        if(players.length >= 2){
-
-            toast(
-                "Room sudah penuh."
-            );
-
-            return;
-        }
-
-        /*
-         * USER SUDAH DIPASTIKAN ADA
-         * DI TABEL users.
-         */
-        const {
-            error:joinError
-        } =
-            await supabaseClient
-            .from("room_players")
-            .insert({
-
-                room_id:room.id,
-
-                user_id:Number(myUserId),
-
-                color:"black"
-
-            });
-
-        if(joinError){
-
-            console.error(
-                "JOIN PLAYER:",
-                joinError
-            );
-
-            toast(
-                "Gagal masuk room: " +
-                joinError.message
-            );
-
-            return;
-        }
-
-        privateRoomId =
-            room.id;
-
-        privateRoomCode =
-            room.room_code;
-
-        privateIsHost =
-            false;
-
-        document.getElementById(
-            "privateRoomCode"
-        ).textContent =
-            privateRoomCode;
-
-        document.getElementById(
-            "privateRoomStatus"
-        ).textContent =
-            "Berhasil masuk. Menunggu game dimulai...";
-
-        showScreen(
-            "privateRoomScreen"
-        );
-
-        subscribePrivateRoom(
-            privateRoomId
-        );
-
-        startPrivatePolling();
-
-        await checkPrivateRoom();
-
-    }catch(error){
-
-        console.error(
-            "JOIN ROOM ERROR:",
-            error
-        );
-
-        toast(
-            "Gagal bergabung: " +
-            (error.message || String(error))
-        );
-    }
-}
-
-
-async function getRoomPlayers(roomId){
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-        .from("room_players")
-        .select(
-            "id,room_id,user_id,color,joined_at"
-        )
-        .eq(
-            "room_id",
-            roomId
-        )
-        .order(
-            "joined_at",
-            {ascending:true}
-        );
-
-    if(error){
-
-        console.error(
-            "GET ROOM PLAYERS:",
-            error
-        );
-
-        return null;
-    }
-
-    return data || [];
-}
-
-
-function subscribePrivateRoom(roomId){
-
-    if(privateRoomChannel){
-
-        supabaseClient.removeChannel(
-            privateRoomChannel
-        );
-
-        privateRoomChannel = null;
-    }
-
-    privateRoomChannel =
-        supabaseClient
-        .channel(
-            "private-room-" + roomId
-        )
-        .on(
-            "postgres_changes",
-            {
-                event:"*",
-                schema:"public",
-                table:"room_players",
-                filter:
-                    "room_id=eq." + roomId
-            },
-            async()=>{
-                await checkPrivateRoom();
-            }
-        )
-        .on(
-            "postgres_changes",
-            {
-                event:"*",
-                schema:"public",
-                table:"games",
-                filter:
-                    "room_id=eq." + roomId
-            },
-            async(payload)=>{
-
-                if(payload.new){
-
-                    await handlePrivateGameUpdate(
-                        payload.new
-                    );
-                }
-
-                await checkPrivateRoom();
-            }
-        )
-        .subscribe();
-}
-
-
-function startPrivatePolling(){
-
-    stopPrivatePolling();
-
-    privatePollTimer =
-        setInterval(
-            async()=>{
-                await checkPrivateRoom();
-            },
-            1500
-        );
-}
-
-
-function stopPrivatePolling(){
-
-    if(privatePollTimer){
-
-        clearInterval(
-            privatePollTimer
-        );
-
-        privatePollTimer = null;
-    }
-
-    if(privateGamePollTimer){
-
-        clearInterval(
-            privateGamePollTimer
-        );
-
-        privateGamePollTimer = null;
-    }
-}
-
-
-async function checkPrivateRoom(){
-
-    if(!privateRoomId)
-        return;
-
-    const players =
-        await getRoomPlayers(
-            privateRoomId
-        );
-
-    if(!players)
-        return;
-
-    if(players.length < 2){
-
-        if(
-            document.getElementById(
-                "privateRoomStatus"
-            )
-        ){
-
-            document.getElementById(
-                "privateRoomStatus"
-            ).textContent =
-                "Menunggu teman masuk ke room...";
-        }
-
-        return;
-    }
-
-    privateWhitePlayer =
-        players.find(
-            p => p.color === "white"
-        );
-
-    privateBlackPlayer =
-        players.find(
-            p => p.color === "black"
-        );
-
-    /*
-     * Cek apakah game sudah ada.
-     */
-    const {
-        data:existingGame,
-        error:gameFindError
-    } =
-        await supabaseClient
-        .from("games")
-        .select("*")
-        .eq(
-            "room_id",
-            privateRoomId
-        )
-        .order(
-            "created_at",
-            {ascending:false}
-        )
-        .limit(1)
-        .maybeSingle();
-
-    if(gameFindError){
-
-        console.error(
-            "FIND PRIVATE GAME:",
-            gameFindError
-        );
-
-        return;
-    }
-
-    if(existingGame){
-
-        await handlePrivateGameUpdate(
-            existingGame
-        );
-
-        return;
-    }
-
-    /*
-     * Host membuat game.
-     */
-    if(privateIsHost){
-
-        await createPrivateGame(
-            privateWhitePlayer,
-            privateBlackPlayer
-        );
-    }
-}
-
-
-function initialBoard(){
+let board = [];
+let selectedSquare = null;
+let legalMoves = [];
+let chessTurn = "w";
+let gameOver = false;
+let gameMode = "bot";
+let botLevel = "normal";
+let playerColor = "w";
+let chessTimer = null;
+let whiteSeconds = 300;
+let blackSeconds = 300;
+
+
+function createInitialBoard(){
 
     return [
 
         [
-            {type:"rook",color:"black"},
-            {type:"knight",color:"black"},
-            {type:"bishop",color:"black"},
-            {type:"queen",color:"black"},
-            {type:"king",color:"black"},
-            {type:"bishop",color:"black"},
-            {type:"knight",color:"black"},
-            {type:"rook",color:"black"}
+            {c:"b",p:"rook"},
+            {c:"b",p:"knight"},
+            {c:"b",p:"bishop"},
+            {c:"b",p:"queen"},
+            {c:"b",p:"king"},
+            {c:"b",p:"bishop"},
+            {c:"b",p:"knight"},
+            {c:"b",p:"rook"}
         ],
 
         [
-            {type:"pawn",color:"black"},
-            {type:"pawn",color:"black"},
-            {type:"pawn",color:"black"},
-            {type:"pawn",color:"black"},
-            {type:"pawn",color:"black"},
-            {type:"pawn",color:"black"},
-            {type:"pawn",color:"black"},
-            {type:"pawn",color:"black"}
+            {c:"b",p:"pawn"},
+            {c:"b",p:"pawn"},
+            {c:"b",p:"pawn"},
+            {c:"b",p:"pawn"},
+            {c:"b",p:"pawn"},
+            {c:"b",p:"pawn"},
+            {c:"b",p:"pawn"},
+            {c:"b",p:"pawn"}
+        ],
+
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+
+        [
+            {c:"w",p:"pawn"},
+            {c:"w",p:"pawn"},
+            {c:"w",p:"pawn"},
+            {c:"w",p:"pawn"},
+            {c:"w",p:"pawn"},
+            {c:"w",p:"pawn"},
+            {c:"w",p:"pawn"},
+            {c:"w",p:"pawn"}
         ],
 
         [
-            null,null,null,null,
-            null,null,null,null
-        ],
-
-        [
-            null,null,null,null,
-            null,null,null,null
-        ],
-
-        [
-            null,null,null,null,
-            null,null,null,null
-        ],
-
-        [
-            null,null,null,null,
-            null,null,null,null
-        ],
-
-        [
-            {type:"pawn",color:"white"},
-            {type:"pawn",color:"white"},
-            {type:"pawn",color:"white"},
-            {type:"pawn",color:"white"},
-            {type:"pawn",color:"white"},
-            {type:"pawn",color:"white"},
-            {type:"pawn",color:"white"},
-            {type:"pawn",color:"white"}
-        ],
-
-        [
-            {type:"rook",color:"white"},
-            {type:"knight",color:"white"},
-            {type:"bishop",color:"white"},
-            {type:"queen",color:"white"},
-            {type:"king",color:"white"},
-            {type:"bishop",color:"white"},
-            {type:"knight",color:"white"},
-            {type:"rook",color:"white"}
+            {c:"w",p:"rook"},
+            {c:"w",p:"knight"},
+            {c:"w",p:"bishop"},
+            {c:"w",p:"queen"},
+            {c:"w",p:"king"},
+            {c:"w",p:"bishop"},
+            {c:"w",p:"knight"},
+            {c:"w",p:"rook"}
         ]
-
     ];
-}
-
-
-async function createPrivateGame(
-    whitePlayer,
-    blackPlayer
-){
-
-    if(!whitePlayer || !blackPlayer)
-        return;
-
-    const {
-        data:game,
-        error
-    } =
-        await supabaseClient
-        .from("games")
-        .insert({
-
-            room_id:privateRoomId,
-
-            white_player:
-                Number(whitePlayer.user_id),
-
-            black_player:
-                Number(blackPlayer.user_id),
-
-            status:"playing",
-
-            board_state:
-                initialBoard(),
-
-            turn:"white",
-
-            white_time:300,
-
-            black_time:300
-
-        })
-        .select()
-        .single();
-
-    if(error){
-
-        /*
-         * Bisa terjadi race realtime/polling.
-         * Jika game sudah dibuat oleh proses lain,
-         * tidak perlu dianggap error fatal.
-         */
-        if(
-            !String(error.message || "")
-            .toLowerCase()
-            .includes("duplicate")
-        ){
-
-            console.error(
-                "CREATE PRIVATE GAME:",
-                error
-            );
-        }
-
-        return;
-    }
-
-    if(game){
-
-        await handlePrivateGameUpdate(
-            game
-        );
-    }
-}
-
-
-async function handlePrivateGameUpdate(game){
-
-    if(!game)
-        return;
-
-    currentGameId =
-        game.id;
-
-    gameMode =
-        "private";
-
-    try{
-
-        boardState =
-            typeof game.board_state === "string"
-            ? JSON.parse(game.board_state)
-            : game.board_state;
-
-    }catch(e){
-
-        console.error(
-            "BOARD PARSE:",
-            e
-        );
-
-        return;
-    }
-
-    currentTurn =
-        game.turn || "white";
-
-    whiteTime =
-        Number(game.white_time ?? 300);
-
-    blackTime =
-        Number(game.black_time ?? 300);
-
-    if(game.status === "finished"){
-
-        gameOver = true;
-
-    }else{
-
-        gameOver = false;
-    }
-
-    showScreen("gameScreen");
-
-    document.getElementById(
-        "gameTitle"
-    ).textContent =
-        "🔒 Private Match";
-
-    renderBoard();
-
-    updateClockUI();
-
-    updateGameInfo();
-
-    startTimer();
-}
-
-
-function startPrivateGamePolling(){
-
-    if(privateGamePollTimer)
-        clearInterval(privateGamePollTimer);
-
-    privateGamePollTimer =
-        setInterval(
-            async()=>{
-                if(currentGameId)
-                    await fetchPrivateGame();
-            },
-            1200
-        );
-}
-
-
-async function fetchPrivateGame(){
-
-    if(!currentGameId)
-        return;
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-        .from("games")
-        .select("*")
-        .eq(
-            "id",
-            currentGameId
-        )
-        .maybeSingle();
-
-    if(error){
-
-        console.error(
-            "FETCH GAME:",
-            error
-        );
-
-        return;
-    }
-
-    if(data){
-
-        await handlePrivateGameUpdate(
-            data
-        );
-    }
-}
-
-
-/* =========================================================
-   COPY / LEAVE ROOM
-========================================================= */
-
-async function copyPrivateCode(){
-
-    if(!privateRoomCode)
-        return;
-
-    try{
-
-        await navigator.clipboard.writeText(
-            privateRoomCode
-        );
-
-        toast(
-            "Kode room disalin."
-        );
-
-    }catch(e){
-
-        toast(
-            "Kode room: " +
-            privateRoomCode
-        );
-    }
-}
-
-
-async function leavePrivateRoom(){
-
-    stopPrivatePolling();
-
-    if(privateRoomChannel){
-
-        await supabaseClient.removeChannel(
-            privateRoomChannel
-        );
-
-        privateRoomChannel = null;
-    }
-
-    if(privateGameChannel){
-
-        await supabaseClient.removeChannel(
-            privateGameChannel
-        );
-
-        privateGameChannel = null;
-    }
-
-    privateRoomId = null;
-    privateRoomCode = null;
-    privateIsHost = false;
-
-    privateWhitePlayer = null;
-    privateBlackPlayer = null;
-
-    showScreen(
-        "homeScreen"
-    );
-}
-
-
-/* =========================================================
-   CHESS ENGINE
-========================================================= */
-
-function cloneBoard(board){
-
-    return JSON.parse(
-        JSON.stringify(board)
-    );
 }
 
 
@@ -2194,33 +1610,33 @@ function inside(r,c){
 }
 
 
-function opposite(color){
+function cloneBoard(b){
 
-    return color === "white"
-        ? "black"
-        : "white";
+    return b.map(row =>
+        row.map(piece =>
+            piece
+                ? {...piece}
+                : null
+        )
+    );
 }
 
 
-function findKing(board,color){
+function findKing(b,color){
 
     for(let r=0;r<8;r++){
 
         for(let c=0;c<8;c++){
 
-            const piece =
-                board[r][c];
+            const p=b[r][c];
 
             if(
-                piece &&
-                piece.color === color &&
-                piece.type === "king"
+                p &&
+                p.c === color &&
+                p.p === "king"
             ){
 
-                return {
-                    r,
-                    c
-                };
+                return {r,c};
             }
         }
     }
@@ -2229,160 +1645,147 @@ function findKing(board,color){
 }
 
 
-function squareAttacked(
-    board,
+function isSquareAttacked(
+    b,
     r,
     c,
     byColor
 ){
 
-    /*
-     * Pawn
-     */
-    const pawnRow =
-        byColor === "white"
-        ? r + 1
-        : r - 1;
+    for(let rr=0;rr<8;rr++){
 
-    for(const dc of [-1,1]){
+        for(let cc=0;cc<8;cc++){
 
-        const pc = c + dc;
-
-        if(inside(pawnRow,pc)){
-
-            const p =
-                board[pawnRow][pc];
+            const p=b[rr][cc];
 
             if(
-                p &&
-                p.color === byColor &&
-                p.type === "pawn"
-            ){
-
-                return true;
-            }
-        }
-    }
-
-    /*
-     * Knight
-     */
-    const knightMoves = [
-        [-2,-1],
-        [-2,1],
-        [-1,-2],
-        [-1,2],
-        [1,-2],
-        [1,2],
-        [2,-1],
-        [2,1]
-    ];
-
-    for(const [dr,dc] of knightMoves){
-
-        const nr = r + dr;
-        const nc = c + dc;
-
-        if(inside(nr,nc)){
-
-            const p =
-                board[nr][nc];
-
-            if(
-                p &&
-                p.color === byColor &&
-                p.type === "knight"
-            ){
-
-                return true;
-            }
-        }
-    }
-
-    /*
-     * King
-     */
-    for(let dr=-1;dr<=1;dr++){
-
-        for(let dc=-1;dc<=1;dc++){
-
-            if(!dr && !dc)
+                !p ||
+                p.c !== byColor
+            )
                 continue;
 
-            const nr = r + dr;
-            const nc = c + dc;
+            const moves =
+                pseudoMoves(
+                    b,
+                    rr,
+                    cc,
+                    true
+                );
 
-            if(inside(nr,nc)){
-
-                const p =
-                    board[nr][nc];
-
-                if(
-                    p &&
-                    p.color === byColor &&
-                    p.type === "king"
-                ){
-
-                    return true;
-                }
-            }
+            if(
+                moves.some(
+                    m =>
+                        m.r === r &&
+                        m.c === c
+                )
+            )
+                return true;
         }
     }
 
-    /*
-     * Sliding pieces
-     */
+    return false;
+}
 
-    const lines = [
 
-        {
-            dirs:[
-                [-1,0],
-                [1,0],
-                [0,-1],
-                [0,1]
-            ],
-            types:[
-                "rook",
-                "queen"
-            ]
-        },
+function isInCheck(
+    b,
+    color
+){
 
-        {
-            dirs:[
-                [-1,-1],
-                [-1,1],
-                [1,-1],
-                [1,1]
-            ],
-            types:[
-                "bishop",
-                "queen"
-            ]
+    const king =
+        findKing(b,color);
+
+    if(!king)
+        return true;
+
+    const enemy =
+        color === "w"
+            ? "b"
+            : "w";
+
+    return isSquareAttacked(
+        b,
+        king.r,
+        king.c,
+        enemy
+    );
+}
+
+
+function pseudoMoves(
+    b,
+    r,
+    c,
+    attacksOnly=false
+){
+
+    const piece = b[r][c];
+
+    if(!piece)
+        return [];
+
+    const result = [];
+
+    const color = piece.c;
+    const enemy =
+        color === "w"
+            ? "b"
+            : "w";
+
+    function add(nr,nc){
+
+        if(!inside(nr,nc))
+            return;
+
+        const target =
+            b[nr][nc];
+
+        if(
+            !target ||
+            target.c === enemy
+        ){
+
+            result.push({
+                r:nr,
+                c:nc
+            });
         }
+    }
 
-    ];
+    function slide(directions){
 
-    for(const group of lines){
-
-        for(const [dr,dc] of group.dirs){
+        for(const [
+            dr,
+            dc
+        ] of directions){
 
             let nr = r + dr;
             let nc = c + dc;
 
-            while(inside(nr,nc)){
+            while(
+                inside(nr,nc)
+            ){
 
-                const p =
-                    board[nr][nc];
+                const target =
+                    b[nr][nc];
 
-                if(p){
+                if(!target){
+
+                    result.push({
+                        r:nr,
+                        c:nc
+                    });
+
+                }else{
 
                     if(
-                        p.color === byColor &&
-                        group.types.includes(p.type)
+                        target.c === enemy
                     ){
 
-                        return true;
+                        result.push({
+                            r:nr,
+                            c:nc
+                        });
                     }
 
                     break;
@@ -2394,149 +1797,85 @@ function squareAttacked(
         }
     }
 
-    return false;
-}
 
-
-function isKingInCheck(
-    board,
-    color
-){
-
-    const king =
-        findKing(board,color);
-
-    if(!king)
-        return true;
-
-    return squareAttacked(
-        board,
-        king.r,
-        king.c,
-        opposite(color)
-    );
-}
-
-
-function pseudoMoves(
-    board,
-    r,
-    c
-){
-
-    const piece =
-        board[r][c];
-
-    if(!piece)
-        return [];
-
-    const moves = [];
-
-    function add(nr,nc){
-
-        if(!inside(nr,nc))
-            return false;
-
-        const target =
-            board[nr][nc];
-
-        if(
-            !target ||
-            target.color !== piece.color
-        ){
-
-            moves.push({
-                from:{r,c},
-                to:{
-                    r:nr,
-                    c:nc
-                }
-            });
-        }
-
-        return !target;
-    }
-
-
-    if(piece.type === "pawn"){
+    if(piece.p === "pawn"){
 
         const dir =
-            piece.color === "white"
-            ? -1
-            : 1;
+            color === "w"
+                ? -1
+                : 1;
 
         const startRow =
-            piece.color === "white"
-            ? 6
-            : 1;
+            color === "w"
+                ? 6
+                : 1;
 
-        const oneR =
-            r + dir;
+        if(!attacksOnly){
 
-        if(
-            inside(oneR,c) &&
-            !board[oneR][c]
-        ){
-
-            moves.push({
-                from:{r,c},
-                to:{
-                    r:oneR,
-                    c
-                }
-            });
-
-            const twoR =
-                r + dir*2;
+            const nr =
+                r + dir;
 
             if(
-                r === startRow &&
-                !board[twoR][c]
+                inside(nr,c) &&
+                !b[nr][c]
             ){
 
-                moves.push({
-                    from:{r,c},
-                    to:{
-                        r:twoR,
-                        c
-                    }
+                result.push({
+                    r:nr,
+                    c
                 });
+
+                const nr2 =
+                    r + dir * 2;
+
+                if(
+                    r === startRow &&
+                    !b[nr2][c]
+                ){
+
+                    result.push({
+                        r:nr2,
+                        c
+                    });
+                }
             }
         }
 
         for(const dc of [-1,1]){
 
-            const nr = r + dir;
-            const nc = c + dc;
+            const nr =
+                r + dir;
 
-            if(!inside(nr,nc))
-                continue;
-
-            const target =
-                board[nr][nc];
+            const nc =
+                c + dc;
 
             if(
-                target &&
-                target.color !== piece.color
+                inside(nr,nc)
             ){
 
-                moves.push({
-                    from:{r,c},
-                    to:{
+                if(attacksOnly){
+
+                    result.push({
                         r:nr,
                         c:nc
-                    }
-                });
+                    });
+
+                }else if(
+                    b[nr][nc] &&
+                    b[nr][nc].c === enemy
+                ){
+
+                    result.push({
+                        r:nr,
+                        c:nc
+                    });
+                }
             }
         }
 
-        return moves;
-    }
+    }else if(piece.p === "knight"){
 
-
-    if(piece.type === "knight"){
-
-        const dirs = [
+        const jumps = [
             [-2,-1],
             [-2,1],
             [-1,-2],
@@ -2547,220 +1886,68 @@ function pseudoMoves(
             [2,1]
         ];
 
-        for(const [dr,dc] of dirs)
-            add(r+dr,c+dc);
+        jumps.forEach(
+            ([dr,dc]) =>
+                add(
+                    r+dr,
+                    c+dc
+                )
+        );
 
-        return moves;
-    }
+    }else if(piece.p === "bishop"){
 
+        slide([
+            [-1,-1],
+            [-1,1],
+            [1,-1],
+            [1,1]
+        ]);
 
-    if(piece.type === "king"){
+    }else if(piece.p === "rook"){
 
-        for(let dr=-1;dr<=1;dr++){
+        slide([
+            [-1,0],
+            [1,0],
+            [0,-1],
+            [0,1]
+        ]);
 
-            for(let dc=-1;dc<=1;dc++){
+    }else if(piece.p === "queen"){
 
-                if(!dr && !dc)
+        slide([
+            [-1,-1],
+            [-1,1],
+            [1,-1],
+            [1,1],
+            [-1,0],
+            [1,0],
+            [0,-1],
+            [0,1]
+        ]);
+
+    }else if(piece.p === "king"){
+
+        for(
+            let dr=-1;
+            dr<=1;
+            dr++
+        ){
+
+            for(
+                let dc=-1;
+                dc<=1;
+                dc++
+            ){
+
+                if(
+                    dr === 0 &&
+                    dc === 0
+                )
                     continue;
 
                 add(
                     r+dr,
                     c+dc
-                );
-            }
-        }
-
-        return moves;
-    }
-
-
-    let dirs = [];
-
-    if(
-        piece.type === "rook" ||
-        piece.type === "queen"
-    ){
-
-        dirs.push(
-            [-1,0],
-            [1,0],
-            [0,-1],
-            [0,1]
-        );
-    }
-
-    if(
-        piece.type === "bishop" ||
-        piece.type === "queen"
-    ){
-
-        dirs.push(
-            [-1,-1],
-            [-1,1],
-            [1,-1],
-            [1,1]
-        );
-    }
-
-    for(const [dr,dc] of dirs){
-
-        let nr = r + dr;
-        let nc = c + dc;
-
-        while(inside(nr,nc)){
-
-            const target =
-                board[nr][nc];
-
-            if(!target){
-
-                moves.push({
-                    from:{r,c},
-                    to:{
-                        r:nr,
-                        c:nc
-                    }
-                });
-
-            }else{
-
-                if(
-                    target.color !==
-                    piece.color
-                ){
-
-                    moves.push({
-                        from:{r,c},
-                        to:{
-                            r:nr,
-                            c:nc
-                        }
-                    });
-                }
-
-                break;
-            }
-
-            nr += dr;
-            nc += dc;
-        }
-    }
-
-    return moves;
-}
-
-
-function applyMove(
-    board,
-    move
-){
-
-    const next =
-        cloneBoard(board);
-
-    const piece =
-        next[
-            move.from.r
-        ][
-            move.from.c
-        ];
-
-    next[
-        move.to.r
-    ][
-        move.to.c
-    ] = piece;
-
-    next[
-        move.from.r
-    ][
-        move.from.c
-    ] = null;
-
-    /*
-     * Auto promotion to queen.
-     */
-    if(
-        piece &&
-        piece.type === "pawn" &&
-        (
-            move.to.r === 0 ||
-            move.to.r === 7
-        )
-    ){
-
-        next[
-            move.to.r
-        ][
-            move.to.c
-        ].type =
-            "queen";
-    }
-
-    return next;
-}
-
-
-function legalMovesForPiece(
-    board,
-    r,
-    c
-){
-
-    const piece =
-        board[r][c];
-
-    if(!piece)
-        return [];
-
-    const pseudo =
-        pseudoMoves(
-            board,
-            r,
-            c
-        );
-
-    return pseudo.filter(move=>{
-
-        const next =
-            applyMove(
-                board,
-                move
-            );
-
-        return !isKingInCheck(
-            next,
-            piece.color
-        );
-    });
-}
-
-
-function allLegalMoves(
-    board,
-    color
-){
-
-    const result = [];
-
-    for(let r=0;r<8;r++){
-
-        for(let c=0;c<8;c++){
-
-            const piece =
-                board[r][c];
-
-            if(
-                piece &&
-                piece.color === color
-            ){
-
-                result.push(
-                    ...legalMovesForPiece(
-                        board,
-                        r,
-                        c
-                    )
                 );
             }
         }
@@ -2770,41 +1957,103 @@ function allLegalMoves(
 }
 
 
-function gameState(
-    board,
+function getLegalMoves(
+    b,
+    r,
+    c
+){
+
+    const piece = b[r][c];
+
+    if(!piece)
+        return [];
+
+    const pseudo =
+        pseudoMoves(
+            b,
+            r,
+            c,
+            false
+        );
+
+    const legal = [];
+
+    for(const move of pseudo){
+
+        const test =
+            cloneBoard(b);
+
+        test[move.r][move.c] =
+            test[r][c];
+
+        test[r][c] = null;
+
+        const movingPiece =
+            test[move.r][move.c];
+
+        if(
+            movingPiece &&
+            movingPiece.p === "pawn" &&
+            (
+                move.r === 0 ||
+                move.r === 7
+            )
+        ){
+
+            movingPiece.p = "queen";
+        }
+
+        if(
+            !isInCheck(
+                test,
+                piece.c
+            )
+        ){
+
+            legal.push(move);
+        }
+    }
+
+    return legal;
+}
+
+
+function hasAnyLegalMove(
+    b,
     color
 ){
 
-    const moves =
-        allLegalMoves(
-            board,
-            color
-        );
+    for(let r=0;r<8;r++){
 
-    const check =
-        isKingInCheck(
-            board,
-            color
-        );
+        for(let c=0;c<8;c++){
 
-    return {
-        check,
-        checkmate:
-            check && moves.length === 0,
-        stalemate:
-            !check && moves.length === 0
-    };
+            const p=b[r][c];
+
+            if(
+                p &&
+                p.c === color &&
+                getLegalMoves(
+                    b,r,c
+                ).length
+            )
+                return true;
+        }
+    }
+
+    return false;
 }
 
 
 /* =========================================================
-   BOARD RENDER
+   BOARD UI
 ========================================================= */
 
 function renderBoard(){
 
     const boardEl =
-        document.getElementById("board");
+        document.getElementById(
+            "board"
+        );
 
     boardEl.innerHTML = "";
 
@@ -2813,18 +2062,17 @@ function renderBoard(){
         for(let c=0;c<8;c++){
 
             const square =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             square.className =
                 "square " +
                 (
-                    (r+c)%2===0
-                    ? "light"
-                    : "dark"
+                    (r+c)%2 === 0
+                        ? "light"
+                        : "dark"
                 );
-
-            square.dataset.r = r;
-            square.dataset.c = c;
 
             if(
                 selectedSquare &&
@@ -2837,64 +2085,60 @@ function renderBoard(){
                 );
             }
 
-            const isLegal =
-                legalTargets.some(
+            if(
+                legalMoves.some(
                     m =>
-                        m.to.r === r &&
-                        m.to.c === c
-                );
-
-            if(isLegal){
-
-                const target =
-                    boardState[r][c];
+                        m.r === r &&
+                        m.c === c
+                )
+            ){
 
                 square.classList.add(
-                    target
-                    ? "capture"
-                    : "legal"
+                    "legal"
                 );
             }
 
             const piece =
-                boardState[r][c];
+                board[r][c];
 
             if(piece){
 
                 const img =
-                    document.createElement("img");
+                    document.createElement(
+                        "img"
+                    );
+
+                img.src =
+                    pieceImages[
+                        piece.c
+                    ][
+                        piece.p
+                    ];
 
                 img.className =
                     "piece " +
                     (
-                        piece.color === "white"
-                        ? "white-piece"
-                        : "black-piece"
+                        piece.c === "w"
+                            ? "white-piece"
+                            : "black-piece"
                     );
 
-                img.src =
-                    PIECES[
-                        piece.color
-                    ][
-                        piece.type
-                    ];
-
                 img.alt =
-                    piece.color +
+                    piece.c +
                     " " +
-                    piece.type;
+                    piece.p;
 
-                square.appendChild(img);
+                square.appendChild(
+                    img
+                );
             }
 
             square.addEventListener(
                 "click",
-                ()=>{
+                () =>
                     handleSquareClick(
-                        r,
-                        c
-                    );
-                }
+                        r,c
+                    )
             );
 
             boardEl.appendChild(
@@ -2903,63 +2147,49 @@ function renderBoard(){
         }
     }
 
-    /*
-     * Highlight king in check.
-     */
-    for(const color of [
-        "white",
-        "black"
-    ]){
-
-        if(
-            isKingInCheck(
-                boardState,
-                color
-            )
-        ){
-
-            const king =
-                findKing(
-                    boardState,
-                    color
-                );
-
-            if(king){
-
-                const index =
-                    king.r*8 +
-                    king.c;
-
-                const el =
-                    boardEl.children[index];
-
-                if(el)
-                    el.classList.add(
-                        "check"
-                    );
-            }
-        }
-    }
+    updateTurnUI();
 }
 
 
-async function handleSquareClick(r,c){
+function handleSquareClick(r,c){
 
     if(gameOver)
         return;
 
-    if(!isMyTurn())
+    if(
+        gameMode === "bot" &&
+        chessTurn !== playerColor
+    )
         return;
 
     const piece =
-        boardState[r][c];
+        board[r][c];
 
-    /*
-     * Click own piece.
-     */
+    if(selectedSquare){
+
+        const target =
+            legalMoves.find(
+                m =>
+                    m.r === r &&
+                    m.c === c
+            );
+
+        if(target){
+
+            makeMove(
+                selectedSquare.r,
+                selectedSquare.c,
+                r,
+                c
+            );
+
+            return;
+        }
+    }
+
     if(
         piece &&
-        piece.color === currentTurn
+        piece.c === chessTurn
     ){
 
         selectedSquare = {
@@ -2967,262 +2197,166 @@ async function handleSquareClick(r,c){
             c
         };
 
-        legalTargets =
-            legalMovesForPiece(
-                boardState,
+        legalMoves =
+            getLegalMoves(
+                board,
                 r,
                 c
             );
 
         renderBoard();
 
-        return;
+    }else{
+
+        selectedSquare = null;
+        legalMoves = [];
+
+        renderBoard();
     }
-
-    /*
-     * Move selected piece.
-     */
-    if(selectedSquare){
-
-        const move =
-            legalTargets.find(
-                m =>
-                    m.to.r === r &&
-                    m.to.c === c
-            );
-
-        if(move){
-
-            await makeMove(
-                move
-            );
-
-            return;
-        }
-    }
-
-    selectedSquare = null;
-    legalTargets = [];
-
-    renderBoard();
-}
-
-
-function isMyTurn(){
-
-    if(gameMode === "bot"){
-
-        return currentTurn === "white";
-    }
-
-    if(gameMode === "private"){
-
-        if(privateIsHost){
-
-            return (
-                privateWhitePlayer &&
-                Number(
-                    privateWhitePlayer.user_id
-                ) === Number(myUserId)
-                &&
-                currentTurn === "white"
-            );
-
-        }else{
-
-            return (
-                privateBlackPlayer &&
-                Number(
-                    privateBlackPlayer.user_id
-                ) === Number(myUserId)
-                &&
-                currentTurn === "black"
-            );
-        }
-    }
-
-    return true;
 }
 
 
 /* =========================================================
-   MAKE MOVE
+   MOVE
 ========================================================= */
 
-async function makeMove(move){
+function makeMove(
+    fromR,
+    fromC,
+    toR,
+    toC
+){
 
     if(gameOver)
         return;
 
-    const movingColor =
-        currentTurn;
+    const piece =
+        board[fromR][fromC];
 
-    boardState =
-        applyMove(
-            boardState,
-            move
-        );
+    if(!piece)
+        return;
 
-    selectedSquare = null;
-    legalTargets = [];
+    board[toR][toC] =
+        piece;
 
-    currentTurn =
-        opposite(
-            currentTurn
-        );
-
-    renderBoard();
-    updateGameInfo();
-
-    const state =
-        gameState(
-            boardState,
-            currentTurn
-        );
+    board[fromR][fromC] =
+        null;
 
     if(
-        state.checkmate ||
-        state.stalemate
+        piece.p === "pawn" &&
+        (
+            toR === 0 ||
+            toR === 7
+        )
     ){
+
+        piece.p = "queen";
+    }
+
+    selectedSquare = null;
+    legalMoves = [];
+
+    chessTurn =
+        chessTurn === "w"
+            ? "b"
+            : "w";
+
+    renderBoard();
+
+    checkGameState();
+
+    if(
+        !gameOver &&
+        gameMode === "bot" &&
+        chessTurn !== playerColor
+    ){
+
+        setTimeout(
+            botMove,
+            350
+        );
+    }
+}
+
+
+function checkGameState(){
+
+    const moves =
+        hasAnyLegalMove(
+            board,
+            chessTurn
+        );
+
+    if(!moves){
 
         gameOver = true;
 
         stopTimer();
 
-        if(state.checkmate){
+        if(
+            isInCheck(
+                board,
+                chessTurn
+            )
+        ){
 
-            document.getElementById(
-                "gameInfo"
-            ).textContent =
-                "Checkmate! " +
-                movingColor +
-                " menang.";
+            const winner =
+                chessTurn === "w"
+                    ? "Black"
+                    : "White";
+
+            setMessage(
+                "♚ Checkmate! " +
+                winner +
+                " menang."
+            );
 
         }else{
 
-            document.getElementById(
-                "gameInfo"
-            ).textContent =
-                "Stalemate! Game seri.";
-        }
-    }
-
-    if(gameMode === "bot"){
-
-        if(!gameOver &&
-           currentTurn === "black"){
-
-            startBotTurn();
+            setMessage(
+                "🤝 Stalemate! Seri."
+            );
         }
 
         return;
     }
 
-    if(gameMode === "private"){
+    if(
+        isInCheck(
+            board,
+            chessTurn
+        )
+    ){
 
-        await savePrivateMove(
-            move
+        setMessage(
+            "⚠️ " +
+            (
+                chessTurn === "w"
+                    ? "White"
+                    : "Black"
+            ) +
+            " sedang Check!"
+        );
+
+    }else{
+
+        setMessage(
+            "Giliran " +
+            (
+                chessTurn === "w"
+                    ? "White"
+                    : "Black"
+            )
         );
     }
 }
 
 
-async function savePrivateMove(move){
+function setMessage(text){
 
-    if(!currentGameId)
-        return;
-
-    /*
-     * Simpan move.
-     */
-    const {
-        error:moveError
-    } =
-        await supabaseClient
-        .from("moves")
-        .insert({
-
-            game_id:
-                currentGameId,
-
-            move_number:
-                1,
-
-            player_id:
-                Number(myUserId),
-
-            from_square:
-                squareName(
-                    move.from.r,
-                    move.from.c
-                ),
-
-            to_square:
-                squareName(
-                    move.to.r,
-                    move.to.c
-                ),
-
-            promotion:
-                null
-
-        });
-
-    if(moveError){
-
-        console.warn(
-            "MOVE SAVE:",
-            moveError
-        );
-    }
-
-    /*
-     * Update game state.
-     */
-    const {
-        error
-    } =
-        await supabaseClient
-        .from("games")
-        .update({
-
-            board_state:
-                boardState,
-
-            turn:
-                currentTurn,
-
-            white_time:
-                whiteTime,
-
-            black_time:
-                blackTime
-
-        })
-        .eq(
-            "id",
-            currentGameId
-        );
-
-    if(error){
-
-        console.error(
-            "GAME UPDATE:",
-            error
-        );
-    }
-}
-
-
-function squareName(r,c){
-
-    const files =
-        "abcdefgh";
-
-    return (
-        files[c] +
-        (8-r)
-    );
+    document.getElementById(
+        "gameMessage"
+    ).textContent = text;
 }
 
 
@@ -3230,88 +2364,12 @@ function squareName(r,c){
    TIMER
 ========================================================= */
 
-function startTimer(){
-
-    stopTimer();
-
-    if(gameOver)
-        return;
-
-    timerInterval =
-        setInterval(
-            async()=>{
-
-                if(gameOver){
-
-                    stopTimer();
-                    return;
-                }
-
-                if(currentTurn === "white"){
-
-                    whiteTime--;
-
-                    if(whiteTime <= 0){
-
-                        whiteTime = 0;
-
-                        gameOver = true;
-
-                        stopTimer();
-
-                        document.getElementById(
-                            "gameInfo"
-                        ).textContent =
-                            "Waktu putih habis. Hitam menang.";
-
-                    }
-
-                }else{
-
-                    blackTime--;
-
-                    if(blackTime <= 0){
-
-                        blackTime = 0;
-
-                        gameOver = true;
-
-                        stopTimer();
-
-                        document.getElementById(
-                            "gameInfo"
-                        ).textContent =
-                            "Waktu hitam habis. Putih menang.";
-                    }
-                }
-
-                updateClockUI();
-
-            },
-            1000
-        );
-}
-
-
-function stopTimer(){
-
-    if(timerInterval){
-
-        clearInterval(
-            timerInterval
-        );
-
-        timerInterval = null;
-    }
-}
-
-
 function formatTime(seconds){
 
     seconds =
         Math.max(
             0,
-            Number(seconds || 0)
+            Number(seconds)
         );
 
     const min =
@@ -3330,138 +2388,162 @@ function formatTime(seconds){
 }
 
 
-function updateClockUI(){
+function updateTimerUI(){
 
     document.getElementById(
-        "whiteClock"
+        "whiteTime"
     ).textContent =
         formatTime(
-            whiteTime
+            whiteSeconds
         );
 
     document.getElementById(
-        "blackClock"
+        "blackTime"
     ).textContent =
         formatTime(
-            blackTime
+            blackSeconds
+        );
+}
+
+
+function updateTurnUI(){
+
+    const white =
+        document.getElementById(
+            "whitePlayerBox"
         );
 
-    document.getElementById(
-        "whiteClock"
-    ).classList.toggle(
-        "active",
-        currentTurn === "white" &&
-        !gameOver
+    const black =
+        document.getElementById(
+            "blackPlayerBox"
+        );
+
+    white.classList.toggle(
+        "active-turn",
+        chessTurn === "w"
     );
 
-    document.getElementById(
-        "blackClock"
-    ).classList.toggle(
-        "active",
-        currentTurn === "black" &&
-        !gameOver
+    black.classList.toggle(
+        "active-turn",
+        chessTurn === "b"
     );
 }
 
 
-function updateGameInfo(){
+function startTimer(){
 
-    if(gameOver)
-        return;
+    stopTimer();
 
-    const state =
-        gameState(
-            boardState,
-            currentTurn
+    chessTimer =
+        setInterval(
+            () => {
+
+                if(gameOver)
+                    return;
+
+                if(chessTurn === "w"){
+
+                    whiteSeconds--;
+
+                    if(
+                        whiteSeconds <= 0
+                    ){
+
+                        whiteSeconds = 0;
+
+                        gameOver = true;
+
+                        stopTimer();
+
+                        setMessage(
+                            "⏱️ White kehabisan waktu. Black menang."
+                        );
+                    }
+
+                }else{
+
+                    blackSeconds--;
+
+                    if(
+                        blackSeconds <= 0
+                    ){
+
+                        blackSeconds = 0;
+
+                        gameOver = true;
+
+                        stopTimer();
+
+                        setMessage(
+                            "⏱️ Black kehabisan waktu. White menang."
+                        );
+                    }
+                }
+
+                updateTimerUI();
+
+            },
+            1000
+        );
+}
+
+
+function stopTimer(){
+
+    if(chessTimer){
+
+        clearInterval(
+            chessTimer
         );
 
-    if(state.check){
-
-        document.getElementById(
-            "gameInfo"
-        ).textContent =
-            "Check! Giliran " +
-            (
-                currentTurn === "white"
-                ? "Putih"
-                : "Hitam"
-            );
-
-    }else{
-
-        document.getElementById(
-            "gameInfo"
-        ).textContent =
-            "Giliran " +
-            (
-                currentTurn === "white"
-                ? "Putih"
-                : "Hitam"
-            );
+        chessTimer = null;
     }
 }
 
 
 /* =========================================================
-   BOT
+   START GAME
 ========================================================= */
 
-function showBotMenu(){
+function startBotGame(level){
 
-    showScreen(
-        "botMenuScreen"
-    );
-}
-
-
-function setBotDifficulty(level){
-
-    botDifficulty =
-        level;
-
-    document
-        .querySelectorAll(".diff-btn")
-        .forEach(btn=>{
-            btn.classList.remove(
-                "active"
-            );
-        });
-
-    document.getElementById(
-        level + "Btn"
-    ).classList.add(
-        "active"
-    );
-}
-
-
-function startBotGame(){
-
-    stopPrivatePolling();
+    botLevel = level;
 
     gameMode = "bot";
-    currentGameId = null;
 
-    boardState =
-        initialBoard();
+    playerColor = "w";
+
+    startChessGame();
+
+    toast(
+        "Bot level: " +
+        level.toUpperCase()
+    );
+}
+
+
+function startRandomGame(){
+
+    toast(
+        "Mode Random akan segera tersedia."
+    );
+}
+
+
+function startChessGame(){
+
+    board =
+        createInitialBoard();
 
     selectedSquare = null;
-    legalTargets = [];
+    legalMoves = [];
 
-    currentTurn = "white";
-
-    whiteTime = 300;
-    blackTime = 300;
+    chessTurn = "w";
 
     gameOver = false;
 
-    document.getElementById(
-        "gameTitle"
-    ).textContent =
-        "🤖 VS Bot - " +
-        capitalize(
-            botDifficulty
-        );
+    whiteSeconds = 300;
+    blackSeconds = 300;
 
     showScreen(
         "gameScreen"
@@ -3469,390 +2551,27 @@ function startBotGame(){
 
     renderBoard();
 
-    updateClockUI();
+    updateTimerUI();
 
-    updateGameInfo();
+    setMessage(
+        "Giliran White"
+    );
 
     startTimer();
 }
 
 
-function capitalize(text){
+function restartCurrentGame(){
 
-    return text.charAt(0).toUpperCase() +
-           text.slice(1);
+    startChessGame();
 }
 
-
-async function startBotTurn(){
-
-    if(gameOver)
-        return;
-
-    await sleep(
-        botDifficulty === "easy"
-        ? 450
-        : botDifficulty === "normal"
-        ? 650
-        : 850
-    );
-
-    if(gameOver)
-        return;
-
-    const moves =
-        allLegalMoves(
-            boardState,
-            "black"
-        );
-
-    if(!moves.length){
-
-        const state =
-            gameState(
-                boardState,
-                "black"
-            );
-
-        gameOver = true;
-        stopTimer();
-
-        document.getElementById(
-            "gameInfo"
-        ).textContent =
-            state.checkmate
-            ? "Checkmate! Kamu menang."
-            : "Stalemate! Seri.";
-
-        return;
-    }
-
-    let move;
-
-    if(botDifficulty === "easy"){
-
-        move =
-            randomBotMove(
-                moves
-            );
-
-    }else if(botDifficulty === "normal"){
-
-        move =
-            normalBotMove(
-                moves
-            );
-
-    }else{
-
-        move =
-            hardBotMove(
-                moves
-            );
-    }
-
-    boardState =
-        applyMove(
-            boardState,
-            move
-        );
-
-    currentTurn = "white";
-
-    renderBoard();
-
-    updateGameInfo();
-}
-
-
-function randomBotMove(moves){
-
-    return moves[
-        Math.floor(
-            Math.random() *
-            moves.length
-        )
-    ];
-}
-
-
-const PIECE_VALUES = {
-    pawn:100,
-    knight:320,
-    bishop:330,
-    rook:500,
-    queen:900,
-    king:20000
-};
-
-
-function evaluateBoard(board){
-
-    let score = 0;
-
-    for(let r=0;r<8;r++){
-
-        for(let c=0;c<8;c++){
-
-            const p =
-                board[r][c];
-
-            if(!p)
-                continue;
-
-            const value =
-                PIECE_VALUES[p.type] || 0;
-
-            score +=
-                p.color === "black"
-                ? value
-                : -value;
-        }
-    }
-
-    return score;
-}
-
-
-function normalBotMove(moves){
-
-    let bestScore =
-        -Infinity;
-
-    let bestMoves = [];
-
-    for(const move of moves){
-
-        const next =
-            applyMove(
-                boardState,
-                move
-            );
-
-        const score =
-            evaluateBoard(
-                next
-            );
-
-        if(score > bestScore){
-
-            bestScore = score;
-            bestMoves = [move];
-
-        }else if(score === bestScore){
-
-            bestMoves.push(move);
-        }
-    }
-
-    return bestMoves[
-        Math.floor(
-            Math.random() *
-            bestMoves.length
-        )
-    ];
-}
-
-
-function minimax(
-    board,
-    color,
-    depth,
-    maximizing
-){
-
-    if(depth === 0){
-
-        return evaluateBoard(
-            board
-        );
-    }
-
-    const moves =
-        allLegalMoves(
-            board,
-            color
-        );
-
-    if(!moves.length){
-
-        const check =
-            isKingInCheck(
-                board,
-                color
-            );
-
-        if(check){
-
-            return color === "black"
-                ? -999999
-                : 999999;
-        }
-
-        return 0;
-    }
-
-    if(maximizing){
-
-        let best =
-            -Infinity;
-
-        for(const move of moves){
-
-            const next =
-                applyMove(
-                    board,
-                    move
-                );
-
-            best =
-                Math.max(
-                    best,
-                    minimax(
-                        next,
-                        opposite(color),
-                        depth-1,
-                        false
-                    )
-                );
-        }
-
-        return best;
-
-    }else{
-
-        let best =
-            Infinity;
-
-        for(const move of moves){
-
-            const next =
-                applyMove(
-                    board,
-                    move
-                );
-
-            best =
-                Math.min(
-                    best,
-                    minimax(
-                        next,
-                        opposite(color),
-                        depth-1,
-                        true
-                    )
-                );
-        }
-
-        return best;
-    }
-}
-
-
-function hardBotMove(moves){
-
-    /*
-     * Batasi depth agar tetap ringan
-     * di Telegram Mini App.
-     */
-    const depth = 2;
-
-    let bestScore =
-        -Infinity;
-
-    let candidates = [];
-
-    for(const move of moves){
-
-        const next =
-            applyMove(
-                boardState,
-                move
-            );
-
-        const score =
-            minimax(
-                next,
-                "white",
-                depth,
-                false
-            );
-
-        if(score > bestScore){
-
-            bestScore = score;
-            candidates = [move];
-
-        }else if(score === bestScore){
-
-            candidates.push(move);
-        }
-    }
-
-    return candidates[
-        Math.floor(
-            Math.random() *
-            candidates.length
-        )
-    ];
-}
-
-
-/* =========================================================
-   RANDOM GAME
-========================================================= */
-
-function startRandomGame(){
-
-    toast(
-        "Mode Random Match belum tersedia. Gunakan Private Room atau VS Bot."
-    );
-}
-
-
-/* =========================================================
-   EXIT GAME
-========================================================= */
 
 function exitGame(){
 
+    gameOver = true;
+
     stopTimer();
-
-    if(gameMode === "private"){
-
-        stopPrivatePolling();
-
-        if(privateRoomChannel){
-
-            supabaseClient.removeChannel(
-                privateRoomChannel
-            );
-
-            privateRoomChannel = null;
-        }
-
-        if(privateGameChannel){
-
-            supabaseClient.removeChannel(
-                privateGameChannel
-            );
-
-            privateGameChannel = null;
-        }
-
-        privateRoomId = null;
-        privateRoomCode = null;
-        privateIsHost = false;
-
-        privateWhitePlayer = null;
-        privateBlackPlayer = null;
-    }
-
-    currentGameId = null;
-    gameMode = null;
-
-    selectedSquare = null;
-    legalTargets = [];
 
     showScreen(
         "homeScreen"
@@ -3861,34 +2580,348 @@ function exitGame(){
 
 
 /* =========================================================
-   INITIALIZE
+   BOT
 ========================================================= */
 
-(async function(){
+function botMove(){
 
-    /*
-     * Telegram WebApp harus siap dulu.
-     */
-    if(tg){
+    if(
+        gameOver ||
+        gameMode !== "bot" ||
+        chessTurn === playerColor
+    )
+        return;
 
-        try{
-            tg.ready();
-            tg.expand();
-        }catch(e){
-            console.warn(e);
+    const moves = [];
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const p =
+                board[r][c];
+
+            if(
+                p &&
+                p.c === chessTurn
+            ){
+
+                const legal =
+                    getLegalMoves(
+                        board,
+                        r,
+                        c
+                    );
+
+                legal.forEach(
+                    move => {
+
+                        moves.push({
+                            fromR:r,
+                            fromC:c,
+                            toR:move.r,
+                            toC:move.c,
+                            score:
+                                evaluateMove(
+                                    r,c,
+                                    move.r,
+                                    move.c
+                                )
+                        });
+
+                    }
+                );
+            }
         }
     }
 
-    /*
-     * IMPORTANT:
-     * loadTelegramUser sekarang di-await.
-     *
-     * Artinya saveUser selesai sebelum
-     * user mulai melakukan aksi room.
-     */
-    await loadTelegramUser();
+    if(!moves.length)
+        return;
 
-})();
+    let selected;
+
+    if(botLevel === "easy"){
+
+        selected =
+            moves[
+                Math.floor(
+                    Math.random() *
+                    moves.length
+                )
+            ];
+
+    }else if(
+        botLevel === "normal"
+    ){
+
+        moves.sort(
+            (a,b) =>
+                b.score -
+                a.score
+        );
+
+        const bestCount =
+            Math.min(
+                4,
+                moves.length
+            );
+
+        selected =
+            moves[
+                Math.floor(
+                    Math.random() *
+                    bestCount
+                )
+            ];
+
+    }else{
+
+        moves.sort(
+            (a,b) =>
+                b.score -
+                a.score
+        );
+
+        selected =
+            moves[0];
+    }
+
+    makeMove(
+        selected.fromR,
+        selected.fromC,
+        selected.toR,
+        selected.toC
+    );
+}
+
+
+function evaluateMove(
+    fromR,
+    fromC,
+    toR,
+    toC
+){
+
+    let score =
+        Math.random() * 10;
+
+    const target =
+        board[toR][toC];
+
+    if(target){
+
+        const values = {
+
+            pawn:100,
+            knight:320,
+            bishop:330,
+            rook:500,
+            queen:900,
+            king:10000
+
+        };
+
+        score +=
+            values[target.p] || 0;
+    }
+
+    const piece =
+        board[fromR][fromC];
+
+    if(
+        piece &&
+        piece.p === "pawn" &&
+        (
+            toR === 0 ||
+            toR === 7
+        )
+    ){
+
+        score += 900;
+    }
+
+    return score;
+}
+
+
+/* =========================================================
+   PRIVATE GAME
+========================================================= */
+
+async function startPrivateGame(players){
+
+    try{
+
+        if(!currentRoom)
+            return;
+
+        const white =
+            players.find(
+                p =>
+                    p.color === "white"
+            );
+
+        const black =
+            players.find(
+                p =>
+                    p.color === "black"
+            );
+
+        if(!white || !black)
+            return;
+
+        let game = null;
+
+        const { data:existingGame } =
+            await supabaseClient
+            .from("games")
+            .select("*")
+            .eq(
+                "room_id",
+                currentRoom.id
+            )
+            .maybeSingle();
+
+        if(existingGame){
+
+            game = existingGame;
+
+        }else{
+
+            const { data:newGame, error } =
+                await supabaseClient
+                .from("games")
+                .insert({
+                    room_id:currentRoom.id,
+                    white_player:Number(
+                        white.user_id
+                    ),
+                    black_player:Number(
+                        black.user_id
+                    ),
+                    status:"playing",
+                    board_state:
+                        createInitialBoard(),
+                    turn:"w",
+                    white_time:300,
+                    black_time:300
+                })
+                .select()
+                .single();
+
+            if(error){
+
+                if(
+                    error.code ===
+                    "23505"
+                ){
+
+                    const retry =
+                        await supabaseClient
+                        .from("games")
+                        .select("*")
+                        .eq(
+                            "room_id",
+                            currentRoom.id
+                        )
+                        .maybeSingle();
+
+                    game =
+                        retry.data;
+
+                }else{
+
+                    throw error;
+                }
+
+            }else{
+
+                game = newGame;
+            }
+        }
+
+        if(!game){
+
+            toast(
+                "Game gagal dibuat."
+            );
+
+            return;
+        }
+
+        gameMode = "private";
+
+        playerColor =
+            Number(white.user_id) ===
+            Number(myUserId)
+                ? "w"
+                : "b";
+
+        board =
+            game.board_state ||
+            createInitialBoard();
+
+        chessTurn =
+            game.turn || "w";
+
+        whiteSeconds =
+            Number(
+                game.white_time || 300
+            );
+
+        blackSeconds =
+            Number(
+                game.black_time || 300
+            );
+
+        selectedSquare = null;
+        legalMoves = [];
+        gameOver = false;
+
+        showScreen(
+            "gameScreen"
+        );
+
+        renderBoard();
+
+        updateTimerUI();
+
+        startTimer();
+
+        toast(
+            playerColor === "w"
+                ? "Kamu White"
+                : "Kamu Black"
+        );
+
+    }catch(error){
+
+        console.error(
+            "START PRIVATE GAME ERROR:",
+            error
+        );
+
+        toast(
+            "Game gagal dimulai: " +
+            error.message
+        );
+    }
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        await loadTelegramUser();
+
+    }
+);
+
 </script>
 
 </body>
