@@ -9,1322 +9,3687 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top,#18243d 0%,#090d16 55%,#05070b 100%);color:#fff}
-body{min-height:100vh}
-button,input{font:inherit}
-button{cursor:pointer}
-.app{width:100%;max-width:520px;margin:auto;padding:14px}
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.logo{font-size:20px;font-weight:800}
-.logo span{color:#58a6ff}
-.user-mini{display:flex;align-items:center;gap:8px;color:#aab6c8;font-size:12px}
-.avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#202938;border:1px solid #34445e}
-.screen{display:none}
-.screen.active{display:block}
-.card{background:rgba(18,25,39,.94);border:1px solid #27344a;border-radius:18px;padding:16px;box-shadow:0 10px 35px rgba(0,0,0,.25)}
-.welcome{text-align:center;padding:22px 15px}
-.welcome h1{margin:0 0 7px;font-size:27px}
-.welcome p{margin:0;color:#98a5b8;font-size:13px}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
-.menu button{min-height:78px;border:1px solid #2c3b54;border-radius:15px;background:#141d2c;color:#fff;font-weight:700}
-.menu button:active{transform:scale(.98)}
-.menu .icon{display:block;font-size:26px;margin-bottom:7px}
-.back{display:inline-flex;align-items:center;border:0;background:none;color:#9db7d9;padding:5px 0 12px}
-.btn{width:100%;min-height:46px;border:0;border-radius:12px;background:#2387ff;color:#fff;font-weight:700;margin-top:10px}
-.btn.secondary{background:#202b3e;border:1px solid #34445e}
-.btn.danger{background:#b52c3b}
-.section-title{font-size:18px;font-weight:800;margin-bottom:12px}
-.small{color:#7f8da0;font-size:12px}
-input{width:100%;height:48px;border-radius:12px;border:1px solid #35445b;background:#0c1421;color:#fff;outline:none;padding:0 14px;font-size:16px;text-align:center;text-transform:uppercase}
-input:focus{border-color:#3f9cff}
-.room-code{font-size:34px;font-weight:900;letter-spacing:7px;text-align:center;padding:18px 10px;border-radius:15px;background:#0c1421;color:#65b3ff;margin:15px 0}
-.room-status{text-align:center;color:#9aa8ba;font-size:13px}
-.profile-box{text-align:center}
-.big-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #30425e}
-.profile-name{font-size:20px;font-weight:800;margin-top:10px}
-.profile-username{color:#8d9aae;font-size:13px;margin-top:4px}
-.rating{margin-top:15px;padding:14px;border-radius:13px;background:#111927}
-.rating-value{font-size:25px;font-weight:800;color:#ffd166}
-.game-info{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.player-box{background:#111927;border:1px solid #27354a;border-radius:12px;padding:10px}
-.player-label{font-size:11px;color:#8e9bae}
-.player-time{font-size:25px;font-weight:900;margin-top:4px}
-.player-box.active-turn{border-color:#4d9fff;box-shadow:0 0 0 1px #4d9fff inset}
-.board{width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(8,1fr);border-radius:10px;overflow:hidden;border:3px solid #27364d;user-select:none;touch-action:manipulation}
-.square{position:relative;display:flex;align-items:center;justify-content:center}
-.light{background:#e6d6b8}
-.dark{background:#8b6548}
-.square.selected{box-shadow:inset 0 0 0 4px rgba(55,160,255,.9)}
-.square.legal::after{content:"";width:25%;height:25%;border-radius:50%;background:rgba(30,110,220,.65);position:absolute}
-.square.capture{box-shadow:inset 0 0 0 4px rgba(220,70,70,.7)}
-.piece{width:82%;height:82%;object-fit:contain;pointer-events:none;position:relative;z-index:2}
-.white-piece{filter:sepia(1) saturate(2.2) hue-rotate(345deg) brightness(1.05) contrast(1.05) drop-shadow(0 3px 2px rgba(0,0,0,.30)) drop-shadow(0 5px 4px rgba(0,0,0,.18))}
-.black-piece{filter:brightness(.10) contrast(1.25) drop-shadow(0 2px 1px rgba(255,255,255,.08)) drop-shadow(0 4px 4px rgba(0,0,0,.35))}
-.game-message{text-align:center;margin-top:10px;min-height:22px;color:#a9b7ca;font-size:13px}
-.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.levels button{padding:12px 5px;border-radius:11px;border:1px solid #33435b;background:#141d2b;color:#fff}
-.loading{text-align:center;color:#8f9caf;padding:20px}
-.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);background:#182235;border:1px solid #34445c;padding:11px 15px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:9999;max-width:90%;text-align:center}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:380px){.menu button{min-height:70px}.logo{font-size:18px}}
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:
+        radial-gradient(circle at 20% 0%,rgba(65,105,160,.18),transparent 35%),
+        radial-gradient(circle at 100% 100%,rgba(104,63,160,.14),transparent 35%),
+        #080d15;
+    color:#eef4ff;
+}
+
+body{
+    min-height:100vh;
+}
+
+button{
+    font:inherit;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.app{
+    width:min(100%,520px);
+    margin:auto;
+    padding:14px;
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(145deg,#263a59,#111a2a);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        0 8px 25px rgba(0,0,0,.35);
+    font-size:23px;
+}
+
+.brand-title{
+    font-size:17px;
+    font-weight:800;
+}
+
+.brand-sub{
+    font-size:11px;
+    color:#8493aa;
+    margin-top:2px;
+}
+
+.profile-mini{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.12);
+    background:#182235;
+}
+
+.profile-mini img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.screen{
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+.card{
+    background:linear-gradient(
+        145deg,
+        rgba(23,33,50,.92),
+        rgba(11,17,27,.96)
+    );
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:20px;
+    padding:16px;
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.hero{
+    padding:20px;
+    margin-bottom:14px;
+}
+
+.hero h1{
+    margin:0;
+    font-size:25px;
+    letter-spacing:-.5px;
+}
+
+.hero p{
+    margin:7px 0 0;
+    color:#8795aa;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.user-line{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:18px;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.rating{
+    color:#c8d4e8;
+    font-size:13px;
+}
+
+.rating strong{
+    color:#fff;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.menu button{
+    min-height:74px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:17px;
+    color:#fff;
+    background:linear-gradient(145deg,#18253a,#101927);
+    cursor:pointer;
+    text-align:left;
+    padding:13px;
+    transition:.15s;
+}
+
+.menu button:active{
+    transform:scale(.97);
+}
+
+.menu-icon{
+    font-size:24px;
+    display:block;
+    margin-bottom:6px;
+}
+
+.menu-title{
+    font-weight:750;
+    font-size:13px;
+}
+
+.menu-sub{
+    color:#718097;
+    font-size:10px;
+    margin-top:2px;
+}
+
+.back-btn{
+    border:0;
+    background:#182437;
+    color:#b8c7dc;
+    border-radius:12px;
+    padding:9px 13px;
+    cursor:pointer;
+    margin-bottom:12px;
+}
+
+.section-title{
+    font-size:16px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.room-code{
+    font-size:32px;
+    letter-spacing:5px;
+    text-align:center;
+    font-weight:900;
+    margin:15px 0;
+}
+
+.room-status{
+    text-align:center;
+    color:#8291a8;
+    font-size:12px;
+}
+
+.action-btn{
+    width:100%;
+    min-height:48px;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(135deg,#3c74d9,#315ab0);
+    color:white;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:10px;
+    box-shadow:0 8px 20px rgba(38,88,180,.22);
+}
+
+.action-btn.secondary{
+    background:#182438;
+    box-shadow:none;
+}
+
+.action-btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+/* =========================
+   GAME
+========================= */
+
+.game-top{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.player-box{
+    min-width:0;
+    padding:10px 11px;
+    border-radius:15px;
+    background:rgba(20,30,45,.9);
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.player-box.active-turn{
+    border-color:rgba(91,145,255,.65);
+    box-shadow:
+        0 0 0 1px rgba(91,145,255,.12),
+        0 0 22px rgba(58,111,220,.14);
+}
+
+.player-label{
+    color:#8190a6;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.player-name{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size:12px;
+    font-weight:800;
+    margin-top:3px;
+}
+
+.clock{
+    margin-top:5px;
+    font-size:20px;
+    line-height:1;
+    font-weight:900;
+    font-variant-numeric:tabular-nums;
+}
+
+.clock.low{
+    color:#ff8d8d;
+}
+
+.vs{
+    font-size:10px;
+    color:#718097;
+    font-weight:800;
+}
+
+.game-message{
+    text-align:center;
+    font-size:12px;
+    color:#9cabc0;
+    margin-bottom:10px;
+    min-height:18px;
+}
+
+/* =========================
+   PERFECT 8x8 BOARD
+========================= */
+
+.board-wrap{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.board{
+    width:100%;
+    max-width:500px;
+    aspect-ratio:1 / 1;
+    display:grid;
+    grid-template-columns:repeat(8,minmax(0,1fr));
+    grid-template-rows:repeat(8,minmax(0,1fr));
+    grid-auto-rows:1fr;
+    overflow:hidden;
+    border-radius:16px;
+    border:4px solid #27364d;
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.38),
+        0 0 0 1px rgba(255,255,255,.04);
+    user-select:none;
+    touch-action:manipulation;
+}
+
+.square{
+    position:relative;
+    width:100%;
+    height:100%;
+    min-width:0;
+    min-height:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.square.light{
+    background:
+        linear-gradient(145deg,#d8e2ec,#b9c7d6);
+}
+
+.square.dark{
+    background:
+        linear-gradient(145deg,#4e6076,#39495d);
+}
+
+.square.selected{
+    box-shadow:inset 0 0 0 4px rgba(89,158,255,.9);
+}
+
+.square.last-move{
+    background:
+        linear-gradient(145deg,#718f69,#536f52);
+}
+
+.move-dot{
+    width:23%;
+    height:23%;
+    min-width:8px;
+    min-height:8px;
+    border-radius:50%;
+    background:rgba(18,30,46,.38);
+}
+
+.capture-ring{
+    width:72%;
+    height:72%;
+    border:4px solid rgba(25,38,55,.48);
+    border-radius:50%;
+}
+
+/* =========================
+   MODERN CHESS PIECES
+========================= */
+
+.chess-piece{
+    width:82%;
+    height:82%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    font-family:"Times New Roman","DejaVu Serif",serif;
+    font-size:clamp(29px,10vw,62px);
+    line-height:1;
+    user-select:none;
+    pointer-events:none;
+    transform:translateY(-1px);
+}
+
+.white-piece{
+    color:#fff;
+    text-shadow:
+        0 1px 0 #dfe8f2,
+        0 3px 2px rgba(20,30,45,.32),
+        0 6px 8px rgba(20,30,45,.25);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+}
+
+.black-piece{
+    color:#111827;
+    text-shadow:
+        0 1px 0 #59677b,
+        0 2px 1px rgba(255,255,255,.12),
+        0 5px 8px rgba(0,0,0,.45);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.35));
+}
+
+.piece-glow{
+    position:absolute;
+    width:48%;
+    height:24%;
+    bottom:9%;
+    left:26%;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    filter:blur(7px);
+    opacity:.55;
+}
+
+.game-controls{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.game-controls button{
+    flex:1;
+    min-height:44px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:13px;
+    background:#172337;
+    color:#c7d3e5;
+    cursor:pointer;
+    font-weight:700;
+}
+
+/* =========================
+   LEADERBOARD / PROFILE
+========================= */
+
+.list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.list-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px;
+    border-radius:13px;
+    background:#121d2c;
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.rank{
+    width:28px;
+    font-weight:900;
+    color:#9aabc1;
+}
+
+.avatar{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:#26364e;
+    object-fit:cover;
+}
+
+.item-main{
+    flex:1;
+    min-width:0;
+}
+
+.item-name{
+    font-size:12px;
+    font-weight:800;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.item-rating{
+    color:#75849a;
+    font-size:10px;
+    margin-top:2px;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%) translateY(20px);
+    width:min(calc(100% - 30px),430px);
+    padding:12px 15px;
+    border-radius:13px;
+    background:#182538;
+    border:1px solid rgba(255,255,255,.1);
+    color:#fff;
+    font-size:12px;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transition:.22s;
+    z-index:1000;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+.empty{
+    text-align:center;
+    color:#77869c;
+    padding:25px 10px;
+    font-size:12px;
+}
+
+@media(max-width:360px){
+    .app{
+        padding:10px;
+    }
+
+    .menu{
+        gap:8px;
+    }
+
+    .menu button{
+        min-height:68px;
+        padding:11px;
+    }
+
+    .chess-piece{
+        font-size:clamp(26px,10vw,50px);
+    }
+
+    .clock{
+        font-size:17px;
+    }
+}
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
-<div class="header">
-<div class="logo">♟ <span>1711</span> Chess Arena</div>
-<div class="user-mini">
-<span id="miniName">Guest</span>
-<img id="miniAvatar" class="avatar" src="https://telegram.org/img/t_logo.png">
-</div>
-</div>
+    <div class="header">
+        <div class="brand">
+            <div class="logo">♞</div>
+            <div>
+                <div class="brand-title">1711 Chess Arena</div>
+                <div class="brand-sub">Play • Compete • Win</div>
+            </div>
+        </div>
 
-<section id="homeScreen" class="screen active">
-<div class="card welcome">
-<h1>1711 Chess Arena</h1>
-<p>Main catur online, lawan bot atau teman.</p>
+        <div class="profile-mini">
+            <img id="headerAvatar" src="" alt="">
+        </div>
+    </div>
 
-<div class="menu">
-<button onclick="startRandomGame()"><span class="icon">⚔️</span>Lawan Random</button>
-<button onclick="showScreen('privateScreen')"><span class="icon">🔒</span>Private Room</button>
-<button onclick="showScreen('botScreen')"><span class="icon">🤖</span>VS Bot</button>
-<button onclick="showScreen('friendsScreen')"><span class="icon">👥</span>Teman</button>
-<button onclick="showScreen('leaderboardScreen')"><span class="icon">🏆</span>Leaderboard</button>
-<button onclick="openProfile()"><span class="icon">👤</span>Profile</button>
-</div>
-</div>
-</section>
+    <!-- HOME -->
+    <section id="homeScreen" class="screen active">
 
-<section id="privateScreen" class="screen">
-<button class="back" onclick="showScreen('homeScreen')">← Kembali</button>
-<div class="card">
-<div class="section-title">🔒 Private Room</div>
-<p class="small">Buat room lalu kirim kode kepada teman.</p>
+        <div class="card hero">
+            <h1>Chess Arena</h1>
+            <p>
+                Main catur bersama teman, lawan pemain lain,
+                atau latihan melawan bot.
+            </p>
 
-<button class="btn" onclick="createPrivateRoom()">➕ Buat Room</button>
+            <div class="user-line">
+                <div>
+                    <div style="font-size:11px;color:#7e8ca2">PLAYER</div>
+                    <div id="homeUsername" style="font-weight:800;margin-top:2px">
+                        Loading...
+                    </div>
+                </div>
 
-<div style="margin:18px 0;border-top:1px solid #27354a;"></div>
+                <div class="rating">
+                    Rating <strong id="homeRating">1000</strong>
+                </div>
+            </div>
+        </div>
 
-<input id="joinCode" maxlength="6" placeholder="MASUKKAN KODE">
-<button class="btn" onclick="joinPrivateRoom()">🚪 Gabung Room</button>
-</div>
-</section>
+        <div class="menu">
 
-<section id="roomWaitingScreen" class="screen">
-<button class="back" onclick="leavePrivateRoom()">← Keluar Room</button>
-<div class="card">
-<div class="section-title">🔒 Private Room</div>
+            <button id="randomBtn">
+                <span class="menu-icon">⚔️</span>
+                <div class="menu-title">Lawan Random</div>
+                <div class="menu-sub">Cari lawan online</div>
+            </button>
 
-<div id="roomCodeDisplay" class="room-code">------</div>
+            <button id="privateBtn">
+                <span class="menu-icon">🔒</span>
+                <div class="menu-title">Private Room</div>
+                <div class="menu-sub">Main dengan teman</div>
+            </button>
 
-<div id="roomStatus" class="room-status">Menunggu lawan...</div>
+            <button id="botBtn">
+                <span class="menu-icon">🤖</span>
+                <div class="menu-title">VS Bot</div>
+                <div class="menu-sub">Easy • Normal • Hard</div>
+            </button>
 
-<button class="btn secondary" onclick="copyRoomCode()">📋 Salin Kode</button>
-<button class="btn danger" onclick="leavePrivateRoom()">Keluar Room</button>
-</div>
-</section>
+            <button id="friendsBtn">
+                <span class="menu-icon">👥</span>
+                <div class="menu-title">Teman</div>
+                <div class="menu-sub">Invite teman bermain</div>
+            </button>
 
-<section id="botScreen" class="screen">
-<button class="back" onclick="showScreen('homeScreen')">← Kembali</button>
-<div class="card">
-<div class="section-title">🤖 Pilih Level Bot</div>
-<div class="levels">
-<button onclick="startBotGame('easy')">Easy</button>
-<button onclick="startBotGame('normal')">Normal</button>
-<button onclick="startBotGame('hard')">Hard</button>
-</div>
-</div>
-</section>
+            <button id="leaderboardBtn">
+                <span class="menu-icon">🏆</span>
+                <div class="menu-title">Leaderboard</div>
+                <div class="menu-sub">Pemain terbaik</div>
+            </button>
 
-<section id="friendsScreen" class="screen">
-<button class="back" onclick="showScreen('homeScreen')">← Kembali</button>
-<div class="card">
-<div class="section-title">👥 Teman</div>
-<div class="loading">Fitur teman akan segera tersedia.</div>
-</div>
-</section>
+            <button id="profileBtn">
+                <span class="menu-icon">👤</span>
+                <div class="menu-title">Profile</div>
+                <div class="menu-sub">Statistik permainan</div>
+            </button>
 
-<section id="leaderboardScreen" class="screen">
-<button class="back" onclick="showScreen('homeScreen')">← Kembali</button>
-<div class="card">
-<div class="section-title">🏆 Leaderboard</div>
-<div class="loading">Leaderboard akan tersedia setelah sistem rating aktif.</div>
-</div>
-</section>
+        </div>
+    </section>
 
-<section id="profileScreen" class="screen">
-<button class="back" onclick="showScreen('homeScreen')">← Kembali</button>
-<div class="card profile-box">
-<img id="profileAvatar" class="big-avatar" src="https://telegram.org/img/t_logo.png">
-<div id="profileName" class="profile-name">Guest</div>
-<div id="profileUsername" class="profile-username">—</div>
 
-<div class="rating">
-<div class="small">Rating</div>
-<div id="profileRating" class="rating-value">1000</div>
-</div>
+    <!-- PRIVATE ROOM -->
+    <section id="privateScreen" class="screen">
 
-<div class="small" style="margin-top:15px;">Telegram ID</div>
-<div id="profileTelegramId" style="font-weight:bold;margin-top:5px;">—</div>
-</div>
-</section>
+        <button class="back-btn" id="privateBackBtn">← Kembali</button>
 
-<section id="gameScreen" class="screen">
-<button class="back" onclick="exitGame()">← Keluar Game</button>
+        <div class="card">
 
-<div class="game-info">
-<div id="blackPlayerBox" class="player-box">
-<div class="player-label">♟ BLACK</div>
-<div id="blackTime" class="player-time">05:00</div>
-</div>
+            <div class="section-title">🔒 Private Room</div>
 
-<div id="whitePlayerBox" class="player-box">
-<div class="player-label">♙ WHITE</div>
-<div id="whiteTime" class="player-time">05:00</div>
-</div>
-</div>
+            <p style="font-size:12px;color:#7f8ea4;line-height:1.5">
+                Buat room lalu kirim kode room kepada teman.
+            </p>
 
-<div id="board" class="board"></div>
-<div id="gameMessage" class="game-message">Giliran White</div>
+            <button class="action-btn" id="createRoomBtn">
+                Buat Room
+            </button>
 
-<button class="btn secondary" onclick="restartCurrentGame()">🔄 Restart</button>
-</section>
+            <div id="roomCreated" class="hidden">
+
+                <div class="room-code" id="roomCodeText">
+                    ------
+                </div>
+
+                <div class="room-status" id="roomStatus">
+                    Menunggu pemain kedua...
+                </div>
+
+                <button class="action-btn secondary" id="cancelRoomBtn">
+                    Batalkan Room
+                </button>
+
+            </div>
+
+            <div style="
+                margin:20px 0;
+                border-top:1px solid rgba(255,255,255,.06)
+            "></div>
+
+            <input
+                id="joinRoomInput"
+                type="text"
+                maxlength="8"
+                placeholder="Masukkan kode room"
+                style="
+                    width:100%;
+                    min-height:48px;
+                    padding:0 14px;
+                    border-radius:14px;
+                    border:1px solid rgba(255,255,255,.08);
+                    outline:none;
+                    background:#0e1724;
+                    color:#fff;
+                    text-align:center;
+                    letter-spacing:3px;
+                    font-weight:800;
+                "
+            >
+
+            <button class="action-btn secondary" id="joinRoomBtn">
+                Masuk Room
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- BOT -->
+    <section id="botScreen" class="screen">
+
+        <button class="back-btn" id="botBackBtn">← Kembali</button>
+
+        <div class="card">
+
+            <div class="section-title">🤖 VS Bot</div>
+
+            <p style="font-size:12px;color:#8290a5">
+                Pilih tingkat kesulitan.
+            </p>
+
+            <button class="action-btn" data-difficulty="easy">
+                🟢 Easy
+            </button>
+
+            <button class="action-btn" data-difficulty="normal">
+                🟡 Normal
+            </button>
+
+            <button class="action-btn" data-difficulty="hard">
+                🔴 Hard
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- GAME -->
+    <section id="gameScreen" class="screen">
+
+        <div class="game-top">
+
+            <div id="blackPlayerBox" class="player-box">
+                <div class="player-label">Black</div>
+                <div id="blackPlayerName" class="player-name">Black</div>
+                <div id="blackClock" class="clock">05:00</div>
+            </div>
+
+            <div class="vs">VS</div>
+
+            <div id="whitePlayerBox" class="player-box">
+                <div class="player-label">White</div>
+                <div id="whitePlayerName" class="player-name">White</div>
+                <div id="whiteClock" class="clock">05:00</div>
+            </div>
+
+        </div>
+
+        <div id="gameMessage" class="game-message">
+            Giliran White
+        </div>
+
+        <div class="board-wrap">
+            <div id="board" class="board"></div>
+        </div>
+
+        <div class="game-controls">
+            <button id="exitGameBtn">Keluar</button>
+            <button id="newBotGameBtn" class="hidden">Rematch</button>
+        </div>
+
+    </section>
+
+
+    <!-- LEADERBOARD -->
+    <section id="leaderboardScreen" class="screen">
+
+        <button class="back-btn" id="leaderboardBackBtn">
+            ← Kembali
+        </button>
+
+        <div class="card">
+            <div class="section-title">🏆 Leaderboard</div>
+            <div id="leaderboardList" class="list">
+                <div class="empty">Loading...</div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+    <section id="profileScreen" class="screen">
+
+        <button class="back-btn" id="profileBackBtn">
+            ← Kembali
+        </button>
+
+        <div class="card">
+
+            <div style="text-align:center">
+
+                <img
+                    id="profileAvatar"
+                    class="avatar"
+                    style="
+                        width:80px;
+                        height:80px;
+                        margin:auto;
+                    "
+                    src=""
+                    alt=""
+                >
+
+                <div
+                    id="profileName"
+                    style="
+                        margin-top:12px;
+                        font-size:18px;
+                        font-weight:900;
+                    "
+                >
+                    Player
+                </div>
+
+                <div
+                    id="profileUsername"
+                    style="
+                        margin-top:3px;
+                        color:#748299;
+                        font-size:12px;
+                    "
+                >
+                    @username
+                </div>
+
+            </div>
+
+            <div
+                style="
+                    display:grid;
+                    grid-template-columns:repeat(4,1fr);
+                    gap:7px;
+                    margin-top:20px;
+                "
+            >
+
+                <div class="list-item" style="display:block;text-align:center">
+                    <div id="profileRating" style="font-weight:900">1000</div>
+                    <div style="font-size:9px;color:#75849a">Rating</div>
+                </div>
+
+                <div class="list-item" style="display:block;text-align:center">
+                    <div id="profileWins" style="font-weight:900">0</div>
+                    <div style="font-size:9px;color:#75849a">Win</div>
+                </div>
+
+                <div class="list-item" style="display:block;text-align:center">
+                    <div id="profileLosses" style="font-weight:900">0</div>
+                    <div style="font-size:9px;color:#75849a">Lose</div>
+                </div>
+
+                <div class="list-item" style="display:block;text-align:center">
+                    <div id="profileDraws" style="font-weight:900">0</div>
+                    <div style="font-size:9px;color:#75849a">Draw</div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
 
 </div>
 
 <div id="toast" class="toast"></div>
 
+
 <script>
-const SUPABASE_URL="https://mrqyfdqqkghvpdgibgpl.supabase.co";
-const SUPABASE_KEY="sb_publishable_gH_2b-0SQ3FiG_l9t_09Bw_xdNX_KvU";
+/* =========================================================
+   SUPABASE
+========================================================= */
 
-const supabaseClient=window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+const SUPABASE_URL =
+    "https://mrqyfdqqkghvpdgibgpl.supabase.co";
 
-const tg=window.Telegram&&window.Telegram.WebApp
-?window.Telegram.WebApp:null;
+const SUPABASE_KEY =
+    "sb_publishable_gH_2b-0SQ3FiG_l9t_09Bw_xdNX_KvU";
 
-let myTelegramUser=null;
-let myUserId=null;
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
-async function loadTelegramUser(){
-try{
+
+/* =========================================================
+   TELEGRAM
+========================================================= */
+
+const tg = window.Telegram?.WebApp;
+
 if(tg){
-tg.ready();
-tg.expand();
-myTelegramUser=tg.initDataUnsafe&&tg.initDataUnsafe.user
-?tg.initDataUnsafe.user:null;
+    tg.ready();
+    tg.expand();
 }
 
-if(!myTelegramUser)return false;
+let myTelegramUser =
+    tg?.initDataUnsafe?.user || null;
 
-myUserId=Number(myTelegramUser.id);
+let myUserId =
+    myTelegramUser ? Number(myTelegramUser.id) : null;
 
-const firstName=myTelegramUser.first_name||"";
-const lastName=myTelegramUser.last_name||"";
-const fullName=(firstName+" "+lastName).trim()||"Player";
 
-document.getElementById("miniName").textContent=fullName;
-document.getElementById("profileName").textContent=fullName;
-document.getElementById("profileUsername").textContent=
-myTelegramUser.username?"@"+myTelegramUser.username:"Tanpa username";
-document.getElementById("profileTelegramId").textContent=myUserId;
+/* =========================================================
+   STATE
+========================================================= */
 
-if(myTelegramUser.photo_url){
-document.getElementById("miniAvatar").src=myTelegramUser.photo_url;
-document.getElementById("profileAvatar").src=myTelegramUser.photo_url;
-}
+let currentRoom = null;
 
-await saveUser();
-return true;
+let roomChannel = null;
+let roomPollTimer = null;
 
-}catch(error){
-console.error("LOAD TELEGRAM ERROR:",error);
-toast("Gagal memuat akun Telegram.");
-return false;
-}
-}
+let privateGameId = null;
 
-async function saveUser(){
-if(!myTelegramUser)return false;
+let privateGameChannel = null;
+let privateGamePollTimer = null;
+let syncingPrivateGame = false;
 
-const telegramId=Number(myTelegramUser.id);
-if(!telegramId)return false;
+let gameMode = null;
+let playerColor = "w";
 
-const {data,error}=await supabaseClient
-.from("users")
-.upsert({
-id:telegramId,
-username:myTelegramUser.username||null,
-first_name:myTelegramUser.first_name||"",
-last_name:myTelegramUser.last_name||"",
-photo_url:myTelegramUser.photo_url||null,
-rating:1000,
-wins:0,
-losses:0,
-draws:0
-},{onConflict:"id"})
-.select("id,rating,wins,losses,draws")
-.single();
+let board = [];
+let chessTurn = "w";
 
-if(error){
-console.error("SAVE USER ERROR:",error);
-toast("Gagal menyimpan user: "+error.message);
-return false;
-}
+let selectedSquare = null;
+let legalMoves = [];
 
-if(data){
-document.getElementById("profileRating").textContent=Number(data.rating||1000);
-}
+let gameOver = false;
 
-return true;
-}
+let whiteSeconds = 300;
+let blackSeconds = 300;
 
-async function ensureUserExists(){
-if(!myUserId)throw new Error("Telegram user belum terdeteksi.");
+let timerInterval = null;
 
-const telegramId=Number(myUserId);
+let botDifficulty = "easy";
 
-const {data,error}=await supabaseClient
-.from("users")
-.select("id")
-.eq("id",telegramId)
-.maybeSingle();
+let lastMove = null;
 
-if(error)throw error;
-if(data)return true;
 
-const {error:insertError}=await supabaseClient
-.from("users")
-.insert({
-id:telegramId,
-username:myTelegramUser?.username||null,
-first_name:myTelegramUser?.first_name||"",
-last_name:myTelegramUser?.last_name||"",
-photo_url:myTelegramUser?.photo_url||null,
-rating:1000,
-wins:0,
-losses:0,
-draws:0
-});
+/* =========================================================
+   BASIC UI
+========================================================= */
 
-if(insertError){
-if(insertError.code==="23505")return true;
-throw insertError;
-}
-
-return true;
-}
+const $ = id => document.getElementById(id);
 
 function showScreen(id){
-document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-const target=document.getElementById(id);
-if(target)target.classList.add("active");
+
+    document.querySelectorAll(".screen")
+        .forEach(screen => {
+            screen.classList.remove("active");
+        });
+
+    $(id)?.classList.add("active");
 }
 
 function toast(message){
-const element=document.getElementById("toast");
-element.textContent=message;
-element.classList.add("show");
-clearTimeout(toast.timer);
-toast.timer=setTimeout(()=>element.classList.remove("show"),3000);
+
+    const el = $("toast");
+
+    el.textContent = message;
+    el.classList.add("show");
+
+    clearTimeout(toast.timer);
+
+    toast.timer = setTimeout(() => {
+        el.classList.remove("show");
+    },2600);
 }
 
-function openProfile(){
-showScreen("profileScreen");
-}
+function setMessage(message){
 
+    $("gameMessage").textContent = message;
 
-/* =========================================================
-PRIVATE ROOM
-========================================================= */
-
-let currentRoom=null;
-let roomChannel=null;
-let roomPollTimer=null;
-let privateGameId=null;
-
-function generateRoomCode(){
-const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-let code="";
-for(let i=0;i<6;i++){
-code+=chars[Math.floor(Math.random()*chars.length)];
-}
-return code;
-}
-
-async function createPrivateRoom(){
-try{
-if(!myUserId){
-toast("Telegram user belum terdeteksi.");
-return;
-}
-
-await ensureUserExists();
-
-let roomCode=generateRoomCode();
-
-for(let i=0;i<10;i++){
-const {data}=await supabaseClient
-.from("rooms")
-.select("id")
-.eq("room_code",roomCode)
-.maybeSingle();
-
-if(!data)break;
-roomCode=generateRoomCode();
-}
-
-const {data:room,error}=await supabaseClient
-.from("rooms")
-.insert({
-room_code:roomCode,
-host_id:Number(myUserId),
-status:"waiting"
-})
-.select()
-.single();
-
-if(error)throw error;
-
-const {error:playerError}=await supabaseClient
-.from("room_players")
-.insert({
-room_id:room.id,
-user_id:Number(myUserId),
-color:"white"
-});
-
-if(playerError)throw playerError;
-
-currentRoom=room;
-
-document.getElementById("roomCodeDisplay").textContent=room.room_code;
-document.getElementById("roomStatus").textContent="Menunggu lawan masuk...";
-
-showScreen("roomWaitingScreen");
-startRoomWatcher();
-
-toast("Room berhasil dibuat!");
-
-}catch(error){
-console.error("CREATE ROOM ERROR:",error);
-toast("Gagal membuat room: "+error.message);
-}
-}
-
-async function joinPrivateRoom(){
-try{
-if(!myUserId){
-toast("Telegram user belum terdeteksi.");
-return;
-}
-
-const input=document.getElementById("joinCode");
-const code=input.value.trim().toUpperCase();
-
-if(code.length!==6){
-toast("Kode room harus 6 karakter.");
-return;
-}
-
-await ensureUserExists();
-
-const {data:room,error:roomError}=await supabaseClient
-.from("rooms")
-.select("*")
-.eq("room_code",code)
-.maybeSingle();
-
-if(roomError)throw roomError;
-
-if(!room){
-toast("Room tidak ditemukan.");
-return;
-}
-
-if(room.status!=="waiting"){
-toast("Room sudah tidak tersedia.");
-return;
-}
-
-if(Number(room.host_id)===Number(myUserId)){
-toast("Kamu adalah pembuat room.");
-return;
-}
-
-const {data:players,error:playersError}=await supabaseClient
-.from("room_players")
-.select("*")
-.eq("room_id",room.id);
-
-if(playersError)throw playersError;
-
-if(players&&players.some(p=>Number(p.user_id)===Number(myUserId))){
-toast("Kamu sudah berada di room.");
-return;
-}
-
-if(players&&players.length>=2){
-toast("Room sudah penuh.");
-return;
-}
-
-const {error:joinError}=await supabaseClient
-.from("room_players")
-.insert({
-room_id:room.id,
-user_id:Number(myUserId),
-color:"black"
-});
-
-if(joinError)throw joinError;
-
-currentRoom=room;
-
-document.getElementById("roomCodeDisplay").textContent=room.room_code;
-document.getElementById("roomStatus").textContent="Berhasil masuk. Menunggu game dimulai...";
-
-showScreen("roomWaitingScreen");
-startRoomWatcher();
-
-toast("Berhasil masuk room!");
-
-}catch(error){
-console.error("JOIN ROOM ERROR:",error);
-toast("Gagal masuk room: "+error.message);
-}
-}
-
-async function checkRoomPlayers(){
-if(!currentRoom)return;
-
-try{
-const {data:players,error}=await supabaseClient
-.from("room_players")
-.select("*")
-.eq("room_id",currentRoom.id)
-.order("joined_at",{ascending:true});
-
-if(error)throw error;
-
-if(players&&players.length>=2){
-document.getElementById("roomStatus").textContent="Lawan ditemukan! Memulai game...";
-clearRoomWatcher();
-await startPrivateGame(players);
-}
-}catch(error){
-console.error("ROOM CHECK ERROR:",error);
-}
-}
-
-function startRoomWatcher(){
-clearRoomWatcher();
-
-checkRoomPlayers();
-
-roomPollTimer=setInterval(checkRoomPlayers,2000);
-
-roomChannel=supabaseClient
-.channel("room-"+currentRoom.id+"-"+Date.now())
-.on(
-"postgres_changes",
-{
-event:"*",
-schema:"public",
-table:"room_players",
-filter:"room_id=eq."+currentRoom.id
-},
-()=>checkRoomPlayers()
-)
-.subscribe();
-}
-
-function clearRoomWatcher(){
-if(roomPollTimer){
-clearInterval(roomPollTimer);
-roomPollTimer=null;
-}
-
-if(roomChannel){
-supabaseClient.removeChannel(roomChannel);
-roomChannel=null;
-}
-}
-
-async function leavePrivateRoom(){
-clearRoomWatcher();
-
-if(currentRoom&&myUserId){
-await supabaseClient
-.from("room_players")
-.delete()
-.eq("room_id",currentRoom.id)
-.eq("user_id",Number(myUserId));
-}
-
-currentRoom=null;
-privateGameId=null;
-
-showScreen("privateScreen");
-}
-
-async function copyRoomCode(){
-const code=document.getElementById("roomCodeDisplay").textContent;
-
-try{
-await navigator.clipboard.writeText(code);
-toast("Kode berhasil disalin.");
-}catch{
-toast("Kode room: "+code);
-}
+    updatePlayerTurnUI();
 }
 
 
 /* =========================================================
-CHESS
+   USER
 ========================================================= */
 
-const pieceImages={
-w:{
-rook:"https://sashite.dev/assets/chess/sides/first/representations/western/rook.svg",
-knight:"https://sashite.dev/assets/chess/sides/first/representations/western/knight.svg",
-bishop:"https://sashite.dev/assets/chess/sides/first/representations/western/bishop.svg",
-queen:"https://sashite.dev/assets/chess/sides/first/representations/western/queen.svg",
-king:"https://sashite.dev/assets/chess/sides/first/representations/western/king.svg",
-pawn:"https://sashite.dev/assets/chess/sides/first/representations/western/pawn.svg"
-},
-b:{
-rook:"https://sashite.dev/assets/chess/sides/second/representations/western/rook.svg",
-knight:"https://sashite.dev/assets/chess/sides/second/representations/western/knight.svg",
-bishop:"https://sashite.dev/assets/chess/sides/second/representations/western/bishop.svg",
-queen:"https://sashite.dev/assets/chess/sides/second/representations/western/queen.svg",
-king:"https://sashite.dev/assets/chess/sides/second/representations/western/king.svg",
-pawn:"https://sashite.dev/assets/chess/sides/second/representations/western/pawn.svg"
-}
-};
+async function saveUser(){
 
-let board=[];
-let selectedSquare=null;
-let legalMoves=[];
-let chessTurn="w";
-let gameOver=false;
-let gameMode="bot";
-let botLevel="normal";
-let playerColor="w";
-let chessTimer=null;
-let whiteSeconds=300;
-let blackSeconds=300;
+    if(!myTelegramUser || !myUserId){
+        return;
+    }
+
+    try{
+
+        const user = {
+            id: myUserId,
+            username: myTelegramUser.username || null,
+            first_name: myTelegramUser.first_name || null,
+            last_name: myTelegramUser.last_name || null,
+            photo_url: myTelegramUser.photo_url || null,
+            rating: 1000,
+            wins: 0,
+            losses: 0,
+            draws: 0
+        };
+
+        const { error } =
+            await supabaseClient
+                .from("users")
+                .upsert(
+                    user,
+                    { onConflict:"id" }
+                );
+
+        if(error){
+            console.error("SAVE USER ERROR:",error);
+        }
+
+    }catch(error){
+
+        console.error("SAVE USER ERROR:",error);
+
+    }
+}
+
+
+async function ensureUserExists(userId){
+
+    if(!userId)return false;
+
+    try{
+
+        const {data,error} =
+            await supabaseClient
+                .from("users")
+                .select("id")
+                .eq("id",Number(userId))
+                .maybeSingle();
+
+        if(error)throw error;
+
+        if(!data){
+
+            const user =
+                Number(userId) === Number(myUserId)
+                    ? myTelegramUser
+                    : null;
+
+            const {error:insertError} =
+                await supabaseClient
+                    .from("users")
+                    .insert({
+                        id:Number(userId),
+                        username:user?.username || null,
+                        first_name:user?.first_name || "Player",
+                        last_name:user?.last_name || null,
+                        photo_url:user?.photo_url || null,
+                        rating:1000,
+                        wins:0,
+                        losses:0,
+                        draws:0
+                    });
+
+            if(insertError &&
+               insertError.code !== "23505"){
+
+                throw insertError;
+            }
+        }
+
+        return true;
+
+    }catch(error){
+
+        console.error("ENSURE USER ERROR:",error);
+        return false;
+    }
+}
+
+
+async function loadMyProfile(){
+
+    if(!myUserId)return;
+
+    try{
+
+        const {data,error} =
+            await supabaseClient
+                .from("users")
+                .select("*")
+                .eq("id",myUserId)
+                .maybeSingle();
+
+        if(error)throw error;
+
+        if(!data)return;
+
+        const displayName =
+            data.first_name ||
+            data.username ||
+            "Player";
+
+        $("homeUsername").textContent =
+            displayName;
+
+        $("homeRating").textContent =
+            data.rating ?? 1000;
+
+        $("profileName").textContent =
+            displayName;
+
+        $("profileUsername").textContent =
+            data.username
+                ? "@"+data.username
+                : "Telegram Player";
+
+        $("profileRating").textContent =
+            data.rating ?? 1000;
+
+        $("profileWins").textContent =
+            data.wins ?? 0;
+
+        $("profileLosses").textContent =
+            data.losses ?? 0;
+
+        $("profileDraws").textContent =
+            data.draws ?? 0;
+
+        const photo =
+            data.photo_url ||
+            myTelegramUser?.photo_url ||
+            "";
+
+        if(photo){
+
+            $("headerAvatar").src = photo;
+            $("profileAvatar").src = photo;
+
+        }
+
+    }catch(error){
+
+        console.error("PROFILE ERROR:",error);
+
+    }
+}
+
+
+/* =========================================================
+   BOARD
+========================================================= */
 
 function createInitialBoard(){
-return [
-[
-{c:"b",p:"rook"},{c:"b",p:"knight"},{c:"b",p:"bishop"},{c:"b",p:"queen"},
-{c:"b",p:"king"},{c:"b",p:"bishop"},{c:"b",p:"knight"},{c:"b",p:"rook"}
-],
-[
-{c:"b",p:"pawn"},{c:"b",p:"pawn"},{c:"b",p:"pawn"},{c:"b",p:"pawn"},
-{c:"b",p:"pawn"},{c:"b",p:"pawn"},{c:"b",p:"pawn"},{c:"b",p:"pawn"}
-],
-[null,null,null,null,null,null,null,null],
-[null,null,null,null,null,null,null,null],
-[null,null,null,null,null,null,null,null],
-[null,null,null,null,null,null,null,null],
-[
-{c:"w",p:"pawn"},{c:"w",p:"pawn"},{c:"w",p:"pawn"},{c:"w",p:"pawn"},
-{c:"w",p:"pawn"},{c:"w",p:"pawn"},{c:"w",p:"pawn"},{c:"w",p:"pawn"}
-],
-[
-{c:"w",p:"rook"},{c:"w",p:"knight"},{c:"w",p:"bishop"},{c:"w",p:"queen"},
-{c:"w",p:"king"},{c:"w",p:"bishop"},{c:"w",p:"knight"},{c:"w",p:"rook"}
-]
-];
-}
-
-function cloneBoard(b){
-return b.map(row=>row.map(piece=>piece?{...piece}:null));
-}
-
-function inside(r,c){
-return r>=0&&r<8&&c>=0&&c<8;
-}
-
-function findKing(b,color){
-for(let r=0;r<8;r++){
-for(let c=0;c<8;c++){
-const piece=b[r][c];
-if(piece&&piece.c===color&&piece.p==="king")return {r,c};
-}
-}
-return null;
-}
-
-function pseudoMoves(b,r,c,attacksOnly=false){
-const piece=b[r][c];
-if(!piece)return [];
-
-const result=[];
-const color=piece.c;
-const enemy=color==="w"?"b":"w";
-
-function add(nr,nc){
-if(!inside(nr,nc))return;
-const target=b[nr][nc];
-if(!target||target.c===enemy)result.push({r:nr,c:nc});
-}
-
-function slide(directions){
-for(const [dr,dc] of directions){
-let nr=r+dr,nc=c+dc;
-
-while(inside(nr,nc)){
-const target=b[nr][nc];
-
-if(!target){
-result.push({r:nr,c:nc});
-}else{
-if(target.c===enemy)result.push({r:nr,c:nc});
-break;
-}
-
-nr+=dr;
-nc+=dc;
-}
-}
-}
-
-if(piece.p==="pawn"){
-const direction=color==="w"?-1:1;
-const startRow=color==="w"?6:1;
-
-if(!attacksOnly){
-const nr=r+direction;
-
-if(inside(nr,c)&&!b[nr][c]){
-result.push({r:nr,c});
-
-const nr2=r+direction*2;
-
-if(r===startRow&&inside(nr2,c)&&!b[nr2][c]){
-result.push({r:nr2,c});
-}
-}
-}
-
-for(const dc of [-1,1]){
-const nr=r+direction;
-const nc=c+dc;
-
-if(!inside(nr,nc))continue;
-
-if(attacksOnly){
-result.push({r:nr,c:nc});
-}else if(b[nr][nc]&&b[nr][nc].c===enemy){
-result.push({r:nr,c:nc});
-}
-}
-
-}else if(piece.p==="knight"){
-[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]
-.forEach(([dr,dc])=>add(r+dr,c+dc));
-
-}else if(piece.p==="bishop"){
-slide([[-1,-1],[-1,1],[1,-1],[1,1]]);
-
-}else if(piece.p==="rook"){
-slide([[-1,0],[1,0],[0,-1],[0,1]]);
-
-}else if(piece.p==="queen"){
-slide([
-[-1,-1],[-1,1],[1,-1],[1,1],
-[-1,0],[1,0],[0,-1],[0,1]
-]);
-
-}else if(piece.p==="king"){
-for(let dr=-1;dr<=1;dr++){
-for(let dc=-1;dc<=1;dc++){
-if(dr===0&&dc===0)continue;
-add(r+dr,c+dc);
-}
-}
-}
-
-return result;
-}
-
-function isSquareAttacked(b,r,c,byColor){
-for(let rr=0;rr<8;rr++){
-for(let cc=0;cc<8;cc++){
-const piece=b[rr][cc];
-
-if(!piece||piece.c!==byColor)continue;
-
-const moves=pseudoMoves(b,rr,cc,true);
-
-if(moves.some(move=>move.r===r&&move.c===c))return true;
-}
-}
-return false;
-}
-
-function isInCheck(b,color){
-const king=findKing(b,color);
-if(!king)return true;
-
-const enemy=color==="w"?"b":"w";
-
-return isSquareAttacked(b,king.r,king.c,enemy);
-}
-
-function getLegalMoves(b,r,c){
-const piece=b[r][c];
-if(!piece)return [];
-
-const pseudo=pseudoMoves(b,r,c,false);
-const legal=[];
-
-for(const move of pseudo){
-const test=cloneBoard(b);
-
-test[move.r][move.c]=test[r][c];
-test[r][c]=null;
-
-const moved=test[move.r][move.c];
-
-if(moved&&moved.p==="pawn"&&(move.r===0||move.r===7)){
-moved.p="queen";
-}
-
-if(!isInCheck(test,piece.c)){
-legal.push(move);
-}
-}
-
-return legal;
-}
-
-function hasAnyLegalMove(b,color){
-for(let r=0;r<8;r++){
-for(let c=0;c<8;c++){
-const piece=b[r][c];
-
-if(piece&&piece.c===color){
-if(getLegalMoves(b,r,c).length>0)return true;
-}
-}
-}
-return false;
-}
-
-function renderBoard(){
-const boardElement=document.getElementById("board");
-boardElement.innerHTML="";
-
-for(let r=0;r<8;r++){
-for(let c=0;c<8;c++){
-
-const square=document.createElement("div");
-
-square.className="square "+((r+c)%2===0?"light":"dark");
-
-if(selectedSquare&&selectedSquare.r===r&&selectedSquare.c===c){
-square.classList.add("selected");
-}
-
-const legal=legalMoves.some(move=>move.r===r&&move.c===c);
-
-if(legal){
-square.classList.add("legal");
-if(board[r][c])square.classList.add("capture");
-}
-
-const piece=board[r][c];
-
-if(piece){
-const image=document.createElement("img");
-
-image.src=pieceImages[piece.c][piece.p];
-image.className="piece "+(piece.c==="w"?"white-piece":"black-piece");
-image.alt=piece.c+" "+piece.p;
-
-square.appendChild(image);
-}
-
-square.addEventListener("click",()=>handleSquareClick(r,c));
-boardElement.appendChild(square);
-}
-}
-
-updateTurnUI();
-}
-
-function handleSquareClick(r,c){
-if(gameOver)return;
-
-if((gameMode==="bot"||gameMode==="private")&&chessTurn!==playerColor)return;
-
-const piece=board[r][c];
-
-if(selectedSquare){
-const target=legalMoves.find(move=>move.r===r&&move.c===c);
-
-if(target){
-makeMove(selectedSquare.r,selectedSquare.c,r,c);
-return;
-}
-}
-
-if(piece&&piece.c===chessTurn){
-selectedSquare={r,c};
-legalMoves=getLegalMoves(board,r,c);
-renderBoard();
-}else{
-selectedSquare=null;
-legalMoves=[];
-renderBoard();
-}
-}
-
-function makeMove(fromR,fromC,toR,toC){
-if(gameOver)return;
-
-const piece=board[fromR][fromC];
-if(!piece)return;
-
-board[toR][toC]=piece;
-board[fromR][fromC]=null;
-
-if(piece.p==="pawn"&&(toR===0||toR===7)){
-piece.p="queen";
-}
-
-selectedSquare=null;
-legalMoves=[];
-
-chessTurn=chessTurn==="w"?"b":"w";
-
-renderBoard();
-checkGameState();
-
-if(!gameOver&&gameMode==="bot"&&chessTurn!==playerColor){
-setTimeout(botMove,350);
-}
-
-if(!gameOver&&gameMode==="private"){
-savePrivateMove();
-}
-}
-
-function checkGameState(){
-const moves=hasAnyLegalMove(board,chessTurn);
-
-if(!moves){
-gameOver=true;
-stopTimer();
-
-if(isInCheck(board,chessTurn)){
-const winner=chessTurn==="w"?"Black":"White";
-setMessage("♚ Checkmate! "+winner+" menang.");
-}else{
-setMessage("🤝 Stalemate! Seri.");
-}
-return;
-}
-
-if(isInCheck(board,chessTurn)){
-setMessage("⚠️ "+(chessTurn==="w"?"White":"Black")+" sedang Check!");
-}else{
-setMessage("Giliran "+(chessTurn==="w"?"White":"Black"));
-}
-}
-
-function setMessage(text){
-document.getElementById("gameMessage").textContent=text;
-}
-
-function formatTime(seconds){
-seconds=Math.max(0,Number(seconds)||0);
-
-const minutes=Math.floor(seconds/60);
-const secs=seconds%60;
-
-return String(minutes).padStart(2,"0")+":"+String(secs).padStart(2,"0");
-}
-
-function updateTimerUI(){
-document.getElementById("whiteTime").textContent=formatTime(whiteSeconds);
-document.getElementById("blackTime").textContent=formatTime(blackSeconds);
-}
-
-function updateTurnUI(){
-document.getElementById("whitePlayerBox").classList.toggle("active-turn",chessTurn==="w");
-document.getElementById("blackPlayerBox").classList.toggle("active-turn",chessTurn==="b");
-}
-
-function startTimer(){
-stopTimer();
-
-chessTimer=setInterval(()=>{
-if(gameOver)return;
-
-if(chessTurn==="w"){
-whiteSeconds--;
-
-if(whiteSeconds<=0){
-whiteSeconds=0;
-gameOver=true;
-stopTimer();
-setMessage("⏱️ White kehabisan waktu. Black menang.");
-}
-}else{
-blackSeconds--;
-
-if(blackSeconds<=0){
-blackSeconds=0;
-gameOver=true;
-stopTimer();
-setMessage("⏱️ Black kehabisan waktu. White menang.");
-}
-}
-
-updateTimerUI();
-},1000);
-}
-
-function stopTimer(){
-if(chessTimer){
-clearInterval(chessTimer);
-chessTimer=null;
-}
-}
-
-
-/* =========================================================
-BOT
-========================================================= */
-
-function startBotGame(level){
-gameMode="bot";
-botLevel=level;
-playerColor="w";
-
-startChessGame();
-
-toast("Bot: "+level.toUpperCase());
-}
-
-function startChessGame(){
-board=createInitialBoard();
-selectedSquare=null;
-legalMoves=[];
-chessTurn="w";
-gameOver=false;
-whiteSeconds=300;
-blackSeconds=300;
-
-showScreen("gameScreen");
-renderBoard();
-updateTimerUI();
-setMessage("Giliran White");
-startTimer();
-}
-
-function restartCurrentGame(){
-if(gameMode==="private"){
-toast("Restart hanya tersedia untuk VS Bot.");
-return;
-}
-
-startChessGame();
-}
-
-function exitGame(){
-gameOver=true;
-stopTimer();
-showScreen("homeScreen");
-}
-
-function evaluateMove(fromR,fromC,toR,toC){
-let score=Math.random()*10;
 
-const target=board[toR][toC];
+    return [
+
+        [
+            {p:"rook",c:"b"},
+            {p:"knight",c:"b"},
+            {p:"bishop",c:"b"},
+            {p:"queen",c:"b"},
+            {p:"king",c:"b"},
+            {p:"bishop",c:"b"},
+            {p:"knight",c:"b"},
+            {p:"rook",c:"b"}
+        ],
+
+        [
+            {p:"pawn",c:"b"},
+            {p:"pawn",c:"b"},
+            {p:"pawn",c:"b"},
+            {p:"pawn",c:"b"},
+            {p:"pawn",c:"b"},
+            {p:"pawn",c:"b"},
+            {p:"pawn",c:"b"},
+            {p:"pawn",c:"b"}
+        ],
+
+        Array(8).fill(null),
+        Array(8).fill(null),
+        Array(8).fill(null),
+        Array(8).fill(null),
+
+        [
+            {p:"pawn",c:"w"},
+            {p:"pawn",c:"w"},
+            {p:"pawn",c:"w"},
+            {p:"pawn",c:"w"},
+            {p:"pawn",c:"w"},
+            {p:"pawn",c:"w"},
+            {p:"pawn",c:"w"},
+            {p:"pawn",c:"w"}
+        ],
+
+        [
+            {p:"rook",c:"w"},
+            {p:"knight",c:"w"},
+            {p:"bishop",c:"w"},
+            {p:"queen",c:"w"},
+            {p:"king",c:"w"},
+            {p:"bishop",c:"w"},
+            {p:"knight",c:"w"},
+            {p:"rook",c:"w"}
+        ]
+    ];
+}
+
+
+/* Modern chess Unicode pieces */
+const pieceSymbols = {
+
+    white:{
+        king:"♔",
+        queen:"♕",
+        rook:"♖",
+        bishop:"♗",
+        knight:"♘",
+        pawn:"♙"
+    },
+
+    black:{
+        king:"♚",
+        queen:"♛",
+        rook:"♜",
+        bishop:"♝",
+        knight:"♞",
+        pawn:"♟"
+    }
 
-const values={
-pawn:100,
-knight:320,
-bishop:330,
-rook:500,
-queen:900,
-king:10000
 };
 
-if(target)score+=values[target.p]||0;
 
-const piece=board[fromR][fromC];
+function renderBoard(){
 
-if(piece&&piece.p==="pawn"&&(toR===0||toR===7)){
-score+=900;
-}
+    const boardEl = $("board");
 
-return score;
-}
+    boardEl.innerHTML = "";
 
-function botMove(){
-if(gameOver||gameMode!=="bot"||chessTurn===playerColor)return;
+    for(let r=0;r<8;r++){
 
-const moves=[];
+        for(let c=0;c<8;c++){
 
-for(let r=0;r<8;r++){
-for(let c=0;c<8;c++){
+            const square =
+                document.createElement("div");
 
-const piece=board[r][c];
+            square.className =
+                "square " +
+                ((r+c)%2===0 ? "light":"dark");
 
-if(piece&&piece.c===chessTurn){
-const legal=getLegalMoves(board,r,c);
+            square.dataset.row = r;
+            square.dataset.col = c;
 
-legal.forEach(move=>{
-moves.push({
-fromR:r,
-fromC:c,
-toR:move.r,
-toC:move.c,
-score:evaluateMove(r,c,move.r,move.c)
-});
-});
-}
-}
-}
+            if(
+                lastMove &&
+                (
+                    (
+                        lastMove.fromR===r &&
+                        lastMove.fromC===c
+                    ) ||
+                    (
+                        lastMove.toR===r &&
+                        lastMove.toC===c
+                    )
+                )
+            ){
+                square.classList.add("last-move");
+            }
 
-if(!moves.length)return;
+            if(
+                selectedSquare &&
+                selectedSquare.r===r &&
+                selectedSquare.c===c
+            ){
+                square.classList.add("selected");
+            }
 
-let selected;
+            const piece = board[r]?.[c];
 
-if(botLevel==="easy"){
-selected=moves[Math.floor(Math.random()*moves.length)];
-}else{
-moves.sort((a,b)=>b.score-a.score);
+            if(piece){
 
-const count=botLevel==="normal"
-?Math.min(4,moves.length)
-:1;
+                const pieceEl =
+                    document.createElement("div");
 
-selected=moves[Math.floor(Math.random()*count)];
-}
+                pieceEl.className =
+                    "chess-piece " +
+                    (
+                        piece.c==="w"
+                            ? "white-piece"
+                            : "black-piece"
+                    );
 
-makeMove(
-selected.fromR,
-selected.fromC,
-selected.toR,
-selected.toC
-);
+                pieceEl.textContent =
+                    pieceSymbols[
+                        piece.c==="w"
+                            ? "white"
+                            : "black"
+                    ][piece.p];
+
+                const glow =
+                    document.createElement("div");
+
+                glow.className = "piece-glow";
+
+                pieceEl.appendChild(glow);
+
+                square.appendChild(pieceEl);
+
+            }else{
+
+                const legal =
+                    legalMoves.some(
+                        move =>
+                            move.r===r &&
+                            move.c===c
+                    );
+
+                if(legal){
+
+                    const isCapture =
+                        board[r][c] !== null;
+
+                    const mark =
+                        document.createElement("div");
+
+                    mark.className =
+                        isCapture
+                            ? "capture-ring"
+                            : "move-dot";
+
+                    square.appendChild(mark);
+                }
+            }
+
+            square.addEventListener(
+                "click",
+                () => handleSquareClick(r,c)
+            );
+
+            boardEl.appendChild(square);
+        }
+    }
+
+    updatePlayerTurnUI();
 }
 
 
 /* =========================================================
-PRIVATE GAME
+   CHESS MOVE ENGINE
 ========================================================= */
 
-/*
- * DATABASE:
- * white = "white"
- * black = "black"
- *
- * CHESS ENGINE:
- * white = "w"
- * black = "b"
- *
- * Fungsi ini menjadi jembatan antara
- * database Supabase dan chess engine.
- */
+function inside(r,c){
+
+    return (
+        r>=0 &&
+        r<8 &&
+        c>=0 &&
+        c<8
+    );
+}
+
+
+function findKing(color){
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const piece = board[r][c];
+
+            if(
+                piece &&
+                piece.c===color &&
+                piece.p==="king"
+            ){
+                return {r,c};
+            }
+        }
+    }
+
+    return null;
+}
+
+
+function squareAttacked(r,c,byColor){
+
+    for(let rr=0;rr<8;rr++){
+
+        for(let cc=0;cc<8;cc++){
+
+            const piece = board[rr][cc];
+
+            if(
+                !piece ||
+                piece.c!==byColor
+            ){
+                continue;
+            }
+
+            const dr = r-rr;
+            const dc = c-cc;
+
+            if(piece.p==="pawn"){
+
+                const direction =
+                    byColor==="w" ? -1 : 1;
+
+                if(
+                    dr===direction &&
+                    Math.abs(dc)===1
+                ){
+                    return true;
+                }
+            }
+
+            if(piece.p==="knight"){
+
+                const a=Math.abs(dr);
+                const b=Math.abs(dc);
+
+                if(
+                    (a===2&&b===1) ||
+                    (a===1&&b===2)
+                ){
+                    return true;
+                }
+            }
+
+            if(piece.p==="king"){
+
+                if(
+                    Math.max(
+                        Math.abs(dr),
+                        Math.abs(dc)
+                    )===1
+                ){
+                    return true;
+                }
+            }
+
+            const sliding =
+                piece.p==="rook" ||
+                piece.p==="bishop" ||
+                piece.p==="queen";
+
+            if(sliding){
+
+                const rookLike =
+                    piece.p==="rook" ||
+                    piece.p==="queen";
+
+                const bishopLike =
+                    piece.p==="bishop" ||
+                    piece.p==="queen";
+
+                let validDirection=false;
+
+                if(
+                    rookLike &&
+                    (dr===0 || dc===0)
+                ){
+                    validDirection=true;
+                }
+
+                if(
+                    bishopLike &&
+                    Math.abs(dr)===Math.abs(dc)
+                ){
+                    validDirection=true;
+                }
+
+                if(!validDirection)continue;
+
+                const stepR =
+                    dr===0 ? 0 : dr>0 ? 1 : -1;
+
+                const stepC =
+                    dc===0 ? 0 : dc>0 ? 1 : -1;
+
+                let tr=rr+stepR;
+                let tc=cc+stepC;
+
+                let blocked=false;
+
+                while(tr!==r || tc!==c){
+
+                    if(board[tr][tc]){
+                        blocked=true;
+                        break;
+                    }
+
+                    tr+=stepR;
+                    tc+=stepC;
+                }
+
+                if(!blocked){
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+
+function isKingInCheck(color){
+
+    const king=findKing(color);
+
+    if(!king)return true;
+
+    return squareAttacked(
+        king.r,
+        king.c,
+        color==="w" ? "b" : "w"
+    );
+}
+
+
+function pseudoMoves(r,c){
+
+    const piece=board[r][c];
+
+    if(!piece)return [];
+
+    const moves=[];
+
+    const add=(rr,cc)=>{
+
+        if(!inside(rr,cc))return;
+
+        const target=board[rr][cc];
+
+        if(!target){
+            moves.push({r:rr,c:cc});
+        }else if(target.c!==piece.c){
+            moves.push({r:rr,c:cc});
+        }
+    };
+
+
+    if(piece.p==="pawn"){
+
+        const dir =
+            piece.c==="w" ? -1 : 1;
+
+        const startRow =
+            piece.c==="w" ? 6 : 1;
+
+        const one=r+dir;
+
+        if(
+            inside(one,c) &&
+            !board[one][c]
+        ){
+
+            moves.push({r:one,c});
+
+            const two=r+dir*2;
+
+            if(
+                r===startRow &&
+                !board[two][c]
+            ){
+                moves.push({r:two,c});
+            }
+        }
+
+        for(const dc of [-1,1]){
+
+            const rr=r+dir;
+            const cc=c+dc;
+
+            if(
+                inside(rr,cc) &&
+                board[rr][cc] &&
+                board[rr][cc].c!==piece.c
+            ){
+                moves.push({r:rr,c:cc});
+            }
+        }
+    }
+
+
+    if(piece.p==="knight"){
+
+        [
+            [-2,-1],[-2,1],
+            [-1,-2],[-1,2],
+            [1,-2],[1,2],
+            [2,-1],[2,1]
+        ].forEach(
+            ([dr,dc]) =>
+                add(r+dr,c+dc)
+        );
+    }
+
+
+    if(
+        piece.p==="rook" ||
+        piece.p==="bishop" ||
+        piece.p==="queen"
+    ){
+
+        const directions=[];
+
+        if(
+            piece.p==="rook" ||
+            piece.p==="queen"
+        ){
+
+            directions.push(
+                [-1,0],
+                [1,0],
+                [0,-1],
+                [0,1]
+            );
+        }
+
+        if(
+            piece.p==="bishop" ||
+            piece.p==="queen"
+        ){
+
+            directions.push(
+                [-1,-1],
+                [-1,1],
+                [1,-1],
+                [1,1]
+            );
+        }
+
+        for(const [dr,dc] of directions){
+
+            let rr=r+dr;
+            let cc=c+dc;
+
+            while(inside(rr,cc)){
+
+                if(!board[rr][cc]){
+
+                    moves.push({r:rr,c:cc});
+
+                }else{
+
+                    if(
+                        board[rr][cc].c!==piece.c
+                    ){
+                        moves.push({r:rr,c:cc});
+                    }
+
+                    break;
+                }
+
+                rr+=dr;
+                cc+=dc;
+            }
+        }
+    }
+
+
+    if(piece.p==="king"){
+
+        for(let dr=-1;dr<=1;dr++){
+
+            for(let dc=-1;dc<=1;dc++){
+
+                if(dr===0 && dc===0)continue;
+
+                add(r+dr,c+dc);
+            }
+        }
+    }
+
+    return moves;
+}
+
+
+function cloneBoard(){
+
+    return board.map(row =>
+        row.map(piece =>
+            piece ? {...piece} : null
+        )
+    );
+}
+
+
+function getLegalMoves(r,c){
+
+    const piece=board[r]?.[c];
+
+    if(!piece)return [];
+
+    const moves=pseudoMoves(r,c);
+
+    const legal=[];
+
+    for(const move of moves){
+
+        const backup=cloneBoard();
+
+        board[move.r][move.c]=
+            board[r][c];
+
+        board[r][c]=null;
+
+        const safe =
+            !isKingInCheck(piece.c);
+
+        board=backup;
+
+        if(safe){
+            legal.push(move);
+        }
+    }
+
+    return legal;
+}
+
+
+function hasAnyLegalMove(color){
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const piece=board[r][c];
+
+            if(
+                piece &&
+                piece.c===color &&
+                getLegalMoves(r,c).length
+            ){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+function checkGameState(){
+
+    const currentColor=chessTurn;
+
+    const inCheck =
+        isKingInCheck(currentColor);
+
+    const hasMoves =
+        hasAnyLegalMove(currentColor);
+
+    if(!hasMoves){
+
+        gameOver=true;
+
+        stopTimer();
+
+        if(inCheck){
+
+            const winner =
+                currentColor==="w"
+                    ? "Black"
+                    : "White";
+
+            setMessage(
+                "♚ Checkmate — "+winner+" menang!"
+            );
+
+            if(gameMode==="private"){
+                finishPrivateGame(
+                    winner==="White"
+                        ? "white"
+                        : "black"
+                );
+            }
+
+        }else{
+
+            setMessage("½ Stalemate — Seri");
+
+            if(gameMode==="private"){
+                finishPrivateGame("draw");
+            }
+        }
+
+        return;
+    }
+
+    if(inCheck){
+
+        setMessage(
+            currentColor==="w"
+                ? "⚠️ White sedang check"
+                : "⚠️ Black sedang check"
+        );
+
+    }else{
+
+        setMessage(
+            currentColor==="w"
+                ? "Giliran White"
+                : "Giliran Black"
+        );
+    }
+}
+
+
+/* =========================================================
+   HANDLE BOARD CLICK
+========================================================= */
+
+function handleSquareClick(r,c){
+
+    if(gameOver)return;
+
+    if(gameMode==="private"){
+
+        if(chessTurn!==playerColor){
+            toast("Tunggu giliran lawan.");
+            return;
+        }
+    }
+
+    if(gameMode==="bot"){
+
+        if(chessTurn!==playerColor){
+            return;
+        }
+    }
+
+    const piece=board[r][c];
+
+    if(selectedSquare){
+
+        const canMove =
+            legalMoves.some(
+                move =>
+                    move.r===r &&
+                    move.c===c
+            );
+
+        if(canMove){
+
+            makeMove(
+                selectedSquare.r,
+                selectedSquare.c,
+                r,
+                c
+            );
+
+            return;
+        }
+
+        if(
+            piece &&
+            piece.c===chessTurn
+        ){
+
+            selectedSquare={r,c};
+            legalMoves=getLegalMoves(r,c);
+
+            renderBoard();
+
+            return;
+        }
+
+        selectedSquare=null;
+        legalMoves=[];
+
+        renderBoard();
+
+        return;
+    }
+
+    if(
+        piece &&
+        piece.c===chessTurn
+    ){
+
+        selectedSquare={r,c};
+
+        legalMoves=getLegalMoves(r,c);
+
+        renderBoard();
+    }
+}
+
+
+/* =========================================================
+   MAKE MOVE
+========================================================= */
+
+function makeMove(
+    fromR,
+    fromC,
+    toR,
+    toC
+){
+
+    if(gameOver)return;
+
+    const piece=board[fromR][fromC];
+
+    if(!piece)return;
+
+    board[toR][toC]=piece;
+    board[fromR][fromC]=null;
+
+    if(
+        piece.p==="pawn" &&
+        (toR===0 || toR===7)
+    ){
+        piece.p="queen";
+    }
+
+    lastMove={
+        fromR,
+        fromC,
+        toR,
+        toC
+    };
+
+    selectedSquare=null;
+    legalMoves=[];
+
+    chessTurn =
+        chessTurn==="w"
+            ? "b"
+            : "w";
+
+    renderBoard();
+
+    checkGameState();
+
+    if(
+        !gameOver &&
+        gameMode==="bot" &&
+        chessTurn!==playerColor
+    ){
+
+        setTimeout(
+            botMove,
+            400
+        );
+    }
+
+    if(
+        !gameOver &&
+        gameMode==="private"
+    ){
+
+        savePrivateMove();
+    }
+}
+
+
+/* =========================================================
+   DATABASE TURN BRIDGE
+========================================================= */
 
 function dbTurnToChess(turn){
-return turn==="black"?"b":"w";
+
+    return turn==="black"
+        ? "b"
+        : "w";
 }
 
 function chessTurnToDb(turn){
-return turn==="b"?"black":"white";
-}
 
-async function startPrivateGame(players){
-try{
-if(!currentRoom)return;
-
-const white=players.find(player=>player.color==="white");
-const black=players.find(player=>player.color==="black");
-
-if(!white||!black){
-toast("Pemain room belum lengkap.");
-return;
-}
-
-let game=null;
-
-const {data:existingGame,error:findError}=await supabaseClient
-.from("games")
-.select("*")
-.eq("room_id",currentRoom.id)
-.maybeSingle();
-
-if(findError)throw findError;
-
-if(existingGame){
-
-game=existingGame;
-
-}else{
-
-const {data:newGame,error:createError}=await supabaseClient
-.from("games")
-.insert({
-room_id:currentRoom.id,
-white_player:Number(white.user_id),
-black_player:Number(black.user_id),
-status:"playing",
-board_state:createInitialBoard(),
-
-/*
- * FIX UTAMA:
- * Supabase games.turn hanya menerima
- * "white" atau "black".
- */
-turn:"white",
-
-white_time:300,
-black_time:300
-})
-.select()
-.single();
-
-if(createError){
-
-if(createError.code==="23505"){
-
-const retry=await supabaseClient
-.from("games")
-.select("*")
-.eq("room_id",currentRoom.id)
-.maybeSingle();
-
-if(retry.error)throw retry.error;
-
-game=retry.data;
-
-}else{
-throw createError;
-}
-
-}else{
-game=newGame;
-}
-}
-
-if(!game){
-toast("Game gagal dibuat.");
-return;
-}
-
-privateGameId=game.id;
-gameMode="private";
-
-playerColor=
-Number(white.user_id)===Number(myUserId)
-?"w"
-:"b";
-
-board=game.board_state||createInitialBoard();
-
-/*
- * FIX:
- * Database "white"/"black"
- * dikonversi ke engine "w"/"b".
- */
-chessTurn=dbTurnToChess(game.turn||"white");
-
-whiteSeconds=Number(game.white_time??300);
-blackSeconds=Number(game.black_time??300);
-
-selectedSquare=null;
-legalMoves=[];
-gameOver=false;
-
-showScreen("gameScreen");
-
-renderBoard();
-updateTimerUI();
-startTimer();
-
-setMessage(
-playerColor==="w"
-?"Kamu White — "+(chessTurn==="w"?"Giliran White":"Menunggu Black")
-:"Kamu Black — "+(chessTurn==="b"?"Giliran Black":"Menunggu White")
-);
-
-}catch(error){
-console.error("PRIVATE GAME ERROR:",error);
-toast("Game gagal dimulai: "+error.message);
-}
+    return turn==="b"
+        ? "black"
+        : "white";
 }
 
 
 /* =========================================================
-SAVE PRIVATE MOVE
+   PRIVATE GAME SAVE
 ========================================================= */
 
 async function savePrivateMove(){
-if(!privateGameId)return;
 
-try{
+    if(!privateGameId)return;
 
-/*
- * FIX UTAMA:
- * Jangan kirim "w"/"b" ke database.
- * Database harus menerima "white"/"black".
- */
+    try{
 
-const dbTurn=chessTurnToDb(chessTurn);
+        const dbTurn =
+            chessTurnToDb(chessTurn);
 
-const {error}=await supabaseClient
-.from("games")
-.update({
-board_state:board,
-turn:dbTurn,
-white_time:whiteSeconds,
-black_time:blackSeconds
-})
-.eq("id",privateGameId);
+        const {error} =
+            await supabaseClient
+                .from("games")
+                .update({
+                    board_state:board,
+                    turn:dbTurn,
+                    white_time:whiteSeconds,
+                    black_time:blackSeconds
+                })
+                .eq(
+                    "id",
+                    privateGameId
+                );
 
-if(error){
-console.error("SAVE GAME ERROR:",error);
-}
+        if(error){
 
-}catch(error){
-console.error("SAVE GAME ERROR:",error);
-}
-}
+            console.error(
+                "SAVE GAME ERROR:",
+                error
+            );
 
-function startRandomGame(){
-toast("Mode Random akan segera tersedia.");
+            toast(
+                "Gagal sinkron game."
+            );
+
+            return;
+        }
+
+        console.log(
+            "GAME SYNC OK:",
+            dbTurn
+        );
+
+    }catch(error){
+
+        console.error(
+            "SAVE GAME ERROR:",
+            error
+        );
+    }
 }
 
 
 /* =========================================================
-START
+   PRIVATE GAME REALTIME + POLLING
 ========================================================= */
 
-async function initialize(){
-await loadTelegramUser();
+function startPrivateGameWatcher(){
+
+    stopPrivateGameWatcher();
+
+    if(!privateGameId)return;
+
+    /*
+       Polling menjadi backup utama.
+       Jadi meskipun Supabase Realtime belum aktif,
+       langkah lawan tetap masuk maksimal sekitar 1 detik.
+    */
+
+    privateGamePollTimer =
+        setInterval(
+            syncPrivateGame,
+            1000
+        );
+
+
+    privateGameChannel =
+        supabaseClient
+            .channel(
+                "game-"+privateGameId+"-"+Date.now()
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event:"UPDATE",
+                    schema:"public",
+                    table:"games",
+                    filter:
+                        "id=eq."+privateGameId
+                },
+                payload => {
+
+                    console.log(
+                        "REALTIME GAME UPDATE",
+                        payload
+                    );
+
+                    applyRemoteGame(
+                        payload.new
+                    );
+                }
+            )
+            .subscribe(
+                status => {
+
+                    console.log(
+                        "GAME CHANNEL:",
+                        status
+                    );
+                }
+            );
 }
 
-if(document.readyState==="loading"){
-document.addEventListener("DOMContentLoaded",initialize);
-}else{
-initialize();
+
+function stopPrivateGameWatcher(){
+
+    if(privateGamePollTimer){
+
+        clearInterval(
+            privateGamePollTimer
+        );
+
+        privateGamePollTimer=null;
+    }
+
+    if(privateGameChannel){
+
+        supabaseClient
+            .removeChannel(
+                privateGameChannel
+            );
+
+        privateGameChannel=null;
+    }
 }
+
+
+async function syncPrivateGame(){
+
+    if(
+        !privateGameId ||
+        syncingPrivateGame ||
+        gameOver
+    ){
+        return;
+    }
+
+    syncingPrivateGame=true;
+
+    try{
+
+        const {data,error} =
+            await supabaseClient
+                .from("games")
+                .select("*")
+                .eq(
+                    "id",
+                    privateGameId
+                )
+                .maybeSingle();
+
+        if(error)throw error;
+
+        if(data){
+
+            applyRemoteGame(data);
+        }
+
+    }catch(error){
+
+        console.error(
+            "SYNC GAME ERROR:",
+            error
+        );
+
+    }finally{
+
+        syncingPrivateGame=false;
+    }
+}
+
+
+function applyRemoteGame(game){
+
+    if(!game)return;
+
+    if(
+        game.status &&
+        game.status!=="playing"
+    ){
+        return;
+    }
+
+    /*
+       Jangan menggambar ulang data yang sama
+       secara berlebihan, tetapi tetap update
+       timer dan turn.
+    */
+
+    if(game.board_state){
+
+        board =
+            JSON.parse(
+                JSON.stringify(
+                    game.board_state
+                )
+            );
+    }
+
+    chessTurn =
+        dbTurnToChess(
+            game.turn || "white"
+        );
+
+    whiteSeconds =
+        Math.max(
+            0,
+            Number(
+                game.white_time ?? 300
+            )
+        );
+
+    blackSeconds =
+        Math.max(
+            0,
+            Number(
+                game.black_time ?? 300
+            )
+        );
+
+    selectedSquare=null;
+    legalMoves=[];
+
+    renderBoard();
+    updateTimerUI();
+
+    /*
+       Sinkron timer lokal dengan turn dari database.
+       Timer tetap berjalan di kedua device.
+    */
+
+    startTimer();
+
+    if(chessTurn===playerColor){
+
+        setMessage(
+            playerColor==="w"
+                ? "Giliran kamu — White"
+                : "Giliran kamu — Black"
+        );
+
+    }else{
+
+        setMessage(
+            chessTurn==="w"
+                ? "White sedang jalan..."
+                : "Black sedang jalan..."
+        );
+    }
+}
+
+
+/* =========================================================
+   START PRIVATE GAME
+========================================================= */
+
+async function startPrivateGame(players){
+
+    try{
+
+        if(!currentRoom)return;
+
+        const white =
+            players.find(
+                player =>
+                    player.color==="white"
+            );
+
+        const black =
+            players.find(
+                player =>
+                    player.color==="black"
+            );
+
+        if(!white || !black){
+
+            toast(
+                "Pemain room belum lengkap."
+            );
+
+            return;
+        }
+
+
+        /*
+           Pastikan kedua user sudah ada
+           di tabel users sebelum membuat game.
+        */
+
+        await ensureUserExists(
+            Number(white.user_id)
+        );
+
+        await ensureUserExists(
+            Number(black.user_id)
+        );
+
+
+        let game=null;
+
+
+        const {
+            data:existingGame,
+            error:findError
+        } =
+            await supabaseClient
+                .from("games")
+                .select("*")
+                .eq(
+                    "room_id",
+                    currentRoom.id
+                )
+                .maybeSingle();
+
+        if(findError){
+            throw findError;
+        }
+
+
+        if(existingGame){
+
+            game=existingGame;
+
+        }else{
+
+            const {
+                data:newGame,
+                error:createError
+            } =
+                await supabaseClient
+                    .from("games")
+                    .insert({
+                        room_id:
+                            currentRoom.id,
+
+                        white_player:
+                            Number(
+                                white.user_id
+                            ),
+
+                        black_player:
+                            Number(
+                                black.user_id
+                            ),
+
+                        status:"playing",
+
+                        board_state:
+                            createInitialBoard(),
+
+                        turn:"white",
+
+                        white_time:300,
+
+                        black_time:300
+                    })
+                    .select()
+                    .single();
+
+
+            if(createError){
+
+                /*
+                   Kalau dua client membuat game
+                   bersamaan, coba ambil game yang
+                   sudah dibuat client lain.
+                */
+
+                if(
+                    createError.code==="23505"
+                ){
+
+                    const retry =
+                        await supabaseClient
+                            .from("games")
+                            .select("*")
+                            .eq(
+                                "room_id",
+                                currentRoom.id
+                            )
+                            .maybeSingle();
+
+                    if(retry.error){
+                        throw retry.error;
+                    }
+
+                    game=retry.data;
+
+                }else{
+
+                    throw createError;
+                }
+
+            }else{
+
+                game=newGame;
+            }
+        }
+
+
+        if(!game){
+
+            toast(
+                "Game gagal dibuat."
+            );
+
+            return;
+        }
+
+
+        privateGameId=game.id;
+
+        gameMode="private";
+
+        playerColor =
+            Number(white.user_id) ===
+            Number(myUserId)
+                ? "w"
+                : "b";
+
+
+        board =
+            game.board_state ||
+            createInitialBoard();
+
+
+        chessTurn =
+            dbTurnToChess(
+                game.turn || "white"
+            );
+
+
+        whiteSeconds =
+            Math.max(
+                0,
+                Number(
+                    game.white_time ?? 300
+                )
+            );
+
+
+        blackSeconds =
+            Math.max(
+                0,
+                Number(
+                    game.black_time ?? 300
+                )
+            );
+
+
+        selectedSquare=null;
+        legalMoves=[];
+        gameOver=false;
+        lastMove=null;
+
+
+        $("whitePlayerName").textContent =
+            Number(white.user_id)===Number(myUserId)
+                ? "Kamu"
+                : "White";
+
+        $("blackPlayerName").textContent =
+            Number(black.user_id)===Number(myUserId)
+                ? "Kamu"
+                : "Black";
+
+
+        showScreen(
+            "gameScreen"
+        );
+
+        renderBoard();
+
+        updateTimerUI();
+
+        startTimer();
+
+        /*
+           PENTING:
+           watcher dijalankan setelah game siap.
+        */
+
+        startPrivateGameWatcher();
+
+
+        setMessage(
+            playerColor==="w"
+                ? (
+                    chessTurn==="w"
+                        ? "Giliran kamu — White"
+                        : "Menunggu Black"
+                )
+                : (
+                    chessTurn==="b"
+                        ? "Giliran kamu — Black"
+                        : "Menunggu White"
+                )
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "PRIVATE GAME ERROR:",
+            error
+        );
+
+        toast(
+            "Game gagal dimulai: "+
+            error.message
+        );
+    }
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer(){
+
+    stopTimer();
+
+    if(gameOver)return;
+
+    timerInterval =
+        setInterval(
+            timerTick,
+            1000
+        );
+
+    updateTimerUI();
+}
+
+
+function stopTimer(){
+
+    if(timerInterval){
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval=null;
+    }
+}
+
+
+function timerTick(){
+
+    if(gameOver)return;
+
+    if(chessTurn==="w"){
+
+        whiteSeconds =
+            Math.max(
+                0,
+                whiteSeconds-1
+            );
+
+    }else{
+
+        blackSeconds =
+            Math.max(
+                0,
+                blackSeconds-1
+            );
+    }
+
+    updateTimerUI();
+
+    /*
+       Untuk private game:
+       timer ditulis ke database setiap 5 detik.
+       Langkah tetap ditulis langsung saat move.
+    */
+
+    if(
+        gameMode==="private" &&
+        (
+            whiteSeconds%5===0 ||
+            blackSeconds%5===0
+        )
+    ){
+
+        savePrivateMove();
+    }
+
+
+    if(
+        whiteSeconds<=0 ||
+        blackSeconds<=0
+    ){
+
+        gameOver=true;
+
+        stopTimer();
+
+        const winner =
+            whiteSeconds<=0
+                ? "Black"
+                : "White";
+
+        setMessage(
+            "⏱️ Waktu habis — "+
+            winner+
+            " menang!"
+        );
+
+        if(gameMode==="private"){
+
+            finishPrivateGame(
+                winner==="White"
+                    ? "white"
+                    : "black"
+            );
+        }
+    }
+}
+
+
+function formatTime(seconds){
+
+    seconds =
+        Math.max(
+            0,
+            Number(seconds)||0
+        );
+
+    const min =
+        Math.floor(
+            seconds/60
+        );
+
+    const sec =
+        seconds%60;
+
+    return (
+        String(min).padStart(2,"0")+
+        ":"+
+        String(sec).padStart(2,"0")
+    );
+}
+
+
+function updateTimerUI(){
+
+    $("whiteClock").textContent =
+        formatTime(
+            whiteSeconds
+        );
+
+    $("blackClock").textContent =
+        formatTime(
+            blackSeconds
+        );
+
+    $("whiteClock")
+        .classList.toggle(
+            "low",
+            whiteSeconds<=30
+        );
+
+    $("blackClock")
+        .classList.toggle(
+            "low",
+            blackSeconds<=30
+        );
+
+    updatePlayerTurnUI();
+}
+
+
+function updatePlayerTurnUI(){
+
+    $("whitePlayerBox")
+        .classList.toggle(
+            "active-turn",
+            chessTurn==="w" &&
+            !gameOver
+        );
+
+    $("blackPlayerBox")
+        .classList.toggle(
+            "active-turn",
+            chessTurn==="b" &&
+            !gameOver
+        );
+}
+
+
+/* =========================================================
+   FINISH PRIVATE GAME
+========================================================= */
+
+async function finishPrivateGame(result){
+
+    try{
+
+        if(!privateGameId)return;
+
+        let status="finished";
+
+        const {error} =
+            await supabaseClient
+                .from("games")
+                .update({
+                    status,
+                    finished_at:
+                        new Date().toISOString()
+                })
+                .eq(
+                    "id",
+                    privateGameId
+                );
+
+        if(error){
+
+            console.error(
+                "FINISH GAME ERROR:",
+                error
+            );
+        }
+
+    }catch(error){
+
+        console.error(
+            "FINISH GAME ERROR:",
+            error
+        );
+    }
+}
+
+
+/* =========================================================
+   BOT
+========================================================= */
+
+function startBotGame(difficulty){
+
+    gameMode="bot";
+
+    botDifficulty=difficulty;
+
+    playerColor="w";
+
+    board=createInitialBoard();
+
+    chessTurn="w";
+
+    whiteSeconds=300;
+    blackSeconds=300;
+
+    selectedSquare=null;
+    legalMoves=[];
+
+    gameOver=false;
+
+    lastMove=null;
+
+    $("whitePlayerName").textContent =
+        "Kamu";
+
+    $("blackPlayerName").textContent =
+        "Bot • "+
+        difficulty.charAt(0).toUpperCase()+
+        difficulty.slice(1);
+
+    showScreen(
+        "gameScreen"
+    );
+
+    renderBoard();
+
+    updateTimerUI();
+
+    startTimer();
+
+    setMessage(
+        "Giliran kamu — White"
+    );
+}
+
+
+function botMove(){
+
+    if(
+        gameOver ||
+        gameMode!=="bot" ||
+        chessTurn===playerColor
+    ){
+        return;
+    }
+
+    const moves=[];
+
+    for(let r=0;r<8;r++){
+
+        for(let c=0;c<8;c++){
+
+            const piece=board[r][c];
+
+            if(
+                piece &&
+                piece.c===chessTurn
+            ){
+
+                const legal =
+                    getLegalMoves(
+                        r,
+                        c
+                    );
+
+                for(const move of legal){
+
+                    moves.push({
+                        fromR:r,
+                        fromC:c,
+                        toR:move.r,
+                        toC:move.c,
+                        capture:
+                            !!board[
+                                move.r
+                            ][
+                                move.c
+                            ]
+                    });
+                }
+            }
+        }
+    }
+
+    if(!moves.length){
+
+        checkGameState();
+
+        return;
+    }
+
+
+    let selectedMove=null;
+
+
+    if(
+        botDifficulty==="easy"
+    ){
+
+        selectedMove =
+            moves[
+                Math.floor(
+                    Math.random()*
+                    moves.length
+                )
+            ];
+
+    }else{
+
+        const captures =
+            moves.filter(
+                move =>
+                    move.capture
+            );
+
+        if(
+            captures.length &&
+            botDifficulty==="hard"
+        ){
+
+            selectedMove =
+                captures[
+                    Math.floor(
+                        Math.random()*
+                        captures.length
+                    )
+                ];
+
+        }else{
+
+            selectedMove =
+                moves[
+                    Math.floor(
+                        Math.random()*
+                        moves.length
+                    )
+                ];
+        }
+    }
+
+
+    makeMove(
+        selectedMove.fromR,
+        selectedMove.fromC,
+        selectedMove.toR,
+        selectedMove.toC
+    );
+}
+
+
+/* =========================================================
+   PRIVATE ROOM
+========================================================= */
+
+function generateRoomCode(){
+
+    return Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+}
+
+
+async function createPrivateRoom(){
+
+    if(!myUserId){
+
+        toast(
+            "Telegram user belum terdeteksi."
+        );
+
+        return;
+    }
+
+    try{
+
+        await ensureUserExists(
+            myUserId
+        );
+
+        const code =
+            generateRoomCode();
+
+        const {
+            data:room,
+            error
+        } =
+            await supabaseClient
+                .from("rooms")
+                .insert({
+                    room_code:code,
+                    host_id:myUserId,
+                    status:"waiting"
+                })
+                .select()
+                .single();
+
+        if(error)throw error;
+
+        currentRoom=room;
+
+
+        const {
+            error:playerError
+        } =
+            await supabaseClient
+                .from("room_players")
+                .insert({
+                    room_id:room.id,
+                    user_id:myUserId,
+                    color:"white"
+                });
+
+        if(playerError)throw playerError;
+
+
+        $("roomCodeText").textContent =
+            code;
+
+        $("roomCreated")
+            .classList.remove(
+                "hidden"
+            );
+
+        $("createRoomBtn")
+            .classList.add(
+                "hidden"
+            );
+
+        $("roomStatus").textContent =
+            "Menunggu pemain kedua...";
+
+        startRoomWatcher();
+
+        toast(
+            "Room berhasil dibuat."
+        );
+
+    }catch(error){
+
+        console.error(
+            "CREATE ROOM ERROR:",
+            error
+        );
+
+        toast(
+            "Gagal membuat room: "+
+            error.message
+        );
+    }
+}
+
+
+async function joinPrivateRoom(){
+
+    const code =
+        $("joinRoomInput")
+            .value
+            .trim()
+            .toUpperCase();
+
+    if(!code){
+
+        toast(
+            "Masukkan kode room."
+        );
+
+        return;
+    }
+
+    if(!myUserId){
+
+        toast(
+            "Telegram user belum terdeteksi."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        await ensureUserExists(
+            myUserId
+        );
+
+
+        const {
+            data:room,
+            error
+        } =
+            await supabaseClient
+                .from("rooms")
+                .select("*")
+                .eq(
+                    "room_code",
+                    code
+                )
+                .maybeSingle();
+
+        if(error)throw error;
+
+        if(!room){
+
+            toast(
+                "Room tidak ditemukan."
+            );
+
+            return;
+        }
+
+        if(room.status!=="waiting"){
+
+            toast(
+                "Room sudah tidak tersedia."
+            );
+
+            return;
+        }
+
+
+        const {
+            data:existingPlayer
+        } =
+            await supabaseClient
+                .from("room_players")
+                .select("*")
+                .eq(
+                    "room_id",
+                    room.id
+                )
+                .eq(
+                    "user_id",
+                    myUserId
+                )
+                .maybeSingle();
+
+
+        if(!existingPlayer){
+
+            const {
+                error:joinError
+            } =
+                await supabaseClient
+                    .from("room_players")
+                    .insert({
+                        room_id:room.id,
+                        user_id:myUserId,
+                        color:"black"
+                    });
+
+            if(joinError){
+
+                throw joinError;
+            }
+        }
+
+
+        currentRoom=room;
+
+        startRoomWatcher();
+
+        toast(
+            "Berhasil masuk room."
+        );
+
+    }catch(error){
+
+        console.error(
+            "JOIN ROOM ERROR:",
+            error
+        );
+
+        toast(
+            "Gagal masuk room: "+
+            error.message
+        );
+    }
+}
+
+
+/* =========================================================
+   ROOM WATCHER
+========================================================= */
+
+function startRoomWatcher(){
+
+    stopRoomWatcher();
+
+    if(!currentRoom)return;
+
+    roomPollTimer =
+        setInterval(
+            checkRoomPlayers,
+            2000
+        );
+
+
+    roomChannel =
+        supabaseClient
+            .channel(
+                "room-"+currentRoom.id+"-"+Date.now()
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event:"*",
+                    schema:"public",
+                    table:"room_players",
+                    filter:
+                        "room_id=eq."+currentRoom.id
+                },
+                () => {
+
+                    checkRoomPlayers();
+                }
+            )
+            .subscribe(
+                status => {
+
+                    console.log(
+                        "ROOM CHANNEL:",
+                        status
+                    );
+                }
+            );
+
+
+    checkRoomPlayers();
+}
+
+
+function stopRoomWatcher(){
+
+    if(roomPollTimer){
+
+        clearInterval(
+            roomPollTimer
+        );
+
+        roomPollTimer=null;
+    }
+
+    if(roomChannel){
+
+        supabaseClient
+            .removeChannel(
+                roomChannel
+            );
+
+        roomChannel=null;
+    }
+}
+
+
+async function checkRoomPlayers(){
+
+    if(!currentRoom)return;
+
+    try{
+
+        const {
+            data:players,
+            error
+        } =
+            await supabaseClient
+                .from("room_players")
+                .select("*")
+                .eq(
+                    "room_id",
+                    currentRoom.id
+                )
+                .order(
+                    "joined_at",
+                    {ascending:true}
+                );
+
+        if(error)throw error;
+
+        const count =
+            players?.length || 0;
+
+
+        if(count<2){
+
+            $("roomStatus").textContent =
+                "Menunggu pemain kedua...";
+
+            return;
+        }
+
+
+        $("roomStatus").textContent =
+            "Pemain ditemukan. Memulai game...";
+
+
+        stopRoomWatcher();
+
+        /*
+           Update status room.
+        */
+
+        await supabaseClient
+            .from("rooms")
+            .update({
+                status:"playing"
+            })
+            .eq(
+                "id",
+                currentRoom.id
+            );
+
+
+        await startPrivateGame(
+            players
+        );
+
+    }catch(error){
+
+        console.error(
+            "CHECK ROOM ERROR:",
+            error
+        );
+    }
+}
+
+
+/* =========================================================
+   CANCEL ROOM
+========================================================= */
+
+async function cancelPrivateRoom(){
+
+    stopRoomWatcher();
+
+    if(currentRoom){
+
+        try{
+
+            await supabaseClient
+                .from("room_players")
+                .delete()
+                .eq(
+                    "room_id",
+                    currentRoom.id
+                );
+
+            await supabaseClient
+                .from("rooms")
+                .delete()
+                .eq(
+                    "id",
+                    currentRoom.id
+                );
+
+        }catch(error){
+
+            console.error(
+                "CANCEL ROOM ERROR:",
+                error
+            );
+        }
+    }
+
+    currentRoom=null;
+
+    $("roomCreated")
+        .classList.add(
+            "hidden"
+        );
+
+    $("createRoomBtn")
+        .classList.remove(
+            "hidden"
+        );
+
+    $("roomCodeText").textContent =
+        "------";
+
+    $("joinRoomInput").value="";
+
+    toast(
+        "Room dibatalkan."
+    );
+}
+
+
+/* =========================================================
+   EXIT GAME
+========================================================= */
+
+function exitGame(){
+
+    gameOver=true;
+
+    stopTimer();
+
+    stopPrivateGameWatcher();
+
+    privateGameId=null;
+
+    currentRoom=null;
+
+    gameMode=null;
+
+    playerColor="w";
+
+    board=[];
+
+    selectedSquare=null;
+    legalMoves=[];
+
+    lastMove=null;
+
+    showScreen(
+        "homeScreen"
+    );
+}
+
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+async function loadLeaderboard(){
+
+    const container =
+        $("leaderboardList");
+
+    container.innerHTML =
+        '<div class="empty">Loading...</div>';
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("users")
+                .select(
+                    "id,username,first_name,photo_url,rating,wins,losses,draws"
+                )
+                .order(
+                    "rating",
+                    {ascending:false}
+                )
+                .limit(20);
+
+        if(error)throw error;
+
+        if(!data?.length){
+
+            container.innerHTML =
+                '<div class="empty">Belum ada pemain.</div>';
+
+            return;
+        }
+
+        container.innerHTML="";
+
+        data.forEach(
+            (user,index) => {
+
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+                row.className="list-item";
+
+                const name =
+                    user.first_name ||
+                    user.username ||
+                    "Player";
+
+                row.innerHTML=`
+                    <div class="rank">
+                        #${index+1}
+                    </div>
+
+                    <img
+                        class="avatar"
+                        src="${user.photo_url || ""}"
+                        alt=""
+                    >
+
+                    <div class="item-main">
+                        <div class="item-name">
+                            ${escapeHtml(name)}
+                        </div>
+
+                        <div class="item-rating">
+                            ${user.wins||0}W •
+                            ${user.losses||0}L •
+                            ${user.draws||0}D
+                        </div>
+                    </div>
+
+                    <strong>
+                        ${user.rating ?? 1000}
+                    </strong>
+                `;
+
+                container.appendChild(row);
+            }
+        );
+
+    }catch(error){
+
+        console.error(
+            "LEADERBOARD ERROR:",
+            error
+        );
+
+        container.innerHTML =
+            '<div class="empty">Gagal memuat leaderboard.</div>';
+    }
+}
+
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+$("privateBtn")
+    .addEventListener(
+        "click",
+        () => showScreen("privateScreen")
+    );
+
+
+$("privateBackBtn")
+    .addEventListener(
+        "click",
+        () => {
+            stopRoomWatcher();
+            showScreen("homeScreen");
+        }
+    );
+
+
+$("createRoomBtn")
+    .addEventListener(
+        "click",
+        createPrivateRoom
+    );
+
+
+$("joinRoomBtn")
+    .addEventListener(
+        "click",
+        joinPrivateRoom
+    );
+
+
+$("cancelRoomBtn")
+    .addEventListener(
+        "click",
+        cancelPrivateRoom
+    );
+
+
+$("botBtn")
+    .addEventListener(
+        "click",
+        () => showScreen("botScreen")
+    );
+
+
+$("botBackBtn")
+    .addEventListener(
+        "click",
+        () => showScreen("homeScreen")
+    );
+
+
+document
+    .querySelectorAll(
+        "[data-difficulty]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                startBotGame(
+                    button.dataset.difficulty
+                );
+            }
+        );
+    });
+
+
+$("leaderboardBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            showScreen(
+                "leaderboardScreen"
+            );
+
+            loadLeaderboard();
+        }
+    );
+
+
+$("leaderboardBackBtn")
+    .addEventListener(
+        "click",
+        () => showScreen("homeScreen")
+    );
+
+
+$("profileBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            showScreen(
+                "profileScreen"
+            );
+
+            loadMyProfile();
+        }
+    );
+
+
+$("profileBackBtn")
+    .addEventListener(
+        "click",
+        () => showScreen("homeScreen")
+    );
+
+
+$("friendsBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            if(currentRoom?.room_code){
+
+                toast(
+                    "Gunakan kode room untuk mengundang teman."
+                );
+
+            }else{
+
+                toast(
+                    "Buat Private Room lalu kirim kode room ke teman."
+                );
+            }
+        }
+    );
+
+
+$("randomBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            toast(
+                "Mode Lawan Random sedang disiapkan."
+            );
+        }
+    );
+
+
+$("exitGameBtn")
+    .addEventListener(
+        "click",
+        exitGame
+    );
+
+
+$("newBotGameBtn")
+    .addEventListener(
+        "click",
+        () => startBotGame(botDifficulty)
+    );
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+async function init(){
+
+    if(!myTelegramUser){
+
+        $("homeUsername").textContent =
+            "Telegram";
+
+        $("profileName").textContent =
+            "Telegram Player";
+
+        $("profileUsername").textContent =
+            "Buka melalui Telegram Mini App";
+
+        return;
+    }
+
+    await ensureUserExists(
+        myUserId
+    );
+
+    await saveUser();
+
+    await loadMyProfile();
+
+    console.log(
+        "1711 Chess Arena ready:",
+        myTelegramUser
+    );
+}
+
+
+init();
+
 </script>
 
 </body>
