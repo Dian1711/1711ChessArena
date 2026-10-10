@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -597,13 +597,13 @@ button{
 
         </div>
 
-        <div class="profile-mini">
+        <button class="profile-mini" id="headerProfileBtn" type="button" aria-label="Open profile" style="padding:0;cursor:pointer;">
             <img
                 id="headerAvatar"
                 src=""
                 alt=""
             >
-        </div>
+        </button>
 
     </div>
 
@@ -674,11 +674,11 @@ button{
                 </span>
 
                 <div class="menu-title">
-                    Lawan Random
+                    Random Match
                 </div>
 
                 <div class="menu-sub">
-                    Cari lawan online
+                    Find an online opponent
                 </div>
 
             </button>
@@ -695,7 +695,7 @@ button{
                 </div>
 
                 <div class="menu-sub">
-                    Main dengan teman
+                    Play with friends
                 </div>
 
             </button>
@@ -725,36 +725,31 @@ button{
                 </span>
 
                 <div class="menu-title">
-                    Teman
+                    Friends
                 </div>
 
                 <div class="menu-sub">
-                    Invite teman bermain
+                    Invite a friend to play
                 </div>
 
             </button>
-
-
-<button id="profileBtn">
-
-                <span class="menu-icon">
-                    👤
-                </span>
-
-                <div class="menu-title">
-                    Profile
-                </div>
-
-                <div class="menu-sub">
-                    Statistik permainan
-                </div>
-
-            </button>
-
-        </div>
+</div>
 
     </section>
 
+
+
+    <!-- RANDOM MATCH -->
+    <section id="randomScreen" class="screen">
+        <button class="back-btn" id="randomBackBtn">← Back</button>
+        <div class="card">
+            <div class="section-title">⚔️ Random Match</div>
+            <p style="font-size:12px;color:#8795aa;line-height:1.5">Choose your game duration before searching for an opponent.</p>
+            <div style="font-size:12px;color:#8795aa;margin-top:12px">Time Control</div>
+            <div class="time-options" data-time-options><button type="button" data-time="300" class="active">5 min</button><button type="button" data-time="600">10 min</button><button type="button" data-time="900">15 min</button><button type="button" data-time="1800">30 min</button></div>
+            <button class="action-btn" id="findRandomBtn" type="button">Find Opponent</button>
+        </div>
+    </section>
 
     <!-- PRIVATE ROOM -->
 
@@ -767,7 +762,7 @@ button{
             class="back-btn"
             id="privateBackBtn"
         >
-            ← Kembali
+            ← Back
         </button>
 
         <div class="card">
@@ -783,16 +778,16 @@ button{
                     line-height:1.5
                 "
             >
-                Buat room lalu kirim kode room kepada teman.
+                Create a room and share its code with a friend.
             </p>
 
-            <div style="font-size:12px;color:#8795aa;margin-top:12px">Durasi permainan</div>
-            <div class="time-options" data-time-options><button type="button" data-time="300" class="active">5 menit</button><button type="button" data-time="600">10 menit</button><button type="button" data-time="900">15 menit</button><button type="button" data-time="1800">30 menit</button></div>
+            <div style="font-size:12px;color:#8795aa;margin-top:12px">Time Control</div>
+            <div class="time-options" data-time-options><button type="button" data-time="300" class="active">5 min</button><button type="button" data-time="600">10 min</button><button type="button" data-time="900">15 min</button><button type="button" data-time="1800">30 min</button></div>
             <button
                 class="action-btn"
                 id="createRoomBtn"
             >
-                Buat Room
+                Create Room
             </button>
 
             <div
@@ -811,14 +806,14 @@ button{
                     class="room-status"
                     id="roomStatus"
                 >
-                    Menunggu pemain kedua...
+                    Waiting for a second player...
                 </div>
-                <div class="room-action-row"><button class="action-btn secondary" id="copyRoomCodeBtn" type="button">Salin Kode</button><button class="action-btn secondary" id="copyRoomInviteBtn" type="button">Salin Link Undangan</button></div>
+                <div class="room-action-row"><button class="action-btn secondary" id="copyRoomCodeBtn" type="button">Copy Code</button><button class="action-btn secondary" id="copyRoomInviteBtn" type="button">Copy Invite Link</button></div>
                 <button
                     class="action-btn secondary"
                     id="cancelRoomBtn"
                 >
-                    Batalkan Room
+                    Cancel Room
                 </button>
 
             </div>
@@ -826,13 +821,13 @@ button{
         </div>
 
         <div class="card" style="margin-top:12px">
-            <div class="section-title">🔑 Masuk Room</div>
-            <p style="font-size:12px;color:#7f8ea4;line-height:1.5">Masukkan kode room dari teman untuk bergabung.</p>
+            <div class="section-title">🔑 Join Room</div>
+            <p style="font-size:12px;color:#7f8ea4;line-height:1.5">Enter a room code from a friend to join.</p>
             <input
                 id="joinRoomInput"
                 type="text"
                 maxlength="8"
-                placeholder="Masukkan kode room"
+                placeholder="Enter room code"
                 style="
                     width:100%;
                     min-height:48px;
@@ -852,7 +847,7 @@ button{
                 class="action-btn secondary"
                 id="joinRoomBtn"
             >
-                Masuk Room
+                Join Room
             </button>
 
         </div>
@@ -871,7 +866,7 @@ button{
             class="back-btn"
             id="botBackBtn"
         >
-            ← Kembali
+            ← Back
         </button>
 
         <div class="card">
@@ -879,15 +874,15 @@ button{
             <div class="section-title">
                 🤖 VS Bot
             </div>
-            <div style="font-size:12px;color:#8795aa;margin-top:12px">Durasi permainan</div>
-            <div class="time-options" data-time-options><button type="button" data-time="300" class="active">5 menit</button><button type="button" data-time="600">10 menit</button><button type="button" data-time="900">15 menit</button><button type="button" data-time="1800">30 menit</button></div>
+            <div style="font-size:12px;color:#8795aa;margin-top:12px">Time Control</div>
+            <div class="time-options" data-time-options><button type="button" data-time="300" class="active">5 min</button><button type="button" data-time="600">10 min</button><button type="button" data-time="900">15 min</button><button type="button" data-time="1800">30 min</button></div>
             <p
                 style="
                     font-size:12px;
                     color:#8290a5
                 "
             >
-                Pilih tingkat kesulitan.
+                Choose a difficulty level.
             </p>
 
             <button
@@ -985,9 +980,9 @@ button{
         <div id="gameMessage" class="game-message">Giliran White</div>
         <div id="gameResultPanel" class="game-result hidden">
             <div class="game-result-trophy">🏆</div>
-            <div id="gameResultTitle" class="game-result-title">Game Berakhir</div>
-            <div id="gameResultDetail" class="game-result-detail">Hasil pertandingan</div>
-            <button id="gameResultHomeBtn" class="action-btn" type="button">Kembali ke Lobby</button>
+            <div id="gameResultTitle" class="game-result-title">Game Over</div>
+            <div id="gameResultDetail" class="game-result-detail">Match result</div>
+            <button id="gameResultHomeBtn" class="action-btn" type="button">Back to Lobby</button>
         </div>
         <div class="board-wrap">
 
@@ -1002,7 +997,7 @@ button{
         <div class="game-controls">
 
             <button id="exitGameBtn">
-                Keluar
+                Exit
             </button>
 
             <button
@@ -1028,7 +1023,7 @@ button{
             class="back-btn"
             id="profileBackBtn"
         >
-            ← Kembali
+            ← Back
         </button>
 
         <div class="card">
@@ -1366,33 +1361,16 @@ function setMessage(message){
 
 
 function showGameResult(status,reason=""){
-    const panel=$("gameResultPanel");
-    if(!panel)return;
-
-    // Status akhir bisa datang dari pemain lokal atau dari sinkronisasi lawan.
-    const normalizedStatus=String(status||"").toLowerCase();
-    const draw=normalizedStatus==="draw" || normalizedStatus==="stalemate";
-    const winnerColor=normalizedStatus==="finished_white"?"w":normalizedStatus==="finished_black"?"b":null;
-    const whiteName=$("whitePlayerName")?.textContent?.trim()||"White";
-    const blackName=$("blackPlayerName")?.textContent?.trim()||"Black";
-    const winnerLabel=winnerColor==="w"?whiteName:winnerColor==="b"?blackName:"";
-    const localPlayerWon=winnerColor!==null && winnerColor===playerColor;
-    const title=draw?"PERTANDINGAN SERI":winnerColor===null?"GAME BERAKHIR":localPlayerWon?"KAMU MENANG!":"KAMU KALAH";
-
+    const panel=$("gameResultPanel");if(!panel)return;
+    if(!panel.classList.contains("hidden")) return;
+    const draw=status==="draw";
+    const winnerColor=status==="finished_white"?"w":status==="finished_black"?"b":null;
+    const winnerLabel=winnerColor==="w"?($("whitePlayerName")?.textContent||"White"):winnerColor==="b"?($("blackPlayerName")?.textContent||"Black"):"";
+    const title=draw?"PERTANDINGAN SERI":(winnerColor===playerColor?"KAMU MENANG!":"KAMU KALAH");
     $("gameResultTitle").textContent=title;
-    $("gameResultDetail").textContent=draw
-        ?"Kedua pemain bermain imbang." 
-        :winnerColor!==null
-            ?winnerLabel+" menang"+(reason?" • "+reason:"")
-            :(reason||"Pertandingan telah selesai.");
-    $("gameMessage").textContent=draw
-        ?"½ Game selesai — Seri!"
-        :winnerColor!==null
-            ?"🏆 "+winnerLabel+" menang!"
-            :"Game berakhir"+(reason?" • "+reason:"");
-
-    panel.classList.remove("hidden");
-    showScreen("gameScreen");
+    $("gameResultDetail").textContent=draw?"Kedua pemain bermain imbang.":winnerLabel+" menang"+(reason?" • "+reason:"");
+    $("gameMessage").textContent=draw?"½ Game over — Draw!":"🏆 "+winnerLabel+" wins!";
+    panel.classList.remove("hidden");showScreen("gameScreen");
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
     gameResultReturnTimer=setTimeout(()=>{
         panel.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
@@ -2686,7 +2664,7 @@ function checkGameState(){
                     : "Black";
 
 
-            setMessage("🏆 Checkmate — "+winnerName+" menang!");
+            setMessage("🏆 Checkmate — "+winnerName+" wins!");
             showGameResult(winnerColor==="w"?"finished_white":"finished_black","Checkmate");
             if(gameMode==="private"){
 
@@ -2699,7 +2677,7 @@ function checkGameState(){
 
         }else{
 
-            setMessage("½ Game selesai — Seri!");
+            setMessage("½ Game over — Draw!");
             showGameResult("draw","Stalemate");
             if(gameMode==="private"){
 
@@ -2725,8 +2703,8 @@ function checkGameState(){
 
         setMessage(
             currentColor==="w"
-                ? "⚠️ White sedang check"
-                : "⚠️ Black sedang check"
+                ? "⚠️ White is in check"
+                : "⚠️ Black is in check"
         );
 
     }else{
@@ -2782,21 +2760,6 @@ function handleSquareClick(
 
 
     if(selectedSquare){
-
-        // Memudahkan rokade: pemain boleh mengetuk benteng yang ingin ditukar
-        // dengan raja; langkah tetap hanya diizinkan jika rokade legal.
-        const selectedPiece=board[selectedSquare.r]?.[selectedSquare.c];
-        if(selectedPiece?.p==="king" && piece?.p==="rook" && piece.c===selectedPiece.c){
-            const homeRow=selectedPiece.c==="w"?7:0;
-            const castleSide=c===7?"king":c===0?"queen":null;
-            const castleMove=castleSide && selectedSquare.r===homeRow && selectedSquare.c===4 && r===homeRow
-                ?legalMoves.find(move=>move.castle===castleSide)
-                :null;
-            if(castleMove){
-                makeMove(selectedSquare.r,selectedSquare.c,castleMove.r,castleMove.c);
-                return;
-            }
-        }
 
         const canMove =
             legalMoves.some(
@@ -3597,7 +3560,7 @@ function applyRemoteGame(
 
         setMessage(
             playerColor==="w"
-                ? "Giliran kamu — White"
+                ? "Your turn — White"
                 : "Giliran kamu — Black"
         );
 
@@ -3787,7 +3750,7 @@ async function connectPrivateGame(
     ){
 
         toast(
-            "Pemain room belum lengkap."
+            "Room players are not ready yet."
         );
 
         return;
@@ -3928,7 +3891,7 @@ async function connectPrivateGame(
         playerColor==="w"
             ? (
                 chessTurn==="w"
-                    ? "Giliran kamu — White"
+                    ? "Your turn — White"
                     : "Menunggu Black"
             )
             : (
@@ -4005,7 +3968,7 @@ async function startPrivateGame(
         ){
 
             toast(
-                "Pemain room belum lengkap."
+                "Room players are not ready yet."
             );
 
             return;
@@ -4128,10 +4091,10 @@ async function startPrivateGame(
                         "white",
 
                     white_time:
-                        300,
+                        selectedTimeSeconds,
 
                     black_time:
-                        300
+                        selectedTimeSeconds
 
                 })
                 .select()
@@ -4357,7 +4320,7 @@ function timerTick(){
                 : "White";
 
 
-        setMessage("⏱️ Waktu habis — "+winner+" menang!");
+        setMessage("⏱️ Waktu habis — "+winner+" wins!");
         showGameResult(winner==="White"?"finished_white":"finished_black","Waktu habis");
         if(gameMode==="private"){
 
@@ -4637,7 +4600,7 @@ function startBotGame(
     $("gameResultPanel")?.classList.add("hidden");
     showScreen("gameScreen");
     renderBoard();updateTimerUI();startTimer();
-    setMessage("Giliran kamu — White");
+    setMessage("Your turn — White");
 }
 
 
@@ -4820,7 +4783,7 @@ async function createPrivateRoom(){
     if(!myUserId){
 
         toast(
-            "Telegram user belum terdeteksi."
+            "Telegram user could not be detected."
         );
 
         return;
@@ -4917,14 +4880,14 @@ async function createPrivateRoom(){
 
         $("roomStatus")
             .textContent =
-            "Menunggu pemain kedua...";
+            "Waiting for a second player...";
 
 
         startRoomWatcher();
 
 
         toast(
-            "Room berhasil dibuat."
+            "Room created successfully."
         );
 
     }catch(error){
@@ -4936,7 +4899,7 @@ async function createPrivateRoom(){
 
 
         toast(
-            "Gagal membuat room: "+
+            "Could not create room: "+
             error.message
         );
     }
@@ -4955,7 +4918,7 @@ async function joinPrivateRoom(){
     if(!code){
 
         toast(
-            "Masukkan kode room."
+            "Enter room code."
         );
 
         return;
@@ -4965,7 +4928,7 @@ async function joinPrivateRoom(){
     if(!myUserId){
 
         toast(
-            "Telegram user belum terdeteksi."
+            "Telegram user could not be detected."
         );
 
         return;
@@ -5001,7 +4964,7 @@ async function joinPrivateRoom(){
         if(!room){
 
             toast(
-                "Room tidak ditemukan."
+                "Room not found."
             );
 
             return;
@@ -5013,7 +4976,7 @@ async function joinPrivateRoom(){
         ){
 
             toast(
-                "Room sudah tidak tersedia."
+                "Room is no longer available."
             );
 
             return;
@@ -5072,7 +5035,7 @@ async function joinPrivateRoom(){
 
 
         toast(
-            "Berhasil masuk room."
+            "Joined room successfully."
         );
 
     }catch(error){
@@ -5084,7 +5047,7 @@ async function joinPrivateRoom(){
 
 
         toast(
-            "Gagal masuk room: "+
+            "Could not join room: "+
             error.message
         );
     }
@@ -5229,7 +5192,7 @@ async function checkRoomPlayers(){
 
             $("roomStatus")
                 .textContent =
-                "Menunggu pemain kedua...";
+                "Waiting for a second player...";
 
             return;
         }
@@ -5337,7 +5300,7 @@ async function cancelPrivateRoom(){
 
 
     toast(
-        "Room dibatalkan."
+        "Room cancelled."
     );
 }
 
@@ -5402,14 +5365,19 @@ async function copyText(value){
     try{
         if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(value);}
         else{const input=document.createElement("textarea");input.value=value;input.style.position="fixed";input.style.opacity="0";document.body.appendChild(input);input.select();document.execCommand("copy");input.remove();}
-        toast("Berhasil disalin.");
-    }catch(error){console.error("COPY ERROR:",error);toast("Tidak bisa menyalin otomatis.");}
+        toast("Copied successfully.");
+    }catch(error){console.error("COPY ERROR:",error);toast("Could not copy automatically.");}
 }
 
 
 /* =========================================================
    BUTTONS
 ========================================================= */
+
+$("headerProfileBtn")?.addEventListener("click",()=>{showScreen("profileScreen");loadMyProfile();});
+
+$("randomBackBtn")?.addEventListener("click",()=>showScreen("homeScreen"));
+$("findRandomBtn")?.addEventListener("click",()=>toast("Random matchmaking is not available yet."));
 
 $("privateBtn")
     .addEventListener(
@@ -5451,7 +5419,7 @@ $("copyRoomCodeBtn")?.addEventListener("click",()=>{
 });
 $("copyRoomInviteBtn")?.addEventListener("click",()=>{
     const code=currentRoom?.room_code||$("roomCodeText")?.textContent?.trim();
-    if(!code||code==="------"){toast("Buat room terlebih dahulu.");return;}
+    if(!code||code==="------"){toast("Create a room first.");return;}
     const inviteUrl="https://t.me/ChessArena1711bot?startapp=room_"+encodeURIComponent(code);
     copyText(inviteUrl);
 });
@@ -5514,20 +5482,6 @@ document
     );
 
 
-$("profileBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            showScreen(
-                "profileScreen"
-            );
-
-            loadMyProfile();
-        }
-    );
-
-
 $("profileBackBtn")
     .addEventListener(
         "click",
@@ -5548,13 +5502,13 @@ $("friendsBtn")
             ){
 
                 toast(
-                    "Gunakan kode room untuk mengundang teman."
+                    "Use the room code to invite a friend."
                 );
 
             }else{
 
                 toast(
-                    "Buat Private Room lalu kirim kode room ke teman."
+                    "Create a Private Room and share its code with a friend."
                 );
             }
         }
@@ -5567,7 +5521,7 @@ $("randomBtn")
         () => {
 
             toast(
-                "Mode Lawan Random sedang disiapkan."
+                "Mode Random Match sedang disiapkan."
             );
         }
     );
@@ -5607,7 +5561,7 @@ async function init(){
 
 
         $("profileUsername").textContent =
-            "Buka melalui Telegram Mini App";
+            "Open through the Telegram Mini App";
 
 
         return;
