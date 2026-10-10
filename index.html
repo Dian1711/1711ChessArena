@@ -157,13 +157,13 @@ button{
 }
 
 .menu{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    display:flex;gap:10px;overflow-x:auto;padding:2px 2px 10px;
+    scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#34445d transparent;
 }
+.menu button{flex:0 0 145px;scroll-snap-align:start;}
 
 .menu button{
-    min-height:74px;
+    min-height:100px;
     border:1px solid rgba(255,255,255,.07);
     border-radius:17px;
     color:#fff;
@@ -195,6 +195,16 @@ button{
     margin-top:2px;
 }
 
+.lobby-chess-art{margin:12px 0 18px;min-height:145px;border:1px solid rgba(203,166,110,.16);border-radius:22px;display:flex;align-items:center;justify-content:center;gap:clamp(8px,4vw,24px);overflow:hidden;background:radial-gradient(circle at center,rgba(139,90,43,.22),transparent 58%),linear-gradient(145deg,#111b2b,#080d15);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 16px 35px rgba(0,0,0,.22)}
+.lobby-chess-art span{font-family:"Times New Roman","DejaVu Serif",serif;font-size:clamp(45px,13vw,76px);line-height:1;text-shadow:0 8px 16px rgba(0,0,0,.5)}
+.lobby-chess-art .art-brown{color:#a97845;-webkit-text-stroke:1px #1b120a}
+.lobby-chess-art .art-gold{color:#d4b27a;text-shadow:0 0 22px rgba(212,178,122,.18),0 8px 16px rgba(0,0,0,.5)}
+.time-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:12px 0 4px}
+.time-options button{min-height:42px;border-radius:11px;border:1px solid rgba(255,255,255,.08);background:#111c2c;color:#9eacc0;font-size:12px;font-weight:800}
+.time-options button.active{color:#fff;border-color:#bd9259;background:linear-gradient(145deg,#624626,#302316)}
+.room-action-row{display:flex;gap:8px}.room-action-row .action-btn{flex:1}
+.game-result{margin:12px 0;padding:17px 14px;text-align:center;border-radius:18px;border:1px solid rgba(214,176,111,.35);background:radial-gradient(circle at top,rgba(139,90,43,.24),transparent 72%),#111a28;box-shadow:0 12px 28px rgba(0,0,0,.3)}
+.game-result-trophy{font-size:36px;line-height:1.2}.game-result-title{font-size:19px;font-weight:900;margin-top:6px}.game-result-detail{font-size:12px;color:#a5b2c5;margin-top:5px}.game-result .action-btn{margin-top:13px}
 .back-btn{
     border:0;
     background:#182437;
@@ -404,6 +414,8 @@ button{
 /* WHITE SEKARANG COKLAT */
 .white-piece{
     color:#8b5a2b;
+    -webkit-text-stroke:1px #17100b;
+    paint-order:stroke fill;
     text-shadow:
         0 1px 0 #c89b6d,
         0 3px 2px rgba(45,25,10,.35),
@@ -651,6 +663,8 @@ button{
         </div>
 
 
+        <div class="lobby-chess-art" aria-label="1711 Chess Arena"><span class="art-brown">♜</span><span class="art-gold">♞</span><span class="art-brown">♚</span><span class="art-gold">♛</span></div>
+
         <div class="menu">
 
             <button id="randomBtn">
@@ -721,24 +735,7 @@ button{
             </button>
 
 
-            <button id="leaderboardBtn">
-
-                <span class="menu-icon">
-                    🏆
-                </span>
-
-                <div class="menu-title">
-                    Leaderboard
-                </div>
-
-                <div class="menu-sub">
-                    Pemain terbaik
-                </div>
-
-            </button>
-
-
-            <button id="profileBtn">
+<button id="profileBtn">
 
                 <span class="menu-icon">
                     👤
@@ -789,6 +786,8 @@ button{
                 Buat room lalu kirim kode room kepada teman.
             </p>
 
+            <div style="font-size:12px;color:#8795aa;margin-top:12px">Durasi permainan</div>
+            <div class="time-options" data-time-options><button type="button" data-time="300" class="active">5 menit</button><button type="button" data-time="600">10 menit</button><button type="button" data-time="900">15 menit</button><button type="button" data-time="1800">30 menit</button></div>
             <button
                 class="action-btn"
                 id="createRoomBtn"
@@ -814,7 +813,7 @@ button{
                 >
                     Menunggu pemain kedua...
                 </div>
-
+                <div class="room-action-row"><button class="action-btn secondary" id="copyRoomCodeBtn" type="button">Salin Kode</button><button class="action-btn secondary" id="copyRoomInviteBtn" type="button">Salin Link Undangan</button></div>
                 <button
                     class="action-btn secondary"
                     id="cancelRoomBtn"
@@ -824,13 +823,11 @@ button{
 
             </div>
 
-            <div
-                style="
-                    margin:20px 0;
-                    border-top:1px solid rgba(255,255,255,.06)
-                "
-            ></div>
+        </div>
 
+        <div class="card" style="margin-top:12px">
+            <div class="section-title">🔑 Masuk Room</div>
+            <p style="font-size:12px;color:#7f8ea4;line-height:1.5">Masukkan kode room dari teman untuk bergabung.</p>
             <input
                 id="joinRoomInput"
                 type="text"
@@ -882,7 +879,8 @@ button{
             <div class="section-title">
                 🤖 VS Bot
             </div>
-
+            <div style="font-size:12px;color:#8795aa;margin-top:12px">Durasi permainan</div>
+            <div class="time-options" data-time-options><button type="button" data-time="300" class="active">5 menit</button><button type="button" data-time="600">10 menit</button><button type="button" data-time="900">15 menit</button><button type="button" data-time="1800">30 menit</button></div>
             <p
                 style="
                     font-size:12px;
@@ -984,14 +982,13 @@ button{
         </div>
 
 
-        <div
-            id="gameMessage"
-            class="game-message"
-        >
-            Giliran White
+        <div id="gameMessage" class="game-message">Giliran White</div>
+        <div id="gameResultPanel" class="game-result hidden">
+            <div class="game-result-trophy">🏆</div>
+            <div id="gameResultTitle" class="game-result-title">Game Berakhir</div>
+            <div id="gameResultDetail" class="game-result-detail">Hasil pertandingan</div>
+            <button id="gameResultHomeBtn" class="action-btn" type="button">Kembali ke Lobby</button>
         </div>
-
-
         <div class="board-wrap">
 
             <div
@@ -1014,40 +1011,6 @@ button{
             >
                 Rematch
             </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- LEADERBOARD -->
-
-    <section
-        id="leaderboardScreen"
-        class="screen"
-    >
-
-        <button
-            class="back-btn"
-            id="leaderboardBackBtn"
-        >
-            ← Kembali
-        </button>
-
-        <div class="card">
-
-            <div class="section-title">
-                🏆 Leaderboard
-            </div>
-
-            <div
-                id="leaderboardList"
-                class="list"
-            >
-                <div class="empty">
-                    Loading...
-                </div>
-            </div>
 
         </div>
 
@@ -1325,6 +1288,8 @@ let whiteSeconds = 300;
 let blackSeconds = 300;
 
 let timerInterval = null;
+let selectedTimeSeconds = 300;
+let gameResultReturnTimer = null;
 
 let botDifficulty = "easy";
 
@@ -1397,6 +1362,25 @@ function setMessage(message){
         message;
 
     updatePlayerTurnUI();
+}
+
+
+function showGameResult(status,reason=""){
+    const panel=$("gameResultPanel");if(!panel)return;
+    if(!panel.classList.contains("hidden")) return;
+    const draw=status==="draw";
+    const winnerColor=status==="finished_white"?"w":status==="finished_black"?"b":null;
+    const winnerLabel=winnerColor==="w"?($("whitePlayerName")?.textContent||"White"):winnerColor==="b"?($("blackPlayerName")?.textContent||"Black"):"";
+    const title=draw?"PERTANDINGAN SERI":(winnerColor===playerColor?"KAMU MENANG!":"KAMU KALAH");
+    $("gameResultTitle").textContent=title;
+    $("gameResultDetail").textContent=draw?"Kedua pemain bermain imbang.":winnerLabel+" menang"+(reason?" • "+reason:"");
+    $("gameMessage").textContent=draw?"½ Game selesai — Seri!":"🏆 "+winnerLabel+" menang!";
+    panel.classList.remove("hidden");showScreen("gameScreen");
+    if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
+    gameResultReturnTimer=setTimeout(()=>{
+        panel.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
+        privateGameId=null;currentRoom=null;showScreen("homeScreen");loadMyProfile();
+    },7000);
 }
 
 
@@ -1772,170 +1756,31 @@ const pieceSymbols = {
 
 
 function renderBoard(){
-
-    const boardEl =
-        $("board");
-
-    if(!boardEl){
-        return;
-    }
-
-    boardEl.innerHTML =
-        "";
-
-
-    for(let r=0;r<8;r++){
-
-        for(let c=0;c<8;c++){
-
-            const square =
-                document.createElement(
-                    "div"
-                );
-
-
-            square.className =
-                "square "+
-                (
-                    (r+c)%2===0
-                        ? "light"
-                        : "dark"
-                );
-
-
-            square.dataset.row =
-                r;
-
-            square.dataset.col =
-                c;
-
-
-            if(
-                lastMove &&
-                (
-                    (
-                        lastMove.fromR===r &&
-                        lastMove.fromC===c
-                    ) ||
-                    (
-                        lastMove.toR===r &&
-                        lastMove.toC===c
-                    )
-                )
-            ){
-
-                square.classList.add(
-                    "last-move"
-                );
-            }
-
-
-            if(
-                selectedSquare &&
-                selectedSquare.r===r &&
-                selectedSquare.c===c
-            ){
-
-                square.classList.add(
-                    "selected"
-                );
-            }
-
-
-            const piece =
-                board[r]?.[c];
-
-
+    const boardEl=$("board");
+    if(!boardEl) return;
+    boardEl.innerHTML="";
+    for(let vr=0;vr<8;vr++){
+        for(let vc=0;vc<8;vc++){
+            const r=playerColor==="b"?7-vr:vr;
+            const c=playerColor==="b"?7-vc:vc;
+            const square=document.createElement("div");
+            square.className="square "+(((r+c)%2===0)?"light":"dark");
+            square.dataset.row=r;square.dataset.col=c;
+            if(lastMove&&((lastMove.fromR===r&&lastMove.fromC===c)||(lastMove.toR===r&&lastMove.toC===c))) square.classList.add("last-move");
+            if(selectedSquare&&selectedSquare.r===r&&selectedSquare.c===c) square.classList.add("selected");
+            const piece=board[r]?.[c];
             if(piece){
-
-                const pieceEl =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                pieceEl.className =
-                    "chess-piece "+
-                    (
-                        piece.c==="w"
-                            ? "white-piece"
-                            : "black-piece"
-                    );
-
-
-                pieceEl.textContent =
-                    pieceSymbols[
-                        piece.c==="w"
-                            ? "white"
-                            : "black"
-                    ][piece.p];
-
-
-                const glow =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                glow.className =
-                    "piece-glow";
-
-
-                pieceEl.appendChild(
-                    glow
-                );
-
-
-                square.appendChild(
-                    pieceEl
-                );
-
-            }else{
-
-                const legal =
-                    legalMoves.some(
-                        move =>
-                            move.r===r &&
-                            move.c===c
-                    );
-
-
-                if(legal){
-
-                    const mark =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    mark.className =
-                        "move-dot";
-
-
-                    square.appendChild(
-                        mark
-                    );
-                }
+                const pieceEl=document.createElement("div");
+                pieceEl.className="chess-piece "+(piece.c==="w"?"white-piece":"black-piece");
+                pieceEl.textContent=pieceSymbols[piece.c==="w"?"white":"black"][piece.p];
+                const glow=document.createElement("div");glow.className="piece-glow";pieceEl.appendChild(glow);square.appendChild(pieceEl);
+            }else if(legalMoves.some(move=>move.r===r&&move.c===c)){
+                const mark=document.createElement("div");mark.className="move-dot";square.appendChild(mark);
             }
-
-
-            square.addEventListener(
-                "click",
-                () =>
-                    handleSquareClick(
-                        r,
-                        c
-                    )
-            );
-
-
-            boardEl.appendChild(
-                square
-            );
+            square.addEventListener("click",()=>handleSquareClick(r,c));
+            boardEl.appendChild(square);
         }
     }
-
-
     updatePlayerTurnUI();
 }
 
@@ -2824,16 +2669,9 @@ function checkGameState(){
                     : "Black";
 
 
-            setMessage(
-                "🏆 Checkmate — "+
-                winnerName+
-                " menang!"
-            );
-
-
-            if(
-                gameMode==="private"
-            ){
+            setMessage("🏆 Checkmate — "+winnerName+" menang!");
+            showGameResult(winnerColor==="w"?"finished_white":"finished_black","Checkmate");
+            if(gameMode==="private"){
 
                 finishPrivateGame(
                     winnerColor==="w"
@@ -2844,14 +2682,9 @@ function checkGameState(){
 
         }else{
 
-            setMessage(
-                "½ Game selesai — Seri!"
-            );
-
-
-            if(
-                gameMode==="private"
-            ){
+            setMessage("½ Game selesai — Seri!");
+            showGameResult("draw","Stalemate");
+            if(gameMode==="private"){
 
                 finishPrivateGame(
                     "draw"
@@ -3625,11 +3458,8 @@ function applyRemoteGame(
     game
 ){
 
-    if(!game){
-
-        return;
-    }
-
+    if(!game)return;
+    if(gameOver&&game.status==="playing")return;
 
     privateGameId =
         game.id ||
@@ -3640,65 +3470,11 @@ function applyRemoteGame(
        GAME SUDAH SELESAI
     */
 
-    if(
-        game.status &&
-        game.status!=="playing"
-    ){
-
-        gameOver =
-            true;
-
+    if(game.status && game.status!=="playing"){
+        gameOver=true;
         stopTimer();
-
-
-        let resultMessage =
-            "🏁 Game telah berakhir.";
-
-
-        if(
-            game.status==="finished_white"
-        ){
-
-            resultMessage =
-                "🏆 Game selesai — White menang!";
-
-        }else if(
-            game.status==="finished_black"
-        ){
-
-            resultMessage =
-                "🏆 Game selesai — Black menang!";
-
-        }else if(
-            game.status==="draw"
-        ){
-
-            resultMessage =
-                "½ Game selesai — Seri!";
-
-        }else if(
-            game.status==="finished"
-        ){
-
-            resultMessage =
-                "🏁 Game selesai.";
-        }
-
-
-        setMessage(
-            resultMessage
-        );
-
-
-        renderBoard();
-
-
-        lastSyncedBoardSignature =
-            getGameSignature(
-                game
-            );
-
-
+        showGameResult(game.status,game.status==="draw"?"Seri":"Game berakhir");
+        lastSyncedBoardSignature=getGameSignature(game);
         return;
     }
 
@@ -4065,6 +3841,8 @@ async function connectPrivateGame(
 
     gameOver =
         false;
+
+    $("gameResultPanel")?.classList.add("hidden");
 
     lastMove =
         null;
@@ -4547,16 +4325,9 @@ function timerTick(){
                 : "White";
 
 
-        setMessage(
-            "⏱️ Waktu habis — "+
-            winner+
-            " menang!"
-        );
-
-
-        if(
-            gameMode==="private"
-        ){
+        setMessage("⏱️ Waktu habis — "+winner+" menang!");
+        showGameResult(winner==="White"?"finished_white":"finished_black","Waktu habis");
+        if(gameMode==="private"){
 
             finishPrivateGame(
                 winner==="White"
@@ -4730,7 +4501,8 @@ async function finishPrivateGame(
                 .eq(
                     "id",
                     privateGameId
-                );
+                )
+                .eq("status","playing");
 
 
         if(error){
@@ -4798,13 +4570,9 @@ function startBotGame(
         "w";
 
 
-    whiteSeconds =
-        300;
-
-
-    blackSeconds =
-        300;
-
+    whiteSeconds = selectedTimeSeconds;
+    blackSeconds = selectedTimeSeconds;
+    $("gameResultPanel")?.classList.add("hidden");
 
     selectedSquare =
         null;
@@ -4834,21 +4602,10 @@ function startBotGame(
         difficulty.slice(1);
 
 
-    showScreen(
-        "gameScreen"
-    );
-
-
-    renderBoard();
-
-    updateTimerUI();
-
-    startTimer();
-
-
-    setMessage(
-        "Giliran kamu — White"
-    );
+    $("gameResultPanel")?.classList.add("hidden");
+    showScreen("gameScreen");
+    renderBoard();updateTimerUI();startTimer();
+    setMessage("Giliran kamu — White");
 }
 
 
@@ -5111,7 +4868,7 @@ async function createPrivateRoom(){
 
         $("roomCodeText")
             .textContent =
-            code;
+            room.room_code || code;
 
 
         $("roomCreated")
@@ -5609,156 +5366,12 @@ function exitGame(){
 }
 
 
-/* =========================================================
-   LEADERBOARD
-========================================================= */
-
-async function loadLeaderboard(){
-
-    const container =
-        $("leaderboardList");
-
-
-    container.innerHTML =
-        '<div class="empty">Loading...</div>';
-
-
+async function copyText(value){
     try{
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("users")
-                .select(
-                    "id,username,first_name,photo_url,rating,wins,losses,draws"
-                )
-                .order(
-                    "rating",
-                    {
-                        ascending:false
-                    }
-                )
-                .limit(20);
-
-
-        if(error){
-            throw error;
-        }
-
-
-        if(!data?.length){
-
-            container.innerHTML =
-                '<div class="empty">Belum ada pemain.</div>';
-
-            return;
-        }
-
-
-        container.innerHTML =
-            "";
-
-
-        data.forEach(
-            (user,index) => {
-
-                const row =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                row.className =
-                    "list-item";
-
-
-                const name =
-                    user.first_name ||
-                    user.username ||
-                    "Player";
-
-
-                row.innerHTML=`
-
-                    <div class="rank">
-                        #${index+1}
-                    </div>
-
-                    <img
-                        class="avatar"
-                        src="${user.photo_url || ""}"
-                        alt=""
-                    >
-
-                    <div class="item-main">
-
-                        <div class="item-name">
-                            ${escapeHtml(name)}
-                        </div>
-
-                        <div class="item-rating">
-                            ${user.wins||0}W •
-                            ${user.losses||0}L •
-                            ${user.draws||0}D
-                        </div>
-
-                    </div>
-
-                    <strong>
-                        ${user.rating ?? 1000}
-                    </strong>
-                `;
-
-
-                container.appendChild(
-                    row
-                );
-            }
-        );
-
-    }catch(error){
-
-        console.error(
-            "LEADERBOARD ERROR:",
-            error
-        );
-
-
-        container.innerHTML =
-            '<div class="empty">Gagal memuat leaderboard.</div>';
-    }
-}
-
-
-function escapeHtml(
-    value
-){
-
-    return String(
-        value ?? ""
-    )
-    .replaceAll(
-        "&",
-        "&amp;"
-    )
-    .replaceAll(
-        "<",
-        "&lt;"
-    )
-    .replaceAll(
-        ">",
-        "&gt;"
-    )
-    .replaceAll(
-        '"',
-        "&quot;"
-    )
-    .replaceAll(
-        "'",
-        "&#039;"
-    );
+        if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(value);}
+        else{const input=document.createElement("textarea");input.value=value;input.style.position="fixed";input.style.opacity="0";document.body.appendChild(input);input.select();document.execCommand("copy");input.remove();}
+        toast("Berhasil disalin.");
+    }catch(error){console.error("COPY ERROR:",error);toast("Tidak bisa menyalin otomatis.");}
 }
 
 
@@ -5799,11 +5412,26 @@ $("createRoomBtn")
     );
 
 
-$("joinRoomBtn")
-    .addEventListener(
-        "click",
-        joinPrivateRoom
-    );
+$("joinRoomBtn").addEventListener("click",joinPrivateRoom);
+$("copyRoomCodeBtn")?.addEventListener("click",()=>{
+    const code=currentRoom?.room_code||$("roomCodeText")?.textContent?.trim();
+    if(code)copyText(code);
+});
+$("copyRoomInviteBtn")?.addEventListener("click",()=>{
+    const code=currentRoom?.room_code||$("roomCodeText")?.textContent?.trim();
+    if(!code||code==="------"){toast("Buat room terlebih dahulu.");return;}
+    const inviteUrl="https://t.me/ChessArena1711bot?startapp=room_"+encodeURIComponent(code);
+    copyText(inviteUrl);
+});
+document.querySelectorAll("[data-time]").forEach(button=>button.addEventListener("click",()=>{
+    selectedTimeSeconds=Number(button.dataset.time)||300;
+    document.querySelectorAll("[data-time-options]").forEach(group=>group.querySelectorAll("[data-time]").forEach(option=>option.classList.toggle("active",Number(option.dataset.time)===selectedTimeSeconds)));
+}));
+$("gameResultHomeBtn")?.addEventListener("click",()=>{
+    if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
+    $("gameResultPanel")?.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
+    privateGameId=null;currentRoom=null;showScreen("homeScreen");
+});
 
 
 $("cancelRoomBtn")
@@ -5851,30 +5479,6 @@ document
                 }
             );
         }
-    );
-
-
-$("leaderboardBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            showScreen(
-                "leaderboardScreen"
-            );
-
-            loadLeaderboard();
-        }
-    );
-
-
-$("leaderboardBackBtn")
-    .addEventListener(
-        "click",
-        () =>
-            showScreen(
-                "homeScreen"
-            )
     );
 
 
@@ -5988,6 +5592,16 @@ async function init(){
 
     await loadMyProfile();
 
+    // Telegram Main Mini App links can pass a room code as startapp=room_CODE.
+    const startParam = String(tg?.initDataUnsafe?.start_param || "");
+    const roomMatch = startParam.match(/^room_([A-Za-z0-9]{4,8})$/i);
+    if(roomMatch){
+        const inviteCode = roomMatch[1].toUpperCase();
+        $("joinRoomInput").value = inviteCode;
+        showScreen("privateScreen");
+        toast("Link undangan terdeteksi. Menghubungkan ke room...");
+        await joinPrivateRoom();
+    }
 
     console.log(
         "1711 Chess Arena ready:",
