@@ -1366,16 +1366,33 @@ function setMessage(message){
 
 
 function showGameResult(status,reason=""){
-    const panel=$("gameResultPanel");if(!panel)return;
-    if(!panel.classList.contains("hidden")) return;
-    const draw=status==="draw";
-    const winnerColor=status==="finished_white"?"w":status==="finished_black"?"b":null;
-    const winnerLabel=winnerColor==="w"?($("whitePlayerName")?.textContent||"White"):winnerColor==="b"?($("blackPlayerName")?.textContent||"Black"):"";
-    const title=draw?"PERTANDINGAN SERI":(winnerColor===playerColor?"KAMU MENANG!":"KAMU KALAH");
+    const panel=$("gameResultPanel");
+    if(!panel)return;
+
+    // Status akhir bisa datang dari pemain lokal atau dari sinkronisasi lawan.
+    const normalizedStatus=String(status||"").toLowerCase();
+    const draw=normalizedStatus==="draw" || normalizedStatus==="stalemate";
+    const winnerColor=normalizedStatus==="finished_white"?"w":normalizedStatus==="finished_black"?"b":null;
+    const whiteName=$("whitePlayerName")?.textContent?.trim()||"White";
+    const blackName=$("blackPlayerName")?.textContent?.trim()||"Black";
+    const winnerLabel=winnerColor==="w"?whiteName:winnerColor==="b"?blackName:"";
+    const localPlayerWon=winnerColor!==null && winnerColor===playerColor;
+    const title=draw?"PERTANDINGAN SERI":winnerColor===null?"GAME BERAKHIR":localPlayerWon?"KAMU MENANG!":"KAMU KALAH";
+
     $("gameResultTitle").textContent=title;
-    $("gameResultDetail").textContent=draw?"Kedua pemain bermain imbang.":winnerLabel+" menang"+(reason?" • "+reason:"");
-    $("gameMessage").textContent=draw?"½ Game selesai — Seri!":"🏆 "+winnerLabel+" menang!";
-    panel.classList.remove("hidden");showScreen("gameScreen");
+    $("gameResultDetail").textContent=draw
+        ?"Kedua pemain bermain imbang." 
+        :winnerColor!==null
+            ?winnerLabel+" menang"+(reason?" • "+reason:"")
+            :(reason||"Pertandingan telah selesai.");
+    $("gameMessage").textContent=draw
+        ?"½ Game selesai — Seri!"
+        :winnerColor!==null
+            ?"🏆 "+winnerLabel+" menang!"
+            :"Game berakhir"+(reason?" • "+reason:"");
+
+    panel.classList.remove("hidden");
+    showScreen("gameScreen");
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
     gameResultReturnTimer=setTimeout(()=>{
         panel.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
@@ -2765,6 +2782,21 @@ function handleSquareClick(
 
 
     if(selectedSquare){
+
+        // Memudahkan rokade: pemain boleh mengetuk benteng yang ingin ditukar
+        // dengan raja; langkah tetap hanya diizinkan jika rokade legal.
+        const selectedPiece=board[selectedSquare.r]?.[selectedSquare.c];
+        if(selectedPiece?.p==="king" && piece?.p==="rook" && piece.c===selectedPiece.c){
+            const homeRow=selectedPiece.c==="w"?7:0;
+            const castleSide=c===7?"king":c===0?"queen":null;
+            const castleMove=castleSide && selectedSquare.r===homeRow && selectedSquare.c===4 && r===homeRow
+                ?legalMoves.find(move=>move.castle===castleSide)
+                :null;
+            if(castleMove){
+                makeMove(selectedSquare.r,selectedSquare.c,castleMove.r,castleMove.c);
+                return;
+            }
+        }
 
         const canMove =
             legalMoves.some(
