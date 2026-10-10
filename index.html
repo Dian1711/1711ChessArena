@@ -597,7 +597,7 @@ button{
 
         </div>
 
-        <button class="profile-mini" id="headerProfileeBtn" type="button" aria-label="Open profile" style="padding:0;cursor:pointer;">
+        <button class="profile-mini" id="headerProfileBtn" type="button" aria-label="Open profile" style="padding:0;cursor:pointer;">
             <img
                 id="headerAvatar"
                 src=""
@@ -5374,7 +5374,7 @@ async function copyText(value){
    BUTTONS
 ========================================================= */
 
-$("headerProfileeBtn")?.addEventListener("click",()=>{showScreen("profileScreen");loadMyProfilee();});
+$("headerProfileBtn")?.addEventListener("click",()=>{showScreen("profileScreen");loadMyProfilee();});
 
 $("randomBackBtn")?.addEventListener("click",()=>showScreen("homeScreen"));
 $("findRandomBtn")?.addEventListener("click",()=>toast("Random matchmaking is not available yet."));
