@@ -813,7 +813,7 @@ button{
                 >
                     Menunggu pemain kedua...
                 </div>
-                <div class="room-action-row"><button class="action-btn secondary" id="copyRoomCodeBtn" type="button">Salin Kode</button></div>
+                <div class="room-action-row"><button class="action-btn secondary" id="copyRoomCodeBtn" type="button">Salin Kode</button><button class="action-btn secondary" id="copyRoomInviteBtn" type="button">Salin Link Undangan</button></div>
                 <button
                     class="action-btn secondary"
                     id="cancelRoomBtn"
@@ -5417,6 +5417,12 @@ $("copyRoomCodeBtn")?.addEventListener("click",()=>{
     const code=currentRoom?.room_code||$("roomCodeText")?.textContent?.trim();
     if(code)copyText(code);
 });
+$("copyRoomInviteBtn")?.addEventListener("click",()=>{
+    const code=currentRoom?.room_code||$("roomCodeText")?.textContent?.trim();
+    if(!code||code==="------"){toast("Buat room terlebih dahulu.");return;}
+    const inviteUrl="https://t.me/ChessArena1711bot?startapp=room_"+encodeURIComponent(code);
+    copyText(inviteUrl);
+});
 document.querySelectorAll("[data-time]").forEach(button=>button.addEventListener("click",()=>{
     selectedTimeSeconds=Number(button.dataset.time)||300;
     document.querySelectorAll("[data-time-options]").forEach(group=>group.querySelectorAll("[data-time]").forEach(option=>option.classList.toggle("active",Number(option.dataset.time)===selectedTimeSeconds)));
@@ -5586,6 +5592,16 @@ async function init(){
 
     await loadMyProfile();
 
+    // Telegram Main Mini App links can pass a room code as startapp=room_CODE.
+    const startParam = String(tg?.initDataUnsafe?.start_param || "");
+    const roomMatch = startParam.match(/^room_([A-Za-z0-9]{4,8})$/i);
+    if(roomMatch){
+        const inviteCode = roomMatch[1].toUpperCase();
+        $("joinRoomInput").value = inviteCode;
+        showScreen("privateScreen");
+        toast("Link undangan terdeteksi. Menghubungkan ke room...");
+        await joinPrivateRoom();
+    }
 
     console.log(
         "1711 Chess Arena ready:",
