@@ -977,7 +977,7 @@ button{
         </div>
 
 
-        <div id="gameMessage" class="game-message">White to move</div>
+        <div id="gameMessage" class="game-message">Giliran White</div>
         <div id="gameResultPanel" class="game-result hidden">
             <div class="game-result-trophy">🏆</div>
             <div id="gameResultTitle" class="game-result-title">Game Over</div>
@@ -1374,7 +1374,7 @@ function showGameResult(status,reason=""){
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
     gameResultReturnTimer=setTimeout(()=>{
         panel.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
-        privateGameId=null;currentRoom=null;showScreen("homeScreen");loadMyProfilee();
+        privateGameId=null;currentRoom=null;showScreen("homeScreen");loadMyProfile();
     },7000);
 }
 
@@ -1561,7 +1561,7 @@ async function ensureUserExists(
 }
 
 
-async function loadMyProfilee(){
+async function loadMyProfile(){
 
     if(!myUserId){
 
@@ -2711,8 +2711,8 @@ function checkGameState(){
 
         setMessage(
             currentColor==="w"
-                ? "White to move"
-                : "Black to move"
+                ? "Giliran White"
+                : "Giliran Black"
         );
     }
 }
@@ -3216,7 +3216,7 @@ async function savePrivateMove(){
 
 
             toast(
-                "Failed to sync game."
+                "Gagal sinkron game."
             );
 
 
@@ -3561,15 +3561,15 @@ function applyRemoteGame(
         setMessage(
             playerColor==="w"
                 ? "Your turn — White"
-                : "Your turn — Black"
+                : "Giliran kamu — Black"
         );
 
     }else{
 
         setMessage(
             chessTurn==="w"
-                ? "White in progress..."
-                : "Black in progress..."
+                ? "White sedang jalan..."
+                : "Black sedang jalan..."
         );
     }
 }
@@ -3684,7 +3684,7 @@ async function waitForPrivateGame(
 
 
     $("gameMessage").textContent =
-        "Waiting for White to create the game...";
+        "Menunggu White membuat game...";
 
 
     schedulePrivateGameWait(
@@ -3860,7 +3860,7 @@ async function connectPrivateGame(
             white.user_id
         ) ===
         Number(myUserId)
-            ? "You"
+            ? "Kamu"
             : "White";
 
 
@@ -3869,7 +3869,7 @@ async function connectPrivateGame(
             black.user_id
         ) ===
         Number(myUserId)
-            ? "You"
+            ? "Kamu"
             : "Black";
 
 
@@ -3892,12 +3892,12 @@ async function connectPrivateGame(
             ? (
                 chessTurn==="w"
                     ? "Your turn — White"
-                    : "Waiting for Black"
+                    : "Menunggu Black"
             )
             : (
                 chessTurn==="b"
-                    ? "Your turn — Black"
-                    : "Waiting for White"
+                    ? "Giliran kamu — Black"
+                    : "Menunggu White"
             )
     );
 
@@ -4048,7 +4048,7 @@ async function startPrivateGame(
 
 
             $("gameMessage").textContent =
-                "Waiting for White to create the game...";
+                "Menunggu White membuat game...";
 
 
             schedulePrivateGameWait(
@@ -4586,7 +4586,7 @@ function startBotGame(
 
 
     $("whitePlayerName").textContent =
-        "You";
+        "Kamu";
 
 
     $("blackPlayerName").textContent =
@@ -5200,7 +5200,7 @@ async function checkRoomPlayers(){
 
         $("roomStatus")
             .textContent =
-            "Opponent found. Starting game...";
+            "Pemain ditemukan. Memulai game...";
 
 
         stopRoomWatcher();
@@ -5374,7 +5374,7 @@ async function copyText(value){
    BUTTONS
 ========================================================= */
 
-$("headerProfileBtn")?.addEventListener("click",()=>{showScreen("profileScreen");loadMyProfilee();});
+$("headerProfileBtn")?.addEventListener("click",()=>{showScreen("profileScreen");loadMyProfile();});
 
 $("randomBackBtn")?.addEventListener("click",()=>showScreen("homeScreen"));
 $("findRandomBtn")?.addEventListener("click",()=>toast("Random matchmaking is not available yet."));
@@ -5515,7 +5515,11 @@ $("friendsBtn")
     );
 
 
-$("randomBtn").addEventListener("click",()=>showScreen("randomScreen"));
+$("randomBtn")
+    .addEventListener(
+        "click",
+        () => {
+            showScreen("randomScreen");
         }
     );
 
@@ -5569,7 +5573,7 @@ async function init(){
     await saveUser();
 
 
-    await loadMyProfilee();
+    await loadMyProfile();
 
     // Telegram Main Mini App links can pass a room code as startapp=room_CODE.
     const startParam = String(tg?.initDataUnsafe?.start_param || "");
