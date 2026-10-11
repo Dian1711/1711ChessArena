@@ -932,6 +932,58 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opa
   .lobby-chess-art .lobby-title-lockup strong{margin-top:13px!important;font-size:clamp(19px,5.7vw,24px)!important;letter-spacing:1px!important}
 }
 
+
+/* ===== WALLPAPER TITLE SPACING FIX V8 ===== */
+/* Anchor each line independently so 1711 can never cover CHESS ARENA. */
+.lobby-chess-art .lobby-title-lockup{
+  top:5%!important;
+  left:3%!important;
+  right:3%!important;
+  height:175px!important;
+  display:block!important;
+  padding:0!important;
+}
+.lobby-chess-art .lobby-title-number{
+  position:absolute!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  text-align:center!important;
+  margin:0!important;
+  padding:0!important;
+  line-height:1!important;
+  font-size:clamp(36px,9vw,54px)!important;
+}
+.lobby-chess-art .lobby-title-lockup strong{
+  position:absolute!important;
+  top:78px!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:center!important;
+  line-height:1.15!important;
+  font-size:clamp(20px,5.6vw,31px)!important;
+  letter-spacing:clamp(1px,.7vw,3px)!important;
+  white-space:nowrap!important;
+}
+.lobby-chess-art .lobby-title-lockup small{
+  position:absolute!important;
+  top:123px!important;
+  left:0!important;
+  right:0!important;
+  margin:0!important;
+  text-align:center!important;
+}
+@media(max-width:380px){
+  .lobby-chess-art .lobby-title-lockup{top:5%!important;height:155px!important}
+  .lobby-chess-art .lobby-title-number{font-size:clamp(34px,9vw,42px)!important}
+  .lobby-chess-art .lobby-title-lockup strong{top:67px!important;font-size:clamp(18px,5.5vw,22px)!important;letter-spacing:.5px!important}
+  .lobby-chess-art .lobby-title-lockup small{top:108px!important;font-size:9px!important}
+}
+
 </style>
 </head>
 
