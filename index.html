@@ -3368,6 +3368,13 @@ async function syncPrivateGame(){
 
         if(data){
 
+            // Always prioritize a terminal status, even if the board signature
+            // appears unchanged or a realtime event was missed.
+            if(data.status && data.status !== "playing"){
+                applyRemoteGame(data);
+                return;
+            }
+
             const signature =
                 getGameSignature(
                     data
@@ -4412,6 +4419,7 @@ async function finishPrivateGame(
 
 
         const {
+            data:finishedRows,
             error
         } =
             await supabaseClient
@@ -4451,7 +4459,8 @@ async function finishPrivateGame(
                 .eq(
                     "id",
                     privateGameId
-                );
+                )
+                .select("id,status");
 
 
         if(error){
@@ -4465,13 +4474,20 @@ async function finishPrivateGame(
         }
 
 
+        if(!finishedRows || !finishedRows.length){
+            console.error("FINISH GAME ERROR: Supabase did not return an updated game row.", privateGameId, status);
+            toast("Could not sync game result. Please check the database update policy.");
+            return;
+        }
+
         lastSyncedBoardSignature =
             "";
 
 
         console.log(
             "GAME FINISHED:",
-            status
+            status,
+            finishedRows[0]
         );
 
     }catch(error){
