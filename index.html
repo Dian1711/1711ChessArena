@@ -886,6 +886,52 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opa
   .lobby-title-lockup strong{letter-spacing:2px}
 }
 
+
+/* ===== WALLPAPER TITLE CLEANUP V7 ===== */
+/* Remove the small duplicate title printed at the top of the wallpaper. */
+.lobby-chess-art::before{
+  content:none!important;
+  display:none!important;
+}
+/* Keep the central 1711 and CHESS ARENA on separate, readable lines. */
+.lobby-chess-art .lobby-title-lockup{
+  top:7%!important;
+  left:4%!important;
+  right:4%!important;
+  gap:0!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+}
+.lobby-chess-art .lobby-title-number{
+  display:block!important;
+  flex:none!important;
+  font-size:clamp(38px,10vw,58px)!important;
+  line-height:1.08!important;
+  letter-spacing:clamp(4px,1.8vw,10px)!important;
+  padding:0 0 0 clamp(4px,1.8vw,10px)!important;
+  margin:0!important;
+}
+.lobby-chess-art .lobby-title-lockup strong{
+  display:block!important;
+  flex:none!important;
+  margin-top:14px!important;
+  font-size:clamp(21px,5.8vw,32px)!important;
+  line-height:1.2!important;
+  letter-spacing:clamp(1px,.9vw,4px)!important;
+  white-space:nowrap;
+}
+.lobby-chess-art .lobby-title-lockup small{
+  display:block!important;
+  flex:none!important;
+  margin-top:10px!important;
+  line-height:1.35!important;
+}
+@media(max-width:380px){
+  .lobby-chess-art .lobby-title-lockup{top:6%!important}
+  .lobby-chess-art .lobby-title-number{font-size:clamp(36px,10vw,48px)!important}
+  .lobby-chess-art .lobby-title-lockup strong{margin-top:13px!important;font-size:clamp(19px,5.7vw,24px)!important;letter-spacing:1px!important}
+}
+
 </style>
 </head>
 
