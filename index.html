@@ -4355,10 +4355,19 @@ async function finishPrivateGame(
     result
 ){
 
+    console.log("FINISH PRIVATE GAME CALLED", {
+        result,
+        gameMode,
+        privateGameId,
+        playerColor,
+        chessTurn
+    });
+
     try{
 
         if(!privateGameId){
-
+            console.error("FINISH GAME ERROR: privateGameId is empty; cannot update Supabase.");
+            toast("Game result could not sync: missing game ID.");
             return;
         }
 
@@ -5488,18 +5497,22 @@ async function init(){
 
     if(!myTelegramUser){
 
-        $("homeUsername").textContent =
-            "Telegram";
+        const homeUsernameEl = $("homeUsername");
+        if(homeUsernameEl){
+            homeUsernameEl.textContent = "Telegram";
+        }
 
+        const profileNameEl = $("profileName");
+        if(profileNameEl){
+            profileNameEl.textContent = "Telegram Player";
+        }
 
-        $("profileName").textContent =
-            "Telegram Player";
+        const profileUsernameEl = $("profileUsername");
+        if(profileUsernameEl){
+            profileUsernameEl.textContent = "Open through the Telegram Mini App";
+        }
 
-
-        $("profileUsername").textContent =
-            "Open through the Telegram Mini App";
-
-
+        console.warn("1711 Chess Arena is not running inside Telegram WebApp; Telegram user data is unavailable.");
         return;
     }
 
