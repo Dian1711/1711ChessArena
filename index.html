@@ -1319,7 +1319,7 @@ function showGameResult(status,reason=""){
     const panel=$("gameResultPanel");if(!panel)return;
     if(!panel.classList.contains("hidden")) return;
     const draw=status==="draw";
-    const winnerColor=status==="finished_white"?"w":status==="finished_black"?"b":null;
+    const winnerColor=status==="white_wins"?"w":status==="black_wins"?"b":null;
     const winnerLabel=winnerColor==="w"?($("whitePlayerName")?.textContent||"White"):winnerColor==="b"?($("blackPlayerName")?.textContent||"Black"):"";
     const title=draw?"PERTANDINGAN SERI":(winnerColor===playerColor?"KAMU MENANG!":"KAMU KALAH");
     $("gameResultTitle").textContent=title;
@@ -2574,7 +2574,7 @@ function checkGameState(){
 
 
             setMessage("🏆 Checkmate — "+winnerName+" wins!");
-            showGameResult(winnerColor==="w"?"finished_white":"finished_black","Checkmate");
+            showGameResult(winnerColor==="w"?"white_wins":"black_wins","Checkmate");
             if(gameMode==="private"){
 
                 finishPrivateGame(
@@ -4252,7 +4252,7 @@ function timerTick(){
 
 
         setMessage("⏱️ Waktu habis — "+winner+" wins!");
-        showGameResult(winner==="White"?"finished_white":"finished_black","Waktu habis");
+        showGameResult(winner==="White"?"white_wins":"black_wins","Waktu habis");
         if(gameMode==="private"){
 
             finishPrivateGame(
@@ -4378,12 +4378,12 @@ async function finishPrivateGame(
         ){
 
             status =
-                "finished_white";
+                "white_wins";
 
         }else{
 
             status =
-                "finished_black";
+                "black_wins";
         }
 
 
