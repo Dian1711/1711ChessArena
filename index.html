@@ -1340,79 +1340,57 @@ function showGameResult(status,reason=""){
 
 async function saveUser(){
 
-    if(
-        !myTelegramUser ||
-        !myUserId
-    ){
-
+    if(!myTelegramUser || !myUserId){
         return;
     }
 
     try{
-
-        const user = {
-
-            id:
-                myUserId,
-
-            username:
-                myTelegramUser.username ||
-                null,
-
-            first_name:
-                myTelegramUser.first_name ||
-                null,
-
-            last_name:
-                myTelegramUser.last_name ||
-                null,
-
-            photo_url:
-                myTelegramUser.photo_url ||
-                null,
-
-            rating:
-                1000,
-
-            wins:
-                0,
-
-            losses:
-                0,
-
-            draws:
-                0
+        const profileFields = {
+            username: myTelegramUser.username || null,
+            first_name: myTelegramUser.first_name || null,
+            last_name: myTelegramUser.last_name || null,
+            photo_url: myTelegramUser.photo_url || null
         };
 
+        // Update only profile fields for existing users so Wins/Losses/Draws
+        // and Rating are never reset when the app starts.
+        const { data: existingUser, error: lookupError } = await supabaseClient
+            .from("users")
+            .select("id")
+            .eq("id", myUserId)
+            .maybeSingle();
 
-        const {error} =
-            await supabaseClient
-                .from("users")
-                .upsert(
-                    user,
-                    {
-                        onConflict:"id"
-                    }
-                );
-
-
-        if(error){
-
-            console.error(
-                "SAVE USER ERROR:",
-                error
-            );
+        if(lookupError){
+            throw lookupError;
         }
 
-    }catch(error){
+        if(existingUser){
+            const { error } = await supabaseClient
+                .from("users")
+                .update(profileFields)
+                .eq("id", myUserId);
 
-        console.error(
-            "SAVE USER ERROR:",
-            error
-        );
+            if(error) throw error;
+        }else{
+            const { error } = await supabaseClient
+                .from("users")
+                .insert({
+                    id: myUserId,
+                    ...profileFields,
+                    rating: 1000,
+                    wins: 0,
+                    losses: 0,
+                    draws: 0
+                });
+
+            if(error && error.code !== "23505"){
+                throw error;
+            }
+        }
+    }catch(error){
+        console.error("SAVE USER ERROR:", error);
     }
 }
-
 
 async function ensureUserExists(
     userId
