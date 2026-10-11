@@ -7,6 +7,7 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://libtl.com/sdk.js" data-zone="12007227" data-sdk="show_12007227"></script>
 
 <style>
 *{
@@ -1690,6 +1691,19 @@ function setMessage(message){
 }
 
 
+function showMonetagGameBreakAd(){
+    // Only request an ad at the end of a match, never during active play.
+    if(typeof window.show_12007227 !== "function") return;
+    try{
+        const adResult = window.show_12007227();
+        if(adResult && typeof adResult.catch === "function"){
+            adResult.catch(error => console.warn("Monetag ad was not shown:", error));
+        }
+    }catch(error){
+        console.warn("Monetag ad could not be opened:", error);
+    }
+}
+
 function showGameResult(status,reason=""){
     const panel=$("gameResultPanel");if(!panel)return;
     if(!panel.classList.contains("hidden")) return;
@@ -1701,6 +1715,7 @@ function showGameResult(status,reason=""){
     $("gameResultDetail").textContent=draw?"The game ended in a draw.":winnerLabel+" wins"+(reason?" • "+reason:"");
     $("gameMessage").textContent=draw?"½ Game over — Draw!":"🏆 "+winnerLabel+" wins!";
     panel.classList.remove("hidden");
+    showMonetagGameBreakAd();
     const resumeBtn=$("resumeGameBtn");if(resumeBtn)resumeBtn.style.display="none";
     showScreen("gameScreen");
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
