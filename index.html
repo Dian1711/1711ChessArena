@@ -3228,13 +3228,15 @@ function startPrivateGameWatcher(){
                     );
 
 
+                    // Never ignore a terminal result, even if a move save is in progress.
                     if(
-                        !savingPrivateGame
+                        payload.new &&
+                        payload.new.status &&
+                        payload.new.status !== "playing"
                     ){
-
-                        applyRemoteGame(
-                            payload.new
-                        );
+                        applyRemoteGame(payload.new);
+                    }else if(!savingPrivateGame){
+                        applyRemoteGame(payload.new);
                     }
                 }
             )
@@ -3287,8 +3289,7 @@ async function syncPrivateGame(){
 
     if(
         !privateGameId ||
-        syncingPrivateGame ||
-        savingPrivateGame
+        syncingPrivateGame
     ){
 
         return;
@@ -3326,6 +3327,12 @@ async function syncPrivateGame(){
             // appears unchanged or a realtime event was missed.
             if(data.status && data.status !== "playing"){
                 applyRemoteGame(data);
+                return;
+            }
+
+            // If a move save is in flight, still accept finished status
+            // immediately, but avoid applying an older playing snapshot.
+            if(savingPrivateGame){
                 return;
             }
 
