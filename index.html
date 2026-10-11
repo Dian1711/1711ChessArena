@@ -3465,6 +3465,14 @@ function applyRemoteGame(
 
     renderBoard();
 
+    // A remote move can deliver checkmate/stalemate without running the
+    // local move handler. Detect the terminal position on both players.
+    if(!hasAnyLegalMove(chessTurn)){
+        checkGameState();
+        lastSyncedBoardSignature = getGameSignature(game);
+        return;
+    }
+
     updateTimerUI();
 
     startTimer();
