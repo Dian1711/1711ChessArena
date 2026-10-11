@@ -692,116 +692,38 @@ html,body{
 }
 
 
-/* ===== PREMIUM LOBBY REDESIGN v2 ===== */
-html,body{
-  background:#070a11;
-  background-image:
-    radial-gradient(ellipse at 50% -8%,rgba(218,164,91,.27),transparent 43%),
-    radial-gradient(ellipse at 0% 42%,rgba(43,89,145,.25),transparent 37%),
-    radial-gradient(ellipse at 100% 62%,rgba(116,66,143,.20),transparent 38%),
-    linear-gradient(180deg,#111a2a 0%,#090e18 48%,#070a11 100%);
-  background-attachment:fixed;
-}
-.app{max-width:560px;padding:16px 14px 24px}
-.header{margin-bottom:18px}
-.logo{
-  width:48px;height:48px;border-radius:15px;font-size:27px;
-  background:linear-gradient(145deg,#b98a4d,#51381e 52%,#172237);
-  border-color:rgba(238,203,145,.42);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 7px 26px rgba(0,0,0,.4),0 0 22px rgba(190,139,69,.12);
-}
-.brand-title{font-size:18px;letter-spacing:.15px}
-.brand-sub{font-size:11px;letter-spacing:.6px}
-.profile-mini{width:45px;height:45px;border:2px solid rgba(219,180,117,.68);box-shadow:0 0 0 3px rgba(219,180,117,.08)}
-#homeScreen::before{
-  inset:-12px -8px 0;border-radius:30px;
-  background:
-    radial-gradient(ellipse at 50% 0%,rgba(224,174,103,.15),transparent 43%),
-    repeating-linear-gradient(45deg,transparent 0 35px,rgba(219,180,117,.035) 36px 37px,transparent 38px 72px);
-}
-.lobby-chess-art{
-  min-height:230px;
-  margin:10px 0 17px;
-  gap:clamp(8px,4vw,25px);
-  border:1px solid rgba(229,190,126,.48);
-  border-radius:25px;
-  background:
-    radial-gradient(ellipse at 50% 105%,rgba(219,157,76,.37),transparent 48%),
-    radial-gradient(ellipse at 50% 10%,rgba(81,111,164,.23),transparent 56%),
-    repeating-linear-gradient(90deg,rgba(232,202,157,.055) 0 1px,transparent 1px 36px),
-    repeating-linear-gradient(0deg,rgba(232,202,157,.045) 0 1px,transparent 1px 36px),
-    linear-gradient(145deg,#202d41 0%,#111827 48%,#090d16 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -35px 55px rgba(0,0,0,.24),0 22px 42px rgba(0,0,0,.38),0 0 36px rgba(185,125,58,.11);
-}
-.lobby-chess-art::before{
-  top:17px;left:18px;font-size:10px;letter-spacing:3px;
-  color:#d8bb8a;opacity:.88;
-}
-.lobby-chess-art::after{
-  bottom:18px;height:2px;left:10%;right:10%;
-  background:linear-gradient(90deg,transparent,rgba(225,184,117,.8),rgba(255,235,194,.42),rgba(225,184,117,.8),transparent);
-}
-.lobby-chess-art span{
-  font-size:clamp(55px,15vw,94px);
-  filter:drop-shadow(0 13px 10px rgba(0,0,0,.7));
-}
-.lobby-chess-art .art-brown{color:#c18a4c;-webkit-text-fill-color:#c18a4c;-webkit-text-stroke:1.6px #08090c}
-.lobby-chess-art .art-gold{color:#f0d5a0;-webkit-text-fill-color:#f0d5a0;-webkit-text-stroke:.6px #513a20}
-.menu{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-  padding:2px 0 14px;
-  overflow:visible;
-}
-.menu button{
-  min-width:0;
-  min-height:112px;
-  padding:10px 7px 11px;
-  border-radius:16px;
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  gap:0;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 10px 22px rgba(0,0,0,.26);
-}
-.menu button::after{right:-9px;bottom:-19px;font-size:73px;opacity:.8}
-.menu-icon{
-  width:34px;height:34px;flex:0 0 34px;
-  display:grid;place-items:center;
-  margin:0 auto 8px;border-radius:11px;font-size:18px;
-}
-.menu-title{
-  width:100%;font-size:clamp(9px,2.6vw,12px);
-  line-height:1.2;font-weight:900;overflow-wrap:anywhere;
-}
-.menu-sub{
-  font-size:9px;line-height:1.25;margin-top:5px;
-  overflow-wrap:anywhere;color:#b6c1d2;
-}
-#randomBtn{background:linear-gradient(155deg,#245b5a,#11242e 80%);border-color:rgba(104,221,194,.43)}
-#privateBtn{background:linear-gradient(155deg,#59406e,#21182f 80%);border-color:rgba(203,153,236,.42)}
-#botBtn{background:linear-gradient(155deg,#79542d,#2b2017 80%);border-color:rgba(232,183,111,.45)}
-#friendsBtn{background:linear-gradient(155deg,#344f88,#141f39 80%);border-color:rgba(133,170,255,.42)}
-@media(max-width:390px){
-  .app{padding:12px 10px 20px}
-  .lobby-chess-art{min-height:205px;gap:8px}
-  .menu{gap:6px}
-  .menu button{min-height:99px;padding:9px 4px}
-  .menu-icon{width:30px;height:30px;flex-basis:30px;font-size:16px;margin-bottom:7px}
-  .menu-title{font-size:10px}
-  .menu-sub{display:none}
-}
-@media(max-width:340px){
-  .brand-title{font-size:16px}
-  .lobby-chess-art{min-height:180px}
-  .lobby-chess-art span{font-size:50px}
-  .menu{gap:5px}
-  .menu button{min-height:88px}
-  .menu-title{font-size:9px}
-}
+
+/* ===== CHESS ARENA WALLPAPER + BOTTOM DOCK v3 ===== */
+html,body{min-height:100%;background:#070a10!important}
+body{min-height:100vh;background-image:
+radial-gradient(ellipse at 50% 15%,rgba(190,132,65,.25),transparent 38%),
+radial-gradient(ellipse at 4% 65%,rgba(41,86,151,.27),transparent 36%),
+radial-gradient(ellipse at 96% 72%,rgba(111,60,144,.22),transparent 38%),
+repeating-conic-gradient(from 0deg at 50% 50%,rgba(220,186,130,.055) 0deg 25%,transparent 0deg 50%)!important;
+background-size:auto,auto,auto,84px 84px!important;background-attachment:fixed!important}
+.app{max-width:560px;padding:14px 14px 120px;position:relative}
+#homeScreen{min-height:calc(100vh - 80px);padding-bottom:105px}
+#homeScreen::before{content:"♞";position:fixed;z-index:-1;pointer-events:none;left:50%;top:43%;transform:translate(-50%,-50%) rotate(-9deg);font: min(115vw,680px)/1 "Times New Roman",serif;color:rgba(211,169,105,.055);text-shadow:0 0 100px rgba(204,150,74,.08)}
+.lobby-chess-art{min-height:clamp(245px,42vh,360px)!important;margin:10px 0 22px!important;gap:clamp(8px,4vw,28px)!important;border:1px solid rgba(231,190,123,.58)!important;border-radius:28px!important;
+background:radial-gradient(ellipse at 50% 112%,rgba(236,166,76,.44),transparent 48%),radial-gradient(ellipse at 50% 15%,rgba(74,110,164,.34),transparent 56%),repeating-linear-gradient(90deg,rgba(244,217,174,.075) 0 1px,transparent 1px 32px),repeating-linear-gradient(0deg,rgba(244,217,174,.065) 0 1px,transparent 1px 32px),linear-gradient(145deg,#26374e 0%,#121d2d 45%,#080c14 100%)!important;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -60px 70px rgba(0,0,0,.38),0 24px 48px rgba(0,0,0,.48),0 0 42px rgba(196,139,67,.16)!important}
+.lobby-chess-art::before{top:20px!important;left:20px!important;font-size:11px!important;letter-spacing:3px!important;color:#f0d4a2!important}
+.lobby-chess-art::after{bottom:21px!important;height:2px!important;left:9%!important;right:9%!important;background:linear-gradient(90deg,transparent,#b98a4d,#f0d6a4,#b98a4d,transparent)!important}
+.lobby-chess-art span{font-size:clamp(60px,16vw,104px)!important;filter:drop-shadow(0 15px 12px rgba(0,0,0,.82))!important}
+.lobby-chess-art .art-brown{-webkit-text-fill-color:#c28a4b!important;color:#c28a4b!important;-webkit-text-stroke:1.6px #08090c!important}
+.lobby-chess-art .art-gold{-webkit-text-fill-color:#f5dfb3!important;color:#f5dfb3!important;-webkit-text-stroke:.6px #604321!important}
+.menu{position:fixed!important;z-index:100!important;left:50%!important;bottom:calc(8px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;width:min(calc(100% - 20px),532px)!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important;padding:9px!important;margin:0!important;border:1px solid rgba(220,185,126,.3)!important;border-radius:22px!important;background:rgba(9,14,23,.91)!important;backdrop-filter:blur(22px) saturate(135%)!important;-webkit-backdrop-filter:blur(22px) saturate(135%)!important;box-shadow:0 12px 38px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.09)!important}
+.menu button{min-width:0!important;width:100%!important;min-height:86px!important;padding:9px 3px 8px!important;margin:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;gap:0!important;border-radius:15px!important;border-width:1px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 5px 13px rgba(0,0,0,.25)!important}
+.menu button::after{right:-7px!important;bottom:-17px!important;font-size:61px!important}
+.menu-icon{width:33px!important;height:33px!important;flex:0 0 33px!important;display:grid!important;place-items:center!important;margin:0 auto 7px!important;border-radius:11px!important;font-size:18px!important}
+.menu-title{width:100%!important;font-size:clamp(9px,2.55vw,12px)!important;line-height:1.18!important;font-weight:900!important;letter-spacing:-.15px!important;text-align:center!important;overflow-wrap:anywhere!important}
+.menu-sub{display:none!important}
+#randomBtn{background:linear-gradient(155deg,#286e68,#112b31)!important;border-color:rgba(108,231,201,.55)!important}#randomBtn .menu-icon{background:linear-gradient(145deg,#319b8c,#17534e)!important}
+#privateBtn{background:linear-gradient(155deg,#68457e,#261b37)!important;border-color:rgba(214,163,245,.5)!important}#privateBtn .menu-icon{background:linear-gradient(145deg,#9662b3,#4a3064)!important}
+#botBtn{background:linear-gradient(155deg,#936632,#382718)!important;border-color:rgba(243,197,125,.55)!important}#botBtn .menu-icon{background:linear-gradient(145deg,#c18b48,#66411e)!important}
+#friendsBtn{background:linear-gradient(155deg,#3e61a2,#192745)!important;border-color:rgba(149,181,255,.52)!important}#friendsBtn .menu-icon{background:linear-gradient(145deg,#5d88d9,#2d4d8d)!important}
+@media(max-width:390px){.app{padding-left:10px;padding-right:10px;padding-bottom:112px}.lobby-chess-art{min-height:clamp(220px,36vh,300px)!important}.menu{width:calc(100% - 12px)!important;gap:5px!important;padding:7px!important;border-radius:18px!important}.menu button{min-height:78px!important;padding:7px 2px!important;border-radius:12px!important}.menu-icon{width:29px!important;height:29px!important;flex-basis:29px!important;font-size:16px!important;margin-bottom:6px!important}.menu-title{font-size:9px!important}}
+@media(max-width:330px){.menu{gap:4px!important;padding:6px!important}.menu button{min-height:73px!important}.menu-title{font-size:8px!important}}
 
 </style>
 </head>
@@ -1224,26 +1146,7 @@ html,body{
                 "
             >
 
-                <div
-                    class="list-item"
-                    style="
-                        display:block;
-                        text-align:center
-                    "
-                >
-
-                    
-
-                    <div
-                        style="
-                            font-size:9px;
-                            color:#75849a
-                        "
-                    >
-                        Rating
-                    </div>
-
-                </div>
+                
 
 
                 <div
