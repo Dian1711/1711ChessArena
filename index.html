@@ -1518,106 +1518,60 @@ async function ensureUserExists(
 
 async function loadMyProfile(){
 
-    if(!myUserId){
+    const telegramUser = myTelegramUser || {};
+    let data = null;
 
-        return;
-    }
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
+    if(myUserId){
+        try{
+            const result = await supabaseClient
                 .from("users")
                 .select("*")
-                .eq(
-                    "id",
-                    myUserId
-                )
+                .eq("id", myUserId)
                 .maybeSingle();
 
-
-        if(error){
-            throw error;
+            if(result.error) throw result.error;
+            data = result.data || null;
+        }catch(error){
+            console.error("PROFILE ERROR:", error);
         }
+    }
 
+    // Telegram's live profile is the source of truth for the current user's name.
+    // Older database rows may still contain the placeholder "Player".
+    const telegramFirst = String(telegramUser.first_name || "").trim();
+    const telegramLast = String(telegramUser.last_name || "").trim();
+    const telegramFullName = [telegramFirst, telegramLast].filter(Boolean).join(" ");
+    const storedFirst = String(data?.first_name || "").trim();
+    const storedLast = String(data?.last_name || "").trim();
+    const storedFullName = [storedFirst, storedLast].filter(Boolean).join(" ");
+    const usableStoredName = storedFullName && storedFirst.toLowerCase() !== "player"
+        ? storedFullName
+        : "";
 
-        if(!data){
-            return;
-        }
+    const displayName =
+        telegramFullName ||
+        usableStoredName ||
+        String(telegramUser.username || data?.username || "").trim() ||
+        "Telegram Player";
 
+    const username = String(telegramUser.username || data?.username || "").trim();
 
-        const displayName =
-            data.first_name ||
-            data.username ||
-            "Player";
+    if($("homeUsername")) $("homeUsername").textContent = displayName;
+    if($("homeRating")) $("homeRating").textContent = data?.rating ?? 1000;
+    if($("profileName")) $("profileName").textContent = displayName;
+    if($("profileUsername")) $("profileUsername").textContent = username ? "@"+username : "Telegram Player";
 
+    if($("profileRating")) $("profileRating").textContent = data?.rating ?? 1000;
+    if($("profileWins")) $("profileWins").textContent = data?.wins ?? 0;
+    if($("profileLosses")) $("profileLosses").textContent = data?.losses ?? 0;
+    if($("profileDraws")) $("profileDraws").textContent = data?.draws ?? 0;
 
-        $("homeUsername").textContent =
-            displayName;
-
-
-        $("homeRating").textContent =
-            data.rating ??
-            1000;
-
-
-        $("profileName").textContent =
-            displayName;
-
-
-        $("profileUsername").textContent =
-            data.username
-                ? "@"+data.username
-                : "Telegram Player";
-
-
-        $("profileRating").textContent =
-            data.rating ??
-            1000;
-
-
-        $("profileWins").textContent =
-            data.wins ??
-            0;
-
-
-        $("profileLosses").textContent =
-            data.losses ??
-            0;
-
-
-        $("profileDraws").textContent =
-            data.draws ??
-            0;
-
-
-        const photo =
-            data.photo_url ||
-            myTelegramUser?.photo_url ||
-            "";
-
-
-        if(photo){
-
-            $("headerAvatar").src =
-                photo;
-
-            $("profileAvatar").src =
-                photo;
-        }
-
-    }catch(error){
-
-        console.error(
-            "PROFILE ERROR:",
-            error
-        );
+    const photo = telegramUser.photo_url || data?.photo_url || "";
+    if(photo){
+        if($("headerAvatar")) $("headerAvatar").src = photo;
+        if($("profileAvatar")) $("profileAvatar").src = photo;
     }
 }
-
 
 /* =========================================================
    BOARD
