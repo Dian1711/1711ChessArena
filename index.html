@@ -725,6 +725,42 @@ box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -60px 70px rgba(0,0,0,.38
 @media(max-width:390px){.app{padding-left:10px;padding-right:10px;padding-bottom:112px}.lobby-chess-art{min-height:clamp(220px,36vh,300px)!important}.menu{width:calc(100% - 12px)!important;gap:5px!important;padding:7px!important;border-radius:18px!important}.menu button{min-height:78px!important;padding:7px 2px!important;border-radius:12px!important}.menu-icon{width:29px!important;height:29px!important;flex-basis:29px!important;font-size:16px!important;margin-bottom:6px!important}.menu-title{font-size:9px!important}}
 @media(max-width:330px){.menu{gap:4px!important;padding:6px!important}.menu button{min-height:73px!important}.menu-title{font-size:8px!important}}
 
+
+/* ===== WALLPAPER V4: FULL-HEIGHT CHESS ART + PLAYER STATS ===== */
+html,body{background-color:#070a10!important}
+body{background-image:
+radial-gradient(ellipse at 50% 9%,rgba(222,165,83,.25),transparent 34%),
+radial-gradient(ellipse at 0% 48%,rgba(46,105,177,.24),transparent 38%),
+radial-gradient(ellipse at 100% 75%,rgba(137,67,163,.22),transparent 38%),
+repeating-linear-gradient(0deg,rgba(221,190,139,.035) 0 1px,transparent 1px 42px),
+repeating-linear-gradient(90deg,rgba(221,190,139,.035) 0 1px,transparent 1px 42px),
+linear-gradient(150deg,#111c2d,#070a10 58%,#120d19)!important;
+background-size:auto!important;background-attachment:fixed!important}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.22;background:repeating-conic-gradient(from 45deg at 50% 50%,rgba(219,177,111,.11) 0deg 25%,transparent 0deg 50%);background-size:100px 100px;mask-image:linear-gradient(to bottom,black,transparent 95%)}
+.app{position:relative;z-index:1}
+#homeScreen{min-height:calc(100dvh - 70px)!important;padding-bottom:115px!important}
+#homeScreen::before{content:"♞";position:fixed;z-index:-1;pointer-events:none;left:50%;top:46%;transform:translate(-50%,-50%) rotate(-10deg);font:min(135vw,780px)/1 "Times New Roman",serif;color:rgba(222,174,103,.085);text-shadow:0 0 110px rgba(206,144,63,.14)}
+.lobby-chess-art{height:clamp(330px,54vh,455px)!important;min-height:330px!important;margin:8px 0 24px!important;position:relative!important;isolation:isolate;border:1px solid rgba(239,197,126,.65)!important;border-radius:30px!important;gap:clamp(3px,2vw,16px)!important;background:radial-gradient(ellipse at 50% 105%,rgba(242,169,74,.52),transparent 45%),radial-gradient(ellipse at 50% 28%,rgba(65,113,171,.42),transparent 60%),repeating-linear-gradient(0deg,rgba(236,211,170,.10) 0 1px,transparent 1px 31px),repeating-linear-gradient(90deg,rgba(236,211,170,.10) 0 1px,transparent 1px 31px),linear-gradient(145deg,#2b4058 0%,#172437 42%,#080c15 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -90px 100px rgba(0,0,0,.44),0 28px 60px rgba(0,0,0,.58),0 0 45px rgba(201,145,70,.2)!important}
+.lobby-chess-art::before{content:"1711  •  CHESS ARENA";position:absolute;top:23px!important;left:20px!important;font-size:11px!important;letter-spacing:3px!important;color:#f2d8a9!important;font-weight:900;text-shadow:0 2px 8px #000}
+.lobby-chess-art::after{content:"";position:absolute;left:9%!important;right:9%!important;bottom:23px!important;height:2px!important;background:linear-gradient(90deg,transparent,#b98a4d,#f5dfb3,#b98a4d,transparent)!important}
+.lobby-chess-art span{font-size:clamp(54px,15vw,102px)!important;z-index:1;filter:drop-shadow(0 17px 13px rgba(0,0,0,.88))!important}
+.player-stats-overlay{position:fixed;z-index:1000;inset:0;padding:20px;display:flex;align-items:center;justify-content:center;background:rgba(2,5,10,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.player-stats-overlay.hidden{display:none!important}
+.player-stats-card{position:relative;width:min(100%,390px);padding:25px 20px 20px;border:1px solid rgba(220,185,126,.35);border-radius:24px;background:linear-gradient(145deg,#1b293d,#0b111d);box-shadow:0 24px 80px rgba(0,0,0,.62);text-align:center}
+.player-stats-close{position:absolute;right:12px;top:10px;width:34px;height:34px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:#25344a;color:#fff;font-size:24px;line-height:1}
+.player-stats-avatar-wrap{width:66px;height:66px;margin:0 auto 12px;border:1px solid rgba(220,185,126,.45);border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#26364e}
+.player-stats-avatar-wrap img{width:100%;height:100%;object-fit:cover}
+#playerStatsAvatarFallback{font-size:30px;color:#d7b578}
+.player-stats-card h2{margin:0;font-size:20px;font-weight:900;overflow-wrap:anywhere}
+.player-stats-username{margin-top:4px;font-size:12px;color:#9baac0}
+.player-stats-status{margin:17px 0 10px;font-size:12px;color:#b9c5d7}
+.player-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.player-stat-tile{padding:15px 8px;border:1px solid rgba(255,255,255,.07);border-radius:15px;background:rgba(255,255,255,.035)}
+.player-stat-tile strong{display:block;font-size:24px;font-weight:900;color:#f0ce91}
+.player-stat-tile span{display:block;margin-top:4px;font-size:11px;color:#a7b4c7}
+#whitePlayerBox[data-user-id],#blackPlayerBox[data-user-id]{cursor:pointer}
+@media(max-width:380px){.lobby-chess-art{height:clamp(300px,48vh,390px)!important;min-height:300px!important}.lobby-chess-art span{font-size:clamp(48px,13vw,74px)!important}.player-stats-card{padding:22px 14px 16px}}
+
 </style>
 </head>
 
@@ -1437,9 +1473,9 @@ function showGameResult(status,reason=""){
     const draw=status==="draw";
     const winnerColor=status==="white_wins"?"w":status==="black_wins"?"b":null;
     const winnerLabel=winnerColor==="w"?($("whitePlayerName")?.textContent||"White"):winnerColor==="b"?($("blackPlayerName")?.textContent||"Black"):"";
-    const title=draw?"PERTANDINGAN SERI":(winnerColor===playerColor?"KAMU MENANG!":"KAMU KALAH");
+    const title=draw?"Draw":(winnerColor===playerColor?"You Won!":"You Lost");
     $("gameResultTitle").textContent=title;
-    $("gameResultDetail").textContent=draw?"Kedua pemain bermain imbang.":winnerLabel+" menang"+(reason?" • "+reason:"");
+    $("gameResultDetail").textContent=draw?"The game ended in a draw.":winnerLabel+" wins"+(reason?" • "+reason:"");
     $("gameMessage").textContent=draw?"½ Game over — Draw!":"🏆 "+winnerLabel+" wins!";
     panel.classList.remove("hidden");
     const resumeBtn=$("resumeGameBtn");if(resumeBtn)resumeBtn.style.display="none";
@@ -3772,6 +3808,12 @@ function setPlayerCardProfile(color,user,pieceColor,isSelf=false){
     const display=username?"@"+username:(fullName|| (isSelf?"You":"Chess Player"));
     const nameEl=$(prefix+"PlayerName");
     const fullEl=$(prefix+"PlayerFullName");
+    const playerBox=$(prefix+"PlayerBox");
+    if(playerBox){
+        playerBox.dataset.userId = user?.id ? String(user.id) : "";
+        playerBox.style.cursor = user?.id && Number(user.id)!==Number(myUserId) ? "pointer" : "default";
+        playerBox.title = user?.id && Number(user.id)!==Number(myUserId) ? "Click to view player statistics" : "";
+    }
     const labelEl=$(prefix+"PlayerLabel");
     const avatarEl=$(prefix+"PlayerAvatar");
     const fallbackEl=$(prefix+"PlayerFallback");
@@ -5786,6 +5828,16 @@ function makeFriendUserRow(user, actions){
     username.className = "item-rating";
     username.textContent = user.username ? "@" + user.username : "No Telegram username";
     main.append(name, username);
+    const statsHint = document.createElement("div");
+    statsHint.textContent = "View player statistics →";
+    statsHint.style.cssText = "font-size:10px;color:#d4b27a;margin-top:5px;font-weight:700";
+    main.appendChild(statsHint);
+    main.style.cursor = "pointer";
+    main.setAttribute("role","button");
+    main.setAttribute("tabindex","0");
+    main.setAttribute("aria-label","View statistics for " + friendDisplayName(user));
+    main.addEventListener("click",()=>showPlayerStats(user.id));
+    main.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();showPlayerStats(user.id);}});
     row.appendChild(main);
     (actions || []).forEach(action => {
         const button = document.createElement("button");
@@ -5797,6 +5849,53 @@ function makeFriendUserRow(user, actions){
         row.appendChild(button);
     });
     return row;
+}
+
+/* =========================================================
+   PUBLIC PLAYER STATISTICS
+========================================================= */
+let playerStatsModal = null;
+function ensurePlayerStatsModal(){
+    if(playerStatsModal) return playerStatsModal;
+    playerStatsModal=document.createElement("div");
+    playerStatsModal.id="playerStatsModal";
+    playerStatsModal.className="player-stats-overlay hidden";
+    playerStatsModal.innerHTML='<section class="player-stats-card" role="dialog" aria-modal="true" aria-labelledby="playerStatsTitle"><button type="button" class="player-stats-close" aria-label="Close statistics">×</button><div class="player-stats-avatar-wrap"><img id="playerStatsAvatar" alt="" src=""><span id="playerStatsAvatarFallback">♞</span></div><h2 id="playerStatsTitle">Player Statistics</h2><div id="playerStatsUsername" class="player-stats-username"></div><div id="playerStatsStatus" class="player-stats-status">Loading statistics…</div><div id="playerStatsGrid" class="player-stats-grid"></div></section>';
+    document.body.appendChild(playerStatsModal);
+    playerStatsModal.querySelector(".player-stats-close").addEventListener("click",()=>playerStatsModal.classList.add("hidden"));
+    playerStatsModal.addEventListener("click",event=>{if(event.target===playerStatsModal)playerStatsModal.classList.add("hidden");});
+    return playerStatsModal;
+}
+async function showPlayerStats(userId){
+    if(!userId || !supabaseClient){toast("Player statistics are unavailable for this player.");return;}
+    const modal=ensurePlayerStatsModal();
+    const title=modal.querySelector("#playerStatsTitle");
+    const usernameEl=modal.querySelector("#playerStatsUsername");
+    const status=modal.querySelector("#playerStatsStatus");
+    const grid=modal.querySelector("#playerStatsGrid");
+    const avatar=modal.querySelector("#playerStatsAvatar");
+    const fallback=modal.querySelector("#playerStatsAvatarFallback");
+    title.textContent="Player Statistics";usernameEl.textContent="";status.textContent="Loading statistics…";grid.replaceChildren();
+    avatar.style.display="none";fallback.style.display="block";
+    modal.classList.remove("hidden");
+    try{
+        const {data:user,error}=await supabaseClient.from("users").select("id,username,first_name,last_name,photo_url,rating,wins,losses,draws").eq("id",Number(userId)).maybeSingle();
+        if(error) throw error;
+        if(!user) throw new Error("Player profile not found.");
+        title.textContent=friendDisplayName(user);
+        usernameEl.textContent=user.username?"@"+user.username:"Telegram Player";
+        status.textContent="Career record";
+        if(user.photo_url){avatar.src=user.photo_url;avatar.style.display="block";fallback.style.display="none";}
+        [["Wins",user.wins??0],["Losses",user.losses??0],["Draws",user.draws??0],["Rating",user.rating??1000]].forEach(([label,value])=>{
+            const item=document.createElement("div");item.className="player-stat-tile";
+            const number=document.createElement("strong");number.textContent=String(value);
+            const caption=document.createElement("span");caption.textContent=label;
+            item.append(number,caption);grid.appendChild(item);
+        });
+    }catch(error){
+        console.error("PLAYER STATISTICS ERROR:",error);
+        status.textContent=error.message||"Could not load player statistics.";
+    }
 }
 
 async function loadFriendsData(){
@@ -6115,6 +6214,15 @@ async function init(){
     );
 }
 
+
+// Open an opponent's statistics directly from their player card.
+["whitePlayerBox","blackPlayerBox"].forEach(id=>{
+    const card=$(id);
+    if(card) card.addEventListener("click",()=>{
+        const targetId=card.dataset.userId;
+        if(targetId && Number(targetId)!==Number(myUserId)) showPlayerStats(targetId);
+    });
+});
 
 init();
 
