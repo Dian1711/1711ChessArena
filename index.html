@@ -566,6 +566,131 @@ button{
         font-size:17px;
     }
 }
+
+/* ===== VISUAL POLISH: CHESS LOBBY WALLPAPER + DISTINCT MENU TILES ===== */
+html,body{
+    background-color:#080b12;
+    background-image:
+        radial-gradient(ellipse at 12% 8%,rgba(185,125,58,.20),transparent 34%),
+        radial-gradient(ellipse at 92% 26%,rgba(74,91,164,.20),transparent 34%),
+        radial-gradient(ellipse at 50% 100%,rgba(111,62,151,.16),transparent 40%),
+        repeating-linear-gradient(135deg,rgba(255,255,255,.012) 0 1px,transparent 1px 13px),
+        linear-gradient(160deg,#101827 0%,#080b12 56%,#11101a 100%);
+    background-attachment:fixed;
+}
+.app{position:relative;isolation:isolate}
+#homeScreen{position:relative}
+#homeScreen::before{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    pointer-events:none;
+    inset:-10px -8px 0;
+    border-radius:28px;
+    background:
+        radial-gradient(ellipse at 50% 3%,rgba(188,137,76,.15),transparent 38%),
+        repeating-linear-gradient(45deg,transparent 0 28px,rgba(212,178,122,.025) 29px 30px,transparent 31px 58px);
+}
+.lobby-chess-art{
+    position:relative;
+    min-height:158px;
+    border-color:rgba(214,176,111,.34);
+    background:
+        radial-gradient(ellipse at 50% 120%,rgba(196,139,69,.30),transparent 52%),
+        radial-gradient(circle at 15% 20%,rgba(63,93,150,.22),transparent 42%),
+        repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 34px),
+        repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 34px),
+        linear-gradient(145deg,#1a2638,#090d16 75%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 38px rgba(0,0,0,.34),0 0 28px rgba(160,111,54,.08);
+}
+.lobby-chess-art::before{
+    content:"1711  •  CHESS ARENA";
+    position:absolute;
+    top:12px;
+    left:14px;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:2.3px;
+    color:rgba(226,196,150,.58);
+}
+.lobby-chess-art::after{
+    content:"";
+    position:absolute;
+    left:12%;
+    right:12%;
+    bottom:15px;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(212,178,122,.55),transparent);
+}
+.lobby-chess-art span{position:relative;z-index:1;filter:drop-shadow(0 9px 8px rgba(0,0,0,.62))}
+.lobby-chess-art .art-brown{color:#bd8247;-webkit-text-fill-color:#bd8247;-webkit-text-stroke:1.5px #08090c}
+.lobby-chess-art .art-gold{color:#e2c58e;-webkit-text-stroke:.5px #382713}
+.menu{gap:11px;padding:3px 0 13px}
+.menu button{
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    min-height:112px;
+    padding:15px 13px 13px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:19px;
+    background:linear-gradient(145deg,rgba(28,42,62,.96),rgba(12,18,29,.98));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 9px 20px rgba(0,0,0,.19);
+    transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.menu button::after{
+    content:"♞";
+    position:absolute;
+    z-index:-1;
+    right:-3px;
+    bottom:-25px;
+    font-family:"Times New Roman",serif;
+    font-size:94px;
+    line-height:1;
+    color:rgba(226,196,150,.075);
+    transform:rotate(-12deg);
+    pointer-events:none;
+}
+.menu button:active{transform:translateY(1px) scale(.985)}
+.menu button:focus-visible{outline:2px solid #d7ad70;outline-offset:2px}
+.menu-icon{
+    width:39px;
+    height:39px;
+    display:grid;
+    place-items:center;
+    margin-bottom:10px;
+    border-radius:13px;
+    font-size:21px;
+    background:rgba(255,255,255,.075);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+}
+.menu-title{font-size:13px;font-weight:850;letter-spacing:.1px}
+.menu-sub{position:relative;z-index:1;color:#a1aec1;font-size:10px;line-height:1.35;margin-top:4px}
+#randomBtn{background:linear-gradient(145deg,rgba(33,69,77,.98),rgba(12,24,34,.99));border-color:rgba(100,208,185,.28)}
+#randomBtn .menu-icon{background:linear-gradient(145deg,#287c75,#16433f);border-color:rgba(116,235,209,.28)}
+#privateBtn{background:linear-gradient(145deg,rgba(75,53,91,.98),rgba(23,18,37,.99));border-color:rgba(194,139,231,.27)}
+#privateBtn .menu-icon{background:linear-gradient(145deg,#8052a0,#442b60);border-color:rgba(212,170,242,.27)}
+#botBtn{background:linear-gradient(145deg,rgba(82,60,37,.98),rgba(31,23,17,.99));border-color:rgba(220,171,99,.29)}
+#botBtn .menu-icon{background:linear-gradient(145deg,#a16a32,#5e3b1e);border-color:rgba(241,197,128,.3)}
+#friendsBtn{background:linear-gradient(145deg,rgba(38,57,94,.98),rgba(14,22,40,.99));border-color:rgba(120,159,239,.28)}
+#friendsBtn .menu-icon{background:linear-gradient(145deg,#416bc0,#253c75);border-color:rgba(153,183,255,.28)}
+/* Filled Unicode chess glyphs + forced fill make the brown side visible across browsers. */
+.chess-piece.white-piece{
+    color:#b8793e!important;
+    -webkit-text-fill-color:#b8793e!important;
+    -webkit-text-stroke:2px #080808!important;
+    paint-order:stroke fill;
+    text-shadow:0 2px 0 rgba(0,0,0,.8),0 4px 7px rgba(0,0,0,.42);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.38));
+}
+.chess-piece.black-piece{
+    color:#111827!important;
+    -webkit-text-fill-color:#111827!important;
+    -webkit-text-stroke:1.25px #8995a5;
+    paint-order:stroke fill;
+}
+
 </style>
 </head>
 
@@ -1607,13 +1732,14 @@ function createInitialBoard(){
 
 const pieceSymbols = {
 
+    /* Use solid glyphs for both sides so CSS can truly fill the brown side. */
     white:{
-        king:"♔",
-        queen:"♕",
-        rook:"♖",
-        bishop:"♗",
-        knight:"♘",
-        pawn:"♙"
+        king:"♚",
+        queen:"♛",
+        rook:"♜",
+        bishop:"♝",
+        knight:"♞",
+        pawn:"♟"
     },
 
     black:{
