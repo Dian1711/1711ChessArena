@@ -691,6 +691,118 @@ html,body{
     paint-order:stroke fill;
 }
 
+
+/* ===== PREMIUM LOBBY REDESIGN v2 ===== */
+html,body{
+  background:#070a11;
+  background-image:
+    radial-gradient(ellipse at 50% -8%,rgba(218,164,91,.27),transparent 43%),
+    radial-gradient(ellipse at 0% 42%,rgba(43,89,145,.25),transparent 37%),
+    radial-gradient(ellipse at 100% 62%,rgba(116,66,143,.20),transparent 38%),
+    linear-gradient(180deg,#111a2a 0%,#090e18 48%,#070a11 100%);
+  background-attachment:fixed;
+}
+.app{max-width:560px;padding:16px 14px 24px}
+.header{margin-bottom:18px}
+.logo{
+  width:48px;height:48px;border-radius:15px;font-size:27px;
+  background:linear-gradient(145deg,#b98a4d,#51381e 52%,#172237);
+  border-color:rgba(238,203,145,.42);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 7px 26px rgba(0,0,0,.4),0 0 22px rgba(190,139,69,.12);
+}
+.brand-title{font-size:18px;letter-spacing:.15px}
+.brand-sub{font-size:11px;letter-spacing:.6px}
+.profile-mini{width:45px;height:45px;border:2px solid rgba(219,180,117,.68);box-shadow:0 0 0 3px rgba(219,180,117,.08)}
+#homeScreen::before{
+  inset:-12px -8px 0;border-radius:30px;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(224,174,103,.15),transparent 43%),
+    repeating-linear-gradient(45deg,transparent 0 35px,rgba(219,180,117,.035) 36px 37px,transparent 38px 72px);
+}
+.lobby-chess-art{
+  min-height:230px;
+  margin:10px 0 17px;
+  gap:clamp(8px,4vw,25px);
+  border:1px solid rgba(229,190,126,.48);
+  border-radius:25px;
+  background:
+    radial-gradient(ellipse at 50% 105%,rgba(219,157,76,.37),transparent 48%),
+    radial-gradient(ellipse at 50% 10%,rgba(81,111,164,.23),transparent 56%),
+    repeating-linear-gradient(90deg,rgba(232,202,157,.055) 0 1px,transparent 1px 36px),
+    repeating-linear-gradient(0deg,rgba(232,202,157,.045) 0 1px,transparent 1px 36px),
+    linear-gradient(145deg,#202d41 0%,#111827 48%,#090d16 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -35px 55px rgba(0,0,0,.24),0 22px 42px rgba(0,0,0,.38),0 0 36px rgba(185,125,58,.11);
+}
+.lobby-chess-art::before{
+  top:17px;left:18px;font-size:10px;letter-spacing:3px;
+  color:#d8bb8a;opacity:.88;
+}
+.lobby-chess-art::after{
+  bottom:18px;height:2px;left:10%;right:10%;
+  background:linear-gradient(90deg,transparent,rgba(225,184,117,.8),rgba(255,235,194,.42),rgba(225,184,117,.8),transparent);
+}
+.lobby-chess-art span{
+  font-size:clamp(55px,15vw,94px);
+  filter:drop-shadow(0 13px 10px rgba(0,0,0,.7));
+}
+.lobby-chess-art .art-brown{color:#c18a4c;-webkit-text-fill-color:#c18a4c;-webkit-text-stroke:1.6px #08090c}
+.lobby-chess-art .art-gold{color:#f0d5a0;-webkit-text-fill-color:#f0d5a0;-webkit-text-stroke:.6px #513a20}
+.menu{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  padding:2px 0 14px;
+  overflow:visible;
+}
+.menu button{
+  min-width:0;
+  min-height:112px;
+  padding:10px 7px 11px;
+  border-radius:16px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 10px 22px rgba(0,0,0,.26);
+}
+.menu button::after{right:-9px;bottom:-19px;font-size:73px;opacity:.8}
+.menu-icon{
+  width:34px;height:34px;flex:0 0 34px;
+  display:grid;place-items:center;
+  margin:0 auto 8px;border-radius:11px;font-size:18px;
+}
+.menu-title{
+  width:100%;font-size:clamp(9px,2.6vw,12px);
+  line-height:1.2;font-weight:900;overflow-wrap:anywhere;
+}
+.menu-sub{
+  font-size:9px;line-height:1.25;margin-top:5px;
+  overflow-wrap:anywhere;color:#b6c1d2;
+}
+#randomBtn{background:linear-gradient(155deg,#245b5a,#11242e 80%);border-color:rgba(104,221,194,.43)}
+#privateBtn{background:linear-gradient(155deg,#59406e,#21182f 80%);border-color:rgba(203,153,236,.42)}
+#botBtn{background:linear-gradient(155deg,#79542d,#2b2017 80%);border-color:rgba(232,183,111,.45)}
+#friendsBtn{background:linear-gradient(155deg,#344f88,#141f39 80%);border-color:rgba(133,170,255,.42)}
+@media(max-width:390px){
+  .app{padding:12px 10px 20px}
+  .lobby-chess-art{min-height:205px;gap:8px}
+  .menu{gap:6px}
+  .menu button{min-height:99px;padding:9px 4px}
+  .menu-icon{width:30px;height:30px;flex-basis:30px;font-size:16px;margin-bottom:7px}
+  .menu-title{font-size:10px}
+  .menu-sub{display:none}
+}
+@media(max-width:340px){
+  .brand-title{font-size:16px}
+  .lobby-chess-art{min-height:180px}
+  .lobby-chess-art span{font-size:50px}
+  .menu{gap:5px}
+  .menu button{min-height:88px}
+  .menu-title{font-size:9px}
+}
+
 </style>
 </head>
 
@@ -1106,7 +1218,7 @@ html,body{
             <div
                 style="
                     display:grid;
-                    grid-template-columns:repeat(4,1fr);
+                    grid-template-columns:repeat(3,minmax(0,1fr));
                     gap:7px;
                     margin-top:20px;
                 "
@@ -1120,14 +1232,7 @@ html,body{
                     "
                 >
 
-                    <div
-                        id="profileRating"
-                        style="
-                            font-weight:900
-                        "
-                    >
-                        1000
-                    </div>
+                    
 
                     <div
                         style="
