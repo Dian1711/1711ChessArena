@@ -4357,7 +4357,7 @@ async function finishPrivateGame(
 
     const resultDetailEl = $("gameResultDetail");
     if(resultDetailEl){
-        resultDetailEl.textContent = "Saving game result...";
+        resultDetailEl.textContent = "Saving game result and statistics...";
     }
 
     try{
@@ -4371,55 +4371,51 @@ async function finishPrivateGame(
         }
 
         let status;
-        if(result==="draw"){
+        if(result === "draw"){
             status = "draw";
-        }else if(result==="white"){
+        }else if(result === "white"){
             status = "white_wins";
         }else{
             status = "black_wins";
         }
 
         const gameIdToFinish = privateGameId;
-        const {
-            data: finishedRows,
-            error
-        } = await supabaseClient
-            .from("games")
-            .update({
-                status: status,
-                finished_at: new Date().toISOString(),
-                board_state: JSON.parse(JSON.stringify(board)),
-                turn: chessTurnToDb(chessTurn),
-                white_time: Number(whiteSeconds),
-                black_time: Number(blackSeconds)
-            })
-            .eq("id", gameIdToFinish)
-            .select("id,status");
+
+        // This RPC locks the game row and only increments stats when the
+        // game changes from "playing" to a final status. If both players
+        // submit the result, the second call cannot count it twice.
+        const { data, error } = await supabaseClient.rpc(
+            "finish_chess_game",
+            {
+                p_game_id: gameIdToFinish,
+                p_result: status
+            }
+        );
 
         if(error){
-            const message = "Result NOT synced: " + (error.message || "Supabase update failed.");
-            console.error("FINISH GAME ERROR:", error);
-            if(resultDetailEl) resultDetailEl.textContent = message;
-            toast(message);
-            return;
+            throw error;
         }
 
-        if(!finishedRows || !finishedRows.length){
-            const message = "Result NOT synced: Supabase updated 0 rows. Game ID: " + gameIdToFinish;
-            console.error(message, gameIdToFinish, status);
-            if(resultDetailEl) resultDetailEl.textContent = message;
-            toast("Game result was not saved to the server.");
-            return;
+        if(!data || data.success !== true){
+            throw new Error("Supabase did not confirm the game result.");
         }
 
         lastSyncedBoardSignature = "";
-        const message = "Game result saved to server (" + finishedRows[0].status + ").";
-        console.log("GAME FINISHED:", status, finishedRows[0]);
+
+        const message = data.already_finished
+            ? "Game already finished. Statistics were not counted twice."
+            : "Game result and player statistics saved successfully.";
+
+        console.log("GAME FINISHED / STATS:", status, data);
         if(resultDetailEl) resultDetailEl.textContent = message;
+        toast(data.already_finished ? "Result already recorded." : "Result and stats saved.");
+
+        // Refresh the current player's profile stats from Supabase.
+        await loadMyProfile();
 
     }catch(error){
-        const message = "Result NOT synced: " + (error.message || "unexpected error.");
-        console.error("FINISH GAME ERROR:", error);
+        const message = "Result/statistics NOT synced: " + (error.message || "unexpected error.");
+        console.error("FINISH GAME / STATS ERROR:", error);
         if(resultDetailEl) resultDetailEl.textContent = message;
         toast(message);
     }
