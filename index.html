@@ -261,72 +261,70 @@ button{
     cursor:not-allowed;
 }
 
-/* GAME */
+/* GAME PLAYER CARDS */
 
-.game-top{
-    display:grid;
-    grid-template-columns:1fr auto 1fr;
-    align-items:center;
-    gap:8px;
-    margin-bottom:12px;
+.game-exit-row{
+    display:flex;
+    justify-content:flex-end;
+    margin:0 0 8px;
 }
-
+.game-exit-btn{
+    border:1px solid rgba(255,255,255,.09);
+    background:#172337;
+    color:#c7d3e5;
+    border-radius:9px;
+    padding:5px 10px;
+    min-height:30px;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+}
+.game-player-slot{width:100%;margin-bottom:9px;}
 .player-box{
+    width:100%;
     min-width:0;
-    padding:10px 11px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:10px 12px;
     border-radius:15px;
-    background:rgba(20,30,45,.9);
-    border:1px solid rgba(255,255,255,.06);
+    background:linear-gradient(145deg,rgba(23,34,51,.98),rgba(12,19,30,.98));
+    border:1px solid rgba(255,255,255,.08);
 }
-
 .player-box.active-turn{
-    border-color:rgba(91,145,255,.65);
-    box-shadow:
-        0 0 0 1px rgba(91,145,255,.12),
-        0 0 22px rgba(58,111,220,.14);
+    border-color:rgba(91,145,255,.7);
+    box-shadow:0 0 0 1px rgba(91,145,255,.12),0 0 20px rgba(58,111,220,.13);
 }
-
+.player-avatar-wrap{
+    width:43px;height:43px;flex:0 0 43px;
+    position:relative;display:grid;place-items:center;
+    border-radius:50%;overflow:hidden;
+    background:linear-gradient(145deg,#34465f,#172236);
+    border:1px solid rgba(255,255,255,.12);
+}
+.player-avatar{width:100%;height:100%;object-fit:cover;display:block;}
+.player-avatar-fallback{font-size:23px;color:#d5b27b;line-height:1;}
+.player-card-info{flex:1;min-width:0;}
+.player-card-topline{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
 .player-label{
-    color:#8190a6;
-    font-size:10px;
-    font-weight:700;
-    text-transform:uppercase;
+    color:#d4b27a;font-size:9px;font-weight:900;text-transform:uppercase;
+    letter-spacing:.55px;border:1px solid rgba(212,178,122,.25);
+    border-radius:6px;padding:3px 5px;background:rgba(139,90,43,.13);
 }
-
 .player-name{
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    font-size:12px;
-    font-weight:800;
-    margin-top:3px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    font-size:13px;font-weight:850;margin-top:4px;color:#f2f6ff;
 }
-
-.clock{
-    margin-top:5px;
-    font-size:20px;
-    line-height:1;
-    font-weight:900;
-    font-variant-numeric:tabular-nums;
+.player-full-name{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    font-size:10px;color:#8291a8;margin-top:2px;
 }
-
-.clock.low{
-    color:#ff8d8d;
+.player-box .clock{
+    margin:0 0 0 auto;padding-left:5px;flex:0 0 auto;
+    font-size:19px;line-height:1;font-weight:900;font-variant-numeric:tabular-nums;
 }
-
-.vs{
-    font-size:10px;
-    color:#718097;
-    font-weight:800;
-}
-
-.game-message{
-    text-align:center;
-    font-size:12px;
-    color:#9cabc0;
-    margin-bottom:10px;
-    min-height:18px;
-}
+.clock.low{color:#ff8d8d;}
+.game-message{text-align:center;font-size:12px;color:#9cabc0;margin:2px 0 10px;min-height:18px;}
 
 /* BOARD */
 
@@ -414,16 +412,13 @@ button{
     transform:translateY(-1px);
 }
 
-/* WHITE SEKARANG COKLAT */
+/* Solid brown pieces with a clear black outline */
 .white-piece{
-    color:#8b5a2b;
-    -webkit-text-stroke:1px #17100b;
+    color:#9a5e2b;
+    -webkit-text-stroke:1.8px #050505;
     paint-order:stroke fill;
-    text-shadow:
-        0 1px 0 #c89b6d,
-        0 3px 2px rgba(45,25,10,.35),
-        0 6px 8px rgba(20,15,10,.28);
-    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+    text-shadow:0 3px 5px rgba(0,0,0,.32);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.3));
 }
 
 .black-piece{
@@ -877,66 +872,13 @@ button{
         class="screen"
     >
 
-        <div class="game-top">
-
-            <div
-                id="blackPlayerBox"
-                class="player-box"
-            >
-
-                <div class="player-label">
-                    Black
-                </div>
-
-                <div
-                    id="blackPlayerName"
-                    class="player-name"
-                >
-                    Black
-                </div>
-
-                <div
-                    id="blackClock"
-                    class="clock"
-                >
-                    05:00
-                </div>
-
-            </div>
-
-            <div class="vs">
-                VS
-            </div>
-
-            <div
-                id="whitePlayerBox"
-                class="player-box"
-            >
-
-                <div class="player-label">
-                    White
-                </div>
-
-                <div
-                    id="whitePlayerName"
-                    class="player-name"
-                >
-                    White
-                </div>
-
-                <div
-                    id="whiteClock"
-                    class="clock"
-                >
-                    05:00
-                </div>
-
-            </div>
-
+        <div class="game-exit-row">
+            <button id="exitGameBtn" class="game-exit-btn" type="button">‹ Exit</button>
         </div>
 
+        <div id="opponentPlayerSlot" class="game-player-slot"></div>
 
-        <div id="gameMessage" class="game-message">Giliran White</div>
+        <div id="gameMessage" class="game-message">Your turn</div>
         <div id="gameResultPanel" class="game-result hidden">
             <div class="game-result-trophy">🏆</div>
             <div id="gameResultTitle" class="game-result-title">Game Over</div>
@@ -953,19 +895,29 @@ button{
         </div>
 
 
+        <div id="selfPlayerSlot" class="game-player-slot" style="margin-top:9px"></div>
+
         <div class="game-controls">
+            <button id="newBotGameBtn" class="hidden">Rematch</button>
+        </div>
 
-            <button id="exitGameBtn">
-                Exit
-            </button>
-
-            <button
-                id="newBotGameBtn"
-                class="hidden"
-            >
-                Rematch
-            </button>
-
+        <div id="whitePlayerBox" class="player-box hidden" aria-label="White player">
+            <div class="player-avatar-wrap"><img id="whitePlayerAvatar" class="player-avatar" alt="" src=""><span id="whitePlayerFallback" class="player-avatar-fallback">♔</span></div>
+            <div class="player-card-info">
+                <div class="player-card-topline"><span id="whitePlayerLabel" class="player-label">White pieces</span></div>
+                <div id="whitePlayerName" class="player-name">White</div>
+                <div id="whitePlayerFullName" class="player-full-name"></div>
+            </div>
+            <div id="whiteClock" class="clock">05:00</div>
+        </div>
+        <div id="blackPlayerBox" class="player-box hidden" aria-label="Black player">
+            <div class="player-avatar-wrap"><img id="blackPlayerAvatar" class="player-avatar" alt="" src=""><span id="blackPlayerFallback" class="player-avatar-fallback">♚</span></div>
+            <div class="player-card-info">
+                <div class="player-card-topline"><span id="blackPlayerLabel" class="player-label">Black pieces</span></div>
+                <div id="blackPlayerName" class="player-name">Black</div>
+                <div id="blackPlayerFullName" class="player-full-name"></div>
+            </div>
+            <div id="blackClock" class="clock">05:00</div>
         </div>
 
     </section>
@@ -3659,6 +3611,76 @@ function schedulePrivateGameWait(
 
 
 /* =========================================================
+   GAME PLAYER IDENTITY / TOP-AND-BOTTOM LAYOUT
+========================================================= */
+function arrangePlayerCards(){
+    const opponentSlot=$("opponentPlayerSlot");
+    const selfSlot=$("selfPlayerSlot");
+    const whiteBox=$("whitePlayerBox");
+    const blackBox=$("blackPlayerBox");
+    if(!opponentSlot||!selfSlot||!whiteBox||!blackBox) return;
+    whiteBox.classList.remove("hidden");
+    blackBox.classList.remove("hidden");
+    if(playerColor==="w"){
+        opponentSlot.appendChild(blackBox);
+        selfSlot.appendChild(whiteBox);
+    }else{
+        opponentSlot.appendChild(whiteBox);
+        selfSlot.appendChild(blackBox);
+    }
+}
+function setPlayerCardProfile(color,user,pieceColor,isSelf=false){
+    const prefix=color==="white"?"white":"black";
+    const username=String(user?.username||"").trim();
+    const first=String(user?.first_name||"").trim();
+    const last=String(user?.last_name||"").trim();
+    const fullName=[first,last].filter(Boolean).join(" ");
+    const display=username?"@"+username:(fullName|| (isSelf?"You":"Chess Player"));
+    const nameEl=$(prefix+"PlayerName");
+    const fullEl=$(prefix+"PlayerFullName");
+    const labelEl=$(prefix+"PlayerLabel");
+    const avatarEl=$(prefix+"PlayerAvatar");
+    const fallbackEl=$(prefix+"PlayerFallback");
+    if(nameEl) nameEl.textContent=display;
+    if(fullEl) fullEl.textContent=fullName&&username?fullName:(isSelf?"You":"");
+    if(labelEl) labelEl.textContent=pieceColor+" pieces";
+    if(avatarEl){
+        avatarEl.onerror=()=>{avatarEl.style.display="none";if(fallbackEl)fallbackEl.style.display="block";};
+        if(user?.photo_url){
+            avatarEl.src=user.photo_url;
+            avatarEl.style.display="block";
+            if(fallbackEl)fallbackEl.style.display="none";
+        }else{
+            avatarEl.removeAttribute("src");
+            avatarEl.style.display="none";
+            if(fallbackEl)fallbackEl.style.display="block";
+        }
+    }
+    if(fallbackEl) fallbackEl.textContent=color==="white"?"♔":"♚";
+}
+async function loadGamePlayerProfiles(whiteId,blackId){
+    let byId={};
+    try{
+        const ids=[...new Set([Number(whiteId),Number(blackId)].filter(Boolean))];
+        if(ids.length&&supabaseClient){
+            const {data,error}=await supabaseClient.from("users")
+                .select("id,username,first_name,last_name,photo_url")
+                .in("id",ids);
+            if(error) throw error;
+            (data||[]).forEach(user=>byId[Number(user.id)]=user);
+        }
+    }catch(error){
+        console.warn("Could not load player profile cards:",error);
+    }
+    const me=myTelegramUser||{};
+    const whiteUser=Number(whiteId)===Number(myUserId)?{...(byId[Number(whiteId)]||{}),...me}: (byId[Number(whiteId)]||{first_name:"Chess Player"});
+    const blackUser=Number(blackId)===Number(myUserId)?{...(byId[Number(blackId)]||{}),...me}: (byId[Number(blackId)]||{first_name:"Chess Player"});
+    setPlayerCardProfile("white",whiteUser,"White",Number(whiteId)===Number(myUserId));
+    setPlayerCardProfile("black",blackUser,"Black",Number(blackId)===Number(myUserId));
+    arrangePlayerCards();
+}
+
+/* =========================================================
    CONNECT PRIVATE GAME
 ========================================================= */
 
@@ -3802,23 +3824,7 @@ async function connectPrivateGame(
             : blackSeconds;
 
 
-    $("whitePlayerName").textContent =
-        Number(
-            white.user_id
-        ) ===
-        Number(myUserId)
-            ? "Kamu"
-            : "White";
-
-
-    $("blackPlayerName").textContent =
-        Number(
-            black.user_id
-        ) ===
-        Number(myUserId)
-            ? "Kamu"
-            : "Black";
-
+    await loadGamePlayerProfiles(white.user_id,black.user_id);
 
     showScreen(
         "gameScreen"
@@ -4494,17 +4500,9 @@ function startBotGame(
         null;
 
 
-    $("whitePlayerName").textContent =
-        "Kamu";
-
-
-    $("blackPlayerName").textContent =
-        "Bot • "+
-        difficulty
-            .charAt(0)
-            .toUpperCase()+
-        difficulty.slice(1);
-
+    setPlayerCardProfile("white",myTelegramUser||{first_name:"You"},"White",true);
+    setPlayerCardProfile("black",{first_name:"Chess Bot",username:"Bot • "+difficulty.charAt(0).toUpperCase()+difficulty.slice(1)},"Black",false);
+    arrangePlayerCards();
 
     $("gameResultPanel")?.classList.add("hidden");
     showScreen("gameScreen");
