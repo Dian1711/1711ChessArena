@@ -620,6 +620,8 @@ button{
 
         <div class="lobby-chess-art" aria-label="1711 Chess Arena"><span class="art-brown">♜</span><span class="art-gold">♞</span><span class="art-brown">♚</span><span class="art-gold">♛</span></div>
 
+        <button id="resumeGameBtn" class="action-btn" type="button" style="display:none;margin:0 0 14px;width:100%;">↩ Resume Ongoing Game</button>
+
         <div class="menu">
 
             <button id="randomBtn">
@@ -1246,6 +1248,7 @@ let randomSearchInProgress = false;
 let randomSearchCancelled = false;
 
 let botDifficulty = "easy";
+let ongoingGameAvailable = false;
 
 let lastMove = null;
 
@@ -5486,6 +5489,8 @@ document.querySelectorAll("[data-time]").forEach(button=>button.addEventListener
     selectedTimeSeconds=Number(button.dataset.time)||300;
     document.querySelectorAll("[data-time-options]").forEach(group=>group.querySelectorAll("[data-time]").forEach(option=>option.classList.toggle("active",Number(option.dataset.time)===selectedTimeSeconds)));
 }));
+$("resumeGameBtn")?.addEventListener("click",resumeOngoingGame);
+
 $("gameResultHomeBtn")?.addEventListener("click",()=>{
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
     $("gameResultPanel")?.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
@@ -5605,6 +5610,84 @@ $("newBotGameBtn")
 
 
 /* =========================================================
+   RESUME ONGOING ONLINE GAME
+========================================================= */
+
+async function findOngoingGame(){
+    if(!myUserId || !supabaseClient) return null;
+
+    const {data:games,error:gameError}=await supabaseClient
+        .from("games")
+        .select("*")
+        .eq("status","playing")
+        .or("white_player.eq."+Number(myUserId)+",black_player.eq."+Number(myUserId))
+        .order("created_at",{ascending:false})
+        .limit(5);
+
+    if(gameError) throw gameError;
+    if(!games || !games.length) return null;
+
+    for(const game of games){
+        if(!game.room_id) continue;
+        const {data:room,error:roomError}=await supabaseClient
+            .from("rooms").select("*").eq("id",game.room_id).maybeSingle();
+        if(roomError) throw roomError;
+        if(!room) continue;
+
+        const {data:players,error:playersError}=await supabaseClient
+            .from("room_players").select("*").eq("room_id",room.id);
+        if(playersError) throw playersError;
+
+        if(players && players.length>=2 && players.some(p=>Number(p.user_id)===Number(myUserId))){
+            return {game,room,players};
+        }
+    }
+    return null;
+}
+
+async function checkForOngoingGame(){
+    const button=$("resumeGameBtn");
+    if(!button || !myUserId) return;
+    try{
+        const found=await findOngoingGame();
+        ongoingGameAvailable=!!found;
+        button.style.display=ongoingGameAvailable?"block":"none";
+    }catch(error){
+        console.error("CHECK ONGOING GAME ERROR:",error);
+    }
+}
+
+async function resumeOngoingGame(){
+    const button=$("resumeGameBtn");
+    if(button) button.disabled=true;
+    try{
+        const found=await findOngoingGame();
+        if(!found){
+            ongoingGameAvailable=false;
+            if(button) button.style.display="none";
+            toast("No ongoing game was found.");
+            return;
+        }
+
+        stopTimer();
+        stopPrivateGameWatcher();
+        stopPrivateGameWait();
+        stopRoomWatcher();
+        currentRoom=found.room;
+        ongoingGameAvailable=false;
+        if(button) button.style.display="none";
+        await connectPrivateGame(found.game,found.players);
+        toast("Reconnected to your ongoing game.");
+    }catch(error){
+        console.error("RESUME ONGOING GAME ERROR:",error);
+        toast("Could not resume the game. Please try again.");
+    }finally{
+        if(button) button.disabled=false;
+    }
+}
+
+
+/* =========================================================
    INIT
 ========================================================= */
 
@@ -5641,6 +5724,7 @@ async function init(){
 
 
     await loadMyProfile();
+    await checkForOngoingGame();
 
     // Telegram Main Mini App links can pass a room code as startapp=room_CODE.
     const startParam = String(tg?.initDataUnsafe?.start_param || "");
