@@ -702,7 +702,9 @@ button{
             <p style="font-size:12px;color:#8795aa;line-height:1.5">Choose your game duration before searching for an opponent.</p>
             <div style="font-size:12px;color:#8795aa;margin-top:12px">Time Control</div>
             <div class="time-options" data-time-options><button type="button" data-time="300" class="active">5 min</button><button type="button" data-time="600">10 min</button><button type="button" data-time="900">15 min</button><button type="button" data-time="1800">30 min</button></div>
+            <div id="randomSearchStatus" role="status" aria-live="polite" style="display:none;margin:14px 0;padding:12px;border-radius:10px;background:rgba(255,255,255,.05);color:#cbd5e1;font-size:12px;line-height:1.5">Ready to search.</div>
             <button class="action-btn" id="findRandomBtn" type="button">Find Opponent</button>
+            <button class="action-btn" id="cancelRandomBtn" type="button" style="display:none;margin-top:8px;background:#374151">Cancel Search</button>
         </div>
     </section>
 
@@ -1240,6 +1242,8 @@ let blackSeconds = 300;
 let timerInterval = null;
 let selectedTimeSeconds = 300;
 let gameResultReturnTimer = null;
+let randomSearchInProgress = false;
+let randomSearchCancelled = false;
 
 let botDifficulty = "easy";
 
@@ -4635,6 +4639,171 @@ function botMove(){
 
 
 /* =========================================================
+   RANDOM MATCHMAKING
+========================================================= */
+
+function setRandomSearchUI(searching, message){
+    const status = $("randomSearchStatus");
+    if(status){
+        status.style.display = "block";
+        status.textContent = message || (searching ? "Searching for an opponent…" : "Ready to search.");
+    }
+    if($("findRandomBtn")) $("findRandomBtn").style.display = searching ? "none" : "block";
+    if($("cancelRandomBtn")) $("cancelRandomBtn").style.display = searching ? "block" : "none";
+}
+
+async function startRandomMatch(){
+    if(randomSearchInProgress) return;
+    if(!myUserId){
+        toast("Open the game inside Telegram to find an opponent.");
+        return;
+    }
+
+    randomSearchInProgress = true;
+    randomSearchCancelled = false;
+    setRandomSearchUI(true, "Connecting to matchmaking…");
+
+    try{
+        stopRoomWatcher();
+        stopPrivateGameWait();
+        currentRoom = null;
+        await ensureUserExists(myUserId);
+        if(randomSearchCancelled) return;
+
+        // Match only rooms created by Random Match; Private Rooms are excluded.
+        const { data: candidates, error: searchError } = await supabaseClient
+            .from("rooms")
+            .select("*")
+            .like("room_code", "RND%")
+            .eq("status", "waiting")
+            .neq("host_id", Number(myUserId))
+            .order("created_at", { ascending: true })
+            .limit(10);
+
+        if(searchError) throw searchError;
+        if(randomSearchCancelled) return;
+
+        let matchedRoom = null;
+        for(const candidate of (candidates || [])){
+            const { data: players, error: playersError } = await supabaseClient
+                .from("room_players")
+                .select("user_id,color")
+                .eq("room_id", candidate.id);
+
+            if(playersError) throw playersError;
+            if((players || []).length === 1 &&
+               Number(players[0].user_id) !== Number(myUserId)){
+                matchedRoom = candidate;
+                break;
+            }
+        }
+
+        if(randomSearchCancelled) return;
+
+        if(matchedRoom){
+            // Re-check that the room is still waiting before joining.
+            const { data: freshRoom, error: roomCheckError } = await supabaseClient
+                .from("rooms")
+                .select("*")
+                .eq("id", matchedRoom.id)
+                .eq("status", "waiting")
+                .maybeSingle();
+
+            if(roomCheckError) throw roomCheckError;
+
+            if(freshRoom){
+                const { error: joinError } = await supabaseClient
+                    .from("room_players")
+                    .insert({
+                        room_id: freshRoom.id,
+                        user_id: Number(myUserId),
+                        color: "black"
+                    });
+
+                if(joinError){
+                    // If another seeker reached this room first, start a new queue room instead.
+                    console.warn("RANDOM MATCH JOIN ERROR:", joinError);
+                }else{
+                    currentRoom = freshRoom;
+                    setRandomSearchUI(true, "Opponent found! Connecting to the game…");
+                    startRoomWatcher();
+                    return;
+                }
+            }
+        }
+
+        if(randomSearchCancelled) return;
+
+        // No waiting opponent: create a queue room and wait for the next player.
+        const roomCode = "RND" + generateRoomCode().slice(0,4);
+        const { data: room, error: createError } = await supabaseClient
+            .from("rooms")
+            .insert({
+                room_code: roomCode,
+                host_id: Number(myUserId),
+                status: "waiting"
+            })
+            .select()
+            .single();
+
+        if(createError) throw createError;
+        if(randomSearchCancelled){
+            await supabaseClient.from("rooms").delete().eq("id", room.id);
+            return;
+        }
+
+        const { error: playerError } = await supabaseClient
+            .from("room_players")
+            .insert({
+                room_id: room.id,
+                user_id: Number(myUserId),
+                color: "white"
+            });
+
+        if(playerError){
+            await supabaseClient.from("rooms").delete().eq("id", room.id);
+            throw playerError;
+        }
+
+        currentRoom = room;
+        setRandomSearchUI(true, "Searching for an opponent… Keep this screen open.");
+        startRoomWatcher();
+    }catch(error){
+        console.error("RANDOM MATCH ERROR:", error);
+        randomSearchInProgress = false;
+        setRandomSearchUI(false, "Could not start matchmaking. Please try again.");
+        toast("Random Match error: " + (error.message || "Please try again."));
+    }
+}
+
+async function cancelRandomMatch(returnToHome){
+    randomSearchCancelled = true;
+    randomSearchInProgress = false;
+    stopRoomWatcher();
+    stopPrivateGameWait();
+
+    const room = currentRoom;
+    currentRoom = null;
+
+    if(room && String(room.room_code || "").startsWith("RND")){
+        try{
+            if(Number(room.host_id) === Number(myUserId)){
+                await supabaseClient.from("room_players").delete().eq("room_id", room.id);
+                await supabaseClient.from("rooms").delete().eq("id", room.id).eq("status", "waiting");
+            }else{
+                await supabaseClient.from("room_players").delete().eq("room_id", room.id).eq("user_id", Number(myUserId));
+            }
+        }catch(error){
+            console.error("CANCEL RANDOM MATCH ERROR:", error);
+        }
+    }
+
+    setRandomSearchUI(false, "Search cancelled.");
+    if(returnToHome) showScreen("randomScreen");
+}
+
+
+/* =========================================================
    PRIVATE ROOM
 ========================================================= */
 
@@ -5057,19 +5226,30 @@ async function checkRoomPlayers(){
             0;
 
 
+        const isRandomRoom = String(currentRoom.room_code || "").startsWith("RND");
+
         if(count<2){
 
-            $("roomStatus")
-                .textContent =
-                "Waiting for a second player...";
+            if(isRandomRoom){
+                const status = $("randomSearchStatus");
+                if(status) status.textContent = "Searching for an opponent… Keep this screen open.";
+            }else{
+                $("roomStatus").textContent = "Waiting for a second player...";
+            }
 
             return;
         }
 
 
-        $("roomStatus")
-            .textContent =
-            "Pemain ditemukan. Memulai game...";
+        if(isRandomRoom){
+            const status = $("randomSearchStatus");
+            if(status) status.textContent = "Opponent found! Starting your game…";
+            randomSearchInProgress = false;
+            if($("findRandomBtn")) $("findRandomBtn").style.display = "none";
+            if($("cancelRandomBtn")) $("cancelRandomBtn").style.display = "none";
+        }else{
+            $("roomStatus").textContent = "Opponent found. Starting game…";
+        }
 
 
         stopRoomWatcher();
@@ -5245,8 +5425,14 @@ async function copyText(value){
 
 $("headerProfileBtn")?.addEventListener("click",()=>{showScreen("profileScreen");loadMyProfile();});
 
-$("randomBackBtn")?.addEventListener("click",()=>showScreen("homeScreen"));
-$("findRandomBtn")?.addEventListener("click",()=>toast("Random matchmaking is not available yet."));
+$("randomBackBtn")?.addEventListener("click",async()=>{
+    if(randomSearchInProgress || String(currentRoom?.room_code || "").startsWith("RND")){
+        await cancelRandomMatch(false);
+    }
+    showScreen("homeScreen");
+});
+$("findRandomBtn")?.addEventListener("click",startRandomMatch);
+$("cancelRandomBtn")?.addEventListener("click",()=>cancelRandomMatch(true));
 
 $("privateBtn")
     .addEventListener(
