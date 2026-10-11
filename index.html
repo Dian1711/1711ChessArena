@@ -4355,128 +4355,75 @@ async function finishPrivateGame(
     result
 ){
 
-    console.log("FINISH PRIVATE GAME CALLED", {
-        result,
-        gameMode,
-        privateGameId,
-        playerColor,
-        chessTurn
-    });
+    const resultDetailEl = $("gameResultDetail");
+    if(resultDetailEl){
+        resultDetailEl.textContent = "Saving game result...";
+    }
 
     try{
 
         if(!privateGameId){
-            console.error("FINISH GAME ERROR: privateGameId is empty; cannot update Supabase.");
-            toast("Game result could not sync: missing game ID.");
+            const message = "Result NOT synced: game ID is missing.";
+            console.error(message);
+            if(resultDetailEl) resultDetailEl.textContent = message;
+            toast(message);
             return;
         }
-
 
         let status;
-
-
-        if(
-            result==="draw"
-        ){
-
-            status =
-                "draw";
-
-        }else if(
-            result==="white"
-        ){
-
-            status =
-                "white_wins";
-
+        if(result==="draw"){
+            status = "draw";
+        }else if(result==="white"){
+            status = "white_wins";
         }else{
-
-            status =
-                "black_wins";
+            status = "black_wins";
         }
 
-
+        const gameIdToFinish = privateGameId;
         const {
-            data:finishedRows,
+            data: finishedRows,
             error
-        } =
-            await supabaseClient
-                .from("games")
-                .update({
-
-                    status:
-                        status,
-
-                    finished_at:
-                        new Date()
-                            .toISOString(),
-
-                    board_state:
-                        JSON.parse(
-                            JSON.stringify(
-                                board
-                            )
-                        ),
-
-                    turn:
-                        chessTurnToDb(
-                            chessTurn
-                        ),
-
-                    white_time:
-                        Number(
-                            whiteSeconds
-                        ),
-
-                    black_time:
-                        Number(
-                            blackSeconds
-                        )
-
-                })
-                .eq(
-                    "id",
-                    privateGameId
-                )
-                .select("id,status");
-
+        } = await supabaseClient
+            .from("games")
+            .update({
+                status: status,
+                finished_at: new Date().toISOString(),
+                board_state: JSON.parse(JSON.stringify(board)),
+                turn: chessTurnToDb(chessTurn),
+                white_time: Number(whiteSeconds),
+                black_time: Number(blackSeconds)
+            })
+            .eq("id", gameIdToFinish)
+            .select("id,status");
 
         if(error){
-
-            console.error(
-                "FINISH GAME ERROR:",
-                error
-            );
-
+            const message = "Result NOT synced: " + (error.message || "Supabase update failed.");
+            console.error("FINISH GAME ERROR:", error);
+            if(resultDetailEl) resultDetailEl.textContent = message;
+            toast(message);
             return;
         }
-
 
         if(!finishedRows || !finishedRows.length){
-            console.error("FINISH GAME ERROR: Supabase did not return an updated game row.", privateGameId, status);
-            toast("Could not sync game result. Please check the database update policy.");
+            const message = "Result NOT synced: Supabase updated 0 rows. Game ID: " + gameIdToFinish;
+            console.error(message, gameIdToFinish, status);
+            if(resultDetailEl) resultDetailEl.textContent = message;
+            toast("Game result was not saved to the server.");
             return;
         }
 
-        lastSyncedBoardSignature =
-            "";
-
-
-        console.log(
-            "GAME FINISHED:",
-            status,
-            finishedRows[0]
-        );
+        lastSyncedBoardSignature = "";
+        const message = "Game result saved to server (" + finishedRows[0].status + ").";
+        console.log("GAME FINISHED:", status, finishedRows[0]);
+        if(resultDetailEl) resultDetailEl.textContent = message;
 
     }catch(error){
-
-        console.error(
-            "FINISH GAME ERROR:",
-            error
-        );
+        const message = "Result NOT synced: " + (error.message || "unexpected error.");
+        console.error("FINISH GAME ERROR:", error);
+        if(resultDetailEl) resultDetailEl.textContent = message;
+        toast(message);
     }
 }
-
 
 /* =========================================================
    BOT
