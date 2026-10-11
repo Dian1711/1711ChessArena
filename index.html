@@ -819,6 +819,73 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opa
   .lobby-chess-art span:not(.lobby-board-platform){transform:translateY(31px)}
 }
 
+
+/* ===== WALLPAPER V6: TALLER ART + SYMMETRIC SIGNATURE TITLE ===== */
+.lobby-chess-art{
+  height:clamp(410px,calc(100dvh - 180px),680px)!important;
+  min-height:410px!important;
+  margin:8px 0 18px!important;
+  flex-shrink:0;
+}
+.lobby-title-lockup{
+  position:absolute;
+  z-index:4;
+  top:8%;
+  left:5%;
+  right:5%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  pointer-events:none;
+  padding:0 8px;
+  text-shadow:0 3px 8px rgba(0,0,0,.72),0 0 22px rgba(0,0,0,.4);
+}
+.lobby-title-number{
+  display:block;
+  font-family:Impact,"Arial Black",system-ui,sans-serif;
+  font-size:clamp(42px,11vw,66px);
+  line-height:.92;
+  font-weight:1000;
+  letter-spacing:clamp(5px,2vw,12px);
+  padding-left:clamp(5px,2vw,12px);
+  color:#f0d4a2;
+  background:linear-gradient(180deg,#fff0c8 0%,#d8ad68 45%,#94602e 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 3px 0 #4a2e17) drop-shadow(0 8px 8px rgba(0,0,0,.55));
+}
+.lobby-title-lockup strong{
+  display:block;
+  margin-top:9px;
+  max-width:100%;
+  font-family:Impact,"Arial Black",system-ui,sans-serif;
+  font-size:clamp(20px,6vw,34px);
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:clamp(2px,1.2vw,5px);
+  color:#fff1d3;
+  -webkit-text-stroke:.35px rgba(71,43,20,.8);
+  text-shadow:0 2px 0 #78502b,0 4px 0 #3b291a,0 8px 14px rgba(0,0,0,.7);
+}
+.lobby-title-lockup small{
+  display:block;
+  margin-top:11px;
+  font-size:clamp(9px,2.5vw,12px);
+  line-height:1.2;
+  font-weight:900;
+  letter-spacing:clamp(2px,1vw,4px);
+  color:#e3c38d;
+}
+.lobby-title-lockup small i{font-style:normal;color:#fff0c8;padding:0 3px}
+@media(max-width:380px){
+  .lobby-chess-art{height:clamp(400px,calc(100dvh - 165px),600px)!important;min-height:400px!important}
+  .lobby-title-lockup{top:7%}
+  .lobby-title-lockup strong{letter-spacing:2px}
+}
+
 </style>
 </head>
 
@@ -866,7 +933,7 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opa
         class="screen active"
     >
 
-        <div class="lobby-chess-art" aria-label="1711 Chess Arena with a 3D chessboard"><div class="lobby-board-platform" aria-hidden="true"></div><span class="art-brown">♜</span><span class="art-black">♞</span><span class="art-brown">♚</span><span class="art-black">♛</span></div>
+        <div class="lobby-chess-art" aria-label="1711 Chess Arena with a 3D chessboard"><div class="lobby-title-lockup"><span class="lobby-title-number">1711</span><strong>CHESS ARENA</strong><small>PLAY <i>•</i> COMPETE <i>•</i> WIN</small></div><div class="lobby-board-platform" aria-hidden="true"></div><span class="art-brown">♜</span><span class="art-black">♞</span><span class="art-brown">♚</span><span class="art-black">♛</span></div>
 
         <button id="resumeGameBtn" class="action-btn" type="button" style="display:none;margin:0 0 14px;width:100%;">↩ Resume Ongoing Game</button>
 
