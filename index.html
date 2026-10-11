@@ -1715,7 +1715,8 @@ function showGameResult(status,reason=""){
     $("gameResultDetail").textContent=draw?"The game ended in a draw.":winnerLabel+" wins"+(reason?" • "+reason:"");
     $("gameMessage").textContent=draw?"½ Game over — Draw!":"🏆 "+winnerLabel+" wins!";
     panel.classList.remove("hidden");
-    showMonetagGameBreakAd();
+    // Let the winner/result panel appear first; request the ad after a short pause.
+    setTimeout(showMonetagGameBreakAd, 2200);
     const resumeBtn=$("resumeGameBtn");if(resumeBtn)resumeBtn.style.display="none";
     showScreen("gameScreen");
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
