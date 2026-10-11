@@ -5621,31 +5621,33 @@ $("newBotGameBtn")
 async function findOngoingGame(){
     if(!myUserId || !supabaseClient) return null;
 
+    // Only consider the player's newest game record. This prevents an older
+    // stale "playing" row from bringing the Resume button back after a newer
+    // match has already finished.
     const {data:games,error:gameError}=await supabaseClient
         .from("games")
         .select("*")
-        .eq("status","playing")
         .or("white_player.eq."+Number(myUserId)+",black_player.eq."+Number(myUserId))
         .order("created_at",{ascending:false})
-        .limit(5);
+        .limit(1);
 
     if(gameError) throw gameError;
     if(!games || !games.length) return null;
 
-    for(const game of games){
-        if(!game.room_id) continue;
-        const {data:room,error:roomError}=await supabaseClient
-            .from("rooms").select("*").eq("id",game.room_id).maybeSingle();
-        if(roomError) throw roomError;
-        if(!room) continue;
+    const game=games[0];
+    if(game.status!=="playing" || !game.room_id) return null;
 
-        const {data:players,error:playersError}=await supabaseClient
-            .from("room_players").select("*").eq("room_id",room.id);
-        if(playersError) throw playersError;
+    const {data:room,error:roomError}=await supabaseClient
+        .from("rooms").select("*").eq("id",game.room_id).maybeSingle();
+    if(roomError) throw roomError;
+    if(!room) return null;
 
-        if(players && players.length>=2 && players.some(p=>Number(p.user_id)===Number(myUserId))){
-            return {game,room,players};
-        }
+    const {data:players,error:playersError}=await supabaseClient
+        .from("room_players").select("*").eq("room_id",room.id);
+    if(playersError) throw playersError;
+
+    if(players && players.length>=2 && players.some(p=>Number(p.user_id)===Number(myUserId))){
+        return {game,room,players};
     }
     return null;
 }
