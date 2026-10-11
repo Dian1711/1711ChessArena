@@ -1156,6 +1156,30 @@ button{
 
     </section>
 
+    <!-- FRIENDS -->
+    <section id="friendsScreen" class="screen">
+        <button class="back-btn" id="friendsBackBtn" type="button">← Back</button>
+        <div class="card">
+            <div class="section-title">👥 Friends</div>
+            <p style="font-size:12px;color:#8795aa;line-height:1.5">Search by a player's exact or partial Telegram username, then send a friend request.</p>
+            <div style="display:flex;gap:8px;margin-top:12px">
+                <input id="friendSearchInput" type="text" maxlength="64" autocomplete="off" placeholder="Search username (without @)" style="flex:1;min-width:0;min-height:46px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);outline:none;background:#0e1724;color:#fff">
+                <button class="action-btn" id="friendSearchBtn" type="button" style="width:auto;min-width:86px;margin-top:0;padding:0 14px">Search</button>
+            </div>
+            <div id="friendSearchStatus" style="font-size:12px;color:#8795aa;margin-top:10px" role="status" aria-live="polite">Search for players by Telegram username.</div>
+            <div id="friendSearchResults" class="list" style="margin-top:10px"></div>
+        </div>
+        <div class="card" style="margin-top:12px">
+            <div class="section-title">Friend Requests <span id="friendRequestCount" style="font-size:11px;color:#8795aa"></span></div>
+            <div id="friendRequestsList" class="list"><div class="empty">Loading requests…</div></div>
+        </div>
+        <div class="card" style="margin-top:12px">
+            <div class="section-title">My Friends <span id="friendCount" style="font-size:11px;color:#8795aa"></span></div>
+            <div id="friendsList" class="list"><div class="empty">Loading friends…</div></div>
+        </div>
+    </section>
+
+
 </div>
 
 
@@ -5565,27 +5589,15 @@ $("profileBackBtn")
     );
 
 
-$("friendsBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            if(
-                currentRoom?.room_code
-            ){
-
-                toast(
-                    "Use the room code to invite a friend."
-                );
-
-            }else{
-
-                toast(
-                    "Create a Private Room and share its code with a friend."
-                );
-            }
-        }
-    );
+$("friendsBtn")?.addEventListener("click", async () => {
+    showScreen("friendsScreen");
+    await loadFriendsData();
+});
+$("friendsBackBtn")?.addEventListener("click", () => showScreen("homeScreen"));
+$("friendSearchBtn")?.addEventListener("click", searchFriendUsers);
+$("friendSearchInput")?.addEventListener("keydown", event => {
+    if(event.key === "Enter") searchFriendUsers();
+});
 
 
 $("randomBtn")
@@ -5612,6 +5624,226 @@ $("newBotGameBtn")
                 botDifficulty
             )
     );
+
+
+
+/* =========================================================
+   FRIENDS
+========================================================= */
+
+function friendDisplayName(user){
+    const full = [user?.first_name, user?.last_name].filter(Boolean).join(" ").trim();
+    return full || (user?.username ? "@" + user.username : "Telegram Player");
+}
+
+function makeFriendUserRow(user, actions){
+    const row = document.createElement("div");
+    row.className = "list-item";
+    const avatar = document.createElement("img");
+    avatar.className = "avatar";
+    avatar.alt = "";
+    avatar.src = user.photo_url || "";
+    avatar.onerror = () => { avatar.style.display = "none"; };
+    row.appendChild(avatar);
+    const main = document.createElement("div");
+    main.className = "item-main";
+    const name = document.createElement("div");
+    name.className = "item-name";
+    name.textContent = friendDisplayName(user);
+    const username = document.createElement("div");
+    username.className = "item-rating";
+    username.textContent = user.username ? "@" + user.username : "No Telegram username";
+    main.append(name, username);
+    row.appendChild(main);
+    (actions || []).forEach(action => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "action-btn" + (action.secondary ? " secondary" : "");
+        button.style.cssText = "width:auto;min-height:36px;margin:0;padding:0 10px;font-size:11px;white-space:nowrap";
+        button.textContent = action.label;
+        button.addEventListener("click", action.onClick);
+        row.appendChild(button);
+    });
+    return row;
+}
+
+async function loadFriendsData(){
+    if(!myUserId || !supabaseClient) return;
+    const requestsBox = $("friendRequestsList");
+    const friendsBox = $("friendsList");
+    if(requestsBox) requestsBox.replaceChildren();
+    if(friendsBox) friendsBox.replaceChildren();
+    try{
+        const {data:requests,error} = await supabaseClient.from("friend_requests").select("*")
+            .or("requester_id.eq."+Number(myUserId)+",addressee_id.eq."+Number(myUserId))
+            .order("created_at",{ascending:false});
+        if(error) throw error;
+        const rows = requests || [];
+        const inbound = rows.filter(r => r.status === "pending" && Number(r.addressee_id) === Number(myUserId));
+        const outbound = rows.filter(r => r.status === "pending" && Number(r.requester_id) === Number(myUserId));
+        const accepted = rows.filter(r => r.status === "accepted");
+        const otherIds = [...new Set(rows.map(r => Number(r.requester_id) === Number(myUserId) ? Number(r.addressee_id) : Number(r.requester_id)))];
+        const usersById = {};
+        if(otherIds.length){
+            const {data:users,error:userError} = await supabaseClient.from("users")
+                .select("id,username,first_name,last_name,photo_url,rating").in("id",otherIds);
+            if(userError) throw userError;
+            (users || []).forEach(u => usersById[Number(u.id)] = u);
+        }
+        if($("friendRequestCount")) $("friendRequestCount").textContent = inbound.length ? "(" + inbound.length + " new)" : "";
+        if($("friendCount")) $("friendCount").textContent = "(" + accepted.length + ")";
+        if(!inbound.length && !outbound.length && requestsBox){
+            const empty = document.createElement("div"); empty.className="empty"; empty.textContent="No pending friend requests."; requestsBox.appendChild(empty);
+        }
+        inbound.forEach(request => {
+            const user = usersById[Number(request.requester_id)] || {first_name:"Telegram Player"};
+            requestsBox.appendChild(makeFriendUserRow(user,[
+                {label:"Accept",onClick:()=>respondFriendRequest(request.id,"accepted")},
+                {label:"Decline",secondary:true,onClick:()=>respondFriendRequest(request.id,"declined")}
+            ]));
+        });
+        outbound.forEach(request => {
+            const user = usersById[Number(request.addressee_id)] || {first_name:"Telegram Player"};
+            requestsBox.appendChild(makeFriendUserRow(user,[{label:"Pending",secondary:true,onClick:()=>toast("Waiting for their response.")}]));
+        });
+        if(!accepted.length && friendsBox){
+            const empty = document.createElement("div"); empty.className="empty"; empty.textContent="Your friend list is empty. Search for a Telegram username above."; friendsBox.appendChild(empty);
+        }
+        accepted.forEach(request => {
+            const friendId = Number(request.requester_id) === Number(myUserId) ? Number(request.addressee_id) : Number(request.requester_id);
+            const user = usersById[friendId] || {first_name:"Telegram Player"};
+            friendsBox.appendChild(makeFriendUserRow(user,[
+                {label:"Challenge",onClick:()=>challengeFriend(user)},
+                {label:"Remove",secondary:true,onClick:()=>removeFriend(request.id)}
+            ]));
+        });
+    }catch(error){
+        console.error("LOAD FRIENDS ERROR:",error);
+        if(requestsBox){const empty=document.createElement("div");empty.className="empty";empty.textContent="Could not load requests. Check the Supabase friend_requests table setup.";requestsBox.appendChild(empty);}
+        if(friendsBox){const empty=document.createElement("div");empty.className="empty";empty.textContent="Could not load friends.";friendsBox.appendChild(empty);}
+    }
+}
+
+async function searchFriendUsers(){
+    const query = String($("friendSearchInput")?.value || "").trim().replace(/^@/,"");
+    const results = $("friendSearchResults");
+    const status = $("friendSearchStatus");
+    if(results) results.replaceChildren();
+    if(!query){if(status) status.textContent="Enter a Telegram username to search.";return;}
+    if(query.length < 3){if(status) status.textContent="Enter at least 3 characters.";return;}
+    if(status) status.textContent="Searching players…";
+    try{
+        const {data:users,error} = await supabaseClient.from("users")
+            .select("id,username,first_name,last_name,photo_url,rating")
+            .ilike("username","%"+query+"%").neq("id",Number(myUserId)).limit(10);
+        if(error) throw error;
+        if(!users || !users.length){
+            if(status) status.textContent="No players found. They must open 1711 Chess Arena at least once before they can be found.";
+            return;
+        }
+        if(status) status.textContent="Search results ("+users.length+").";
+        for(const user of users){
+            const {data:existing,error:requestError} = await supabaseClient.from("friend_requests")
+                .select("id,status,requester_id,addressee_id")
+                .or("and(requester_id.eq."+Number(myUserId)+",addressee_id.eq."+Number(user.id)+"),and(requester_id.eq."+Number(user.id)+",addressee_id.eq."+Number(myUserId)+")")
+                .limit(1);
+            if(requestError) throw requestError;
+            const relation = existing?.[0];
+            let actions;
+            if(relation?.status === "accepted") actions=[{label:"Already Friends",secondary:true,onClick:()=>toast("You are already friends.")}];
+            else if(relation?.status === "pending" && Number(relation.requester_id) === Number(myUserId)) actions=[{label:"Request Sent",secondary:true,onClick:()=>toast("Your request is still pending.")}];
+            else if(relation?.status === "pending") actions=[{label:"Accept Request",onClick:()=>respondFriendRequest(relation.id,"accepted")}];
+            else actions=[{label:"Add Friend",onClick:()=>sendFriendRequest(user.id)}];
+            results.appendChild(makeFriendUserRow(user,actions));
+        }
+    }catch(error){
+        console.error("SEARCH FRIENDS ERROR:",error);
+        if(status) status.textContent="Search failed. Please try again.";
+        toast("Could not search players: "+(error.message || "Unknown error"));
+    }
+}
+
+async function sendFriendRequest(targetId){
+    try{
+        if(Number(targetId) === Number(myUserId)) return;
+        const {data:existing,error:lookupError} = await supabaseClient.from("friend_requests")
+            .select("id,status,requester_id,addressee_id")
+            .or("and(requester_id.eq."+Number(myUserId)+",addressee_id.eq."+Number(targetId)+"),and(requester_id.eq."+Number(targetId)+",addressee_id.eq."+Number(myUserId)+")")
+            .limit(1);
+        if(lookupError) throw lookupError;
+        if(existing?.[0]){
+            if(existing[0].status === "declined"){
+                const {error} = await supabaseClient.from("friend_requests")
+                    .update({requester_id:Number(myUserId),addressee_id:Number(targetId),status:"pending",responded_at:null,created_at:new Date().toISOString()}).eq("id",existing[0].id);
+                if(error) throw error;
+            }else{
+                toast(existing[0].status === "accepted" ? "You are already friends." : "A request already exists.");
+                await loadFriendsData();
+                return;
+            }
+        }else{
+            const {error} = await supabaseClient.from("friend_requests").insert({requester_id:Number(myUserId),addressee_id:Number(targetId),status:"pending"});
+            if(error) throw error;
+        }
+        toast("Friend request sent.");
+        await searchFriendUsers();
+        await loadFriendsData();
+    }catch(error){
+        console.error("SEND FRIEND REQUEST ERROR:",error);
+        toast("Could not send request: "+(error.message || "Unknown error"));
+    }
+}
+
+async function respondFriendRequest(requestId,status){
+    try{
+        const {error} = await supabaseClient.from("friend_requests")
+            .update({status,responded_at:new Date().toISOString()})
+            .eq("id",requestId).eq("addressee_id",Number(myUserId)).eq("status","pending");
+        if(error) throw error;
+        toast(status === "accepted" ? "Friend request accepted." : "Friend request declined.");
+        await loadFriendsData();
+        if($("friendSearchInput")?.value.trim()) await searchFriendUsers();
+    }catch(error){
+        console.error("RESPOND FRIEND REQUEST ERROR:",error);
+        toast("Could not update request: "+(error.message || "Unknown error"));
+    }
+}
+
+async function removeFriend(requestId){
+    if(!confirm("Remove this friend?")) return;
+    try{
+        const {error} = await supabaseClient.from("friend_requests").delete().eq("id",requestId).eq("status","accepted");
+        if(error) throw error;
+        toast("Friend removed.");
+        await loadFriendsData();
+    }catch(error){
+        console.error("REMOVE FRIEND ERROR:",error);
+        toast("Could not remove friend: "+(error.message || "Unknown error"));
+    }
+}
+
+async function challengeFriend(user){
+    try{
+        if(!myUserId) throw new Error("Open the game through Telegram first.");
+        await ensureUserExists(myUserId);
+        const code = generateRoomCode();
+        const {data:room,error:roomError} = await supabaseClient.from("rooms")
+            .insert({room_code:code,host_id:Number(myUserId),status:"waiting"}).select().single();
+        if(roomError) throw roomError;
+        const {error:playerError} = await supabaseClient.from("room_players")
+            .insert({room_id:room.id,user_id:Number(myUserId),color:"white"});
+        if(playerError) throw playerError;
+        currentRoom=room;
+        const inviteUrl="https://t.me/ChessArena1711bot?startapp=room_"+encodeURIComponent(room.room_code || code);
+        const shareUrl="https://t.me/share/url?url="+encodeURIComponent(inviteUrl)+"&text="+encodeURIComponent("Let's play chess on 1711 Chess Arena!");
+        if(tg?.openTelegramLink) tg.openTelegramLink(shareUrl);
+        else window.open(shareUrl,"_blank","noopener");
+        toast("Room created. Send the invite to @"+(user.username || "your friend")+".");
+    }catch(error){
+        console.error("CHALLENGE FRIEND ERROR:",error);
+        toast("Could not create challenge: "+(error.message || "Unknown error"));
+    }
+}
 
 
 /* =========================================================
