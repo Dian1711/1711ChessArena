@@ -761,6 +761,64 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opa
 #whitePlayerBox[data-user-id],#blackPlayerBox[data-user-id]{cursor:pointer}
 @media(max-width:380px){.lobby-chess-art{height:clamp(300px,48vh,390px)!important;min-height:300px!important}.lobby-chess-art span{font-size:clamp(48px,13vw,74px)!important}.player-stats-card{padding:22px 14px 16px}}
 
+
+/* ===== LOBBY ART V5: WOODEN 3D CHESSBOARD + BROWN/BLACK PIECES ===== */
+.lobby-chess-art{
+  overflow:hidden!important;
+  isolation:isolate!important;
+  background:
+    radial-gradient(ellipse at 50% 100%,rgba(201,139,65,.32),transparent 56%),
+    radial-gradient(ellipse at 50% 20%,rgba(67,103,150,.24),transparent 58%),
+    linear-gradient(150deg,#26364b 0%,#101a29 58%,#070b13 100%)!important;
+}
+.lobby-board-platform{
+  position:absolute;
+  z-index:0;
+  left:10%;
+  bottom:30px;
+  width:80%;
+  height:53%;
+  border:9px solid #674326;
+  border-radius:7px;
+  background:
+    conic-gradient(#d1aa76 25%,#392719 0 50%,#d1aa76 0 75%,#392719 0);
+  background-size:25% 25%;
+  transform:perspective(760px) rotateX(56deg) rotateZ(-5deg) scale(1.08);
+  transform-origin:center bottom;
+  box-shadow:
+    inset 0 0 0 2px rgba(255,221,167,.28),
+    inset 0 -15px 18px rgba(0,0,0,.36),
+    0 28px 22px rgba(0,0,0,.65);
+}
+.lobby-chess-art span:not(.lobby-board-platform){
+  position:relative!important;
+  z-index:2!important;
+  transform:translateY(38px);
+  filter:drop-shadow(0 7px 2px rgba(0,0,0,.75)) drop-shadow(0 15px 12px rgba(0,0,0,.65))!important;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.2),
+    0 3px 0 rgba(0,0,0,.65),
+    0 7px 5px rgba(0,0,0,.72)!important;
+}
+.lobby-chess-art .art-brown{
+  color:#bd7d3d!important;
+  -webkit-text-fill-color:#bd7d3d!important;
+  -webkit-text-stroke:1.5px #402511!important;
+  paint-order:stroke fill;
+  text-shadow:0 2px 0 #6e421f,0 4px 0 #452915,0 8px 6px rgba(0,0,0,.8)!important;
+}
+.lobby-chess-art .art-black{
+  color:#151920!important;
+  -webkit-text-fill-color:#151920!important;
+  -webkit-text-stroke:1.6px #b18b5b!important;
+  paint-order:stroke fill;
+  text-shadow:0 2px 0 #07090d,0 4px 0 #030406,0 8px 7px rgba(0,0,0,.9)!important;
+}
+@media(max-width:380px){
+  .lobby-board-platform{left:7%;width:86%;height:48%;bottom:29px;border-width:7px}
+  .lobby-chess-art span:not(.lobby-board-platform){transform:translateY(31px)}
+}
+
 </style>
 </head>
 
@@ -808,7 +866,7 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opa
         class="screen active"
     >
 
-        <div class="lobby-chess-art" aria-label="1711 Chess Arena"><span class="art-brown">♜</span><span class="art-gold">♞</span><span class="art-brown">♚</span><span class="art-gold">♛</span></div>
+        <div class="lobby-chess-art" aria-label="1711 Chess Arena with a 3D chessboard"><div class="lobby-board-platform" aria-hidden="true"></div><span class="art-brown">♜</span><span class="art-black">♞</span><span class="art-brown">♚</span><span class="art-black">♛</span></div>
 
         <button id="resumeGameBtn" class="action-btn" type="button" style="display:none;margin:0 0 14px;width:100%;">↩ Resume Ongoing Game</button>
 
@@ -5886,7 +5944,7 @@ async function showPlayerStats(userId){
         usernameEl.textContent=user.username?"@"+user.username:"Telegram Player";
         status.textContent="Career record";
         if(user.photo_url){avatar.src=user.photo_url;avatar.style.display="block";fallback.style.display="none";}
-        [["Wins",user.wins??0],["Losses",user.losses??0],["Draws",user.draws??0],["Rating",user.rating??1000]].forEach(([label,value])=>{
+        [["Wins",user.wins??0],["Losses",user.losses??0],["Draws",user.draws??0]].forEach(([label,value])=>{
             const item=document.createElement("div");item.className="player-stat-tile";
             const number=document.createElement("strong");number.textContent=String(value);
             const caption=document.createElement("span");caption.textContent=label;
