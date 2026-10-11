@@ -157,10 +157,13 @@ button{
 }
 
 .menu{
-    display:flex;gap:10px;overflow-x:auto;padding:2px 2px 10px;
-    scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#34445d transparent;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    overflow:visible;
+    padding:2px 0 10px;
 }
-.menu button{flex:0 0 145px;scroll-snap-align:start;}
+.menu button{width:100%;min-width:0;}
 
 .menu button{
     min-height:100px;
@@ -614,54 +617,6 @@ button{
         id="homeScreen"
         class="screen active"
     >
-
-        <div class="card hero">
-
-            <h1>
-                Chess Arena
-            </h1>
-
-            <p>
-                Main catur bersama teman, lawan pemain lain,
-                atau latihan melawan bot.
-            </p>
-
-            <div class="user-line">
-
-                <div>
-
-                    <div
-                        style="
-                            font-size:11px;
-                            color:#7e8ca2
-                        "
-                    >
-                        PLAYER
-                    </div>
-
-                    <div
-                        id="homeUsername"
-                        style="
-                            font-weight:800;
-                            margin-top:2px
-                        "
-                    >
-                        Loading...
-                    </div>
-
-                </div>
-
-                <div class="rating">
-                    Rating
-                    <strong id="homeRating">
-                        1000
-                    </strong>
-                </div>
-
-            </div>
-
-        </div>
-
 
         <div class="lobby-chess-art" aria-label="1711 Chess Arena"><span class="art-brown">♜</span><span class="art-gold">♞</span><span class="art-brown">♚</span><span class="art-gold">♛</span></div>
 
@@ -4496,8 +4451,7 @@ async function finishPrivateGame(
                 .eq(
                     "id",
                     privateGameId
-                )
-                .eq("status","playing");
+                );
 
 
         if(error){
