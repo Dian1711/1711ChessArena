@@ -5834,6 +5834,7 @@ async function challengeFriend(user){
             .insert({room_id:room.id,user_id:Number(myUserId),color:"white"});
         if(playerError) throw playerError;
         currentRoom=room;
+        startRoomWatcher();
         const inviteUrl="https://t.me/ChessArena1711bot?startapp=room_"+encodeURIComponent(room.room_code || code);
         const shareUrl="https://t.me/share/url?url="+encodeURIComponent(inviteUrl)+"&text="+encodeURIComponent("Let's play chess on 1711 Chess Arena!");
         if(tg?.openTelegramLink) tg.openTelegramLink(shareUrl);
