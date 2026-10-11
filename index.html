@@ -1333,7 +1333,11 @@ function showGameResult(status,reason=""){
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
     gameResultReturnTimer=setTimeout(()=>{
         panel.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
-        privateGameId=null;currentRoom=null;showScreen("homeScreen");loadMyProfile();
+        privateGameId=null;currentRoom=null;
+        randomSearchInProgress=false;
+        randomSearchCancelled=false;
+        setRandomSearchUI(false,"Game finished. Find another opponent whenever you're ready.");
+        showScreen("homeScreen");loadMyProfile();
     },7000);
 }
 
@@ -5485,7 +5489,11 @@ document.querySelectorAll("[data-time]").forEach(button=>button.addEventListener
 $("gameResultHomeBtn")?.addEventListener("click",()=>{
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
     $("gameResultPanel")?.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
-    privateGameId=null;currentRoom=null;showScreen("homeScreen");
+    privateGameId=null;currentRoom=null;
+    randomSearchInProgress=false;
+    randomSearchCancelled=false;
+    setRandomSearchUI(false,"Game finished. Find another opponent whenever you're ready.");
+    showScreen("homeScreen");loadMyProfile();
 });
 
 
