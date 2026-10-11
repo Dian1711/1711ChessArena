@@ -1332,15 +1332,18 @@ function showGameResult(status,reason=""){
     $("gameResultTitle").textContent=title;
     $("gameResultDetail").textContent=draw?"Kedua pemain bermain imbang.":winnerLabel+" menang"+(reason?" • "+reason:"");
     $("gameMessage").textContent=draw?"½ Game over — Draw!":"🏆 "+winnerLabel+" wins!";
-    panel.classList.remove("hidden");showScreen("gameScreen");
+    panel.classList.remove("hidden");
+    const resumeBtn=$("resumeGameBtn");if(resumeBtn)resumeBtn.style.display="none";
+    showScreen("gameScreen");
     if(gameResultReturnTimer)clearTimeout(gameResultReturnTimer);
-    gameResultReturnTimer=setTimeout(()=>{
+    gameResultReturnTimer=setTimeout(async()=>{
         panel.classList.add("hidden");stopTimer();stopPrivateGameWatcher();stopPrivateGameWait();stopRoomWatcher();
         privateGameId=null;currentRoom=null;
         randomSearchInProgress=false;
         randomSearchCancelled=false;
         setRandomSearchUI(false,"Game finished. Find another opponent whenever you're ready.");
         showScreen("homeScreen");loadMyProfile();
+        await checkForOngoingGame();
     },7000);
 }
 
@@ -4397,10 +4400,12 @@ async function finishPrivateGame(
 
         console.log("GAME FINISHED / STATS:", status, data);
         if(resultDetailEl) resultDetailEl.textContent = message;
+        const resumeBtn=$("resumeGameBtn");if(resumeBtn)resumeBtn.style.display="none";
         toast(data.already_finished ? "Result already recorded." : "Result and stats saved.");
 
-        // Refresh the current player's profile stats from Supabase.
+        // Refresh profile and re-check resume eligibility from the final database status.
         await loadMyProfile();
+        await checkForOngoingGame();
 
     }catch(error){
         const message = "Result/statistics NOT synced: " + (error.message || "unexpected error.");
@@ -5498,7 +5503,7 @@ $("gameResultHomeBtn")?.addEventListener("click",()=>{
     randomSearchInProgress=false;
     randomSearchCancelled=false;
     setRandomSearchUI(false,"Game finished. Find another opponent whenever you're ready.");
-    showScreen("homeScreen");loadMyProfile();
+    showScreen("homeScreen");loadMyProfile();checkForOngoingGame();
 });
 
 
