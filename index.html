@@ -4501,7 +4501,7 @@ function startBotGame(
 
 
     setPlayerCardProfile("white",myTelegramUser||{first_name:"You"},"White",true);
-    setPlayerCardProfile("black",{first_name:"Chess Bot",username:"Bot • "+difficulty.charAt(0).toUpperCase()+difficulty.slice(1)},"Black",false);
+    setPlayerCardProfile("black",{first_name:"Bot • "+difficulty.charAt(0).toUpperCase()+difficulty.slice(1),username:null},"Black",false);
     arrangePlayerCards();
 
     $("gameResultPanel")?.classList.add("hidden");
